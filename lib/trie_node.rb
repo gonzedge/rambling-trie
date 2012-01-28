@@ -38,18 +38,18 @@ module Rambling
 
     def has_branch_tree?(word)
       return true if word.empty?
-
-      first_letter = word.slice!(0)
-
-      return @children[first_letter].has_branch_tree?(word) if @children.has_key?(first_letter)
-      false
+      passes_condition(word) { |node, sliced_word| node.has_branch_tree?(sliced_word) }
     end
 
     def is_word?(word)
       return true if word.empty? and terminal?
+      passes_condition(word) { |node, sliced_word| node.is_word?(sliced_word) }
+    end
 
+    private
+    def passes_condition(word, &block)
       first_letter = word.slice!(0)
-      return @children[first_letter].is_word?(word) if @children.has_key?(first_letter)
+      return block.call(@children[first_letter], word) if @children.has_key?(first_letter)
       false
     end
   end

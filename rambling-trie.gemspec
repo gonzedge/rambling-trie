@@ -7,8 +7,8 @@ Gem::Specification.new do |s|
   s.date = Time.now.strftime('%Y-%m-%d')
   s.summary = 'Rambling Trie'
   s.description = 'A custom trie implementation'
-  s.authors = ['Edgar Gonzalez', 'Lilibeth De La Cruz']
-  s.email = 'edggonzalezg@gmail.com'
+  s.authors = ['Rambling Labs']
+  s.email = 'development@ramblinglabs.com'
   s.files = ['lib/rambling-trie.rb', 'lib/trie.rb', 'lib/trie_node.rb']
   s.homepage = 'http://rubygems.org/gems/rambling-trie'
 end
