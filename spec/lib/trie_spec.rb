@@ -9,7 +9,7 @@ describe Trie do
     end
 
     it 'should have no letter' do
-      trie.letter.should be_empty
+      trie.letter.should be_nil
     end
 
     it 'should not be a terminal node' do

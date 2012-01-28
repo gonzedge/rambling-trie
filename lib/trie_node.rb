@@ -2,12 +2,11 @@ class TrieNode
   attr_reader :letter, :children
 
   def initialize(word)
+    @letter = nil
+    @is_terminal = false
     @children = {}
 
-    if word.nil?
-      @letter = ''
-      @is_terminal = false
-    else
+    unless word.nil?
       @letter = word.slice!(0)
       @is_terminal = word.empty?
       add_branch_from(word)
@@ -24,17 +23,22 @@ class TrieNode
   end
 
   def add_branch_from(word)
-    first_letter = word.slice(0)
+    unless word.empty?
+      first_letter = word.slice(0)
 
-    unless terminal? or @children.has_key?(first_letter)
-      @children[first_letter] = TrieNode.new(word)
+      if @children.has_key?(first_letter)
+        word.slice!(0)
+        @children[first_letter].add_branch_from(word)
+      else
+        @children[first_letter] = TrieNode.new(word)
+      end
     end
   end
 
   def has_child?(word)
     return true if word.empty?
 
-    first_letter = word.slice!(0)
+    first_letter = @letter
 
     return @children[first_letter].has_child?(word) if @children.has_key?(first_letter)
     false
