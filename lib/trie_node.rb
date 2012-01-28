@@ -23,6 +23,14 @@ module Rambling
       @is_terminal
     end
 
+    def [](key)
+      @children[key]
+    end
+
+    def has_key?(key)
+      @children.has_key?(key)
+    end
+
     def add_branch_from(word)
       unless word.empty?
         first_letter = word.slice(0)
