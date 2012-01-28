@@ -2,8 +2,9 @@ module Rambling
   class TrieNode
     attr_reader :letter, :children
 
-    def initialize(word)
+    def initialize(word, parent = nil)
       @letter = nil
+      @parent = parent
       @is_terminal = false
       @children = {}
 
@@ -31,6 +32,12 @@ module Rambling
       @children.has_key?(key)
     end
 
+    def as_word
+      throw InvalidTrieOperation.new unless @letter.nil? or terminal?
+
+      get_parent_letter_string
+    end
+
     def add_branch_from(word)
       unless word.empty?
         first_letter = word.slice(0)
@@ -39,7 +46,7 @@ module Rambling
           word.slice!(0)
           @children[first_letter].add_branch_from(word)
         else
-          @children[first_letter] = TrieNode.new(word)
+          @children[first_letter] = TrieNode.new(word, self)
         end
       end
     end
@@ -59,6 +66,14 @@ module Rambling
       first_letter = word.slice!(0)
       return block.call(@children[first_letter], word) if @children.has_key?(first_letter)
       false
+    end
+
+    def get_parent_letter_string
+      if @parent.nil?
+        @letter
+      else
+        @parent.get_parent_letter_string + @letter
+      end
     end
   end
 end

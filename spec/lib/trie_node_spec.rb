@@ -49,6 +49,36 @@ module Rambling
       it 'should return the child corresponding to the key' do
         trie_node['a'].should == trie_node.children['a']
       end
+
+      it 'should not mark itself as a terminal node' do
+        trie_node.terminal?.should be_false
+      end
+
+      it 'should mark the first child as a terminal node' do
+        trie_node['a'].terminal?.should be_true
+      end
+    end
+
+    describe 'when creating a large trie node' do
+      trie_node = nil
+
+      before(:each) do
+        trie_node = TrieNode.new('spaghetti')
+      end
+
+      it 'should mark the last letter as terminal node' do
+        trie_node['p']['a']['g']['h']['e']['t']['t']['i'].terminal?.should be_true
+      end
+
+      it 'should not mark any other letter as terminal node' do
+        trie_node['p']['a']['g']['h']['e']['t']['t'].terminal?.should be_false
+        trie_node['p']['a']['g']['h']['e']['t'].terminal?.should be_false
+        trie_node['p']['a']['g']['h']['e'].terminal?.should be_false
+        trie_node['p']['a']['g']['h'].terminal?.should be_false
+        trie_node['p']['a']['g'].terminal?.should be_false
+        trie_node['p']['a'].terminal?.should be_false
+        trie_node['p'].terminal?.should be_false
+      end
     end
 
     describe 'when adding a child that already exists' do
@@ -107,6 +137,40 @@ module Rambling
         trie_node.is_word?('bac').should be_false
         trie_node.is_word?('bas').should be_false
         trie_node.is_word?('bal').should be_false
+      end
+    end
+
+    describe 'when getting a node as word' do
+      trie_node = nil
+
+      it 'should return the expected word for one letter' do
+        trie_node = TrieNode.new('a')
+        trie_node.as_word.should == 'a'
+      end
+
+      it 'should return the expected word for a small word' do
+        trie_node = TrieNode.new('all')
+        trie_node['l']['l'].as_word.should == 'all'
+      end
+
+      it 'should return the expected word for a small word' do
+        trie_node = TrieNode.new('all')
+        lambda { trie_node['l'].as_word }.should raise_error(Rambling::InvalidTrieOperation)
+      end
+
+      it 'should return the expected word for a long word' do
+        trie_node = TrieNode.new('beautiful')
+        trie_node['e']['a']['u']['t']['i']['f']['u']['l'].as_word.should == 'beautiful'
+      end
+
+      it 'should return nil for an empty node' do
+        trie_node = TrieNode.new('')
+        trie_node.as_word.should be_nil
+      end
+
+      it 'should return nil for a node with nil letter' do
+        trie_node = TrieNode.new(nil)
+        trie_node.as_word.should be_nil
       end
     end
   end
