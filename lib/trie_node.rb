@@ -44,5 +44,13 @@ module Rambling
       return @children[first_letter].has_branch_tree?(word) if @children.has_key?(first_letter)
       false
     end
+
+    def is_word?(word)
+      return true if word.empty? and terminal?
+
+      first_letter = word.slice!(0)
+      return @children[first_letter].is_word?(word) if @children.has_key?(first_letter)
+      false
+    end
   end
 end

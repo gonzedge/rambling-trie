@@ -77,5 +77,29 @@ module Rambling
         trie_node.has_branch_tree?('ll').should be_false
       end
     end
+
+    describe 'when finding out if the word pass is valid' do
+      trie_node = nil
+
+      before(:each) do
+        trie_node = TrieNode.new('')
+        trie_node.add_branch_from('back')
+        trie_node.add_branch_from('bash')
+        trie_node.add_branch_from('ball')
+      end
+
+      it 'should return true for a valid word' do
+        trie_node.is_word?('back').should be_true
+        trie_node.is_word?('bash').should be_true
+        trie_node.is_word?('ball').should be_true
+      end
+
+      it 'should return false for an invalid word' do
+        trie_node.is_word?('ba').should be_false
+        trie_node.is_word?('bac').should be_false
+        trie_node.is_word?('bas').should be_false
+        trie_node.is_word?('bal').should be_false
+      end
+    end
   end
 end
