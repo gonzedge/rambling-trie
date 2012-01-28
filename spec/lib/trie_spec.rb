@@ -29,10 +29,11 @@ describe Trie do
       trie = Trie.new(filename)
     end
 
-    it 'should the expected children' do
+    it 'should add the expected root children' do
       File.open(filename) do |file|
         expected_hash = Hash[file.readlines.map { |x| [x.slice(0), nil] }]
         trie.children.length.should == expected_hash.length
+        trie.children.map { |k, v| k }.should =~ expected_hash.map { |k, v| k }
       end
     end
 
