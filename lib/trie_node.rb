@@ -3,6 +3,7 @@ class TrieNode
 
   def initialize(word)
     @children = {}
+    word = word.clone
 
     unless word.nil?
       @letter = word.slice!(0)
@@ -33,6 +34,7 @@ class TrieNode
   def has_child?(word)
     return true if word.empty?
 
+    word = word.clone
     first_letter = word.slice!(0)
 
     return @children[first_letter].has_child?(word) if @children.has_key?(first_letter)
