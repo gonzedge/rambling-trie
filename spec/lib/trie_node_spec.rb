@@ -47,7 +47,7 @@ describe TrieNode do
 
     before(:each) do
       trie_node = TrieNode.new('ba')
-      trie_node.add_child('a')
+      trie_node.add_branch_from('a')
     end
 
     it 'should not increment the child count' do
@@ -60,7 +60,7 @@ describe TrieNode do
 
     before(:each) do
       trie_node = TrieNode.new('back')
-      trie_node.add_child('ull')
+      trie_node.add_branch_from('ull')
     end
 
     it 'should return true for an existing child' do

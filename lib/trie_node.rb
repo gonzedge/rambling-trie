@@ -5,13 +5,13 @@ class TrieNode
     @children = {}
     word = word.clone
 
-    unless word.nil?
-      @letter = word.slice!(0)
-      @is_terminal = word.empty?
-      add_child(word)
-    else
+    if word.nil?
       @letter = ''
       @is_terminal = false
+    else
+      @letter = word.slice!(0)
+      @is_terminal = word.empty?
+      add_branch_from(word)
     end
 
   end
@@ -24,8 +24,9 @@ class TrieNode
     @is_terminal
   end
 
-  def add_child(word)
+  def add_branch_from(word)
     first_letter = word.slice(0)
+
     unless terminal? or @children.has_key?(first_letter)
       @children[first_letter] = TrieNode.new(word)
     end
