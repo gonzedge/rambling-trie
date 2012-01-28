@@ -38,7 +38,7 @@ class TrieNode
   def has_child?(word)
     return true if word.empty?
 
-    first_letter = @letter
+    first_letter = word.slice!(0)
 
     return @children[first_letter].has_child?(word) if @children.has_key?(first_letter)
     false
