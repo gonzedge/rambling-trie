@@ -1,7 +1,6 @@
 class Trie < TrieNode
   def initialize(filename = nil)
     super(nil)
-    @children.clear
 
     @filename = filename
     add_all_nodes if filename
