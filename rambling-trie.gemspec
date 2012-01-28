@@ -1,9 +1,6 @@
 Gem::Specification.new do |s|
-  version = `git tag -l | head -1`
-  version = '0.0.0' if version.empty?
-
   s.name = 'rambling-trie'
-  s.version = version
+  s.version = '0.0.1'
   s.date = Time.now.strftime('%Y-%m-%d')
   s.summary = 'Rambling Trie'
   s.description = 'A custom trie implementation'
