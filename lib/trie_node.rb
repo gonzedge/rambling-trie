@@ -61,19 +61,20 @@ module Rambling
       passes_condition(word) { |node, sliced_word| node.is_word?(sliced_word) }
     end
 
-    private
-    def passes_condition(word, &block)
-      first_letter = word.slice!(0)
-      return block.call(@children[first_letter], word) if @children.has_key?(first_letter)
-      false
-    end
-
+    protected
     def get_parent_letter_string
       if @parent.nil?
         @letter
       else
         @parent.get_parent_letter_string + @letter
       end
+    end
+
+    private
+    def passes_condition(word, &block)
+      first_letter = word.slice!(0)
+      return block.call(@children[first_letter], word) if @children.has_key?(first_letter)
+      false
     end
   end
 end
