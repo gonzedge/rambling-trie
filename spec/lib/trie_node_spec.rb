@@ -64,16 +64,16 @@ describe TrieNode do
     end
 
     it 'should return true for an existing child' do
-      trie_node.has_child?('a').should be_true
-      trie_node.has_child?('ack').should be_true
-      trie_node.has_child?('u').should be_true
-      trie_node.has_child?('ull').should be_true
+      trie_node.has_branch_tree?('a').should be_true
+      trie_node.has_branch_tree?('ack').should be_true
+      trie_node.has_branch_tree?('u').should be_true
+      trie_node.has_branch_tree?('ull').should be_true
     end
 
     it 'should return false for a non existing child' do
-      trie_node.has_child?('b').should be_false
-      trie_node.has_child?('x').should be_false
-      trie_node.has_child?('ll').should be_false
+      trie_node.has_branch_tree?('b').should be_false
+      trie_node.has_branch_tree?('x').should be_false
+      trie_node.has_branch_tree?('ll').should be_false
     end
   end
 end
