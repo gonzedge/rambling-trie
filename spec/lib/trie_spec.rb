@@ -39,7 +39,7 @@ describe Trie do
 
     it 'should load all words' do
       File.open(filename) do |file|
-        file.readlines.each { |word| trie.has_branch_tree?(word).should be_true }
+        file.readlines.each { |word| trie.has_branch_tree?(word.chomp).should be_true }
       end
     end
   end
