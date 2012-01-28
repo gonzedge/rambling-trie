@@ -35,12 +35,12 @@ class TrieNode
     end
   end
 
-  def has_child?(word)
+  def has_branch_tree?(word)
     return true if word.empty?
 
     first_letter = word.slice!(0)
 
-    return @children[first_letter].has_child?(word) if @children.has_key?(first_letter)
+    return @children[first_letter].has_branch_tree?(word) if @children.has_key?(first_letter)
     false
   end
 end
