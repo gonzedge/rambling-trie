@@ -64,7 +64,7 @@ module Rambling
     protected
     def get_parent_letter_string
       if @parent.nil?
-        @letter
+        @letter or ''
       else
         @parent.get_parent_letter_string + @letter
       end

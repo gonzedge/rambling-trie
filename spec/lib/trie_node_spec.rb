@@ -165,12 +165,12 @@ module Rambling
 
       it 'should return nil for an empty node' do
         trie_node = TrieNode.new('')
-        trie_node.as_word.should be_nil
+        trie_node.as_word.should be_empty
       end
 
       it 'should return nil for a node with nil letter' do
         trie_node = TrieNode.new(nil)
-        trie_node.as_word.should be_nil
+        trie_node.as_word.should be_empty
       end
     end
   end
