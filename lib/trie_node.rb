@@ -33,7 +33,7 @@ module Rambling
     end
 
     def as_word
-      throw InvalidTrieOperation.new unless @letter.nil? or terminal?
+      raise InvalidTrieOperation.new() unless @letter.nil? or terminal?
 
       get_parent_letter_string
     end
