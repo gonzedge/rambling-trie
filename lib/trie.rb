@@ -10,7 +10,7 @@ class Trie < TrieNode
   private
   def add_all_nodes
     File.open(@filename) do |file|
-      file.readlines.each { |line| add_child(line) }
+      file.readlines.each { |word| add_branch_from(word) }
     end
   end
 end
