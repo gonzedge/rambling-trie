@@ -41,6 +41,14 @@ module Rambling
       it 'should include a child with the expected letter' do
         trie_node.children.values.first.letter.should == 'a'
       end
+
+      it 'should respond to has key correctly' do
+        trie_node.has_key?('a').should be_true
+      end
+
+      it 'should return the child corresponding to the key' do
+        trie_node['a'].should == trie_node.children['a']
+      end
     end
 
     describe 'when adding a child that already exists' do
