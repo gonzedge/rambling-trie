@@ -4,6 +4,7 @@ module Rambling
 
     def initialize(word, parent = nil)
       @letter = nil
+      @word = ''
       @parent = parent
       @is_terminal = false
       @children = {}
@@ -11,6 +12,7 @@ module Rambling
       unless word.nil?
         @letter = word.slice!(0)
         @is_terminal = word.empty?
+        @word = get_parent_letter_string if terminal?
         add_branch_from(word)
       end
 
@@ -34,8 +36,7 @@ module Rambling
 
     def as_word
       raise InvalidTrieOperation.new() unless @letter.nil? or terminal?
-
-      get_parent_letter_string
+      @word
     end
 
     def add_branch_from(word)
