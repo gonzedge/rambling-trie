@@ -7,7 +7,7 @@ Gem::Specification.new do |s|
   s.summary = 'Rambling Trie'
   s.description = 'A custom trie implementation'
   s.authors = ['Edgar Gonzalez', 'Lilibeth De La Cruz']
-  s.email = 'edggonzalezg@gmail.com'
+  s.email = 'edgar@ramblinglabs.com'
   s.files = files
   s.homepage = 'http://rubygems.org/gems/rambling-trie'
 end
