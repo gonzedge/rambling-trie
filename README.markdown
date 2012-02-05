@@ -17,11 +17,13 @@ See [RVM](http://beginrescueend.com) or [rbenv](https://github.com/sstephenson/r
 
 You can either install it manually with:
 
-`gem install rambling-trie`
+<pre><code>gem install rambling-trie
+</code></pre>
 
 Or, include it in your `Gemfile` and bundle it:
 
-`gem 'rambling-trie'`
+<pre><code>gem 'rambling-trie'
+</code></pre>
 
 ## How to use the Rambling Trie
 
