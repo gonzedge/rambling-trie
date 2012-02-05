@@ -103,16 +103,16 @@ module Rambling
       end
 
       it 'should return true for an existing child' do
-        trie_node.has_branch_tree?('a').should be_true
-        trie_node.has_branch_tree?('ack').should be_true
-        trie_node.has_branch_tree?('u').should be_true
-        trie_node.has_branch_tree?('ull').should be_true
+        trie_node.has_branch_for?('a').should be_true
+        trie_node.has_branch_for?('ack').should be_true
+        trie_node.has_branch_for?('u').should be_true
+        trie_node.has_branch_for?('ull').should be_true
       end
 
       it 'should return false for a non existing child' do
-        trie_node.has_branch_tree?('b').should be_false
-        trie_node.has_branch_tree?('x').should be_false
-        trie_node.has_branch_tree?('ll').should be_false
+        trie_node.has_branch_for?('b').should be_false
+        trie_node.has_branch_for?('x').should be_false
+        trie_node.has_branch_for?('ll').should be_false
       end
     end
 

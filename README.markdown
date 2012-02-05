@@ -22,30 +22,35 @@ You can either install it manually with:
 
 Or, include it in your `Gemfile` and bundle it:
 
-<pre><code>gem 'rambling-trie'
-</code></pre>
+``` ruby
+gem 'rambling-trie'
+```
 
 ## How to use the Rambling Trie
 
 To create the trie, initialize it like this:
 
-<pre><code>trie = Rambling::Trie.new
-</code></pre>
+``` ruby
+trie = Rambling::Trie.new
+```
 
 You can also provide a file which contains all the words to be added to the trie, and it will read the file and create the structure for you, like this:
 
-<pre><code>trie = Rambling::Trie.new('/path/to/file')
-</code></pre>
+``` ruby
+trie = Rambling::Trie.new('/path/to/file')
+```
 
 To add new words to the trie, use `add_branch_from`:
 
-<pre><code>trie.add_branch_from('word')
-</code></pre>
+``` ruby
+trie.add_branch_from('word')
+```
 
-And to find out if a word already exists in the trie, use `has_branch_tree?`:
+And to find out if a word already exists in the trie, use `has_branch_for?`:
 
-<pre><code>trie.has_branch_tree?('word')
-</code></pre>
+``` ruby
+trie.has_branch_for?('word')
+```
 
 ## Compatible Ruby and Rails versions
 

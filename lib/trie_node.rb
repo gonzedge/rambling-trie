@@ -52,9 +52,9 @@ module Rambling
       end
     end
 
-    def has_branch_tree?(word)
+    def has_branch_for?(word)
       return true if word.empty?
-      passes_condition(word) { |node, sliced_word| node.has_branch_tree?(sliced_word) }
+      passes_condition(word) { |node, sliced_word| node.has_branch_for?(sliced_word) }
     end
 
     def is_word?(word)
