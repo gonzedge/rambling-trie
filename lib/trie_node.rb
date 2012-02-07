@@ -9,7 +9,8 @@ module Rambling
       @children = {}
 
       unless word.nil?
-        @letter = word.slice!(0)
+        letter = word.slice!(0)
+        @letter = letter.to_sym unless letter.nil?
         @is_terminal = word.empty?
         add_branch_from(word)
       end
@@ -47,7 +48,7 @@ module Rambling
 
     def add_branch_from(word)
       unless word.empty?
-        first_letter = word.slice(0)
+        first_letter = word.slice(0).to_sym
 
         if @children.has_key?(first_letter)
           word.slice!(0)
@@ -82,9 +83,9 @@ module Rambling
     protected
     def get_letter_string
       if @parent.nil?
-        @letter or ''
+        @letter.to_s or ''
       else
-        @parent.get_letter_string + @letter
+        @parent.get_letter_string + @letter.to_s
       end
     end
 
@@ -96,7 +97,7 @@ module Rambling
 
     def transfer_ownership_from(child)
       @parent.delete(@letter) unless @parent.nil?
-      @letter += child.letter
+      @letter = (@letter.to_s + child.letter.to_s).to_sym
       @parent[@letter] = self unless @parent.nil?
 
       @children = child.children
@@ -106,7 +107,12 @@ module Rambling
 
     def passes_condition(word, &block)
       first_letter = word.slice!(0)
-      return block.call(@children[first_letter], word) if @children.has_key?(first_letter)
+
+      unless first_letter.nil?
+        first_letter = first_letter.to_sym
+        return block.call(@children[first_letter], word) if @children.has_key?(first_letter)
+      end
+
       false
     end
   end

@@ -10,7 +10,7 @@ module Rambling
       end
 
       it 'should make it the node letter' do
-        trie_node.letter.should == 'a'
+        trie_node.letter.should == :a
       end
 
       it 'should include no children' do
@@ -30,7 +30,7 @@ module Rambling
       end
 
       it 'should take the first as the node letter' do
-        trie_node.letter.should == 'b'
+        trie_node.letter.should == :b
       end
 
       it 'should include one child' do
@@ -39,15 +39,15 @@ module Rambling
       end
 
       it 'should include a child with the expected letter' do
-        trie_node.children.values.first.letter.should == 'a'
+        trie_node.children.values.first.letter.should == :a
       end
 
       it 'should respond to has key correctly' do
-        trie_node.has_key?('a').should be_true
+        trie_node.has_key?(:a).should be_true
       end
 
       it 'should return the child corresponding to the key' do
-        trie_node['a'].should == trie_node.children['a']
+        trie_node[:a].should == trie_node.children[:a]
       end
 
       it 'should not mark itself as a terminal node' do
@@ -55,7 +55,7 @@ module Rambling
       end
 
       it 'should mark the first child as a terminal node' do
-        trie_node['a'].terminal?.should be_true
+        trie_node[:a].terminal?.should be_true
       end
     end
 
@@ -67,17 +67,17 @@ module Rambling
       end
 
       it 'should mark the last letter as terminal node' do
-        trie_node['p']['a']['g']['h']['e']['t']['t']['i'].terminal?.should be_true
+        trie_node[:p][:a][:g][:h][:e][:t][:t][:i].terminal?.should be_true
       end
 
       it 'should not mark any other letter as terminal node' do
-        trie_node['p']['a']['g']['h']['e']['t']['t'].terminal?.should be_false
-        trie_node['p']['a']['g']['h']['e']['t'].terminal?.should be_false
-        trie_node['p']['a']['g']['h']['e'].terminal?.should be_false
-        trie_node['p']['a']['g']['h'].terminal?.should be_false
-        trie_node['p']['a']['g'].terminal?.should be_false
-        trie_node['p']['a'].terminal?.should be_false
-        trie_node['p'].terminal?.should be_false
+        trie_node[:p][:a][:g][:h][:e][:t][:t].terminal?.should be_false
+        trie_node[:p][:a][:g][:h][:e][:t].terminal?.should be_false
+        trie_node[:p][:a][:g][:h][:e].terminal?.should be_false
+        trie_node[:p][:a][:g][:h].terminal?.should be_false
+        trie_node[:p][:a][:g].terminal?.should be_false
+        trie_node[:p][:a].terminal?.should be_false
+        trie_node[:p].terminal?.should be_false
       end
     end
 
@@ -150,17 +150,17 @@ module Rambling
 
       it 'should return the expected word for a small word' do
         trie_node = TrieNode.new('all')
-        trie_node['l']['l'].as_word.should == 'all'
+        trie_node[:l][:l].as_word.should == 'all'
       end
 
       it 'should return the expected word for a small word' do
         trie_node = TrieNode.new('all')
-        lambda { trie_node['l'].as_word }.should raise_error(Rambling::InvalidTrieOperation)
+        lambda { trie_node[:l].as_word }.should raise_error(Rambling::InvalidTrieOperation)
       end
 
       it 'should return the expected word for a long word' do
         trie_node = TrieNode.new('beautiful')
-        trie_node['e']['a']['u']['t']['i']['f']['u']['l'].as_word.should == 'beautiful'
+        trie_node[:e][:a][:u][:t][:i][:f][:u][:l].as_word.should == 'beautiful'
       end
 
       it 'should return nil for an empty node' do
@@ -186,7 +186,7 @@ module Rambling
         trie_node = TrieNode.new('all')
         trie_node.compress!
 
-        trie_node.letter.should == 'all'
+        trie_node.letter.should == :all
         trie_node.children.should be_empty
         trie_node.terminal?.should be_true
       end
@@ -196,17 +196,17 @@ module Rambling
         trie_node.add_branch_from('sk')
         trie_node.compress!
 
-        trie_node.letter.should == 'a'
+        trie_node.letter.should == :a
         trie_node.children.size.should == 2
 
-        trie_node['ll'].letter.should == 'll'
-        trie_node['sk'].letter.should == 'sk'
+        trie_node[:ll].letter.should == :ll
+        trie_node[:sk].letter.should == :sk
 
-        trie_node['ll'].children.should be_empty
-        trie_node['sk'].children.should be_empty
+        trie_node[:ll].children.should be_empty
+        trie_node[:sk].children.should be_empty
 
-        trie_node['ll'].terminal?.should be_true
-        trie_node['sk'].terminal?.should be_true
+        trie_node[:ll].terminal?.should be_true
+        trie_node[:sk].terminal?.should be_true
       end
 
       it 'should assign the parent nodes correctly on compression' do
@@ -215,23 +215,23 @@ module Rambling
         trie_node.add_branch_from('epaint')
         trie_node.compress!
 
-        trie_node.letter.should == 're'
+        trie_node.letter.should == :re
         trie_node.children.size.should == 2
 
-        trie_node['pa'].letter.should == 'pa'
-        trie_node['st'].letter.should == 'st'
+        trie_node[:pa].letter.should == :pa
+        trie_node[:st].letter.should == :st
 
-        trie_node['pa'].children.size.should == 2
-        trie_node['st'].children.should be_empty
+        trie_node[:pa].children.size.should == 2
+        trie_node[:st].children.should be_empty
 
-        trie_node['pa']['y'].letter.should == 'y'
-        trie_node['pa']['int'].letter.should == 'int'
+        trie_node[:pa][:y].letter.should == :y
+        trie_node[:pa][:int].letter.should == :int
 
-        trie_node['pa']['y'].children.should be_empty
-        trie_node['pa']['int'].children.should be_empty
+        trie_node[:pa][:y].children.should be_empty
+        trie_node[:pa][:int].children.should be_empty
 
-        trie_node['pa']['y'].parent.should == trie_node['pa']
-        trie_node['pa']['int'].parent.should == trie_node['pa']
+        trie_node[:pa][:y].parent.should == trie_node[:pa]
+        trie_node[:pa][:int].parent.should == trie_node[:pa]
       end
     end
   end

@@ -32,7 +32,7 @@ module Rambling
 
       it 'should add the expected root children' do
         File.open(filename) do |file|
-          expected_hash = Hash[file.readlines.map { |x| [x.slice(0), nil] }]
+          expected_hash = Hash[file.readlines.map { |x| [x.slice(0).to_sym, nil] }]
           trie.children.length.should == expected_hash.length
           trie.children.map { |k, v| k }.should =~ expected_hash.map { |k, v| k }
         end
