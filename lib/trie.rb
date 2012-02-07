@@ -10,7 +10,9 @@ module Rambling
     private
     def add_all_nodes
       File.open(@filename) do |file|
-        file.readlines.each { |word| add_branch_from(word.chomp) }
+        while word = file.gets
+          add_branch_from(word.chomp)
+        end
       end
     end
   end
