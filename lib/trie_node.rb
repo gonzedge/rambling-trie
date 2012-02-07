@@ -70,14 +70,7 @@ module Rambling
 
     def compress!
       if @children.size == 1
-        child = @children.values.first
-        @parent.delete(@letter) unless @parent.nil?
-        @letter += child.letter
-        @parent[@letter] = self unless @parent.nil?
-        @children = child.children
-        @is_terminal = child.terminal?
-        @children.values.each { |node| node.parent = self }
-
+        transfer_ownership_from(@children.values.first)
         compress!
       end
 
@@ -100,6 +93,17 @@ module Rambling
     end
 
     private
+
+    def transfer_ownership_from(child)
+      @parent.delete(@letter) unless @parent.nil?
+      @letter += child.letter
+      @parent[@letter] = self unless @parent.nil?
+
+      @children = child.children
+      @is_terminal = child.terminal?
+      @children.values.each { |node| node.parent = self }
+    end
+
     def passes_condition(word, &block)
       first_letter = word.slice!(0)
       return block.call(@children[first_letter], word) if @children.has_key?(first_letter)
