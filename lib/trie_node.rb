@@ -9,8 +9,7 @@ module Rambling
       @children = {}
 
       unless word.nil?
-        letter = word.slice!(0)
-        @letter = letter.to_sym unless letter.nil?
+        @letter = word.slice!(0)
         @is_terminal = word.empty?
         add_branch_from(word)
       end
@@ -27,6 +26,14 @@ module Rambling
 
     def [](key)
       @children[key]
+    end
+
+    def []=(key, value)
+      @children[key] = value
+    end
+
+    def delete(key)
+      @children.delete(key)
     end
 
     def has_key?(key)
@@ -61,13 +68,32 @@ module Rambling
       passes_condition(word) { |node, sliced_word| node.is_word?(sliced_word) }
     end
 
+    def compress!
+      if @children.size == 1
+        child = @children.values.first
+        @parent.delete(@letter) unless @parent.nil?
+        @letter += child.letter
+        @parent[@letter] = self unless @parent.nil?
+        @children = child.children
+        @children.each { |letter, node| node.parent = self }
+
+        compress!
+      end
+
+      @children.each { |letter, node| node.compress! }
+    end
+
     protected
     def get_letter_string
       if @parent.nil?
-        @letter.to_s or ''
+        @letter or ''
       else
-        @parent.get_letter_string + @letter.to_s
+        @parent.get_letter_string + @letter
       end
+    end
+
+    def parent=(parent)
+      @parent = parent
     end
 
     private

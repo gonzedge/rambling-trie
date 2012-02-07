@@ -10,7 +10,7 @@ module Rambling
       end
 
       it 'should make it the node letter' do
-        trie_node.letter.should == :a
+        trie_node.letter.should == 'a'
       end
 
       it 'should include no children' do
@@ -30,7 +30,7 @@ module Rambling
       end
 
       it 'should take the first as the node letter' do
-        trie_node.letter.should == :b
+        trie_node.letter.should == 'b'
       end
 
       it 'should include one child' do
@@ -39,7 +39,7 @@ module Rambling
       end
 
       it 'should include a child with the expected letter' do
-        trie_node.children.values.first.letter.should == :a
+        trie_node.children.values.first.letter.should == 'a'
       end
 
       it 'should respond to has key correctly' do
@@ -171,6 +171,16 @@ module Rambling
       it 'should return nil for a node with nil letter' do
         trie_node = TrieNode.new(nil)
         trie_node.as_word.should be_empty
+      end
+    end
+
+    describe 'when compressing a single word trie' do
+      it 'should compress into a single node without children' do
+        trie_node = TrieNode.new('all')
+        trie_node.compress!
+
+        trie_node.letter.should == 'all'
+        trie_node.children.should be_empty
       end
     end
   end
