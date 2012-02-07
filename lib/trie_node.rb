@@ -75,12 +75,13 @@ module Rambling
         @letter += child.letter
         @parent[@letter] = self unless @parent.nil?
         @children = child.children
-        @children.each { |letter, node| node.parent = self }
+        @is_terminal = child.terminal?
+        @children.values.each { |node| node.parent = self }
 
         compress!
       end
 
-      @children.each { |letter, node| node.compress! }
+      @children.values.each { |node| node.compress! }
     end
 
     protected

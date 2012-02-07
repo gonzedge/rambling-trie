@@ -174,13 +174,35 @@ module Rambling
       end
     end
 
-    describe 'when compressing a single word trie' do
-      it 'should compress into a single node without children' do
+    describe 'when compressing trie' do
+      it 'should compress into a single node without children for a single word trie' do
         trie_node = TrieNode.new('all')
         trie_node.compress!
 
         trie_node.letter.should == 'all'
         trie_node.children.should be_empty
+        trie_node.terminal?.should be_true
+      end
+
+      it 'should compress into corresponding three nodes for a two word trie' do
+        trie_node = TrieNode.new('all')
+        trie_node.add_branch_from('sk')
+        trie_node.compress!
+
+        trie_node.letter.should == 'a'
+        trie_node.children.size.should == 2
+
+        first_child = trie_node['ll']
+        second_child = trie_node['sk']
+
+        first_child.letter.should == 'll'
+        second_child.letter.should == 'sk'
+
+        first_child.children.should be_empty
+        second_child.children.should be_empty
+
+        first_child.terminal?.should be_true
+        second_child.terminal?.should be_true
       end
     end
   end
