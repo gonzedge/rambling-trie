@@ -9,7 +9,8 @@ module Rambling
       @children = {}
 
       unless word.nil?
-        @letter = word.slice!(0)
+        letter = word.slice!(0)
+        @letter = letter.to_sym unless letter.nil?
         @is_terminal = word.empty?
         add_branch_from(word)
       end
@@ -63,9 +64,9 @@ module Rambling
     protected
     def get_letter_string
       if @parent.nil?
-        @letter or ''
+        @letter.to_s or ''
       else
-        @parent.get_letter_string + @letter
+        @parent.get_letter_string + @letter.to_s
       end
     end
 

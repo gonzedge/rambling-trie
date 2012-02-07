@@ -10,7 +10,7 @@ module Rambling
       end
 
       it 'should make it the node letter' do
-        trie_node.letter.should == 'a'
+        trie_node.letter.should == :a
       end
 
       it 'should include no children' do
@@ -30,7 +30,7 @@ module Rambling
       end
 
       it 'should take the first as the node letter' do
-        trie_node.letter.should == 'b'
+        trie_node.letter.should == :b
       end
 
       it 'should include one child' do
@@ -39,7 +39,7 @@ module Rambling
       end
 
       it 'should include a child with the expected letter' do
-        trie_node.children.values.first.letter.should == 'a'
+        trie_node.children.values.first.letter.should == :a
       end
 
       it 'should respond to has key correctly' do
