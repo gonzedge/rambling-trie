@@ -82,6 +82,8 @@ module Rambling
       end
 
       @children.values.each { |node| node.compress! }
+
+      self
     end
 
     protected

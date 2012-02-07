@@ -175,6 +175,13 @@ module Rambling
     end
 
     describe 'when compressing trie' do
+      it 'should return self after compressing' do
+        trie_node = TrieNode.new('a')
+        compressed_node = trie_node.compress!
+
+        compressed_node.should == trie_node
+      end
+
       it 'should compress into a single node without children for a single word trie' do
         trie_node = TrieNode.new('all')
         trie_node.compress!
