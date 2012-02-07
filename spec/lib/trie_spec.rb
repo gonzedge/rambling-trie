@@ -43,6 +43,22 @@ module Rambling
           file.readlines.each { |word| trie.has_branch_for?(word.chomp).should be_true }
         end
       end
+
+      describe 'and compressing the trie' do
+        before(:each) do
+          trie.compress!
+        end
+
+        it 'should mark the trie as compressed' do
+          trie.compressed?.should be_true
+        end
+
+        it 'should compress the trie nodes' do
+          trie[:t][:ru].letter.should == :ru
+          trie[:t][:ru].children.size.should == 2
+          trie[:t][:ru][:e].terminal?.should be_true
+        end
+      end
     end
   end
 end
