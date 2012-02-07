@@ -1,5 +1,8 @@
 module Rambling
   class TrieNode
+    include ChildrenHashDeferer
+    include TrieCompressor
+
     attr_reader :letter, :children, :parent
 
     def initialize(word, parent = nil)
@@ -14,7 +17,6 @@ module Rambling
         @is_terminal = word.empty?
         add_branch_from(word)
       end
-
     end
 
     def terminal=(terminal)
@@ -23,27 +25,6 @@ module Rambling
 
     def terminal?
       @is_terminal
-    end
-
-    def [](key)
-      @children[key]
-    end
-
-    def []=(key, value)
-      @children[key] = value
-    end
-
-    def delete(key)
-      @children.delete(key)
-    end
-
-    def has_key?(key)
-      @children.has_key?(key)
-    end
-
-    def as_word
-      raise InvalidTrieOperation.new() unless @letter.nil? or terminal?
-      get_letter_string
     end
 
     def add_branch_from(word)
@@ -61,23 +42,17 @@ module Rambling
 
     def has_branch_for?(word)
       return true if word.empty?
-      passes_condition(word) { |node, sliced_word| node.has_branch_for?(sliced_word) }
+      branch_exists_and(word) { |node, sliced_word| node.has_branch_for?(sliced_word) }
+    end
+
+    def as_word
+      raise InvalidTrieOperation.new() unless @letter.nil? or terminal?
+      get_letter_string
     end
 
     def is_word?(word)
       return true if word.empty? and terminal?
-      passes_condition(word) { |node, sliced_word| node.is_word?(sliced_word) }
-    end
-
-    def compress!
-      if @children.size == 1
-        transfer_ownership_from(@children.values.first)
-        compress!
-      end
-
-      @children.values.each { |node| node.compress! }
-
-      self
+      branch_exists_and(word) { |node, sliced_word| node.is_word?(sliced_word) }
     end
 
     protected
@@ -95,17 +70,7 @@ module Rambling
 
     private
 
-    def transfer_ownership_from(child)
-      @parent.delete(@letter) unless @parent.nil?
-      @letter = (@letter.to_s + child.letter.to_s).to_sym
-      @parent[@letter] = self unless @parent.nil?
-
-      @children = child.children
-      @is_terminal = child.terminal?
-      @children.values.each { |node| node.parent = self }
-    end
-
-    def passes_condition(word, &block)
+    def branch_exists_and(word, &block)
       first_letter = word.slice!(0)
 
       unless first_letter.nil?
