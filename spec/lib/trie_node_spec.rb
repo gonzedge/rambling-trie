@@ -234,5 +234,16 @@ module Rambling
         trie_node[:pa][:int].parent.should == trie_node[:pa]
       end
     end
+
+    it 'should not compress terminal nodes' do
+      trie_node = TrieNode.new('you')
+      trie_node.add_branch_from('our')
+      trie_node.add_branch_from('ours')
+      trie_node.compress!
+
+      trie_node.letter.should == :you
+      trie_node[:r].letter.should == :r
+      trie_node[:r][:s].letter.should == :s
+    end
   end
 end

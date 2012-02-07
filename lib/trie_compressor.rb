@@ -1,7 +1,7 @@
 module Rambling
   module TrieCompressor
     def compress!
-      if @children.size == 1
+      if @children.size == 1 and not terminal?
         transfer_ownership_from(@children.values.first)
         compress!
       end
