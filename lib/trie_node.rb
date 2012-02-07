@@ -1,6 +1,6 @@
 module Rambling
   class TrieNode
-    attr_reader :letter, :children
+    attr_reader :letter, :children, :parent
 
     def initialize(word, parent = nil)
       @letter = nil

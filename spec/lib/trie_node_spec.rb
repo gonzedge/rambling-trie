@@ -192,17 +192,39 @@ module Rambling
         trie_node.letter.should == 'a'
         trie_node.children.size.should == 2
 
-        first_child = trie_node['ll']
-        second_child = trie_node['sk']
+        trie_node['ll'].letter.should == 'll'
+        trie_node['sk'].letter.should == 'sk'
 
-        first_child.letter.should == 'll'
-        second_child.letter.should == 'sk'
+        trie_node['ll'].children.should be_empty
+        trie_node['sk'].children.should be_empty
 
-        first_child.children.should be_empty
-        second_child.children.should be_empty
+        trie_node['ll'].terminal?.should be_true
+        trie_node['sk'].terminal?.should be_true
+      end
 
-        first_child.terminal?.should be_true
-        second_child.terminal?.should be_true
+      it 'should assign the parent nodes correctly on compression' do
+        trie_node = TrieNode.new('repay')
+        trie_node.add_branch_from('est')
+        trie_node.add_branch_from('epaint')
+        trie_node.compress!
+
+        trie_node.letter.should == 're'
+        trie_node.children.size.should == 2
+
+        trie_node['pa'].letter.should == 'pa'
+        trie_node['st'].letter.should == 'st'
+
+        trie_node['pa'].children.size.should == 2
+        trie_node['st'].children.should be_empty
+
+        trie_node['pa']['y'].letter.should == 'y'
+        trie_node['pa']['int'].letter.should == 'int'
+
+        trie_node['pa']['y'].children.should be_empty
+        trie_node['pa']['int'].children.should be_empty
+
+        trie_node['pa']['y'].parent.should == trie_node['pa']
+        trie_node['pa']['int'].parent.should == trie_node['pa']
       end
     end
   end
