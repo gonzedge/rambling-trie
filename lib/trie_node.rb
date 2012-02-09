@@ -11,7 +11,7 @@ module Rambling
       @is_terminal = false
       @children = {}
 
-      unless word.nil?
+      unless word.nil? or word.empty?
         letter = word.slice!(0)
         @letter = letter.to_sym unless letter.nil?
         @is_terminal = word.empty?
@@ -28,21 +28,20 @@ module Rambling
     end
 
     def add_branch_from(word)
-      unless word.empty?
-        first_letter = word.slice(0).to_sym
+      return if word.empty?
 
-        if @children.has_key?(first_letter)
-          word.slice!(0)
-          @children[first_letter].add_branch_from(word)
-        else
-          @children[first_letter] = TrieNode.new(word, self)
-        end
+      first_letter = word.slice(0).to_sym
+
+      if @children.has_key?(first_letter)
+        word.slice!(0)
+        @children[first_letter].add_branch_from(word)
+      else
+        @children[first_letter] = TrieNode.new(word, self)
       end
     end
 
     def has_branch_for?(word)
-      return true if word.empty?
-      branch_exists_and(word) { |node, sliced_word| node.has_branch_for?(sliced_word) }
+      word.empty? or branch_exists_and(word) { |node, sliced_word| node.has_branch_for?(sliced_word) }
     end
 
     def as_word
@@ -50,18 +49,13 @@ module Rambling
       get_letter_string
     end
 
-    def is_word?(word)
-      return true if word.empty? and terminal?
-      branch_exists_and(word) { |node, sliced_word| node.is_word?(sliced_word) }
+    def is_word?(word = '')
+      (word.empty? and terminal?) or branch_exists_and(word) { |node, sliced_word| node.is_word?(sliced_word) }
     end
 
     protected
     def get_letter_string
-      if @parent.nil?
-        @letter.to_s or ''
-      else
-        @parent.get_letter_string + @letter.to_s
-      end
+      (@parent.nil? ? '' : @parent.get_letter_string) + @letter.to_s
     end
 
     def parent=(parent)
@@ -73,12 +67,10 @@ module Rambling
     def branch_exists_and(word, &block)
       first_letter = word.slice!(0)
 
-      unless first_letter.nil?
-        first_letter = first_letter.to_sym
-        return block.call(@children[first_letter], word) if @children.has_key?(first_letter)
-      end
+      return false if first_letter.nil?
 
-      false
+      first_letter_key = first_letter.to_sym
+      @children.has_key?(first_letter_key) ? block.call(@children[first_letter_key], word) : false
     end
   end
 end

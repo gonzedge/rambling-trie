@@ -6,6 +6,34 @@ module Rambling
       trie_node = nil
 
       before(:each) do
+        trie_node = TrieNode.new('')
+      end
+
+      it 'should make it the node letter' do
+        trie_node.letter.should be_nil
+      end
+
+      it 'should include no children' do
+        trie_node.children.should be_empty
+      end
+
+      it 'should be not a terminal node' do
+        trie_node.terminal?.should be_false
+      end
+
+      it 'should return empty string as its word' do
+        trie_node.as_word.should be_empty
+      end
+
+      it 'should not be a word' do
+        trie_node.is_word?.should be_false
+      end
+    end
+
+    describe 'when creating a node with one letter' do
+      trie_node = nil
+
+      before(:each) do
         trie_node = TrieNode.new('a')
       end
 
