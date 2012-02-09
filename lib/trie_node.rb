@@ -41,7 +41,7 @@ module Rambling
     end
 
     def has_branch_for?(word)
-      word.empty? or branch_exists_and(word) { |node, sliced_word| node.has_branch_for?(sliced_word) }
+      word.empty? or branch_exists_and(word, :has_branch_for?)
     end
 
     def as_word
@@ -50,7 +50,7 @@ module Rambling
     end
 
     def is_word?(word = '')
-      (word.empty? and terminal?) or branch_exists_and(word) { |node, sliced_word| node.is_word?(sliced_word) }
+      (word.empty? and terminal?) or branch_exists_and(word, :is_word?)
     end
 
     protected
@@ -64,13 +64,13 @@ module Rambling
 
     private
 
-    def branch_exists_and(word, &block)
+    def branch_exists_and(word, method)
       first_letter = word.slice!(0)
 
       return false if first_letter.nil?
 
       first_letter_key = first_letter.to_sym
-      @children.has_key?(first_letter_key) ? block.call(@children[first_letter_key], word) : false
+      @children.has_key?(first_letter_key) ? @children[first_letter_key].send(method, word) : false
     end
   end
 end
