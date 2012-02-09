@@ -1,6 +1,6 @@
 # Rambling Trie
 
-The Rambling Trie is a custom implementation of the Trie data structure with Ruby.
+The Rambling Trie is a custom implementation of the Trie data structure with Ruby, which includes compression abilities and is designed to be very fast to traverse.
 
 ## Installing the Rambling Trie
 
@@ -46,10 +46,38 @@ To add new words to the trie, use `add_branch_from`:
 trie.add_branch_from('word')
 ```
 
-And to find out if a word already exists in the trie, use `has_branch_for?`:
+And to find out if a word already exists in the trie, use `is_word?`:
 
 ``` ruby
-trie.has_branch_for?('word')
+trie.is_word?('word')
+```
+
+If you wish to find if part of a word exists in the `Rambling::Trie` instance, you should call `has_branch_from?`:
+
+``` ruby
+trie.has_branch_from?('partial_word')
+```
+
+### Compression
+
+By default, the Rambling Trie works as a Standard Trie.
+You can obtain a Compressed Trie from the Standard one, by using the compression feature.
+Just call the `compress!` method on the `Rambling::Trie` instance:
+
+``` ruby
+trie.compress!
+```
+
+This will reduce the amount of Trie nodes by eliminating the redundant ones, which are the only-child non-terminal nodes.
+This will also make the Trie faster to traverse.
+
+__Note that the `compress!` method acts over the `Rambling::Trie` instance it belongs to.__
+__Also, words added after compression will create new nodes and re-compression is not supported.__
+
+You can find out if a `Rambling::Trie` instance is compressed by calling the `compressed?` method:
+
+``` ruby
+trie.compressed?
 ```
 
 ## Compatible Ruby and Rails versions
