@@ -2,7 +2,7 @@ module Rambling
   module TrieCompressor
     def compress!
       if @children.size == 1 and not terminal?
-        transfer_ownership_from(@children.values.first)
+        merge_with!(@children.values.first)
         compress!
       end
 
@@ -13,14 +13,26 @@ module Rambling
 
     private
 
-    def transfer_ownership_from(child)
-      @parent.delete(@letter) unless @parent.nil?
-      @letter = (@letter.to_s + child.letter.to_s).to_sym
-      @parent[@letter] = self unless @parent.nil?
+    def merge_with!(child)
+      new_letter = (@letter.to_s + child.letter.to_s).to_sym
 
-      @children = child.children
-      @is_terminal = child.terminal?
+      rehash_on_parent!(@letter, new_letter)
+      redefine_self!(new_letter, child)
+
       @children.values.each { |node| node.parent = self }
+    end
+
+    def rehash_on_parent!(old_letter, new_letter)
+      return if @parent.nil?
+
+      @parent.delete(old_letter)
+      @parent[new_letter] = self
+    end
+
+    def redefine_self!(new_letter, merged_node)
+      @letter = new_letter
+      @children = merged_node.children
+      @is_terminal = merged_node.terminal?
     end
   end
 end
