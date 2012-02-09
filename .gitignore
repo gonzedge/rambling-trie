@@ -4,3 +4,6 @@
 
 # RVM
 .rvmrc
+
+# Gemfile
+Gemfile.lock
