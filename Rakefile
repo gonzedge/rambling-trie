@@ -1,20 +1,9 @@
 require 'rspec/core/rake_task'
+require 'rambling-trie'
 require 'rambling-trie/version'
+require 'rambling-trie/tasks/gem'
+require 'rambling-trie/tasks/performance'
 
 RSpec::Core::RakeTask.new(:spec)
 
 task default: :spec
-
-namespace :gem do
-  task :build do
-    system 'gem build rambling-trie.gemspec'
-  end
-
-  task release: :build do
-    system "gem build rambling-trie-#{Rambling::Trie::VERSION}.gem"
-  end
-
-  task :version do
-    puts "rambling-trie #{Rambling::Trie::VERSION}"
-  end
-end
