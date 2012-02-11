@@ -4,12 +4,15 @@ module Rambling
       super(nil)
 
       @filename = filename
+      @is_compressed = false
       add_all_nodes if filename
     end
 
     def compress!
+      compress_own_tree!
       @is_compressed = true
-      super
+
+      self
     end
 
     def compressed?

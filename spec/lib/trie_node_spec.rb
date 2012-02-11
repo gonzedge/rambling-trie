@@ -28,6 +28,10 @@ module Rambling
       it 'should not be a word' do
         trie_node.is_word?.should be_false
       end
+
+      it 'should not be compressed' do
+        trie_node.compressed?.should be_false
+      end
     end
 
     describe 'when creating a node with one letter' do
@@ -144,7 +148,7 @@ module Rambling
       end
     end
 
-    describe 'when finding out if the word pass is valid' do
+    describe 'when finding out if the word is valid' do
       trie_node = nil
 
       before(:each) do
@@ -202,76 +206,14 @@ module Rambling
       end
     end
 
-    describe 'when compressing trie' do
-      it 'should return self after compressing' do
-        trie_node = TrieNode.new('a')
-        compressed_node = trie_node.compress!
+    describe "when the trie node's parent is compressed" do
+      it 'should return true when asked if compressed' do
+        trie = double('Rambling::Trie')
+        trie.stub(:compressed?).and_return true
+        trie_node = TrieNode.new('', trie)
 
-        compressed_node.should == trie_node
+        trie_node.compressed?.should be_true
       end
-
-      it 'should compress into a single node without children for a single word trie' do
-        trie_node = TrieNode.new('all')
-        trie_node.compress!
-
-        trie_node.letter.should == :all
-        trie_node.children.should be_empty
-        trie_node.terminal?.should be_true
-      end
-
-      it 'should compress into corresponding three nodes for a two word trie' do
-        trie_node = TrieNode.new('all')
-        trie_node.add_branch_from('sk')
-        trie_node.compress!
-
-        trie_node.letter.should == :a
-        trie_node.children.size.should == 2
-
-        trie_node[:ll].letter.should == :ll
-        trie_node[:sk].letter.should == :sk
-
-        trie_node[:ll].children.should be_empty
-        trie_node[:sk].children.should be_empty
-
-        trie_node[:ll].terminal?.should be_true
-        trie_node[:sk].terminal?.should be_true
-      end
-
-      it 'should assign the parent nodes correctly on compression' do
-        trie_node = TrieNode.new('repay')
-        trie_node.add_branch_from('est')
-        trie_node.add_branch_from('epaint')
-        trie_node.compress!
-
-        trie_node.letter.should == :re
-        trie_node.children.size.should == 2
-
-        trie_node[:pa].letter.should == :pa
-        trie_node[:st].letter.should == :st
-
-        trie_node[:pa].children.size.should == 2
-        trie_node[:st].children.should be_empty
-
-        trie_node[:pa][:y].letter.should == :y
-        trie_node[:pa][:int].letter.should == :int
-
-        trie_node[:pa][:y].children.should be_empty
-        trie_node[:pa][:int].children.should be_empty
-
-        trie_node[:pa][:y].parent.should == trie_node[:pa]
-        trie_node[:pa][:int].parent.should == trie_node[:pa]
-      end
-    end
-
-    it 'should not compress terminal nodes' do
-      trie_node = TrieNode.new('you')
-      trie_node.add_branch_from('our')
-      trie_node.add_branch_from('ours')
-      trie_node.compress!
-
-      trie_node.letter.should == :you
-      trie_node[:r].letter.should == :r
-      trie_node[:r][:s].letter.should == :s
     end
   end
 end

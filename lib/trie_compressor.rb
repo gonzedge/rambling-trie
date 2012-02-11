@@ -1,12 +1,24 @@
 module Rambling
   module TrieCompressor
-    def compress!
-      if @children.size == 1 and not terminal?
-        merge_with!(@children.values.first)
-        compress!
+    def compressed?
+      if instance_variable_defined?(:@is_compressed)
+        @is_compressed
+      else
+        @parent.nil? ? false : @parent.compressed?
       end
+    end
 
-      @children.values.each { |node| node.compress! }
+    protected
+
+    def compress_own_tree!
+      unless compressed?
+        if @children.size == 1 and not terminal? and not @letter.nil?
+          merge_with!(@children.values.first)
+          compress_own_tree!
+        end
+
+        @children.values.each { |node| node.compress_own_tree! }
+      end
 
       self
     end

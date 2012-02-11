@@ -28,6 +28,7 @@ module Rambling
     end
 
     def add_branch_from(word)
+      raise InvalidTrieOperation.new('Cannot add branch to compressed trie') if compressed?
       return if word.empty?
 
       first_letter = word.slice(0).to_sym
