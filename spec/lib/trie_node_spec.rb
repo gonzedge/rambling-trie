@@ -25,10 +25,6 @@ module Rambling
         trie_node.as_word.should be_empty
       end
 
-      it 'should not be a word' do
-        trie_node.is_word?.should be_false
-      end
-
       it 'should not be compressed' do
         trie_node.compressed?.should be_false
       end
@@ -127,52 +123,6 @@ module Rambling
 
       it 'should mark it as terminal' do
         trie_node[:a].terminal?.should be_true
-      end
-    end
-
-    describe 'when finding out if a child exists' do
-      trie_node = nil
-
-      before(:each) do
-        trie_node = TrieNode.new('back')
-        trie_node.add_branch_from('ull')
-      end
-
-      it 'should return true for an existing child' do
-        trie_node.has_branch_for?('a').should be_true
-        trie_node.has_branch_for?('ack').should be_true
-        trie_node.has_branch_for?('u').should be_true
-        trie_node.has_branch_for?('ull').should be_true
-      end
-
-      it 'should return false for a non existing child' do
-        trie_node.has_branch_for?('b').should be_false
-        trie_node.has_branch_for?('x').should be_false
-        trie_node.has_branch_for?('ll').should be_false
-      end
-    end
-
-    describe 'when finding out if the word is valid' do
-      trie_node = nil
-
-      before(:each) do
-        trie_node = TrieNode.new('')
-        trie_node.add_branch_from('back')
-        trie_node.add_branch_from('bash')
-        trie_node.add_branch_from('ball')
-      end
-
-      it 'should return true for a valid word' do
-        trie_node.is_word?('back').should be_true
-        trie_node.is_word?('bash').should be_true
-        trie_node.is_word?('ball').should be_true
-      end
-
-      it 'should return false for an invalid word' do
-        trie_node.is_word?('ba').should be_false
-        trie_node.is_word?('bac').should be_false
-        trie_node.is_word?('bas').should be_false
-        trie_node.is_word?('bal').should be_false
       end
     end
 

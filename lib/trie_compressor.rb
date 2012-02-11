@@ -11,14 +11,12 @@ module Rambling
     protected
 
     def compress_own_tree!
-      unless compressed?
-        if @children.size == 1 and not terminal? and not @letter.nil?
-          merge_with!(@children.values.first)
-          compress_own_tree!
-        end
-
-        @children.values.each { |node| node.compress_own_tree! }
+      if @children.size == 1 and not terminal? and not @letter.nil?
+        merge_with!(@children.values.first)
+        compress_own_tree!
       end
+
+      @children.values.each { |node| node.compress_own_tree! }
 
       self
     end

@@ -24,6 +24,10 @@ module Rambling
       it 'should have no children' do
         trie.children.should be_empty
       end
+
+      it 'should not be a word' do
+        trie.is_word?.should be_false
+      end
     end
 
     describe 'when initializing a trie from a file' do
@@ -43,7 +47,7 @@ module Rambling
 
       it 'should load all words' do
         File.open(filename) do |file|
-          file.readlines.each { |word| trie.has_branch_for?(word.chomp).should be_true }
+          file.readlines.each { |word| trie.is_word?(word.chomp).should be_true }
         end
       end
 
@@ -212,6 +216,36 @@ module Rambling
 
           it 'should find the word in the tree' do
             trie.is_word?('hello').should be_true
+          end
+        end
+      end
+
+      describe 'and it is not contained in the trie' do
+        before(:each) do
+          trie.add_branch_from 'hello'
+        end
+
+        it 'should not find any part of the word in the tree' do
+          trie.has_branch_for?('ha').should be_false
+          trie.has_branch_for?('hal').should be_false
+        end
+
+        it 'should not find the word in the tree' do
+          trie.is_word?('halt').should be_false
+        end
+
+        describe 'which has been compressed' do
+          before(:each) do
+            trie.compress!
+          end
+
+          it 'should not find part of the word in the tree' do
+            trie.has_branch_for?('ha').should be_false
+            trie.has_branch_for?('hal').should be_false
+          end
+
+          it 'should not find the word in the tree' do
+            trie.is_word?('halt').should be_false
           end
         end
       end

@@ -9,14 +9,24 @@ module Rambling
     end
 
     def compress!
-      compress_own_tree!
-      @is_compressed = true
+      unless compressed?
+        compress_own_tree!
+        @is_compressed = true
+      end
 
       self
     end
 
     def compressed?
-      @is_compressed
+      @is_compressed = @is_compressed.nil? ? false : @is_compressed
+    end
+
+    def has_branch_for?(word = '')
+      compressed? ? has_compressed_branch_for?(word) : has_uncompressed_branch_for?(word)
+    end
+
+    def is_word?(word = '')
+      compressed? ? is_compressed_word?(word) : is_uncompressed_word?(word)
     end
 
     private
