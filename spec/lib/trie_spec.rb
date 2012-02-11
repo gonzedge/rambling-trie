@@ -47,7 +47,7 @@ module Rambling
         end
       end
 
-      describe 'and compressing the trie' do
+      describe 'and compressing it' do
         before(:each) do
           trie.compress!
         end
@@ -179,6 +179,40 @@ module Rambling
           trie.compress!
 
           lambda { trie.add_branch_from('restaurant') }.should raise_error(Rambling::InvalidTrieOperation)
+        end
+      end
+    end
+
+    describe 'when matching a word' do
+      before(:each) do
+        trie = Rambling::Trie.new
+      end
+
+      describe 'and it is contained in the trie' do
+        before(:each) do
+          trie.add_branch_from 'hello'
+        end
+
+        it 'should find part of the word in the tree' do
+          trie.has_branch_for?('hell').should be_true
+        end
+
+        it 'should find the word in the tree' do
+          trie.is_word?('hello').should be_true
+        end
+
+        describe 'which has been compressed' do
+          before(:each) do
+            trie.compress!
+          end
+
+          it 'should find part of the word in the tree' do
+            trie.has_branch_for?('hell').should be_true
+          end
+
+          it 'should find the word in the tree' do
+            trie.is_word?('hello').should be_true
+          end
         end
       end
     end
