@@ -2,7 +2,7 @@ require 'benchmark'
 
 namespace :performance do
   def generate_report(filename = nil)
-    output = filename.nil? ? $stdout : File.open(filename, 'w')
+    output = filename.nil? ? $stdout : File.open(filename, 'a+')
     words = ['hi', 'help', 'beautiful', 'impressionism', 'anthropological']
 
     trie = Rambling::Trie.new(get_path('assets', 'dictionaries', 'words_with_friends.txt'))
