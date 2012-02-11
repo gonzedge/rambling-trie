@@ -25,14 +25,15 @@ module Rambling
     private
 
     def branch_exists_and(word, method)
-      return false if word.empty?
+      unless word.empty?
+        length = word.length
+        for index in (0..length)
+          key = word.slice(0..index).to_sym
+          return @children[key].send(method, word.slice((index + 1)..length)) if @children.has_key?(key)
+        end
+      end
 
-      first_letter = word.slice!(0)
-
-      return false if first_letter.nil?
-
-      first_letter_key = first_letter.to_sym
-      @children.has_key?(first_letter_key) ? @children[first_letter_key].send(method, word) : false
+      false
     end
   end
 end

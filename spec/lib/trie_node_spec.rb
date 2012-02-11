@@ -117,12 +117,16 @@ module Rambling
       trie_node = nil
 
       before(:each) do
-        trie_node = TrieNode.new('ba')
+        trie_node = TrieNode.new('back')
         trie_node.add_branch_from('a')
       end
 
       it 'should not increment the child count' do
         trie_node.children.length.should == 1
+      end
+
+      it 'should mark it as terminal' do
+        trie_node[:a].terminal?.should be_true
       end
     end
 
