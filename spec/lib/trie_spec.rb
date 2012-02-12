@@ -195,14 +195,17 @@ module Rambling
       describe 'and it is contained in the trie' do
         before(:each) do
           trie.add_branch_from 'hello'
+          trie.add_branch_from 'high'
         end
 
         it 'should find part of the word in the tree' do
           trie.has_branch_for?('hell').should be_true
+          trie.has_branch_for?('hig').should be_true
         end
 
         it 'should find the word in the tree' do
           trie.is_word?('hello').should be_true
+          trie.is_word?('high').should be_true
         end
 
         describe 'which has been compressed' do
@@ -212,10 +215,12 @@ module Rambling
 
           it 'should find part of the word in the tree' do
             trie.has_branch_for?('hell').should be_true
+            trie.has_branch_for?('hig').should be_true
           end
 
           it 'should find the word in the tree' do
             trie.is_word?('hello').should be_true
+            trie.is_word?('high').should be_true
           end
         end
       end

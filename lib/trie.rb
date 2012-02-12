@@ -22,11 +22,13 @@ module Rambling
     end
 
     def has_branch_for?(word = '')
-      compressed? ? has_compressed_branch_for?(word) : has_uncompressed_branch_for?(word)
+      chars = word.chars.to_a
+      compressed? ? has_compressed_branch_for?(chars) : has_uncompressed_branch_for?(chars)
     end
 
     def is_word?(word = '')
-      compressed? ? is_compressed_word?(word) : is_uncompressed_word?(word)
+      chars = word.chars.to_a
+      compressed? ? is_compressed_word?(chars) : is_uncompressed_word?(chars)
     end
 
     private
