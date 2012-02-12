@@ -52,10 +52,10 @@ And to find out if a word already exists in the trie, use `is_word?`:
 trie.is_word?('word')
 ```
 
-If you wish to find if part of a word exists in the `Rambling::Trie` instance, you should call `has_branch_from?`:
+If you wish to find if part of a word exists in the `Rambling::Trie` instance, you should call `has_branch_for?`:
 
 ``` ruby
-trie.has_branch_from?('partial_word')
+trie.has_branch_for?('partial_word')
 ```
 
 ### Compression
