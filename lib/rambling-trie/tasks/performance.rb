@@ -50,23 +50,30 @@ namespace :performance do
   end
 
   task :profile do
-    puts 'Generating profiling report...'
+    puts 'Generating profiling reports...'
 
-    trie = Rambling::Trie.new(get_path('assets', 'dictionaries', 'words_with_friends.txt'))
+    rambling_trie = Rambling::Trie.new(get_path('assets', 'dictionaries', 'words_with_friends.txt'))
     words = ['hi', 'help', 'beautiful', 'impressionism', 'anthropological']
     methods = [:has_branch_for?, :is_word?]
-    tries = [lambda {trie}, lambda {trie.compress!}]
+    tries = [lambda {rambling_trie}, lambda {rambling_trie.compress!}]
 
     methods.each do |method|
-      result = RubyProf.profile do
-        words.each do |word|
-          200_000.times { trie.send(method, word) }
+      tries.each do |trie_generator|
+        trie = trie_generator.call
+        result = RubyProf.profile do
+          words.each do |word|
+            200_000.times { trie.send(method, word) }
+          end
         end
 
-        File.open get_path('reports', "profile-#{method}-#{Time.now.to_i}"), 'w' do |file|
+        File.open get_path('reports', "profile-#{trie.compressed? ? 'compressed' : 'uncompressed'}-#{method.to_s.sub(/\?/, '')}-#{Time.now.to_i}"), 'w' do |file|
           RubyProf::CallTreePrinter.new(result).print(file)
         end
       end
     end
+
+    puts 'Done'
   end
+
+  task all: [:profile, :report]
 end

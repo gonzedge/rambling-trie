@@ -27,20 +27,26 @@ module Rambling
       return true if chars.empty?
 
       length = chars.length
-      first_letter = ''
-      keys = @children.keys.map { |x| x.to_s }
+      first_letter = chars.slice!(0)
+      key = nil
+      @children.keys.each do |x|
+        x = x.to_s
+        if x.start_with?(first_letter)
+          key = x
+          break
+        end
+      end
+
+      return false if key.nil?
+      sym_key = key.to_sym
+      return @children[sym_key].has_compressed_branch_for?(chars) if key.length == first_letter.length and @children.has_key?(sym_key)
+
       while not chars.empty?
         first_letter += chars.slice!(0)
-        keys.delete_if { |x| not x.start_with?(first_letter) }
 
-        break if keys.empty?
+        break unless key.start_with?(first_letter)
         return true if chars.empty?
-
-        key = keys.first
-        if key.length == first_letter.length
-          key = key.to_sym
-          return @children[key].has_compressed_branch_for?(chars) if @children.has_key?(key)
-        end
+        return @children[sym_key].has_compressed_branch_for?(chars) if key.length == first_letter.length and @children.has_key?(sym_key)
       end
 
       false
