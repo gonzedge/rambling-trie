@@ -37,16 +37,17 @@ module Rambling
         end
       end
 
-      return false if key.nil?
-      sym_key = key.to_sym
-      return @children[sym_key].has_compressed_branch_for?(chars) if key.length == first_letter.length and @children.has_key?(sym_key)
+      unless key.nil?
+        sym_key = key.to_sym
+        return @children[sym_key].has_compressed_branch_for?(chars) if key.length == first_letter.length
 
-      while not chars.empty?
-        first_letter += chars.slice!(0)
+        while not chars.empty?
+          first_letter += chars.slice!(0)
 
-        break unless key.start_with?(first_letter)
-        return true if chars.empty?
-        return @children[sym_key].has_compressed_branch_for?(chars) if key.length == first_letter.length and @children.has_key?(sym_key)
+          break unless key.start_with?(first_letter)
+          return true if chars.empty?
+          return @children[sym_key].has_compressed_branch_for?(chars) if key.length == first_letter.length
+        end
       end
 
       false
