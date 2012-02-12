@@ -5,7 +5,7 @@ $:.unshift lib unless $:.include?(lib)
 require 'rambling-trie/version'
 
 Gem::Specification.new do |s|
-  files = Dir[File.join(File.dirname(__FILE__), 'lib', '*')] + %w(LICENSE README.markdown)
+  files = Dir[File.join(File.dirname(__FILE__), 'lib', '**', '**')].reject { |x| File.directory?(x) } + %w(LICENSE README.markdown)
 
   s.name = 'rambling-trie'
   s.version = Rambling::Trie::VERSION

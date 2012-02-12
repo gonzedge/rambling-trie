@@ -4,4 +4,4 @@ require File.join(File.dirname(__FILE__), 'trie_compressor.rb')
 require File.join(File.dirname(__FILE__), 'trie_branches.rb')
 require File.join(File.dirname(__FILE__), 'trie_node.rb')
 require File.join(File.dirname(__FILE__), 'trie.rb')
-
+require File.join(File.dirname(__FILE__), 'rambling-trie', 'version.rb')
