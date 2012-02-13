@@ -20,6 +20,8 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'rspec', '>=2.0.0'
   s.add_development_dependency 'rake', '>=0.9.2'
   s.add_development_dependency 'ruby-prof', '>=0.10.8'
+  s.add_development_dependency 'yard', '>=0.7.5'
+  s.add_development_dependency 'redcarpet', '>=2.1.0'
 
   s.files = files
   s.require_path = 'lib'
