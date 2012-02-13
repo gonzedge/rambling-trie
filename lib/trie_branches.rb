@@ -1,5 +1,10 @@
 module Rambling
+  # Provides the branching behavior for the Trie data structure.
   module TrieBranches
+    # Adds a branch to the trie based on the word.
+    # @param [String] word the word to add the branch from.
+    # @return [TrieNode] the just added branch's root node.
+    # @raise [InvalidTrieOperation] if the trie is already compressed.
     def add_branch_from(word)
       raise InvalidTrieOperation.new('Cannot add branch to compressed trie') if compressed?
       if word.empty?
@@ -11,7 +16,9 @@ module Rambling
 
       if @children.has_key?(first_letter)
         word.slice!(0)
-        @children[first_letter].add_branch_from(word)
+        child = @children[first_letter]
+        child.add_branch_from(word)
+        child
       else
         @children[first_letter] = TrieNode.new(word, self)
       end

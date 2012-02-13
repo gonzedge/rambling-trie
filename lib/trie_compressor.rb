@@ -1,11 +1,10 @@
 module Rambling
+  # Provides the compressing behavior for the Trie data structure.
   module TrieCompressor
+    # Flag for compressed tries.
+    # @return [Boolean] `true` for compressed tries, `false` otherwise.
     def compressed?
-      if instance_variable_defined?(:@is_compressed)
-        @is_compressed
-      else
-        @parent.nil? ? false : @parent.compressed?
-      end
+      @parent.nil? ? false : @parent.compressed?
     end
 
     protected

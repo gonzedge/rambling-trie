@@ -1,3 +1,4 @@
+require File.join(File.dirname(__FILE__), 'rambling.rb')
 require File.join(File.dirname(__FILE__), 'invalid_trie_operation.rb')
 require File.join(File.dirname(__FILE__), 'children_hash_deferer.rb')
 require File.join(File.dirname(__FILE__), 'trie_compressor.rb')
