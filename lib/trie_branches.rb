@@ -49,9 +49,11 @@ module Rambling
         return @children[sym_key].has_compressed_branch_for?(chars) if key.length == first_letter.length
 
         while not chars.empty?
-          first_letter += chars.slice!(0)
+          char = chars.slice!(0)
 
-          break unless key.start_with?(first_letter)
+          break unless key[first_letter.length] == char
+
+          first_letter += char
           return true if chars.empty?
           return @children[sym_key].has_compressed_branch_for?(chars) if key.length == first_letter.length
         end

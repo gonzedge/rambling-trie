@@ -55,7 +55,7 @@ namespace :performance do
     rambling_trie = Rambling::Trie.new(get_path('assets', 'dictionaries', 'words_with_friends.txt'))
     words = ['hi', 'help', 'beautiful', 'impressionism', 'anthropological']
     methods = [:has_branch_for?, :is_word?]
-    tries = [lambda {rambling_trie}, lambda {rambling_trie.compress!}]
+    tries = [lambda {rambling_trie.clone}, lambda {rambling_trie.clone.compress!}]
 
     methods.each do |method|
       tries.each do |trie_generator|
