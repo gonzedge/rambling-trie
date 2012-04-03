@@ -41,7 +41,7 @@ module Rambling
       end
 
       context 'and gets compressed' do
-        before(:each) do
+        before :each do
           trie.compress!
         end
 
@@ -91,7 +91,7 @@ module Rambling
       end
 
       context 'with a single word' do
-        before(:each) do
+        before :each do
           trie.add_branch_from('all')
           trie.compress!
         end
@@ -186,7 +186,7 @@ module Rambling
       let(:trie) { Trie.new }
 
       context 'word is contained' do
-        before(:each) do
+        before :each do
           trie.add_branch_from 'hello'
           trie.add_branch_from 'high'
         end
@@ -202,7 +202,7 @@ module Rambling
         end
 
         context 'and the trie been compressed' do
-          before(:each) do
+          before :each do
             trie.compress!
           end
 
@@ -219,7 +219,7 @@ module Rambling
       end
 
       context 'word is not contained' do
-        before(:each) do
+        before :each do
           trie.add_branch_from 'hello'
         end
 
@@ -233,7 +233,7 @@ module Rambling
         end
 
         context 'and the trie has been compressed' do
-          before(:each) do
+          before :each do
             trie.compress!
           end
 

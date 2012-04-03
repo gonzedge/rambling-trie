@@ -97,8 +97,8 @@ module Rambling
       context 'new word for existing branch' do
         let(:trie_node) { TrieNode.new 'back' }
 
-        before(:each) do
-          trie_node.add_branch_from('a')
+        before :each do
+          trie_node.add_branch_from 'a'
         end
 
         it 'does not increment the child count' do
@@ -109,9 +109,24 @@ module Rambling
           trie_node[:a].terminal?.should be_true
         end
       end
+
+      context 'old word for existing branch' do
+        let(:trie_node) { TrieNode.new 'back' }
+
+        before :each do
+          trie_node.add_branch_from 'ack'
+        end
+
+        it 'does not increment any child count' do
+          trie_node.children.length.should == 1
+          trie_node[:a].children.length.should == 1
+          trie_node[:a][:c].children.length.should == 1
+          trie_node[:a][:c][:k].children.length.should be_zero
+        end
+      end
     end
 
-    describe '#as word' do
+    describe '#as_word' do
       context 'for an empty node' do
         let(:trie_node) { TrieNode.new '' }
 
@@ -157,16 +172,26 @@ module Rambling
     end
 
     describe '#compressed?' do
-      context 'parent is compressed' do
-        let(:trie) { double('Rambling::Trie') }
-        let(:trie_node) { TrieNode.new '', trie }
+      let(:trie) { double('Rambling::Trie') }
+      let(:trie_node) { TrieNode.new '', trie }
 
+      context 'parent is compressed' do
         before :each do
           trie.stub(:compressed?).and_return true
         end
 
-        it 'should return true' do
+        it 'returns true' do
           trie_node.compressed?.should be_true
+        end
+      end
+
+      context 'parent is not compressed' do
+        before :each do
+          trie.stub(:compressed?).and_return false
+        end
+
+        it 'returns false' do
+          trie_node.compressed?.should be_false
         end
       end
     end
