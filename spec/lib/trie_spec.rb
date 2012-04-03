@@ -2,42 +2,31 @@ require File.join(File.dirname(__FILE__), '..', 'spec_helper.rb')
 
 module Rambling
   describe Trie do
-    trie = nil
+    context 'initialized without filename' do
+      let(:trie) { Trie.new }
 
-    after(:each) do
-      trie = nil
-    end
-
-    describe 'when initializing a trie without filename' do
-      before(:each) do
-        trie = Trie.new
-      end
-
-      it 'should have no letter' do
+      it 'has no letter' do
         trie.letter.should be_nil
       end
 
-      it 'should not be a terminal node' do
+      it 'is not a terminal node' do
         trie.terminal?.should be_false
       end
 
-      it 'should have no children' do
+      it 'has no children' do
         trie.children.should be_empty
       end
 
-      it 'should not be a word' do
+      it 'is not a word' do
         trie.is_word?.should be_false
       end
     end
 
-    describe 'when initializing a trie from a file' do
+    context 'initialized from a file' do
       filename = File.join(File.dirname(__FILE__), '..', 'assets', 'test_words.txt')
+      let(:trie) { Trie.new filename }
 
-      before(:each) do
-        trie = Trie.new(filename)
-      end
-
-      it 'should add the expected root children' do
+      it 'has the expected root children' do
         File.open(filename) do |file|
           expected_hash = Hash[file.readlines.map { |x| [x.slice(0).to_sym, nil] }]
           trie.children.length.should == expected_hash.length
@@ -45,22 +34,22 @@ module Rambling
         end
       end
 
-      it 'should load all words' do
+      it 'loads every word' do
         File.open(filename) do |file|
           file.readlines.each { |word| trie.is_word?(word.chomp).should be_true }
         end
       end
 
-      describe 'and compressing it' do
+      context 'and gets compressed' do
         before(:each) do
           trie.compress!
         end
 
-        it 'should mark the trie as compressed' do
+        it 'is marked as compressed' do
           trie.compressed?.should be_true
         end
 
-        it 'should compress the trie nodes' do
+        it 'compresses the trie nodes' do
           trie[:t].letter.should == :t
           trie[:t].children.size.should == 2
 
@@ -73,20 +62,18 @@ module Rambling
       end
     end
 
-    describe 'when compressing a trie' do
-      before(:each) do
-        trie = Trie.new
-      end
+    describe '#compress!' do
+      let(:trie) { Trie.new }
 
-      it 'should return self after compressing marked as compressed' do
+      it 'returns itself marked as compressed' do
         compressed_trie = trie.compress!
 
         compressed_trie.should == trie
         compressed_trie.compressed?.should be_true
       end
 
-      describe 'and trying to compress again' do
-        it 'should keep returning self' do
+      context 'after calling #compress! once' do
+        it 'keeps returning itself' do
           compressed_trie = trie.compress!.compress!
 
           compressed_trie.should == trie
@@ -94,8 +81,8 @@ module Rambling
         end
       end
 
-      describe 'that has at least one word' do
-        it 'should keep the trie letter nil' do
+      context 'with at least one word' do
+        it 'keeps the trie letter nil' do
           trie.add_branch_from('all')
           trie.compress!
 
@@ -103,38 +90,46 @@ module Rambling
         end
       end
 
-      it 'should compress into a single node without children for a single word trie' do
-        trie.add_branch_from('all')
-        trie.compress!
+      context 'with a single word' do
+        before(:each) do
+          trie.add_branch_from('all')
+          trie.compress!
+        end
 
-        trie[:all].letter.should == :all
-        trie[:all].children.should be_empty
-        trie[:all].terminal?.should be_true
-        trie[:all].compressed?.should be_true
+        it 'compresses into a single node without children' do
+          trie[:all].letter.should == :all
+          trie[:all].children.should be_empty
+          trie[:all].terminal?.should be_true
+          trie[:all].compressed?.should be_true
+        end
       end
 
-      it 'should compress into corresponding three nodes for a two word trie' do
-        trie.add_branch_from('all')
-        trie.add_branch_from('ask')
-        trie.compress!
+      context 'with two words' do
+        before :each do
+          trie.add_branch_from('all')
+          trie.add_branch_from('ask')
+          trie.compress!
+        end
 
-        trie[:a].letter.should == :a
-        trie[:a].children.size.should == 2
+        it 'compresses into corresponding three nodes' do
+          trie[:a].letter.should == :a
+          trie[:a].children.size.should == 2
 
-        trie[:a][:ll].letter.should == :ll
-        trie[:a][:sk].letter.should == :sk
+          trie[:a][:ll].letter.should == :ll
+          trie[:a][:sk].letter.should == :sk
 
-        trie[:a][:ll].children.should be_empty
-        trie[:a][:sk].children.should be_empty
+          trie[:a][:ll].children.should be_empty
+          trie[:a][:sk].children.should be_empty
 
-        trie[:a][:ll].terminal?.should be_true
-        trie[:a][:sk].terminal?.should be_true
+          trie[:a][:ll].terminal?.should be_true
+          trie[:a][:sk].terminal?.should be_true
 
-        trie[:a][:ll].compressed?.should be_true
-        trie[:a][:sk].compressed?.should be_true
+          trie[:a][:ll].compressed?.should be_true
+          trie[:a][:sk].compressed?.should be_true
+        end
       end
 
-      it 'should assign the parent nodes correctly on compression' do
+      it 'reassigns the parent nodes correctly' do
         trie.add_branch_from('repay')
         trie.add_branch_from('rest')
         trie.add_branch_from('repaint')
@@ -159,7 +154,7 @@ module Rambling
         trie[:re][:pa][:int].parent.should == trie[:re][:pa]
       end
 
-      it 'should not compress terminal nodes' do
+      it 'does not compress terminal nodes' do
         trie.add_branch_from('you')
         trie.add_branch_from('your')
         trie.add_branch_from('yours')
@@ -176,7 +171,7 @@ module Rambling
       end
 
       describe 'and trying to add a branch' do
-        it 'should raise an exception' do
+        it 'raises an error' do
           trie.add_branch_from('repay')
           trie.add_branch_from('rest')
           trie.add_branch_from('repaint')
@@ -187,69 +182,67 @@ module Rambling
       end
     end
 
-    describe 'when matching a word' do
-      before(:each) do
-        trie = Rambling::Trie.new
-      end
+    describe '#has_branch_for?' do
+      let(:trie) { Trie.new }
 
-      describe 'and it is contained in the trie' do
+      context 'word is contained' do
         before(:each) do
           trie.add_branch_from 'hello'
           trie.add_branch_from 'high'
         end
 
-        it 'should find part of the word in the tree' do
+        it 'matches part of the word' do
           trie.has_branch_for?('hell').should be_true
           trie.has_branch_for?('hig').should be_true
         end
 
-        it 'should find the word in the tree' do
+        it 'matches the whole word' do
           trie.is_word?('hello').should be_true
           trie.is_word?('high').should be_true
         end
 
-        describe 'which has been compressed' do
+        context 'and the trie been compressed' do
           before(:each) do
             trie.compress!
           end
 
-          it 'should find part of the word in the tree' do
+          it 'matches part of the word' do
             trie.has_branch_for?('hell').should be_true
             trie.has_branch_for?('hig').should be_true
           end
 
-          it 'should find the word in the tree' do
+          it 'matches the whole word' do
             trie.is_word?('hello').should be_true
             trie.is_word?('high').should be_true
           end
         end
       end
 
-      describe 'and it is not contained in the trie' do
+      context 'word is not contained' do
         before(:each) do
           trie.add_branch_from 'hello'
         end
 
-        it 'should not find any part of the word in the tree' do
+        it 'does not match any part of the word' do
           trie.has_branch_for?('ha').should be_false
           trie.has_branch_for?('hal').should be_false
         end
 
-        it 'should not find the word in the tree' do
+        it 'does not match the whole word' do
           trie.is_word?('halt').should be_false
         end
 
-        describe 'which has been compressed' do
+        context 'and the trie has been compressed' do
           before(:each) do
             trie.compress!
           end
 
-          it 'should not find part of the word in the tree' do
+          it 'does not match part of the word' do
             trie.has_branch_for?('ha').should be_false
             trie.has_branch_for?('hal').should be_false
           end
 
-          it 'should not find the word in the tree' do
+          it 'does not match the whole word' do
             trie.is_word?('halt').should be_false
           end
         end
