@@ -10,11 +10,11 @@ module Rambling
       end
 
       it 'includes no children' do
-        trie_node.children.should be_empty
+        trie_node.should have(0).children
       end
 
       it 'is not a terminal node' do
-        trie_node.terminal?.should be_false
+        trie_node.should_not be_terminal
       end
 
       it 'returns empty string as its word' do
@@ -22,7 +22,7 @@ module Rambling
       end
 
       it 'is not compressed' do
-        trie_node.compressed?.should be_false
+        trie_node.should_not be_compressed
       end
     end
 
@@ -34,11 +34,11 @@ module Rambling
       end
 
       it 'includes no children' do
-        trie_node.children.should be_empty
+        trie_node.should have(0).children
       end
 
       it 'is a terminal node' do
-        trie_node.terminal?.should be_true
+        trie_node.should be_terminal
       end
     end
 
@@ -50,8 +50,7 @@ module Rambling
       end
 
       it 'includes one child' do
-        trie_node.children.should_not be_empty
-        trie_node.children.length.should == 1
+        trie_node.should have(1).children
       end
 
       it 'includes a child with the expected letter' do
@@ -67,11 +66,11 @@ module Rambling
       end
 
       it 'does not mark itself as a terminal node' do
-        trie_node.terminal?.should be_false
+        trie_node.should_not be_terminal
       end
 
       it 'marks the first child as a terminal node' do
-        trie_node[:a].terminal?.should be_true
+        trie_node[:a].should be_terminal
       end
     end
 
@@ -79,17 +78,17 @@ module Rambling
       let(:trie_node) { TrieNode.new 'spaghetti' }
 
       it 'marks the last letter as terminal node' do
-        trie_node[:p][:a][:g][:h][:e][:t][:t][:i].terminal?.should be_true
+        trie_node[:p][:a][:g][:h][:e][:t][:t][:i].should be_terminal
       end
 
       it 'does not mark any other letter as terminal node' do
-        trie_node[:p][:a][:g][:h][:e][:t][:t].terminal?.should be_false
-        trie_node[:p][:a][:g][:h][:e][:t].terminal?.should be_false
-        trie_node[:p][:a][:g][:h][:e].terminal?.should be_false
-        trie_node[:p][:a][:g][:h].terminal?.should be_false
-        trie_node[:p][:a][:g].terminal?.should be_false
-        trie_node[:p][:a].terminal?.should be_false
-        trie_node[:p].terminal?.should be_false
+        trie_node[:p][:a][:g][:h][:e][:t][:t].should_not be_terminal
+        trie_node[:p][:a][:g][:h][:e][:t].should_not be_terminal
+        trie_node[:p][:a][:g][:h][:e].should_not be_terminal
+        trie_node[:p][:a][:g][:h].should_not be_terminal
+        trie_node[:p][:a][:g].should_not be_terminal
+        trie_node[:p][:a].should_not be_terminal
+        trie_node[:p].should_not be_terminal
       end
     end
 
@@ -102,11 +101,11 @@ module Rambling
         end
 
         it 'does not increment the child count' do
-          trie_node.children.length.should == 1
+          trie_node.should have(1).children
         end
 
         it 'marks it as terminal' do
-          trie_node[:a].terminal?.should be_true
+          trie_node[:a].should be_terminal
         end
       end
 
@@ -118,10 +117,10 @@ module Rambling
         end
 
         it 'does not increment any child count' do
-          trie_node.children.length.should == 1
-          trie_node[:a].children.length.should == 1
-          trie_node[:a][:c].children.length.should == 1
-          trie_node[:a][:c][:k].children.length.should be_zero
+          trie_node.should have(1).children
+          trie_node[:a].should have(1).children
+          trie_node[:a][:c].should have(1).children
+          trie_node[:a][:c][:k].should have(0).children
         end
       end
     end
@@ -181,7 +180,7 @@ module Rambling
         end
 
         it 'returns true' do
-          trie_node.compressed?.should be_true
+          trie_node.should be_compressed
         end
       end
 
