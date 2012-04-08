@@ -56,9 +56,5 @@ module Rambling
     def parent=(parent)
       @parent = parent
     end
-
-    def terminal=(terminal)
-      @is_terminal = terminal
-    end
   end
 end
