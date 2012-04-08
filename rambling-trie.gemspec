@@ -2,7 +2,7 @@
 lib = File.expand_path('../lib/', __FILE__)
 $:.unshift lib unless $:.include?(lib)
 
-require 'rambling-trie/version'
+require 'rambling-trie'
 
 Gem::Specification.new do |s|
   files = Dir[File.join(File.dirname(__FILE__), 'lib', '**', '**')].reject { |x| File.directory?(x) } + %w(LICENSE README.markdown)
