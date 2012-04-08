@@ -7,3 +7,9 @@
 
 # Gemfile
 Gemfile.lock
+
+# SimpleCov
+coverage/
+
+# RubyProf
+reports/
