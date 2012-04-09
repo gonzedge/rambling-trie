@@ -36,12 +36,14 @@ namespace :performance do
     File.join(File.dirname(__FILE__), '..', '..', '..', *filename)
   end
 
+  desc 'Generate performance report'
   task :report do
     puts 'Generating performance report...'
     generate_report
   end
 
   namespace :report do
+    desc 'Generate performance report and append result to reports/performance'
     task :save do
       puts 'Generating performance report...'
       generate_report(get_path('reports', 'performance'))
@@ -49,6 +51,7 @@ namespace :performance do
     end
   end
 
+  desc 'Generate application profiling reports'
   task :profile do
     puts 'Generating profiling reports...'
 
@@ -75,5 +78,6 @@ namespace :performance do
     puts 'Done'
   end
 
+  desc 'Generate profiling and performance reports'
   task all: [:profile, :report]
 end
