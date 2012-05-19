@@ -33,7 +33,6 @@ module Rambling
     def has_compressed_branch_for?(chars)
       return true if chars.empty?
 
-      length = chars.length
       first_letter = chars.slice!(0)
       key = nil
       @children.keys.each do |x|
@@ -69,7 +68,6 @@ module Rambling
     def is_compressed_word?(chars)
       return true if chars.empty? and terminal?
 
-      length = chars.length
       first_letter = ''
       while not chars.empty?
         first_letter += chars.slice!(0)
