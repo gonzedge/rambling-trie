@@ -1,5 +1,4 @@
 require 'benchmark'
-require 'ruby-prof'
 
 namespace :performance do
   def report(name, trie, output)
@@ -53,6 +52,8 @@ namespace :performance do
 
   desc 'Generate application profiling reports'
   task :profile do
+    require 'ruby-prof'
+
     puts 'Generating profiling reports...'
 
     rambling_trie = Rambling::Trie.new(get_path('assets', 'dictionaries', 'words_with_friends.txt'))
@@ -71,6 +72,31 @@ namespace :performance do
 
         File.open get_path('reports', "profile-#{trie.compressed? ? 'compressed' : 'uncompressed'}-#{method.to_s.sub(/\?/, '')}-#{Time.now.to_i}"), 'w' do |file|
           RubyProf::CallTreePrinter.new(result).print(file)
+        end
+      end
+    end
+
+    puts 'Done'
+  end
+
+  desc 'Generate CPU profiling reports'
+  task :cpu_profile do
+    require 'perftools'
+
+    puts 'Generating cpu profiling reports...'
+
+    rambling_trie = Rambling::Trie.new(get_path('assets', 'dictionaries', 'words_with_friends.txt'))
+    words = ['hi', 'help', 'beautiful', 'impressionism', 'anthropological']
+    methods = [:has_branch_for?, :is_word?]
+    tries = [lambda {rambling_trie.clone}, lambda {rambling_trie.clone.compress!}]
+
+    methods.each do |method|
+      tries.each do |trie_generator|
+        trie = trie_generator.call
+        result = PerfTools::CpuProfiler.start get_path('reports', "cpu_profile-#{trie.compressed? ? 'compressed' : 'uncompressed'}-#{method.to_s.sub(/\?/, '')}-#{Time.now.to_i}") do
+          words.each do |word|
+            200_000.times { trie.send(method, word) }
+          end
         end
       end
     end
