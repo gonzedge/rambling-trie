@@ -1,11 +1,11 @@
 [
   'rambling',
-  'invalid_trie_operation',
-  'children_hash_deferer',
-  'trie_compressor',
-  'trie_branches',
-  'trie_node',
-  'trie',
+  'rambling-trie/invalid_operation',
+  'rambling-trie/children_hash_deferer',
+  'rambling-trie/compressor',
+  'rambling-trie/branches',
+  'rambling-trie/node',
+  'rambling-trie/root',
   'rambling-trie/version'
 ].each do |file|
   require File.join File.dirname(__FILE__), file
