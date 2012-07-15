@@ -1,28 +1,27 @@
 # -*- encoding: utf-8 -*-
-lib = File.expand_path('../lib/', __FILE__)
-$:.unshift lib unless $:.include?(lib)
+$:.push File.expand_path("../lib", __FILE__)
+require 'rambling-trie/version'
 
-require 'rambling-trie'
+Gem::Specification.new do |gem|
+  gem.authors = ['Rambling Labs']
+  gem.email = ['development@ramblinglabs.com']
+  gem.description = 'The Rambling Trie is a custom implementation of the Trie data structure with Ruby, which includes compression abilities and is designed to be very fast to traverse.'
+  gem.summary = 'A custom implementation of the trie data structure.'
+  gem.homepage = 'http://github.com/ramblinglabs/rambling-trie'
+  gem.date = Time.now.strftime('%Y-%m-%d')
 
-Gem::Specification.new do |s|
-  files = Dir[File.join(File.dirname(__FILE__), 'lib', '**', '**')].reject { |x| File.directory?(x) } + %w(LICENSE README.markdown)
+  gem.executables = `git ls-files -- bin/*`.split("\n").map { |f| File.basename(f) }
+  gem.files = `git ls-files`.split("\n")
+  gem.test_files = `git ls-files -- {test,spec,features}/*`.split("\n")
+  gem.require_paths = ['lib']
 
-  s.name = 'rambling-trie'
-  s.version = Rambling::Trie::VERSION
-  s.platform = Gem::Platform::RUBY
-  s.authors = ['Rambling Labs']
-  s.email = 'development@ramblinglabs.com'
-  s.homepage = 'http://github.com/ramblinglabs/rambling-trie'
-  s.date = Time.now.strftime('%Y-%m-%d')
-  s.summary = 'A custom implementation of the trie data structure.'
-  s.description = 'The Rambling Trie is a custom implementation of the Trie data structure with Ruby, which includes compression abilities and is designed to be very fast to traverse.'
+  gem.name = 'rambling-trie'
+  gem.version = Rambling::Trie::VERSION
+  gem.platform = Gem::Platform::RUBY
 
-  s.add_development_dependency 'rspec', '>=2.0.0'
-  s.add_development_dependency 'rake', '>=0.9.2'
-  s.add_development_dependency 'ruby-prof', '>=0.10.8'
-  s.add_development_dependency 'yard', '>=0.7.5'
-  s.add_development_dependency 'redcarpet', '>=2.1.0'
-
-  s.files = files
-  s.require_path = 'lib'
+  gem.add_development_dependency 'rspec', '>=2.0.0'
+  gem.add_development_dependency 'rake', '>=0.9.2'
+  gem.add_development_dependency 'ruby-prof', '>=0.10.8'
+  gem.add_development_dependency 'yard', '>=0.7.5'
+  gem.add_development_dependency 'redcarpet', '>=2.1.0'
 end
