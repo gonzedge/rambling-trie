@@ -10,3 +10,13 @@
 ].each do |file|
   require File.join File.dirname(__FILE__), file
 end
+
+module Rambling
+  module Trie
+    class << self
+      def create(*params)
+        Root.new *params
+      end
+    end
+  end
+end
