@@ -3,62 +3,64 @@ require 'spec_helper'
 module Rambling
   module Trie
     describe Root do
-      context 'initialized without filename' do
-        let(:root) { Root.new }
+      describe '.new' do
+        context 'without filename' do
+          let(:root) { Root.new }
 
-        it 'has no letter' do
-          root.letter.should be_nil
-        end
+          it 'has no letter' do
+            root.letter.should be_nil
+          end
 
-        it 'is not a terminal node' do
-          root.should_not be_terminal
-        end
+          it 'is not a terminal node' do
+            root.should_not be_terminal
+          end
 
-        it 'has no children' do
-          root.should have(0).children
-        end
+          it 'has no children' do
+            root.should have(0).children
+          end
 
-        it 'is not a word' do
-          root.is_word?.should be_false
-        end
-      end
-
-      context 'initialized from a file' do
-        let(:filename) { File.join(::SPEC_ROOT, 'assets', 'test_words.txt') }
-        let(:root) { Root.new filename }
-
-        it 'has the expected root children' do
-          File.open(filename) do |file|
-            expected_hash = Hash[file.readlines.map { |x| [x.slice(0).to_sym, nil] }]
-            root.should have(expected_hash.length).children
-            root.children.map { |k, v| k }.should =~ expected_hash.map { |k, v| k }
+          it 'is not a word' do
+            root.is_word?.should be_false
           end
         end
 
-        it 'loads every word' do
-          File.open(filename) do |file|
-            file.readlines.each { |word| root.is_word?(word.chomp).should be_true }
-          end
-        end
+        context 'with a filename' do
+          let(:filename) { File.join(::SPEC_ROOT, 'assets', 'test_words.txt') }
+          let(:root) { Root.new filename }
 
-        context 'and gets compressed' do
-          before :each do
-            root.compress!
-          end
-
-          it 'is marked as compressed' do
-            root.should be_compressed
+          it 'has the expected root children' do
+            File.open(filename) do |file|
+              expected_hash = Hash[file.readlines.map { |x| [x.slice(0).to_sym, nil] }]
+              root.should have(expected_hash.length).children
+              root.children.map { |k, v| k }.should =~ expected_hash.map { |k, v| k }
+            end
           end
 
-          it 'compresses the root nodes' do
-            root[:t].letter.should == :t
-            root[:t].children.size.should == 2
+          it 'loads every word' do
+            File.open(filename) do |file|
+              file.readlines.each { |word| root.is_word?(word.chomp).should be_true }
+            end
+          end
 
-            root[:t][:ru].letter.should == :ru
-            root[:t][:ru].children.size.should == 2
+          context 'and compressed' do
+            before :each do
+              root.compress!
+            end
 
-            root[:t][:ru][:e].should be_terminal
-            root[:t][:ru][:e].should be_compressed
+            it 'is marked as compressed' do
+              root.should be_compressed
+            end
+
+            it 'compresses the root nodes' do
+              root[:t].letter.should == :t
+              root[:t].children.size.should == 2
+
+              root[:t][:ru].letter.should == :ru
+              root[:t][:ru].children.size.should == 2
+
+              root[:t][:ru][:e].should be_terminal
+              root[:t][:ru][:e].should be_compressed
+            end
           end
         end
       end
