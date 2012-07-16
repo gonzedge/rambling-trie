@@ -31,13 +31,13 @@ gem 'rambling-trie'
 To create the trie, initialize it like this:
 
 ``` ruby
-trie = Rambling::Trie.new
+trie = Rambling::Trie.create
 ```
 
 You can also provide a file which contains all the words to be added to the trie, and it will read the file and create the structure for you, like this:
 
 ``` ruby
-trie = Rambling::Trie.new '/path/to/file'
+trie = Rambling::Trie.create '/path/to/file'
 ```
 
 To add new words to the trie, use `add_branch_from`:
@@ -52,7 +52,7 @@ And to find out if a word already exists in the trie, use `is_word?`:
 trie.is_word? 'word'
 ```
 
-If you wish to find if part of a word exists in the `Rambling::Trie` instance, you should call `has_branch_for?`:
+If you wish to find if part of a word exists in the trie instance, you should call `has_branch_for?`:
 
 ``` ruby
 trie.has_branch_for? 'partial_word'
@@ -62,7 +62,7 @@ trie.has_branch_for? 'partial_word'
 
 By default, the Rambling Trie works as a Standard Trie.
 Starting from version 0.1.0, you can obtain a Compressed Trie from the Standard one, by using the compression feature.
-Just call the `compress!` method on the `Rambling::Trie` instance:
+Just call the `compress!` method on the trie instance:
 
 ``` ruby
 trie.compress!
@@ -72,10 +72,10 @@ This will reduce the amount of Trie nodes by eliminating the redundant ones, whi
 
 Starting from version 0.3.2, the `has_branch_for?` and `is_word?` methods work as expected on a compressed trie.
 
-__Note that the `compress!` method acts over the `Rambling::Trie` instance it belongs to.__
+__Note that the `compress!` method acts over the trie instance it belongs to.__
 __Also, adding words after compression is not supported.__
 
-You can find out if a `Rambling::Trie` instance is compressed by calling the `compressed?` method:
+You can find out if a trie instance is compressed by calling the `compressed?` method:
 
 ``` ruby
 trie.compressed?
