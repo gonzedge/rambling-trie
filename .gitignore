@@ -13,3 +13,7 @@ coverage/
 
 # RubyProf
 reports/
+
+# Bundler
+.bundle
+pkg

@@ -6,7 +6,7 @@
   'node',
   'root',
   'version'
-].each { |file| require File.join('rambling-trie', file) }
+].map { |file| File.join('rambling-trie', file) }.each &method(:require)
 
 module Rambling
   module Trie
