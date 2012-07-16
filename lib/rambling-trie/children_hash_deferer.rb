@@ -3,22 +3,22 @@ module Rambling
   module ChildrenHashDeferer
     # Proxies to @children[key]
     # @param [Symbol] key the key to look for in the children's hash.
-    # @return [TrieNode, nil] the child node with that key or nil.
+    # @return [Node, nil] the child node with that key or nil.
     def [](key)
       @children[key]
     end
 
     # Proxies to @children[key] = value.
     # @param [Symbol] key the to add or change the value for.
-    # @param [TrieNode] value the node to add to the children's hash.
-    # @return [TrieNode, nil] the child node with that key or nil.
+    # @param [Node] value the node to add to the children's hash.
+    # @return [Node, nil] the child node with that key or nil.
     def []=(key, value)
       @children[key] = value
     end
 
     # Proxies to @children.delete(key)
     # @param [Symbol] key the key to delete in the children's hash.
-    # @return [TrieNode, nil] the child node corresponding to the key just deleted or nil.
+    # @return [Node, nil] the child node corresponding to the key just deleted or nil.
     def delete(key)
       @children.delete(key)
     end

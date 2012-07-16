@@ -15,12 +15,12 @@ module Rambling
       attr_reader :children
 
       # Parent node.
-      # @return [TrieNode, nil] the parent node or nil for the root element.
+      # @return [Node, nil] the parent node or nil for the root element.
       attr_accessor :parent
 
-      # Creates a new TrieNode.
-      # @param [String] word the word from which to create this TrieNode and his branch.
-      # @param [TrieNode] parent the parent of this node.
+      # Creates a new Node.
+      # @param [String] word the word from which to create this Node and his branch.
+      # @param [Node] parent the parent of this node.
       def initialize(word, parent = nil)
         @letter = nil
         @parent = parent
@@ -43,7 +43,7 @@ module Rambling
 
       # String representation of the current node, if it is a terminal node.
       # @return [String] the string representation of the current node.
-      # @raise [InvalidTrieOperation] if node is not terminal or is root.
+      # @raise [InvalidOperation] if node is not terminal or is root.
       def as_word
         raise InvalidOperation.new() unless @letter.nil? or terminal?
         get_letter_string

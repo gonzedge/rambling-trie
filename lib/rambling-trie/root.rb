@@ -13,7 +13,7 @@ module Rambling
       end
 
       # Compresses the existing tree using redundant node elimination. Flags the trie as compressed.
-      # @return [Trie] same object
+      # @return [Root] same object
       def compress!
         unless compressed?
           compress_own_tree!
@@ -23,7 +23,7 @@ module Rambling
         self
       end
 
-      # Flag for compressed tries. Overrides {TrieCompressor#compressed?}.
+      # Flag for compressed tries. Overrides {Compressor#compressed?}.
       # @return [Boolean] `true` for compressed tries, `false` otherwise.
       def compressed?
         @is_compressed = @is_compressed.nil? ? false : @is_compressed
