@@ -1,15 +1,12 @@
 [
-  'rambling',
-  'rambling-trie/invalid_operation',
-  'rambling-trie/children_hash_deferer',
-  'rambling-trie/compressor',
-  'rambling-trie/branches',
-  'rambling-trie/node',
-  'rambling-trie/root',
-  'rambling-trie/version'
-].each do |file|
-  require File.join File.dirname(__FILE__), file
-end
+  'invalid_operation',
+  'children_hash_deferer',
+  'compressor',
+  'branches',
+  'node',
+  'root',
+  'version'
+].each { |file| require File.join('rambling-trie', file) }
 
 module Rambling
   module Trie
