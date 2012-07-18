@@ -8,15 +8,13 @@ module Rambling
         @parent.nil? ? false : @parent.compressed?
       end
 
-      protected
-
       def compress_own_tree!
         if @children.size == 1 and not terminal? and not @letter.nil?
-          merge_with!(@children.values.first)
+          merge_with! @children.values.first
           compress_own_tree!
         end
 
-        @children.values.each { |node| node.compress_own_tree! }
+        @children.values.each &:compress_own_tree!
 
         self
       end
@@ -26,8 +24,8 @@ module Rambling
       def merge_with!(child)
         new_letter = (@letter.to_s + child.letter.to_s).to_sym
 
-        rehash_on_parent!(@letter, new_letter)
-        redefine_self!(new_letter, child)
+        rehash_on_parent! @letter, new_letter
+        redefine_self! new_letter, child
 
         @children.values.each { |node| node.parent = self }
       end
@@ -35,7 +33,7 @@ module Rambling
       def rehash_on_parent!(old_letter, new_letter)
         return if @parent.nil?
 
-        @parent.delete(old_letter)
+        @parent.delete old_letter
         @parent[new_letter] = self
       end
 

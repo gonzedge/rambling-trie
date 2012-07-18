@@ -8,25 +8,21 @@ module Rambling
         super(nil)
 
         @filename = filename
-        @compressed_is = false
+        @compressed = false
         add_all_nodes if filename
       end
 
       # Compresses the existing tree using redundant node elimination. Flags the trie as compressed.
       # @return [Root] same object
       def compress!
-        unless compressed?
-          compress_own_tree!
-          @compressed_is = true
-        end
-
+        @compressed = (not compress_own_tree!.nil?) unless compressed?
         self
       end
 
       # Flag for compressed tries. Overrides {Compressor#compressed?}.
       # @return [Boolean] `true` for compressed tries, `false` otherwise.
       def compressed?
-        @compressed_is = @compressed_is.nil? ? false : @compressed_is
+        @compressed
       end
 
       # Checks if a path for a word or partial word exists in the trie.
@@ -52,7 +48,7 @@ module Rambling
       def add_all_nodes
         File.open(@filename) do |file|
           while word = file.gets
-            add_branch_from(word.chomp)
+            add_branch_from word.chomp
           end
         end
       end
