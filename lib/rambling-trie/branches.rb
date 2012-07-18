@@ -15,10 +15,10 @@ module Rambling
 
         first_letter = word.slice(0).to_sym
 
-        if @children.has_key?(first_letter)
-          word.slice!(0)
+        if @children.has_key? first_letter
+          word.slice! 0
           child = @children[first_letter]
-          child.add_branch_from(word)
+          child.add_branch_from word
           child
         else
           @children[first_letter] = Node.new word, self
@@ -34,11 +34,11 @@ module Rambling
       def compressed_has_branch_for?(chars)
         return true if chars.empty?
 
-        first_letter = chars.slice!(0)
+        first_letter = chars.slice! 0
         key = nil
         @children.keys.each do |x|
           x = x.to_s
-          if x.start_with?(first_letter)
+          if x.start_with? first_letter
             key = x
             break
           end
@@ -49,7 +49,7 @@ module Rambling
           return @children[sym_key].compressed_has_branch_for?(chars) if key.length == first_letter.length
 
           while not chars.empty?
-            char = chars.slice!(0)
+            char = chars.slice! 0
 
             break unless key[first_letter.length] == char
 
@@ -71,7 +71,7 @@ module Rambling
 
         first_letter = ''
         while not chars.empty?
-          first_letter += chars.slice!(0)
+          first_letter += chars.slice! 0
           key = first_letter.to_sym
           return @children[key].compressed_is_word?(chars) if @children.has_key?(key)
         end
@@ -82,7 +82,7 @@ module Rambling
       private
 
       def fulfills_uncompressed_condition?(method, chars)
-        first_letter = chars.slice!(0)
+        first_letter = chars.slice! 0
         unless first_letter.nil?
           first_letter_sym = first_letter.to_sym
           return @children[first_letter_sym].send(method, chars) if @children.has_key?(first_letter_sym)

@@ -174,7 +174,7 @@ module Rambling
       end
 
       describe '#compressed?' do
-        let(:root) { double('Root') }
+        let(:root) { double 'Root' }
         let(:node) { Node.new '', root }
 
         context 'parent is compressed' do

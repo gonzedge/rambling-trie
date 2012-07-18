@@ -37,7 +37,7 @@ module Rambling
           end
 
           it 'loads every word' do
-            File.open(filename) do |file|
+            File.open filename do |file|
               file.readlines.each { |word| root.is_word?(word.chomp).should be_true }
             end
           end
@@ -86,7 +86,7 @@ module Rambling
 
         context 'with at least one word' do
           it 'keeps the root letter nil' do
-            root.add_branch_from('all')
+            root.add_branch_from 'all'
             root.compress!
 
             root.letter.should be_nil
@@ -95,7 +95,7 @@ module Rambling
 
         context 'with a single word' do
           before :each do
-            root.add_branch_from('all')
+            root.add_branch_from 'all'
             root.compress!
           end
 
@@ -109,8 +109,8 @@ module Rambling
 
         context 'with two words' do
           before :each do
-            root.add_branch_from('all')
-            root.add_branch_from('ask')
+            root.add_branch_from 'all'
+            root.add_branch_from 'ask'
             root.compress!
           end
 
@@ -133,9 +133,9 @@ module Rambling
         end
 
         it 'reassigns the parent nodes correctly' do
-          root.add_branch_from('repay')
-          root.add_branch_from('rest')
-          root.add_branch_from('repaint')
+          root.add_branch_from 'repay'
+          root.add_branch_from 'rest'
+          root.add_branch_from 'repaint'
           root.compress!
 
           root[:re].letter.should == :re
@@ -158,9 +158,9 @@ module Rambling
         end
 
         it 'does not compress terminal nodes' do
-          root.add_branch_from('you')
-          root.add_branch_from('your')
-          root.add_branch_from('yours')
+          root.add_branch_from 'you'
+          root.add_branch_from 'your'
+          root.add_branch_from 'yours'
 
           root.compress!
 
@@ -175,9 +175,9 @@ module Rambling
 
         describe 'and trying to add a branch' do
           it 'raises an error' do
-            root.add_branch_from('repay')
-            root.add_branch_from('rest')
-            root.add_branch_from('repaint')
+            root.add_branch_from 'repay'
+            root.add_branch_from 'rest'
+            root.add_branch_from 'repaint'
             root.compress!
 
             lambda { root.add_branch_from('restaurant') }.should raise_error(InvalidOperation)
@@ -191,8 +191,8 @@ module Rambling
         context 'word is contained' do
           shared_examples_for 'word is found' do
             it 'matches part of the word' do
-              root.should have_branch_for('hell')
-              root.should have_branch_for('hig')
+              root.should have_branch_for 'hell'
+              root.should have_branch_for 'hig'
             end
 
             it 'matches the whole word' do
@@ -220,8 +220,8 @@ module Rambling
         context 'word is not contained' do
           shared_examples_for 'word not found' do
             it 'does not match any part of the word' do
-              root.should_not have_branch_for('ha')
-              root.should_not have_branch_for('hal')
+              root.should_not have_branch_for 'ha'
+              root.should_not have_branch_for 'hal'
             end
 
             it 'does not match the whole word' do
