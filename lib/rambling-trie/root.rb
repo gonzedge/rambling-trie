@@ -8,7 +8,7 @@ module Rambling
         super(nil)
 
         @filename = filename
-        @is_compressed = false
+        @compressed_is = false
         add_all_nodes if filename
       end
 
@@ -17,7 +17,7 @@ module Rambling
       def compress!
         unless compressed?
           compress_own_tree!
-          @is_compressed = true
+          @compressed_is = true
         end
 
         self
@@ -26,26 +26,29 @@ module Rambling
       # Flag for compressed tries. Overrides {Compressor#compressed?}.
       # @return [Boolean] `true` for compressed tries, `false` otherwise.
       def compressed?
-        @is_compressed = @is_compressed.nil? ? false : @is_compressed
+        @compressed_is = @compressed_is.nil? ? false : @compressed_is
       end
 
       # Checks if a path for a word or partial word exists in the trie.
       # @param [String] word the word or partial word to look for in the trie.
       # @return [Boolean] `true` if the word or partial word is found, `false` otherwise.
       def has_branch_for?(word = '')
-        chars = word.chars.to_a
-        compressed? ? has_compressed_branch_for?(chars) : has_uncompressed_branch_for?(chars)
+        fulfills_condition word, :has_branch_for?
       end
 
       # Checks if a whole word exists in the trie.
       # @param [String] word the word to look for in the trie.
       # @return [Boolean] `true` only if the word is found and the last character corresponds to a terminal node.
       def is_word?(word = '')
-        chars = word.chars.to_a
-        compressed? ? is_compressed_word?(chars) : is_uncompressed_word?(chars)
+        fulfills_condition word, :is_word?
       end
 
       private
+      def fulfills_condition(word, method)
+        method = compressed? ? "compressed_#{method}" : "uncompressed_#{method}"
+        send(method, word.chars.to_a)
+      end
+
       def add_all_nodes
         File.open(@filename) do |file|
           while word = file.gets

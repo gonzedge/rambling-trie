@@ -27,11 +27,11 @@ module Rambling
 
       protected
 
-      def has_uncompressed_branch_for?(chars)
-        chars.empty? or fulfills_uncompressed_condition?(:has_uncompressed_branch_for?, chars)
+      def uncompressed_has_branch_for?(chars)
+        chars.empty? or fulfills_uncompressed_condition?(:uncompressed_has_branch_for?, chars)
       end
 
-      def has_compressed_branch_for?(chars)
+      def compressed_has_branch_for?(chars)
         return true if chars.empty?
 
         first_letter = chars.slice!(0)
@@ -46,7 +46,7 @@ module Rambling
 
         unless key.nil?
           sym_key = key.to_sym
-          return @children[sym_key].has_compressed_branch_for?(chars) if key.length == first_letter.length
+          return @children[sym_key].compressed_has_branch_for?(chars) if key.length == first_letter.length
 
           while not chars.empty?
             char = chars.slice!(0)
@@ -55,25 +55,25 @@ module Rambling
 
             first_letter += char
             return true if chars.empty?
-            return @children[sym_key].has_compressed_branch_for?(chars) if key.length == first_letter.length
+            return @children[sym_key].compressed_has_branch_for?(chars) if key.length == first_letter.length
           end
         end
 
         false
       end
 
-      def is_uncompressed_word?(chars)
-        (chars.empty? and terminal?) or fulfills_uncompressed_condition?(:is_uncompressed_word?, chars)
+      def uncompressed_is_word?(chars)
+        (chars.empty? and terminal?) or fulfills_uncompressed_condition?(:uncompressed_is_word?, chars)
       end
 
-      def is_compressed_word?(chars)
+      def compressed_is_word?(chars)
         return true if chars.empty? and terminal?
 
         first_letter = ''
         while not chars.empty?
           first_letter += chars.slice!(0)
           key = first_letter.to_sym
-          return @children[key].is_compressed_word?(chars) if @children.has_key?(key)
+          return @children[key].compressed_is_word?(chars) if @children.has_key?(key)
         end
 
         false
