@@ -18,7 +18,7 @@ module Rambling
         if @children.has_key? first_letter
           word.slice! 0
           child = @children[first_letter]
-          child.add_branch_from word
+          child << word
           child
         else
           @children[first_letter] = Node.new word, self

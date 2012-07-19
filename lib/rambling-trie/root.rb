@@ -50,7 +50,7 @@ module Rambling
       def add_all_nodes
         File.open(@filename) do |file|
           while word = file.gets
-            add_branch_from word.chomp
+            self << word.chomp
           end
         end
       end
