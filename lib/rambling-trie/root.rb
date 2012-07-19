@@ -15,7 +15,7 @@ module Rambling
       # Compresses the existing tree using redundant node elimination. Flags the trie as compressed.
       # @return [Root] same object
       def compress!
-        @compressed = (not compress_own_tree!.nil?) unless compressed?
+        @compressed = (not compress_tree!.nil?) unless compressed?
         self
       end
 
@@ -48,7 +48,7 @@ module Rambling
       end
 
       def add_all_nodes
-        File.open(@filename) do |file|
+        File.open @filename do |file|
           while word = file.gets
             self << word.chomp
           end

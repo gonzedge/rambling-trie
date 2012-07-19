@@ -8,13 +8,13 @@ module Rambling
         @parent.nil? ? false : @parent.compressed?
       end
 
-      def compress_own_tree!
+      def compress_tree!
         if @children.size == 1 and not terminal? and not @letter.nil?
           merge_with! @children.values.first
-          compress_own_tree!
+          compress_tree!
         end
 
-        @children.values.each &:compress_own_tree!
+        @children.values.each &:compress_tree!
 
         self
       end
@@ -40,7 +40,7 @@ module Rambling
       def redefine_self!(new_letter, merged_node)
         @letter = new_letter
         @children = merged_node.children
-        @is_terminal = merged_node.terminal?
+        @terminal = merged_node.terminal?
       end
     end
   end

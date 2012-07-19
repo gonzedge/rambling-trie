@@ -9,7 +9,7 @@ module Rambling
       def add_branch_from(word)
         raise InvalidOperation.new('Cannot add branch to compressed trie') if compressed?
         if word.empty?
-          @is_terminal = true
+          @terminal = true
           return
         end
 
@@ -94,7 +94,7 @@ module Rambling
         first_letter = chars.slice! 0
         unless first_letter.nil?
           first_letter_sym = first_letter.to_sym
-          return @children[first_letter_sym].send(method, chars) if @children.has_key?(first_letter_sym)
+          return @children[first_letter_sym].send(method, chars) if @children.has_key? first_letter_sym
         end
 
         false

@@ -22,30 +22,27 @@ module Rambling
       # @param [String] word the word from which to create this Node and his branch.
       # @param [Node] parent the parent of this node.
       def initialize(word, parent = nil)
-        @letter = nil
-        @parent = parent
-        @is_terminal = false
-        @children = {}
+        @letter, @parent, @terminal, @children = [nil, parent, false, {}]
 
         unless word.nil? or word.empty?
-          letter = word.slice!(0)
+          letter = word.slice! 0
           @letter = letter.to_sym unless letter.nil?
-          @is_terminal = word.empty?
-          add_branch_from(word)
+          @terminal = word.empty?
+          self << word
         end
       end
 
       # Flag for terminal nodes.
       # @return [Boolean] `true` for terminal nodes, `false` otherwise.
       def terminal?
-        @is_terminal
+        @terminal
       end
 
       # String representation of the current node, if it is a terminal node.
       # @return [String] the string representation of the current node.
       # @raise [InvalidOperation] if node is not terminal or is root.
       def as_word
-        raise InvalidOperation.new() unless @letter.nil? or terminal?
+        raise InvalidOperation.new unless @letter.nil? or terminal?
         get_letter_string
       end
 
