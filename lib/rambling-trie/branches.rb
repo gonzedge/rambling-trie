@@ -25,6 +25,8 @@ module Rambling
         end
       end
 
+      alias_method :<<, :add_branch_from
+
       protected
 
       def uncompressed_has_branch_for?(chars)

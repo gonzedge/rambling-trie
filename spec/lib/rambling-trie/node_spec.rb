@@ -197,6 +197,18 @@ module Rambling
           end
         end
       end
+
+      describe '#<<' do
+        let(:root) { Root.new }
+        let(:word) { 'word' }
+
+        it 'delegates to #add_branch_from' do
+          [true, false].each do |value|
+            root.stub(:add_branch_from).with(word).and_return value
+            root << word
+          end
+        end
+      end
     end
   end
 end
