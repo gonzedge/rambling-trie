@@ -37,15 +37,7 @@ module Rambling
         return true if chars.empty?
 
         first_letter = chars.slice! 0
-        current_key_string = current_key = nil
-        @children.keys.each do |key|
-          key_string = key.to_s
-          if key_string.start_with? first_letter
-            current_key = key
-            current_key_string = key_string
-            break
-          end
-        end
+        current_key, current_key_string = current_key first_letter
 
         unless current_key.nil?
           return @children[current_key].compressed_has_branch_for?(chars) if current_key_string.length == first_letter.length
@@ -75,13 +67,28 @@ module Rambling
         while not chars.empty?
           first_letter += chars.slice! 0
           key = first_letter.to_sym
-          return @children[key].compressed_is_word?(chars) if @children.has_key?(key)
+          return @children[key].compressed_is_word?(chars) if @children.has_key? key
         end
 
         false
       end
 
       private
+
+      def current_key(letter)
+        current_key_string = current_key = nil
+
+        @children.keys.each do |key|
+          key_string = key.to_s
+          if key_string.start_with? letter
+            current_key = key
+            current_key_string = key_string
+            break
+          end
+        end
+
+        [current_key, current_key_string]
+      end
 
       def fulfills_uncompressed_condition?(method, chars)
         first_letter = chars.slice! 0
