@@ -244,6 +244,18 @@ module Rambling
           end
         end
       end
+
+      describe '#include?' do
+        let(:root) { Root.new }
+        let(:word) { 'word' }
+
+        it 'delegates to #is_word?' do
+          [true, false].each do |value|
+            root.stub(:is_word?).with(word).and_return value
+            root.include?(word).should &method("be_#{value}".to_sym)
+          end
+        end
+      end
     end
   end
 end

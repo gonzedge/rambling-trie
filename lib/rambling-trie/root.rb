@@ -39,6 +39,8 @@ module Rambling
         fulfills_condition word, :is_word?
       end
 
+      alias_method :include?, :is_word?
+
       private
       def fulfills_condition(word, method)
         method = compressed? ? "compressed_#{method}" : "uncompressed_#{method}"
