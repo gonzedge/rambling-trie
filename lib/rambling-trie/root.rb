@@ -48,11 +48,7 @@ module Rambling
       end
 
       def add_all_nodes
-        File.open @filename do |file|
-          while word = file.gets
-            self << word.chomp
-          end
-        end
+        File.open(@filename).each_line { |line| self << line.chomp }
       end
     end
   end

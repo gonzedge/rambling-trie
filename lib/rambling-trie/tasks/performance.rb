@@ -18,9 +18,17 @@ namespace :performance do
   def generate_report(filename = nil)
     output = filename.nil? ? $stdout : File.open(filename, 'a+')
 
-    trie = Rambling::Trie.create get_path('assets', 'dictionaries', 'words_with_friends.txt')
-
     output.puts "\nReport for rambling-trie version #{Rambling::Trie::VERSION}"
+
+    trie = nil
+    measure = Benchmark.measure { trie = Rambling::Trie.create get_path('assets', 'dictionaries', 'words_with_friends.txt') }
+
+    if ENV['profile_creation']
+      output.puts '==> Creation'
+      output.print 'Rambling::Trie.create'.ljust 30
+      output.puts measure
+    end
+
     report 'Uncompressed', trie, output
 
     return unless trie.respond_to? :compress!
