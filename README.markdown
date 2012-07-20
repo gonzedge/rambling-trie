@@ -28,6 +28,10 @@ gem 'rambling-trie'
 
 ## How to use the Rambling Trie
 
+### Deprecation warning
+
+Starting from version 0.4.0, `Rambling::Trie.new` is deprecated. Please use `Rambling::Trie.create` instead.
+
 To create the trie, initialize it like this:
 
 ``` ruby
