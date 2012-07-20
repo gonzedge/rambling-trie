@@ -44,16 +44,18 @@ You can also provide a file which contains all the words to be added to the trie
 trie = Rambling::Trie.create '/path/to/file'
 ```
 
-To add new words to the trie, use `add_branch_from`:
+To add new words to the trie, use `add_branch_from` or `<<`:
 
 ``` ruby
 trie.add_branch_from 'word'
+trie << 'word'
 ```
 
-And to find out if a word already exists in the trie, use `is_word?`:
+And to find out if a word already exists in the trie, use `is_word?` or `include?`:
 
 ``` ruby
 trie.is_word? 'word'
+trie.include? 'word'
 ```
 
 If you wish to find if part of a word exists in the trie instance, you should call `has_branch_for?`:
