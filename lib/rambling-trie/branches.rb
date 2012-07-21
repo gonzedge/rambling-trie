@@ -2,10 +2,11 @@ module Rambling
   module Trie
     # Provides the branching behavior for the Trie data structure.
     module Branches
-      # Adds a branch to the trie based on the word.
+      # Adds a branch to the current trie node based on the word
       # @param [String] word the word to add the branch from.
       # @return [Node] the just added branch's root node.
       # @raise [InvalidOperation] if the trie is already compressed.
+      # @note This method clears the contents of the word variable.
       def add_branch_from(word)
         raise InvalidOperation.new('Cannot add branch to compressed trie') if compressed?
         if word.empty?
@@ -25,7 +26,14 @@ module Rambling
         end
       end
 
-      alias_method :<<, :add_branch_from
+      # Alias for {#add_branch_from}. Defined instead of simple `alias_method` for overriding purposes.
+      # @param [String] word the word to add the branch from.
+      # @return [Node] the just added branch's root node.
+      # @raise [InvalidOperation] if the trie is already compressed.
+      # @see #add_branch_from
+      def <<(word)
+        add_branch_from word
+      end
 
       protected
 
