@@ -8,7 +8,9 @@
   'version'
 ].map { |file| File.join('rambling-trie', file) }.each &method(:require)
 
+# General namespace for all Rambling gems.
 module Rambling
+  # Entry point for rambling-trie API.
   module Trie
     class << self
       # Creates a new Trie. Entry point for the Rambling::Trie API.

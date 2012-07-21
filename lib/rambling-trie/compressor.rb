@@ -8,6 +8,8 @@ module Rambling
         @parent.nil? ? false : @parent.compressed?
       end
 
+      # Compressed the current node using redundant node elimination.
+      # @return [Root, Node] the compressed node.
       def compress_tree!
         if @children.size == 1 and not terminal? and not @letter.nil?
           merge_with! @children.values.first
