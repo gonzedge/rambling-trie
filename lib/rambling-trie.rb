@@ -13,14 +13,17 @@ module Rambling
     class << self
       # Creates a new Trie. Entry point for the Rambling::Trie API.
       # @param [String, nil] filename the file to load the words from (defaults to nil).
-      def create(*params)
-        Root.new *params
+      def create(filename = nil)
+        Root.new filename
       end
 
-      # @deprecated Please use {#create} instead
-      def new(*params)
+      # Creates a new Trie. Entry point for the Rambling::Trie API.
+      # @param [String, nil] filename the file to load the words from (defaults to nil).
+      # @deprecated Please use {.create} instead.
+      # @see .create
+      def new(filename = nil)
         warn '[DEPRECATION] `new` is deprecated. Please use `create` instead.'
-        create *params
+        create filename
       end
     end
   end
