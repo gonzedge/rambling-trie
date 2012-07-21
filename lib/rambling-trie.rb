@@ -3,6 +3,7 @@
   'children_hash_deferer',
   'compressor',
   'branches',
+  'enumerable',
   'node',
   'root',
   'version'

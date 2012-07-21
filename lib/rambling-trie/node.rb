@@ -5,6 +5,7 @@ module Rambling
       include ChildrenHashDeferer
       include Compressor
       include Branches
+      include Enumerable
 
       # Letter or letters corresponding to this node.
       # @return [Symbol, nil] the corresponding letter(s) or nil.
