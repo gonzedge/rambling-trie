@@ -1,4 +1,5 @@
-# Rambling Trie
+# Rambling Trie [![Build Status](https://secure.travis-ci.org/egonzalez0787/rambling-trie.png)] [![Dependency Status](https://gemnasium.com/egonzalez0787/rambling-trie.png)](https://gemnasium.com/egonzalez0787/rambling-trie)
+[![Code Climate](https://codeclimate.com/badge.png)](https://codeclimate.com/github/egonzalez0787/rambling-trie)
 
 The Rambling Trie is a custom implementation of the Trie data structure with Ruby, which includes compression abilities and is designed to be very fast to traverse.
 
