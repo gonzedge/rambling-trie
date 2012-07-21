@@ -2,9 +2,12 @@ source 'http://rubygems.org'
 
 gemspec
 
-gem 'perftools.rb'
+group :development do
+  gem 'perftools.rb'
+end
 
 group :test do
+  gem 'rake'
   gem 'guard-rspec'
   gem 'simplecov', require: false
 end
