@@ -16,4 +16,8 @@ reports/
 
 # Bundler
 .bundle
-pkg
+pkg/
+
+# Yard
+doc/
+.yardoc/
