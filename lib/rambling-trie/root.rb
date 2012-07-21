@@ -41,6 +41,16 @@ module Rambling
 
       alias_method :include?, :is_word?
 
+      # Adds a branch to the trie based on the word, without changing the passed word.
+      # @param [String] word the word to add the branch from.
+      # @return [Node] the just added branch's root node.
+      # @raise [InvalidOperation] if the trie is already compressed.
+      # @see Branches#add_branch_from
+      # @note Avoids clearing the contents of the word variable.
+      def add_branch_from(word)
+        super word.clone
+      end
+
       private
       def fulfills_condition(word, method)
         method = compressed? ? "compressed_#{method}" : "uncompressed_#{method}"

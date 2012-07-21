@@ -3,10 +3,10 @@ require 'spec_helper'
 module Rambling
   module Trie
     describe Root do
+      let(:root) { Root.new }
+
       describe '.new' do
         context 'without filename' do
-          let(:root) { Root.new }
-
           it 'has no letter' do
             root.letter.should be_nil
           end
@@ -66,8 +66,6 @@ module Rambling
       end
 
       describe '#compress!' do
-        let(:root) { Root.new }
-
         it 'returns itself marked as compressed' do
           compressed_root = root.compress!
 
@@ -186,8 +184,6 @@ module Rambling
       end
 
       describe '#has_branch_for?' do
-        let(:root) { Root.new }
-
         context 'word is contained' do
           shared_examples_for 'word is found' do
             it 'matches part of the word' do
@@ -246,7 +242,6 @@ module Rambling
       end
 
       describe '#include?' do
-        let(:root) { Root.new }
         let(:word) { 'word' }
 
         it 'delegates to #is_word?' do
@@ -254,6 +249,21 @@ module Rambling
             root.stub(:is_word?).with(word).and_return value
             root.include?(word).should &method("be_#{value}".to_sym)
           end
+        end
+      end
+
+      describe '#add_branch_from' do
+        let(:original_word) { 'word' }
+        let(:word) { original_word.clone }
+
+        it 'does not change the original word' do
+          root.add_branch_from word
+          word.should == original_word
+        end
+
+        it 'is still aliased as #<<' do
+          root << word
+          word.should == original_word
         end
       end
     end
