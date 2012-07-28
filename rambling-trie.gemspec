@@ -1,6 +1,6 @@
 # -*- encoding: utf-8 -*-
 $:.push File.expand_path('../lib', __FILE__)
-require 'rambling-trie/version'
+require 'rambling/trie/version'
 
 Gem::Specification.new do |gem|
   gem.authors = ['Rambling Labs']
