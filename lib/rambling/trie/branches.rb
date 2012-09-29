@@ -8,7 +8,7 @@ module Rambling
       # @raise [InvalidOperation] if the trie is already compressed.
       # @note This method clears the contents of the word variable.
       def add_branch(word)
-        raise InvalidOperation.new('Cannot add branch to compressed trie') if compressed?
+        raise InvalidOperation, 'Cannot add branch to compressed trie' if compressed?
         if word.empty?
           @terminal = true
           return

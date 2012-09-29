@@ -43,7 +43,7 @@ module Rambling
       # @return [String] the string representation of the current node.
       # @raise [InvalidOperation] if node is not terminal or is root.
       def as_word
-        raise InvalidOperation.new unless @letter.nil? or terminal?
+        raise InvalidOperation, 'Cannot represent branch as a word' unless @letter.nil? or terminal?
         get_letter_string
       end
 

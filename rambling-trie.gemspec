@@ -8,11 +8,11 @@ Gem::Specification.new do |gem|
   gem.description = 'The Rambling Trie is a custom implementation of the Trie data structure with Ruby, which includes compression abilities and is designed to be very fast to traverse.'
   gem.summary = 'A custom implementation of the trie data structure.'
   gem.homepage = 'http://github.com/ramblinglabs/rambling-trie'
-  gem.date = Time.now.strftime('%Y-%m-%d')
+  gem.date = Time.now.strftime '%Y-%m-%d'
 
-  gem.executables = `git ls-files -- bin/*`.split("\n").map { |f| File.basename(f) }
-  gem.files = `git ls-files`.split("\n")
-  gem.test_files = `git ls-files -- {test,spec,features}/*`.split("\n")
+  gem.executables = `git ls-files -- bin/*`.split("\n").map { |f| File.basename f }
+  gem.files = `git ls-files`.split "\n"
+  gem.test_files = `git ls-files -- {test,spec,features}/*`.split "\n"
   gem.require_paths = ['lib']
 
   gem.name = 'rambling-trie'
