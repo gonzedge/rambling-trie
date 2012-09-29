@@ -20,7 +20,7 @@ module Rambling
           end
 
           it 'is not a word' do
-            root.is_word?.should be_false
+            root.word?.should be_false
           end
         end
 
@@ -38,7 +38,7 @@ module Rambling
 
           it 'loads every word' do
             File.open filename do |file|
-              file.readlines.each { |word| root.is_word?(word.chomp).should be_true }
+              file.readlines.each { |word| root.word?(word.chomp).should be_true }
             end
           end
 
@@ -84,7 +84,7 @@ module Rambling
 
         context 'with at least one word' do
           it 'keeps the root letter nil' do
-            root.add_branch_from 'all'
+            root.add_branch 'all'
             root.compress!
 
             root.letter.should be_nil
@@ -93,7 +93,7 @@ module Rambling
 
         context 'with a single word' do
           before :each do
-            root.add_branch_from 'all'
+            root.add_branch 'all'
             root.compress!
           end
 
@@ -107,8 +107,8 @@ module Rambling
 
         context 'with two words' do
           before :each do
-            root.add_branch_from 'all'
-            root.add_branch_from 'ask'
+            root.add_branch 'all'
+            root.add_branch 'ask'
             root.compress!
           end
 
@@ -131,9 +131,9 @@ module Rambling
         end
 
         it 'reassigns the parent nodes correctly' do
-          root.add_branch_from 'repay'
-          root.add_branch_from 'rest'
-          root.add_branch_from 'repaint'
+          root.add_branch 'repay'
+          root.add_branch 'rest'
+          root.add_branch 'repaint'
           root.compress!
 
           root[:re].letter.should == :re
@@ -156,9 +156,9 @@ module Rambling
         end
 
         it 'does not compress terminal nodes' do
-          root.add_branch_from 'you'
-          root.add_branch_from 'your'
-          root.add_branch_from 'yours'
+          root.add_branch 'you'
+          root.add_branch 'your'
+          root.add_branch 'yours'
 
           root.compress!
 
@@ -173,33 +173,33 @@ module Rambling
 
         describe 'and trying to add a branch' do
           it 'raises an error' do
-            root.add_branch_from 'repay'
-            root.add_branch_from 'rest'
-            root.add_branch_from 'repaint'
+            root.add_branch 'repay'
+            root.add_branch 'rest'
+            root.add_branch 'repaint'
             root.compress!
 
-            lambda { root.add_branch_from('restaurant') }.should raise_error(InvalidOperation)
+            lambda { root.add_branch('restaurant') }.should raise_error(InvalidOperation)
           end
         end
       end
 
-      describe '#has_branch_for?' do
+      describe '#has_branch?' do
         context 'word is contained' do
           shared_examples_for 'word is found' do
             it 'matches part of the word' do
-              root.should have_branch_for 'hell'
-              root.should have_branch_for 'hig'
+              root.should have_branch 'hell'
+              root.should have_branch 'hig'
             end
 
             it 'matches the whole word' do
-              root.is_word?('hello').should be_true
-              root.is_word?('high').should be_true
+              root.word?('hello').should be_true
+              root.word?('high').should be_true
             end
           end
 
           before :each do
-            root.add_branch_from 'hello'
-            root.add_branch_from 'high'
+            root.add_branch 'hello'
+            root.add_branch 'high'
           end
 
           it_behaves_like 'word is found'
@@ -216,17 +216,17 @@ module Rambling
         context 'word is not contained' do
           shared_examples_for 'word not found' do
             it 'does not match any part of the word' do
-              root.should_not have_branch_for 'ha'
-              root.should_not have_branch_for 'hal'
+              root.should_not have_branch 'ha'
+              root.should_not have_branch 'hal'
             end
 
             it 'does not match the whole word' do
-              root.is_word?('halt').should be_false
+              root.word?('halt').should be_false
             end
           end
 
           before :each do
-            root.add_branch_from 'hello'
+            root.add_branch 'hello'
           end
 
           it_behaves_like 'word not found'
@@ -244,20 +244,20 @@ module Rambling
       describe '#include?' do
         let(:word) { 'word' }
 
-        it 'delegates to #is_word?' do
+        it 'delegates to #word?' do
           [true, false].each do |value|
-            root.stub(:is_word?).with(word).and_return value
+            root.stub(:word?).with(word).and_return value
             root.include?(word).should &method("be_#{value}".to_sym)
           end
         end
       end
 
-      describe '#add_branch_from' do
+      describe '#add_branch' do
         let(:original_word) { 'word' }
         let(:word) { original_word.clone }
 
         it 'does not change the original word' do
-          root.add_branch_from word
+          root.add_branch word
           word.should == original_word
         end
 

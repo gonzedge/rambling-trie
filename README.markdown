@@ -29,9 +29,10 @@ gem 'rambling-trie'
 ## How to use the Rambling Trie
 
 - - -
-### Deprecation warning
+### Deprecation warnings
 
-Starting from version 0.4.0, `Rambling::Trie.new` is deprecated. Please use `Rambling::Trie.create` instead.
+* Starting from version 0.4.0, `Rambling::Trie.new` is deprecated. Please use `Rambling::Trie.create` instead.
+* Starting from version 0.5.0, the `has_branch_for?`, `is_word?` and `add_branch_from` methods are marked as deprecated. The methods `has_branch?`, `word?` and `add_branch` should be used respectively.
 - - -
 
 To create the trie, initialize it like this:
@@ -46,24 +47,24 @@ You can also provide a file which contains all the words to be added to the trie
 trie = Rambling::Trie.create '/path/to/file'
 ```
 
-To add new words to the trie, use `add_branch_from` or `<<`:
+To add new words to the trie, use `add_branch` or `<<`:
 
 ``` ruby
-trie.add_branch_from 'word'
+trie.add_branch 'word'
 trie << 'word'
 ```
 
-And to find out if a word already exists in the trie, use `is_word?` or `include?`:
+And to find out if a word already exists in the trie, use `word?` or `include?`:
 
 ``` ruby
-trie.is_word? 'word'
+trie.word? 'word'
 trie.include? 'word'
 ```
 
-If you wish to find if part of a word exists in the trie instance, you should call `has_branch_for?`:
+If you wish to find if part of a word exists in the trie instance, you should call `has_branch?`:
 
 ``` ruby
-trie.has_branch_for? 'partial_word'
+trie.has_branch? 'partial_word'
 ```
 
 ### Compression
@@ -78,7 +79,7 @@ trie.compress!
 
 This will reduce the amount of Trie nodes by eliminating the redundant ones, which are the only-child non-terminal nodes.
 
-Starting from version 0.3.2, the `has_branch_for?` and `is_word?` methods work as expected on a compressed trie.
+Starting from version 0.3.2, the `has_branch_for?` (now `has_branch?`) and `is_word?` (now `word?`) methods work as expected on a compressed trie.
 
 __Note that the `compress!` method acts over the trie instance it belongs to.__
 __Also, adding words after compression is not supported.__

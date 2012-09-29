@@ -3,12 +3,12 @@ require 'spec_helper'
 module Rambling
   module Trie
     describe Branches do
-      describe '#add_branch_from' do
+      describe '#add_branch' do
         context 'new word for existing branch' do
           let(:node) { Node.new 'back' }
 
           before :each do
-            node.add_branch_from 'a'
+            node.add_branch 'a'
           end
 
           it 'does not increment the child count' do
@@ -24,7 +24,7 @@ module Rambling
           let(:node) { Node.new 'back' }
 
           before :each do
-            node.add_branch_from 'ack'
+            node.add_branch 'ack'
           end
 
           it 'does not increment any child count' do
@@ -40,9 +40,9 @@ module Rambling
         let(:root) { Root.new }
         let(:word) { 'word' }
 
-        it 'delegates to #add_branch_from' do
+        it 'delegates to #add_branch' do
           [true, false].each do |value|
-            root.stub(:add_branch_from).with(word).and_return value
+            root.stub(:add_branch).with(word).and_return value
             root << word
           end
         end

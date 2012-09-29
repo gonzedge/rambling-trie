@@ -28,33 +28,54 @@ module Rambling
       # Checks if a path for a word or partial word exists in the trie.
       # @param [String] word the word or partial word to look for in the trie.
       # @return [Boolean] `true` if the word or partial word is found, `false` otherwise.
+      def has_branch?(word = '')
+        fulfills_condition? word, :has_branch?
+      end
+
+      # Checks if a path for a word or partial word exists in the trie.
+      # @param [String] word the word or partial word to look for in the trie.
+      # @return [Boolean] `true` if the word or partial word is found, `false` otherwise.
+      # @deprecated Please use {.has_branch?} instead.
+      # @see .has_branch?
       def has_branch_for?(word = '')
-        fulfills_condition word, :has_branch_for?
+        warn '[DEPRECATION] `has_branch_for?` is deprecated. Please use `has_branch?` instead.'
+        has_branch? word
       end
 
       # Checks if a whole word exists in the trie.
       # @param [String] word the word to look for in the trie.
       # @return [Boolean] `true` only if the word is found and the last character corresponds to a terminal node.
-      def is_word?(word = '')
-        fulfills_condition word, :is_word?
+      def word?(word = '')
+        fulfills_condition? word, :word?
       end
 
-      alias_method :include?, :is_word?
+      # Checks if a whole word exists in the trie.
+      # @param [String] word the word to look for in the trie.
+      # @return [Boolean] `true` only if the word is found and the last character corresponds to a terminal node.
+      # @deprecated Please use {.word?} instead.
+      # @see .word?
+      def is_word?(word = '')
+        warn '[DEPRECATION] `is_word?` is deprecated. Please use `word?` instead.'
+        is_word? word
+      end
+
+      alias_method :include?, :word?
 
       # Adds a branch to the trie based on the word, without changing the passed word.
       # @param [String] word the word to add the branch from.
       # @return [Node] the just added branch's root node.
       # @raise [InvalidOperation] if the trie is already compressed.
-      # @see Branches#add_branch_from
+      # @see Branches#add_branch
       # @note Avoids clearing the contents of the word variable.
-      def add_branch_from(word)
+      def add_branch(word)
         super word.clone
       end
 
       private
-      def fulfills_condition(word, method)
-        method = compressed? ? "compressed_#{method}" : "uncompressed_#{method}"
-        send(method, word.chars.to_a)
+      def fulfills_condition?(word, method)
+        method = method.to_s.slice 0...(method.length - 1)
+        method = compressed? ? "#{method}_when_compressed?" : "#{method}_when_uncompressed?"
+        send method, word.chars.to_a
       end
 
       def add_all_nodes

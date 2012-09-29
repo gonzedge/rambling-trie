@@ -3,7 +3,7 @@ require 'benchmark'
 namespace :performance do
   def report(name, trie, output)
     words = ['hi', 'help', 'beautiful', 'impressionism', 'anthropological']
-    methods = [:is_word?, :has_branch_for?]
+    methods = [:word?, :has_branch?]
 
     output.puts "==> #{name}"
     methods.each do |method|
@@ -66,7 +66,7 @@ namespace :performance do
 
     rambling_trie = Rambling::Trie.create get_path('assets', 'dictionaries', 'words_with_friends.txt')
     words = ['hi', 'help', 'beautiful', 'impressionism', 'anthropological']
-    methods = [:has_branch_for?, :is_word?]
+    methods = [:has_branch?, :word?]
     tries = [lambda {rambling_trie.clone}, lambda {rambling_trie.clone.compress!}]
 
     methods.each do |method|
@@ -95,7 +95,7 @@ namespace :performance do
 
     rambling_trie = Rambling::Trie.create get_path('assets', 'dictionaries', 'words_with_friends.txt')
     words = ['hi', 'help', 'beautiful', 'impressionism', 'anthropological']
-    methods = [:has_branch_for?, :is_word?]
+    methods = [:has_branch?, :word?]
     tries = [lambda {rambling_trie.clone}, lambda {rambling_trie.clone.compress!}]
 
     methods.each do |method|

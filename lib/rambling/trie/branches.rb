@@ -7,7 +7,7 @@ module Rambling
       # @return [Node] the just added branch's root node.
       # @raise [InvalidOperation] if the trie is already compressed.
       # @note This method clears the contents of the word variable.
-      def add_branch_from(word)
+      def add_branch(word)
         raise InvalidOperation.new('Cannot add branch to compressed trie') if compressed?
         if word.empty?
           @terminal = true
@@ -26,29 +26,41 @@ module Rambling
         end
       end
 
-      # Alias for {#add_branch_from}. Defined instead of simple `alias_method` for overriding purposes.
+      # Adds a branch to the current trie node based on the word
       # @param [String] word the word to add the branch from.
       # @return [Node] the just added branch's root node.
       # @raise [InvalidOperation] if the trie is already compressed.
-      # @see #add_branch_from
+      # @note This method clears the contents of the word variable.
+      # @deprecated Please use {.add_branch} instead.
+      # @see .add_branch
+      def add_branch_from(word)
+        warn '[DEPRECATION] `has_branch_for?` is deprecated. Please use `has_branch?` instead.'
+        add_branch word
+      end
+
+      # Alias for {#add_branch}. Defined instead of simple `alias_method` for overriding purposes.
+      # @param [String] word the word to add the branch from.
+      # @return [Node] the just added branch's root node.
+      # @raise [InvalidOperation] if the trie is already compressed.
+      # @see #add_branch
       def <<(word)
-        add_branch_from word
+        add_branch word
       end
 
       protected
 
-      def uncompressed_has_branch_for?(chars)
-        chars.empty? or fulfills_uncompressed_condition?(:uncompressed_has_branch_for?, chars)
+      def has_branch_when_uncompressed?(chars)
+        chars.empty? or fulfills_uncompressed_condition?(:has_branch_when_uncompressed?, chars)
       end
 
-      def compressed_has_branch_for?(chars)
+      def has_branch_when_compressed?(chars)
         return true if chars.empty?
 
         first_letter = chars.slice! 0
         current_key, current_key_string = current_key first_letter
 
         unless current_key.nil?
-          return @children[current_key].compressed_has_branch_for?(chars) if current_key_string.length == first_letter.length
+          return @children[current_key].has_branch_when_compressed?(chars) if current_key_string.length == first_letter.length
 
           while not chars.empty?
             char = chars.slice! 0
@@ -57,25 +69,25 @@ module Rambling
 
             first_letter += char
             return true if chars.empty?
-            return @children[current_key].compressed_has_branch_for?(chars) if current_key_string.length == first_letter.length
+            return @children[current_key].has_branch_when_compressed?(chars) if current_key_string.length == first_letter.length
           end
         end
 
         false
       end
 
-      def uncompressed_is_word?(chars)
-        (chars.empty? and terminal?) or fulfills_uncompressed_condition?(:uncompressed_is_word?, chars)
+      def word_when_uncompressed?(chars)
+        (chars.empty? and terminal?) or fulfills_uncompressed_condition?(:word_when_uncompressed?, chars)
       end
 
-      def compressed_is_word?(chars)
+      def word_when_compressed?(chars)
         return true if chars.empty? and terminal?
 
         first_letter = ''
         while not chars.empty?
           first_letter += chars.slice! 0
           key = first_letter.to_sym
-          return @children[key].compressed_is_word?(chars) if @children.has_key? key
+          return @children[key].word_when_compressed?(chars) if @children.has_key? key
         end
 
         false
