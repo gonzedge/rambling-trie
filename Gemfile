@@ -9,5 +9,6 @@ end
 group :test do
   gem 'rake'
   gem 'guard-rspec'
+  gem 'rb-inotify'
   gem 'simplecov', require: false
 end
