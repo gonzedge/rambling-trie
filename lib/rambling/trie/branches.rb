@@ -67,8 +67,8 @@ module Rambling
 
             break unless current_key_string[first_letter.length] == char
 
-            first_letter += char
             return true if chars.empty?
+            first_letter << char
             return @children[current_key].has_branch_when_compressed?(chars) if current_key_string.length == first_letter.length
           end
         end
@@ -85,7 +85,7 @@ module Rambling
 
         first_letter = ''
         while not chars.empty?
-          first_letter += chars.slice! 0
+          first_letter << chars.slice!(0)
           key = first_letter.to_sym
           return @children[key].word_when_compressed?(chars) if @children.has_key? key
         end

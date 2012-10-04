@@ -49,7 +49,7 @@ module Rambling
 
       protected
       def get_letter_string
-        (@parent.nil? ? '' : @parent.get_letter_string) + @letter.to_s
+        (@parent.nil? ? '' : @parent.get_letter_string) << @letter.to_s
       end
     end
   end

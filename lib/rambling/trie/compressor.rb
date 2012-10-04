@@ -24,7 +24,7 @@ module Rambling
       private
 
       def merge_with!(child)
-        new_letter = (@letter.to_s + child.letter.to_s).to_sym
+        new_letter = (@letter.to_s << child.letter.to_s).to_sym
 
         rehash_on_parent! @letter, new_letter
         redefine_self! new_letter, child
