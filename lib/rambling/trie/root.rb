@@ -56,7 +56,7 @@ module Rambling
       # @see .word?
       def is_word?(word = '')
         warn '[DEPRECATION] `is_word?` is deprecated. Please use `word?` instead.'
-        is_word? word
+        word? word
       end
 
       alias_method :include?, :word?
