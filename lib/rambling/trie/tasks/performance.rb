@@ -21,7 +21,7 @@ namespace :performance do
     output.puts "\nReport for rambling-trie version #{Rambling::Trie::VERSION}"
 
     trie = nil
-    measure = Benchmark.measure { trie = Rambling::Trie.create get_path('assets', 'dictionaries', 'words_with_friends.txt') }
+    measure = Benchmark.measure { trie = Rambling::Trie.create path('assets', 'dictionaries', 'words_with_friends.txt') }
 
     if ENV['profile_creation']
       output.puts '==> Creation'
@@ -39,8 +39,8 @@ namespace :performance do
     output.close
   end
 
-  def get_path(*filename)
-    File.join File.dirname(__FILE__), '..', '..', '..', *filename
+  def path(*filename)
+    File.join File.dirname(__FILE__), '..', '..', '..', '..', *filename
   end
 
   desc 'Generate performance report'
@@ -53,7 +53,7 @@ namespace :performance do
     desc 'Generate performance report and append result to reports/performance'
     task :save do
       puts 'Generating performance report...'
-      generate_report get_path('reports', 'performance')
+      generate_report path('reports', 'performance')
       puts 'Report has been saved to reports/performance'
     end
   end
@@ -64,7 +64,7 @@ namespace :performance do
 
     puts 'Generating profiling reports...'
 
-    rambling_trie = Rambling::Trie.create get_path('assets', 'dictionaries', 'words_with_friends.txt')
+    rambling_trie = Rambling::Trie.create path('assets', 'dictionaries', 'words_with_friends.txt')
     words = ['hi', 'help', 'beautiful', 'impressionism', 'anthropological']
     methods = [:has_branch?, :word?]
     tries = [lambda {rambling_trie.clone}, lambda {rambling_trie.clone.compress!}]
@@ -78,7 +78,7 @@ namespace :performance do
           end
         end
 
-        File.open get_path('reports', "profile-#{trie.compressed? ? 'compressed' : 'uncompressed'}-#{method.to_s.sub(/\?/, '')}-#{Time.now.to_i}"), 'w' do |file|
+        File.open path('reports', "profile-#{trie.compressed? ? 'compressed' : 'uncompressed'}-#{method.to_s.sub(/\?/, '')}-#{Time.now.to_i}"), 'w' do |file|
           RubyProf::CallTreePrinter.new(result).print file
         end
       end
@@ -93,7 +93,7 @@ namespace :performance do
 
     puts 'Generating cpu profiling reports...'
 
-    rambling_trie = Rambling::Trie.create get_path('assets', 'dictionaries', 'words_with_friends.txt')
+    rambling_trie = Rambling::Trie.create path('assets', 'dictionaries', 'words_with_friends.txt')
     words = ['hi', 'help', 'beautiful', 'impressionism', 'anthropological']
     methods = [:has_branch?, :word?]
     tries = [lambda {rambling_trie.clone}, lambda {rambling_trie.clone.compress!}]
@@ -101,7 +101,7 @@ namespace :performance do
     methods.each do |method|
       tries.each do |trie_generator|
         trie = trie_generator.call
-        result = PerfTools::CpuProfiler.start get_path('reports', "cpu_profile-#{trie.compressed? ? 'compressed' : 'uncompressed'}-#{method.to_s.sub(/\?/, '')}-#{Time.now.to_i}") do
+        result = PerfTools::CpuProfiler.start path('reports', "cpu_profile-#{trie.compressed? ? 'compressed' : 'uncompressed'}-#{method.to_s.sub(/\?/, '')}-#{Time.now.to_i}") do
           words.each do |word|
             200_000.times { trie.send method, word }
           end
