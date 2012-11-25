@@ -19,9 +19,9 @@ Gem::Specification.new do |gem|
   gem.version = Rambling::Trie::VERSION
   gem.platform = Gem::Platform::RUBY
 
-  gem.add_development_dependency 'rspec', '>=2.0.0'
-  gem.add_development_dependency 'rake', '>=0.9.2'
-  gem.add_development_dependency 'ruby-prof', '>=0.10.8'
-  gem.add_development_dependency 'yard', '>=0.7.5'
-  gem.add_development_dependency 'redcarpet', '>=2.1.0'
+  gem.add_development_dependency 'rspec', '>=2.12.0'
+  gem.add_development_dependency 'rake', '>=10.0.0.1'
+  gem.add_development_dependency 'ruby-prof', '>=0.11.2'
+  gem.add_development_dependency 'yard', '>=0.8.3'
+  gem.add_development_dependency 'redcarpet', '>=2.2.2'
 end
