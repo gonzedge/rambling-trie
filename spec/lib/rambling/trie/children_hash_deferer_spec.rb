@@ -20,7 +20,7 @@ module Rambling
 
         it 'defers to the children hash' do
           deferer.children.should_receive(:[]).with(key).and_return value
-          deferer[key].should == value
+          expect(deferer[key]).to eq value
         end
       end
 
@@ -40,7 +40,7 @@ module Rambling
 
         it 'defers to the children hash' do
           deferer.children.should_receive(:delete).with(key).and_return value
-          deferer.delete(key).should == value
+          expect(deferer.delete key).to eq value
         end
       end
 
@@ -50,7 +50,7 @@ module Rambling
         it 'defers to the children hash' do
           [true, false].each do |value|
             deferer.children.should_receive(:has_key?).with(key).and_return value
-            deferer.has_key?(key).should send("be_#{value}")
+            expect(deferer.has_key? key).to eq value
           end
         end
       end

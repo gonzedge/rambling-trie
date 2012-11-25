@@ -7,31 +7,31 @@ module Rambling
         context 'new word for existing branch' do
           let(:node) { Node.new 'back' }
 
-          before :each do
+          before do
             node.add_branch 'a'
           end
 
           it 'does not increment the child count' do
-            node.should have(1).children
+            expect(node).to have(1).children
           end
 
           it 'marks it as terminal' do
-            node[:a].should be_terminal
+            expect(node[:a]).to be_terminal
           end
         end
 
         context 'old word for existing branch' do
           let(:node) { Node.new 'back' }
 
-          before :each do
+          before do
             node.add_branch 'ack'
           end
 
           it 'does not increment any child count' do
-            node.should have(1).children
-            node[:a].should have(1).children
-            node[:a][:c].should have(1).children
-            node[:a][:c][:k].should have(0).children
+            expect(node).to have(1).children
+            expect(node[:a]).to have(1).children
+            expect(node[:a][:c]).to have(1).children
+            expect(node[:a][:c][:k]).to have(0).children
           end
         end
       end
@@ -41,7 +41,7 @@ module Rambling
         let(:node) { double('node') }
         let(:word) { 'word' }
 
-        before :each do
+        before do
           root.stub(:warn)
           root.stub(:add_branch)
         end
@@ -53,7 +53,7 @@ module Rambling
 
         it 'delegates to #add_branch' do
           root.should_receive(:add_branch).with(word).and_return node
-          root.add_branch_from(word).should == node
+          expect(root.add_branch_from word).to eq node
         end
       end
 
@@ -64,7 +64,7 @@ module Rambling
         it 'delegates to #add_branch' do
           [true, false].each do |value|
             root.should_receive(:add_branch).with(word).and_return value
-            (root << word).should == value
+            expect(root << word).to eq value
           end
         end
       end

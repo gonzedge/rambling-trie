@@ -6,31 +6,31 @@ module Rambling
       let(:root) { Root.new }
       let(:words) { %w(add some words and another word) }
 
-      before :each do
+      before do
         words.each { |word| root << word.clone }
       end
 
       describe '#each' do
         it 'returns an enumerator' do
-          root.each.should be_a(Enumerator)
+          expect(root.each).to be_a Enumerator
         end
 
         it 'includes every word contained in the trie' do
-          root.each { |word| words.should include(word) }
-          root.count.should == words.count
+          root.each { |word| expect(words).to include word }
+          expect(root.count).to eq words.count
         end
       end
 
       describe '#size' do
         it 'delegates to #count' do
-          root.size.should == words.size
+          expect(root.size).to eq words.size
         end
       end
 
       it 'includes the core Enumerable module' do
-        root.all? { |word| words.include? word }.should be_true
-        root.any? { |word| word.start_with? 's' }.should be_true
-        root.to_a.should =~ words
+        expect(root.all? { |word| words.include? word }).to be_true
+        expect(root.any? { |word| word.start_with? 's' }).to be_true
+        expect(root.to_a).to match_array words
       end
     end
   end

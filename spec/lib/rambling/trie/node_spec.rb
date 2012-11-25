@@ -8,23 +8,23 @@ module Rambling
           let(:node) { Node.new '' }
 
           it 'does not have any letter' do
-            node.letter.should be_nil
+            expect(node.letter).to be_nil
           end
 
           it 'includes no children' do
-            node.should have(0).children
+            expect(node).to have(0).children
           end
 
           it 'is not a terminal node' do
-            node.should_not be_terminal
+            expect(node).to_not be_terminal
           end
 
           it 'returns empty string as its word' do
-            node.as_word.should be_empty
+            expect(node.as_word).to be_empty
           end
 
           it 'is not compressed' do
-            node.should_not be_compressed
+            expect(node).to_not be_compressed
           end
         end
 
@@ -32,15 +32,15 @@ module Rambling
           let(:node) { Node.new 'a' }
 
           it 'makes it the node letter' do
-            node.letter.should == :a
+            expect(node.letter).to eq :a
           end
 
           it 'includes no children' do
-            node.should have(0).children
+            expect(node).to have(0).children
           end
 
           it 'is a terminal node' do
-            node.should be_terminal
+            expect(node).to be_terminal
           end
         end
 
@@ -48,31 +48,31 @@ module Rambling
           let(:node) { Node.new 'ba' }
 
           it 'takes the first as the node letter' do
-            node.letter.should == :b
+            expect(node.letter).to eq :b
           end
 
           it 'includes one child' do
-            node.should have(1).children
+            expect(node).to have(1).children
           end
 
           it 'includes a child with the expected letter' do
-            node.children.values.first.letter.should == :a
+            expect(node.children.values.first.letter).to eq :a
           end
 
           it 'has the expected letter as a key' do
-            node.has_key?(:a).should be_true
+            expect(node).to have_key(:a)
           end
 
           it 'returns the child corresponding to the key' do
-            node[:a].should == node.children[:a]
+            expect(node[:a]).to eq node.children[:a]
           end
 
           it 'does not mark itself as a terminal node' do
-            node.should_not be_terminal
+            expect(node).to_not be_terminal
           end
 
           it 'marks the first child as a terminal node' do
-            node[:a].should be_terminal
+            expect(node[:a]).to be_terminal
           end
         end
 
@@ -80,17 +80,17 @@ module Rambling
           let(:node) { Node.new 'spaghetti' }
 
           it 'marks the last letter as terminal node' do
-            node[:p][:a][:g][:h][:e][:t][:t][:i].should be_terminal
+            expect(node[:p][:a][:g][:h][:e][:t][:t][:i]).to be_terminal
           end
 
           it 'does not mark any other letter as terminal node' do
-            node[:p][:a][:g][:h][:e][:t][:t].should_not be_terminal
-            node[:p][:a][:g][:h][:e][:t].should_not be_terminal
-            node[:p][:a][:g][:h][:e].should_not be_terminal
-            node[:p][:a][:g][:h].should_not be_terminal
-            node[:p][:a][:g].should_not be_terminal
-            node[:p][:a].should_not be_terminal
-            node[:p].should_not be_terminal
+            expect(node[:p][:a][:g][:h][:e][:t][:t]).to_not be_terminal
+            expect(node[:p][:a][:g][:h][:e][:t]).to_not be_terminal
+            expect(node[:p][:a][:g][:h][:e]).to_not be_terminal
+            expect(node[:p][:a][:g][:h]).to_not be_terminal
+            expect(node[:p][:a][:g]).to_not be_terminal
+            expect(node[:p][:a]).to_not be_terminal
+            expect(node[:p]).to_not be_terminal
           end
         end
       end
@@ -100,7 +100,7 @@ module Rambling
           let(:node) { Node.new '' }
 
           it 'returns nil' do
-            node.as_word.should be_empty
+            expect(node.as_word).to be_empty
           end
         end
 
@@ -108,7 +108,7 @@ module Rambling
           let(:node) { Node.new 'a' }
 
           it 'returns the expected one letter word' do
-            node.as_word.should == 'a'
+            expect(node.as_word).to eq 'a'
           end
         end
 
@@ -116,11 +116,11 @@ module Rambling
           let(:node) { Node.new 'all' }
 
           it 'returns the expected small word' do
-            node[:l][:l].as_word.should == 'all'
+            expect(node[:l][:l].as_word).to eq 'all'
           end
 
           it 'raises an error for a non terminal node' do
-            lambda { node[:l].as_word }.should raise_error(InvalidOperation)
+            expect { node[:l].as_word }.to raise_error InvalidOperation
           end
         end
 
@@ -128,14 +128,14 @@ module Rambling
           let(:node) { Node.new 'beautiful' }
 
           it 'returns the expected long word' do
-            node[:e][:a][:u][:t][:i][:f][:u][:l].as_word.should == 'beautiful'
+            expect(node[:e][:a][:u][:t][:i][:f][:u][:l].as_word).to eq 'beautiful'
           end
         end
 
         context 'for a node with nil letter' do
           let(:node) { Node.new nil }
           it 'returns nil' do
-            node.as_word.should be_empty
+            expect(node.as_word).to be_empty
           end
         end
       end
@@ -145,22 +145,22 @@ module Rambling
         let(:node) { Node.new '', root }
 
         context 'parent is compressed' do
-          before :each do
+          before do
             root.stub(:compressed?).and_return true
           end
 
           it 'returns true' do
-            node.should be_compressed
+            expect(node).to be_compressed
           end
         end
 
         context 'parent is not compressed' do
-          before :each do
+          before do
             root.stub(:compressed?).and_return false
           end
 
           it 'returns false' do
-            node.compressed?.should be_false
+            expect(node).to_not be_compressed
           end
         end
       end

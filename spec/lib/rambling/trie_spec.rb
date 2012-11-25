@@ -5,12 +5,12 @@ module Rambling
     describe '.create' do
       let(:root) { double 'Trie::Root' }
 
-      before :each do
+      before do
         Trie::Root.stub(:new).and_return root
       end
 
       it 'returns a new instance of the trie root node' do
-        Trie.create.should == root
+        expect(Trie.create).to eq root
       end
     end
   end

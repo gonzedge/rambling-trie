@@ -8,19 +8,19 @@ module Rambling
       describe '.new' do
         context 'without filename' do
           it 'has no letter' do
-            root.letter.should be_nil
+            expect(root.letter).to be_nil
           end
 
           it 'is not a terminal node' do
-            root.should_not be_terminal
+            expect(root).to_not be_terminal
           end
 
           it 'has no children' do
-            root.should have(0).children
+            expect(root).to have(0).children
           end
 
           it 'is not a word' do
-            root.word?.should be_false
+            expect(root.word?).to be_false
           end
         end
 
@@ -31,35 +31,35 @@ module Rambling
           it 'has the expected root children' do
             File.open(filename) do |file|
               expected_hash = Hash[file.readlines.map { |x| [x.slice(0).to_sym, nil] }]
-              root.should have(expected_hash.length).children
-              root.children.map { |k, v| k }.should =~ expected_hash.map { |k, v| k }
+              expect(root).to have(expected_hash.length).children
+              expect(root.children.keys).to match_array expected_hash.keys
             end
           end
 
           it 'loads every word' do
             File.open filename do |file|
-              file.readlines.each { |word| root.word?(word.chomp).should be_true }
+              file.readlines.each { |word| expect(root).to include word.chomp }
             end
           end
 
           context 'and compressed' do
-            before :each do
+            before do
               root.compress!
             end
 
             it 'is marked as compressed' do
-              root.should be_compressed
+              expect(root).to be_compressed
             end
 
             it 'compresses the root nodes' do
-              root[:t].letter.should == :t
-              root[:t].children.size.should == 2
+              expect(root[:t].letter).to eq :t
+              expect(root[:t].children.size).to eq 2
 
-              root[:t][:ru].letter.should == :ru
-              root[:t][:ru].children.size.should == 2
+              expect(root[:t][:ru].letter).to eq :ru
+              expect(root[:t][:ru].children.size).to eq 2
 
-              root[:t][:ru][:e].should be_terminal
-              root[:t][:ru][:e].should be_compressed
+              expect(root[:t][:ru][:e]).to be_terminal
+              expect(root[:t][:ru][:e]).to be_compressed
             end
           end
         end
@@ -69,16 +69,16 @@ module Rambling
         it 'returns itself marked as compressed' do
           compressed_root = root.compress!
 
-          compressed_root.should == root
-          compressed_root.should be_compressed
+          expect(compressed_root).to eq root
+          expect(compressed_root).to be_compressed
         end
 
         context 'after calling #compress! once' do
           it 'keeps returning itself' do
             compressed_root = root.compress!.compress!
 
-            compressed_root.should == root
-            compressed_root.should be_compressed
+            expect(compressed_root).to eq root
+            expect(compressed_root).to be_compressed
           end
         end
 
@@ -87,46 +87,46 @@ module Rambling
             root.add_branch 'all'
             root.compress!
 
-            root.letter.should be_nil
+            expect(root.letter).to be_nil
           end
         end
 
         context 'with a single word' do
-          before :each do
+          before do
             root.add_branch 'all'
             root.compress!
           end
 
           it 'compresses into a single node without children' do
-            root[:all].letter.should == :all
-            root[:all].should have(0).children
-            root[:all].should be_terminal
-            root[:all].should be_compressed
+            expect(root[:all].letter).to eq :all
+            expect(root[:all]).to have(0).children
+            expect(root[:all]).to be_terminal
+            expect(root[:all]).to be_compressed
           end
         end
 
         context 'with two words' do
-          before :each do
+          before do
             root.add_branch 'all'
             root.add_branch 'ask'
             root.compress!
           end
 
           it 'compresses into corresponding three nodes' do
-            root[:a].letter.should == :a
-            root[:a].children.size.should == 2
+            expect(root[:a].letter).to eq :a
+            expect(root[:a].children.size).to eq 2
 
-            root[:a][:ll].letter.should == :ll
-            root[:a][:sk].letter.should == :sk
+            expect(root[:a][:ll].letter).to eq :ll
+            expect(root[:a][:sk].letter).to eq :sk
 
-            root[:a][:ll].should have(0).children
-            root[:a][:sk].should have(0).children
+            expect(root[:a][:ll]).to have(0).children
+            expect(root[:a][:sk]).to have(0).children
 
-            root[:a][:ll].should be_terminal
-            root[:a][:sk].should be_terminal
+            expect(root[:a][:ll]).to be_terminal
+            expect(root[:a][:sk]).to be_terminal
 
-            root[:a][:ll].should be_compressed
-            root[:a][:sk].should be_compressed
+            expect(root[:a][:ll]).to be_compressed
+            expect(root[:a][:sk]).to be_compressed
           end
         end
 
@@ -136,23 +136,23 @@ module Rambling
           root.add_branch 'repaint'
           root.compress!
 
-          root[:re].letter.should == :re
-          root[:re].children.size.should == 2
+          expect(root[:re].letter).to eq :re
+          expect(root[:re].children.size).to eq 2
 
-          root[:re][:pa].letter.should == :pa
-          root[:re][:st].letter.should == :st
+          expect(root[:re][:pa].letter).to eq :pa
+          expect(root[:re][:st].letter).to eq :st
 
-          root[:re][:pa].children.size.should == 2
-          root[:re][:st].should have(0).children
+          expect(root[:re][:pa].children.size).to eq 2
+          expect(root[:re][:st]).to have(0).children
 
-          root[:re][:pa][:y].letter.should == :y
-          root[:re][:pa][:int].letter.should == :int
+          expect(root[:re][:pa][:y].letter).to eq :y
+          expect(root[:re][:pa][:int].letter).to eq :int
 
-          root[:re][:pa][:y].should have(0).children
-          root[:re][:pa][:int].should have(0).children
+          expect(root[:re][:pa][:y]).to have(0).children
+          expect(root[:re][:pa][:int]).to have(0).children
 
-          root[:re][:pa][:y].parent.should == root[:re][:pa]
-          root[:re][:pa][:int].parent.should == root[:re][:pa]
+          expect(root[:re][:pa][:y].parent).to eq root[:re][:pa]
+          expect(root[:re][:pa][:int].parent).to eq root[:re][:pa]
         end
 
         it 'does not compress terminal nodes' do
@@ -162,13 +162,13 @@ module Rambling
 
           root.compress!
 
-          root[:you].letter.should == :you
+          expect(root[:you].letter).to eq :you
 
-          root[:you][:r].letter.should == :r
-          root[:you][:r].should be_compressed
+          expect(root[:you][:r].letter).to eq :r
+          expect(root[:you][:r]).to be_compressed
 
-          root[:you][:r][:s].letter.should == :s
-          root[:you][:r][:s].should be_compressed
+          expect(root[:you][:r][:s].letter).to eq :s
+          expect(root[:you][:r][:s]).to be_compressed
         end
 
         describe 'and trying to add a branch' do
@@ -178,65 +178,108 @@ module Rambling
             root.add_branch 'repaint'
             root.compress!
 
-            lambda { root.add_branch('restaurant') }.should raise_error(InvalidOperation)
+            expect { root.add_branch('restaurant') }.to raise_error InvalidOperation
+          end
+        end
+      end
+
+      describe '#word?' do
+        context 'word is contained' do
+          before do
+            root.add_branch 'hello'
+            root.add_branch 'high'
+          end
+
+          it 'matches the whole word' do
+            expect(root.word? 'hello').to be_true
+            expect(root.word? 'high').to be_true
+          end
+
+          it 'is aliased as #include?' do
+            expect(root).to include 'hello'
+            expect(root).to include 'high'
+          end
+
+          context 'and the root has been compressed' do
+            before do
+              root.compress!
+            end
+
+            it 'matches the whole word' do
+              expect(root.word? 'hello').to be_true
+              expect(root.word? 'high').to be_true
+            end
+          end
+        end
+
+        context 'word is not contained' do
+          before do
+            root.add_branch 'hello'
+          end
+
+          it 'does not match the whole word' do
+            expect(root.word? 'halt').to be_false
+          end
+
+          it 'is aliased as #include?' do
+            expect(root).to_not include 'high'
+          end
+
+          context 'and the root has been compressed' do
+            before do
+              root.compress!
+            end
+
+            it 'does not match the whole word' do
+              expect(root.word? 'halt').to be_false
+            end
           end
         end
       end
 
       describe '#has_branch?' do
         context 'word is contained' do
-          shared_examples_for 'word is found' do
-            it 'matches part of the word' do
-              root.should have_branch 'hell'
-              root.should have_branch 'hig'
-            end
-
-            it 'matches the whole word' do
-              root.word?('hello').should be_true
-              root.word?('high').should be_true
-            end
-          end
-
-          before :each do
+          before do
             root.add_branch 'hello'
             root.add_branch 'high'
           end
 
-          it_behaves_like 'word is found'
+          it 'matches part of the word' do
+            expect(root).to have_branch 'hell'
+            expect(root).to have_branch 'hig'
+          end
 
-          context 'and the root been compressed' do
-            before :each do
+          context 'and the root has been compressed' do
+            before do
               root.compress!
             end
 
-            it_behaves_like 'word is found'
+            it 'matches part of the word' do
+              expect(root).to have_branch 'hell'
+              expect(root).to have_branch 'hig'
+            end
           end
         end
 
         context 'word is not contained' do
-          shared_examples_for 'word not found' do
-            it 'does not match any part of the word' do
-              root.should_not have_branch 'ha'
-              root.should_not have_branch 'hal'
-            end
-
-            it 'does not match the whole word' do
-              root.word?('halt').should be_false
-            end
-          end
-
-          before :each do
+          before do
             root.add_branch 'hello'
           end
 
-          it_behaves_like 'word not found'
+          it 'does not match any part of the word' do
+            expect(root).to_not have_branch 'ha'
+            expect(root).to_not have_branch 'hal'
+          end
 
           context 'and the root has been compressed' do
-            before :each do
+            before do
               root.compress!
             end
 
-            it_behaves_like 'word not found'
+            it 'does not match any part of the word' do
+              expect(root).to_not have_branch 'ha'
+              expect(root).to_not have_branch 'hal'
+            end
           end
         end
       end
@@ -245,7 +288,7 @@ module Rambling
         let(:root) { Root.new }
         let(:word) { 'word' }
 
-        before :each do
+        before do
           root.stub(:warn)
           root.stub(:has_branch?)
         end
@@ -258,7 +301,7 @@ module Rambling
         it 'delegates to #has_branch?' do
           [true, false].each do |value|
             root.should_receive(:has_branch?).and_return value
-            root.has_branch_for?(word).should == value
+            expect(root.has_branch_for? word).to eq value
           end
         end
       end
@@ -267,7 +310,7 @@ module Rambling
         let(:root) { Root.new }
         let(:word) { 'word' }
 
-        before :each do
+        before do
           root.stub(:warn)
           root.stub(:word?)
         end
@@ -279,19 +322,8 @@ module Rambling
 
         it 'delegates to #word?' do
           [true, false].each do |value|
-            root.should_receive(:word?).and_return value
-            root.is_word?(word).should == value
-          end
-        end
-      end
-
-      describe '#include?' do
-        let(:word) { 'word' }
-
-        it 'delegates to #word?' do
-          [true, false].each do |value|
-            root.stub(:word?).with(word).and_return value
-            root.include?(word).should &method("be_#{value}".to_sym)
+            root.stub(:word?).and_return value
+            expect(root.is_word? word).to eq value
           end
         end
       end
@@ -302,12 +334,12 @@ module Rambling
 
         it 'does not change the original word' do
           root.add_branch word
-          word.should == original_word
+          expect(word).to eq original_word
         end
 
         it 'is still aliased as #<<' do
           root << word
-          word.should == original_word
+          expect(word).to eq original_word
         end
       end
     end
