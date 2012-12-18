@@ -26,26 +26,7 @@ module Rambling
         end
       end
 
-      # Adds a branch to the current trie node based on the word
-      # @param [String] word the word to add the branch from.
-      # @return [Node] the just added branch's root node.
-      # @raise [InvalidOperation] if the trie is already compressed.
-      # @note This method clears the contents of the word variable.
-      # @deprecated Please use {.add_branch} instead.
-      # @see .add_branch
-      def add_branch_from(word)
-        warn '[DEPRECATION] `has_branch_for?` is deprecated. Please use `has_branch?` instead.'
-        add_branch word
-      end
-
-      # Alias for {#add_branch}. Defined instead of simple `alias_method` for overriding purposes.
-      # @param [String] word the word to add the branch from.
-      # @return [Node] the just added branch's root node.
-      # @raise [InvalidOperation] if the trie is already compressed.
-      # @see #add_branch
-      def <<(word)
-        add_branch word
-      end
+      alias_method :<<, :add_branch
 
       protected
 

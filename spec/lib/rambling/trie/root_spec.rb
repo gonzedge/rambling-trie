@@ -263,50 +263,6 @@ module Rambling
         end
       end
 
-      describe '#has_branch_for?' do
-        let(:root) { Root.new }
-        let(:word) { 'word' }
-
-        before do
-          root.stub(:warn)
-          root.stub(:has_branch?)
-        end
-
-        it 'warns about deprecation' do
-          root.should_receive(:warn)
-          root.has_branch_for? word
-        end
-
-        it 'delegates to #has_branch?' do
-          [true, false].each do |value|
-            root.should_receive(:has_branch?).and_return value
-            expect(root.has_branch_for? word).to eq value
-          end
-        end
-      end
-
-      describe '#is_word?' do
-        let(:root) { Root.new }
-        let(:word) { 'word' }
-
-        before do
-          root.stub(:warn)
-          root.stub(:word?)
-        end
-
-        it 'warns about deprecation' do
-          root.should_receive(:warn)
-          root.is_word? word
-        end
-
-        it 'delegates to #word?' do
-          [true, false].each do |value|
-            root.stub(:word?).and_return value
-            expect(root.is_word? word).to eq value
-          end
-        end
-      end
-
       describe '#add_branch' do
         let(:original_word) { 'word' }
         let(:word) { original_word.clone }

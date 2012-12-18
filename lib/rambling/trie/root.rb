@@ -30,31 +30,11 @@ module Rambling
         fulfills_condition? word, :has_branch?
       end
 
-      # Checks if a path for a word or partial word exists in the trie.
-      # @param [String] word the word or partial word to look for in the trie.
-      # @return [Boolean] `true` if the word or partial word is found, `false` otherwise.
-      # @deprecated Please use {.has_branch?} instead.
-      # @see .has_branch?
-      def has_branch_for?(word = '')
-        warn '[DEPRECATION] `has_branch_for?` is deprecated. Please use `has_branch?` instead.'
-        has_branch? word
-      end
-
       # Checks if a whole word exists in the trie.
       # @param [String] word the word to look for in the trie.
       # @return [Boolean] `true` only if the word is found and the last character corresponds to a terminal node.
       def word?(word = '')
         fulfills_condition? word, :word?
-      end
-
-      # Checks if a whole word exists in the trie.
-      # @param [String] word the word to look for in the trie.
-      # @return [Boolean] `true` only if the word is found and the last character corresponds to a terminal node.
-      # @deprecated Please use {.word?} instead.
-      # @see .word?
-      def is_word?(word = '')
-        warn '[DEPRECATION] `is_word?` is deprecated. Please use `word?` instead.'
-        word? word
       end
 
       alias_method :include?, :word?
@@ -69,7 +49,10 @@ module Rambling
         super word.clone
       end
 
+      alias_method :<<, :add_branch
+
       private
+
       def fulfills_condition?(word, method)
         method = method.to_s.slice 0...(method.length - 1)
         method = compressed? ? "#{method}_when_compressed?" : "#{method}_when_uncompressed?"

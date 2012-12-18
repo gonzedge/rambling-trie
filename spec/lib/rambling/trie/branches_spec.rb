@@ -18,6 +18,10 @@ module Rambling
           it 'marks it as terminal' do
             expect(node[:a]).to be_terminal
           end
+
+          it 'returns the added node' do
+            expect(node.add_branch('a').letter).to eq :a
+          end
         end
 
         context 'old word for existing branch' do
@@ -36,36 +40,12 @@ module Rambling
         end
       end
 
-      describe '#add_branch_from' do
-        let(:root) { Root.new }
-        let(:node) { double('node') }
-        let(:word) { 'word' }
-
-        before do
-          root.stub(:warn)
-          root.stub(:add_branch)
-        end
-
-        it 'warns about deprecation' do
-          root.should_receive(:warn)
-          root.add_branch_from word
-        end
-
-        it 'delegates to #add_branch' do
-          root.should_receive(:add_branch).with(word).and_return node
-          expect(root.add_branch_from word).to eq node
-        end
-      end
-
       describe '#<<' do
-        let(:root) { Root.new }
+        let(:node) { Node.new }
         let(:word) { 'word' }
 
         it 'delegates to #add_branch' do
-          [true, false].each do |value|
-            root.should_receive(:add_branch).with(word).and_return value
-            expect(root << word).to eq value
-          end
+          expect((node << 'a').letter).to eq :a
         end
       end
     end
