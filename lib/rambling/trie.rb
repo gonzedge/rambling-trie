@@ -1,6 +1,6 @@
 %w{
   invalid_operation children_hash_deferer compressor
-  branches enumerable node root version
+  branches enumerable inspector node root version
 }.map { |file| File.join 'rambling', 'trie', file }.each &method(:require)
 
 # General namespace for all Rambling gems.

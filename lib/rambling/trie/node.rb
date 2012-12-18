@@ -6,6 +6,7 @@ module Rambling
       include Compressor
       include Branches
       include Enumerable
+      include Inspector
 
       # Letter or letters corresponding to this node.
       # @return [Symbol, nil] the corresponding letter(s) or nil.
