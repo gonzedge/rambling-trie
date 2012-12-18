@@ -41,16 +41,24 @@ To create the trie, initialize it like this:
 trie = Rambling::Trie.create
 ```
 
-You can also provide a file which contains all the words to be added to the trie, and it will read the file and create the structure for you, like this:
+You can also provide the path to a file that contains all the words to be added to the trie, and it will read the file and create the complete structure for you, like this:
 
 ``` ruby
 trie = Rambling::Trie.create '/path/to/file'
 ```
 
-To add new words to the trie, use `add_branch` or `<<`:
+You can also provide a block and the created instance will be yielded for you to perform any operation on it:
 
 ``` ruby
-trie.add_branch 'word'
+Rambling::Trie.create do |trie|
+  trie << 'word'
+end
+```
+
+To add new words to the trie, use `add` or `<<`:
+
+``` ruby
+trie.add 'word'
 trie << 'word'
 ```
 
@@ -61,10 +69,10 @@ trie.word? 'word'
 trie.include? 'word'
 ```
 
-If you wish to find if part of a word exists in the trie instance, you should call `has_branch?`:
+If you wish to find if part of a word exists in the trie instance, you should call `branch?`:
 
 ``` ruby
-trie.has_branch? 'partial_word'
+trie.branch? 'partial_word'
 ```
 
 ### Compression
