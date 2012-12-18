@@ -20,8 +20,8 @@ module Rambling
       attr_accessor :parent
 
       # Creates a new Node.
-      # @param [String, nil] word the word from which to create this Node and his branch (defaults to nil).
-      # @param [Node, nil] parent the parent of this node (defaults to nil).
+      # @param [String, nil] word the word from which to create this Node and his branch.
+      # @param [Node, nil] parent the parent of this node.
       def initialize(word = nil, parent = nil)
         @letter, @parent, @terminal, @children = [nil, parent, false, {}]
 
