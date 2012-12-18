@@ -5,7 +5,7 @@ module Rambling
       # Creates a new Trie.
       # @param [String, nil] filename the file to load the words from (defaults to nil).
       def initialize(filename = nil)
-        super(nil)
+        super nil
 
         @filename = filename
         @compressed = false
@@ -79,7 +79,7 @@ module Rambling
       end
 
       def add_all_nodes
-        File.open(@filename).each_line { |line| self << line.chomp }
+        File.open(@filename) { |file| file.each_line { |line| self << line.chomp } }
       end
     end
   end
