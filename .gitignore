@@ -21,3 +21,9 @@ pkg/
 # Yard
 doc/
 .yardoc/
+
+# CTags
+tags
+
+# General
+tmp/
