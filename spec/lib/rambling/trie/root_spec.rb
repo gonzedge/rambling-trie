@@ -6,7 +6,25 @@ module Rambling
       let(:root) { Root.new }
 
       describe '.new' do
-        context 'without filename' do
+        it 'has no children' do
+          expect(root).to have(0).children
+        end
+
+        it 'has no letter' do
+          expect(root.letter).to be_nil
+        end
+
+        it 'is not a terminal node' do
+          expect(root).to_not be_terminal
+        end
+
+        it 'is not a word' do
+          expect(root).to_not be_word
+        end
+
+        context 'with a block' do
+          let(:root) { Root.new { |root| root << 'test' } }
+
           it 'has no letter' do
             expect(root.letter).to be_nil
           end
@@ -15,52 +33,13 @@ module Rambling
             expect(root).to_not be_terminal
           end
 
-          it 'has no children' do
-            expect(root).to have(0).children
-          end
-
           it 'is not a word' do
-            expect(root.word?).to be_false
-          end
-        end
-
-        context 'with a filename' do
-          let(:filename) { File.join(::SPEC_ROOT, 'assets', 'test_words.txt') }
-          let(:root) { Root.new filename }
-
-          it 'has the expected root children' do
-            File.open(filename) do |file|
-              expected_hash = Hash[file.readlines.map { |x| [x.slice(0).to_sym, nil] }]
-              expect(root).to have(expected_hash.length).children
-              expect(root.children.keys).to match_array expected_hash.keys
-            end
+            expect(root).to_not be_word
           end
 
-          it 'loads every word' do
-            File.open filename do |file|
-              file.readlines.each { |word| expect(root).to include word.chomp }
-            end
-          end
-
-          context 'and compressed' do
-            before do
-              root.compress!
-            end
-
-            it 'is marked as compressed' do
-              expect(root).to be_compressed
-            end
-
-            it 'compresses the root nodes' do
-              expect(root[:t].letter).to eq :t
-              expect(root[:t].children.size).to eq 2
-
-              expect(root[:t][:ru].letter).to eq :ru
-              expect(root[:t][:ru].children.size).to eq 2
-
-              expect(root[:t][:ru][:e]).to be_terminal
-              expect(root[:t][:ru][:e]).to be_compressed
-            end
+          it 'executes the block' do
+            expect(root).to have(1).children
+            expect(root.word? 'test').to be_true
           end
         end
       end

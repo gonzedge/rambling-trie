@@ -3,13 +3,11 @@ module Rambling
     # A representation of the root node in the Trie data structure.
     class Root < Node
       # Creates a new Trie.
-      # @param [String, nil] filename the file to load the words from (defaults to nil).
-      def initialize(filename = nil)
+      # @yield [Root] the trie just created.
+      def initialize
         super nil
-
-        @filename = filename
         @compressed = false
-        add_all_nodes if filename
+        yield self if block_given?
       end
 
       # Compresses the existing tree using redundant node elimination. Flags the trie as compressed.
@@ -76,10 +74,6 @@ module Rambling
         method = method.to_s.slice 0...(method.length - 1)
         method = compressed? ? "#{method}_when_compressed?" : "#{method}_when_uncompressed?"
         send method, word.chars.to_a
-      end
-
-      def add_all_nodes
-        File.open(@filename) { |file| file.each_line { |line| self << line.chomp } }
       end
     end
   end
