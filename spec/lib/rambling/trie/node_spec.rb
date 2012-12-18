@@ -4,7 +4,31 @@ module Rambling
   module Trie
     describe Node do
       describe '.new' do
-        context 'with no letters' do
+        context 'with no word' do
+          let(:node) { Node.new }
+
+          it 'does not have any letter' do
+            expect(node.letter).to be_nil
+          end
+
+          it 'includes no children' do
+            expect(node).to have(0).children
+          end
+
+          it 'is not a terminal node' do
+            expect(node).to_not be_terminal
+          end
+
+          it 'returns empty string as its word' do
+            expect(node.as_word).to be_empty
+          end
+
+          it 'is not compressed' do
+            expect(node).to_not be_compressed
+          end
+        end
+
+        context 'with an empty word' do
           let(:node) { Node.new '' }
 
           it 'does not have any letter' do

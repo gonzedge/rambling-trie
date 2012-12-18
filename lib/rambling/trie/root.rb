@@ -5,15 +5,15 @@ module Rambling
       # Creates a new Trie.
       # @yield [Root] the trie just created.
       def initialize
-        super nil
+        super
         @compressed = false
         yield self if block_given?
       end
 
       # Compresses the existing tree using redundant node elimination. Flags the trie as compressed.
-      # @return [Root] same object
+      # @return [Root] self
       def compress!
-        @compressed = (not compress_tree!.nil?) unless compressed?
+        @compressed = (compressed? or not compress_tree!.nil?)
         self
       end
 

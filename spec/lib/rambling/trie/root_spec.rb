@@ -45,25 +45,25 @@ module Rambling
       end
 
       describe '#compress!' do
-        it 'returns itself marked as compressed' do
-          compressed_root = root.compress!
+        let(:compressed_root) { root.compress! }
 
+        it 'returns itself marked as compressed' do
           expect(compressed_root).to eq root
           expect(compressed_root).to be_compressed
         end
 
         context 'after calling #compress! once' do
-          it 'keeps returning itself' do
-            compressed_root = root.compress!.compress!
+          let(:recompressed_root) { compressed_root.compress! }
 
-            expect(compressed_root).to eq root
-            expect(compressed_root).to be_compressed
+          it 'keeps returning itself' do
+            expect(recompressed_root).to eq root
+            expect(recompressed_root).to be_compressed
           end
         end
 
         context 'with at least one word' do
           it 'keeps the root letter nil' do
-            root.add_branch 'all'
+            root << 'all'
             root.compress!
 
             expect(root.letter).to be_nil
@@ -72,7 +72,7 @@ module Rambling
 
         context 'with a single word' do
           before do
-            root.add_branch 'all'
+            root << 'all'
             root.compress!
           end
 
@@ -86,8 +86,8 @@ module Rambling
 
         context 'with two words' do
           before do
-            root.add_branch 'all'
-            root.add_branch 'ask'
+            root << 'all'
+            root << 'ask'
             root.compress!
           end
 
@@ -110,9 +110,9 @@ module Rambling
         end
 
         it 'reassigns the parent nodes correctly' do
-          root.add_branch 'repay'
-          root.add_branch 'rest'
-          root.add_branch 'repaint'
+          root << 'repay'
+          root << 'rest'
+          root << 'repaint'
           root.compress!
 
           expect(root[:re].letter).to eq :re
@@ -135,9 +135,9 @@ module Rambling
         end
 
         it 'does not compress terminal nodes' do
-          root.add_branch 'you'
-          root.add_branch 'your'
-          root.add_branch 'yours'
+          root << 'you'
+          root << 'your'
+          root << 'yours'
 
           root.compress!
 
@@ -152,12 +152,12 @@ module Rambling
 
         describe 'and trying to add a branch' do
           it 'raises an error' do
-            root.add_branch 'repay'
-            root.add_branch 'rest'
-            root.add_branch 'repaint'
+            root << 'repay'
+            root << 'rest'
+            root << 'repaint'
             root.compress!
 
-            expect { root.add_branch('restaurant') }.to raise_error InvalidOperation
+            expect { root << 'restaurant' }.to raise_error InvalidOperation
           end
         end
       end
@@ -165,8 +165,8 @@ module Rambling
       describe '#word?' do
         context 'word is contained' do
           before do
-            root.add_branch 'hello'
-            root.add_branch 'high'
+            root << 'hello'
+            root << 'high'
           end
 
           it 'matches the whole word' do
@@ -193,7 +193,7 @@ module Rambling
 
         context 'word is not contained' do
           before do
-            root.add_branch 'hello'
+            root << 'hello'
           end
 
           it 'does not match the whole word' do
@@ -219,8 +219,8 @@ module Rambling
       describe '#has_branch?' do
         context 'word is contained' do
           before do
-            root.add_branch 'hello'
-            root.add_branch 'high'
+            root << 'hello'
+            root << 'high'
           end
 
           it 'matches part of the word' do
@@ -242,7 +242,7 @@ module Rambling
 
         context 'word is not contained' do
           before do
-            root.add_branch 'hello'
+            root << 'hello'
           end
 
           it 'does not match any part of the word' do
