@@ -7,7 +7,7 @@ module Rambling
       # @return [Node] the just added branch's root node.
       # @raise [InvalidOperation] if the trie is already compressed.
       # @note This method clears the contents of the word variable.
-      def add_branch(word)
+      def add(word)
         raise InvalidOperation, 'Cannot add branch to compressed trie' if compressed?
         if word.empty?
           @terminal = true
@@ -26,22 +26,22 @@ module Rambling
         end
       end
 
-      alias_method :<<, :add_branch
+      alias_method :<<, :add
 
       protected
 
-      def has_branch_when_uncompressed?(chars)
-        chars.empty? or fulfills_uncompressed_condition?(:has_branch_when_uncompressed?, chars)
+      def branch_when_uncompressed?(chars)
+        chars.empty? or fulfills_uncompressed_condition?(:branch_when_uncompressed?, chars)
       end
 
-      def has_branch_when_compressed?(chars)
+      def branch_when_compressed?(chars)
         return true if chars.empty?
 
         first_letter = chars.slice! 0
         current_key, current_key_string = current_key first_letter
 
         unless current_key.nil?
-          return @children[current_key].has_branch_when_compressed?(chars) if current_key_string.length == first_letter.length
+          return @children[current_key].branch_when_compressed?(chars) if current_key_string.length == first_letter.length
 
           while not chars.empty?
             char = chars.slice! 0
@@ -50,7 +50,7 @@ module Rambling
 
             return true if chars.empty?
             first_letter << char
-            return @children[current_key].has_branch_when_compressed?(chars) if current_key_string.length == first_letter.length
+            return @children[current_key].branch_when_compressed?(chars) if current_key_string.length == first_letter.length
           end
         end
 

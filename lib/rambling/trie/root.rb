@@ -26,8 +26,8 @@ module Rambling
       # Checks if a path for a word or partial word exists in the trie.
       # @param [String] word the word or partial word to look for in the trie.
       # @return [Boolean] `true` if the word or partial word is found, `false` otherwise.
-      def has_branch?(word = '')
-        fulfills_condition? word, :has_branch?
+      def branch?(word = '')
+        fulfills_condition? word, :branch?
       end
 
       # Checks if a whole word exists in the trie.
@@ -43,13 +43,13 @@ module Rambling
       # @param [String] word the word to add the branch from.
       # @return [Node] the just added branch's root node.
       # @raise [InvalidOperation] if the trie is already compressed.
-      # @see Branches#add_branch
+      # @see Branches#add
       # @note Avoids clearing the contents of the word variable.
-      def add_branch(word)
+      def add(word)
         super word.clone
       end
 
-      alias_method :<<, :add_branch
+      alias_method :<<, :add
 
       private
 

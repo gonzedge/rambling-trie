@@ -32,7 +32,7 @@ gem 'rambling-trie'
 ### Deprecation warnings
 
 * Starting from version 0.4.0, `Rambling::Trie.new` is deprecated. Please use `Rambling::Trie.create` instead.
-* Starting from version 0.5.0, the `has_branch_for?`, `is_word?` and `add_branch_from` methods are deprecated. The methods `has_branch?`, `word?` and `add_branch` should be used respectively.
+* Starting from version 0.5.0, the `has_branch_for?`, `is_word?` and `add_branch_from` methods are deprecated. The methods `branch?`, `word?` and `add` should be used respectively.
 - - -
 
 To create the trie, initialize it like this:

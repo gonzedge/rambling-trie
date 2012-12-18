@@ -216,7 +216,7 @@ module Rambling
         end
       end
 
-      describe '#has_branch?' do
+      describe '#branch?' do
         context 'word is contained' do
           before do
             root << 'hello'
@@ -224,8 +224,8 @@ module Rambling
           end
 
           it 'matches part of the word' do
-            expect(root).to have_branch 'hell'
-            expect(root).to have_branch 'hig'
+            expect(root.branch? 'hell').to be_true
+            expect(root.branch? 'hig').to be_true
           end
 
           context 'and the root has been compressed' do
@@ -234,8 +234,8 @@ module Rambling
             end
 
             it 'matches part of the word' do
-              expect(root).to have_branch 'hell'
-              expect(root).to have_branch 'hig'
+              expect(root.branch? 'hell').to be_true
+              expect(root.branch? 'hig').to be_true
             end
           end
         end
@@ -246,8 +246,8 @@ module Rambling
           end
 
           it 'does not match any part of the word' do
-            expect(root).to_not have_branch 'ha'
-            expect(root).to_not have_branch 'hal'
+            expect(root.branch? 'ha').to be_false
+            expect(root.branch? 'hal').to be_false
           end
 
           context 'and the root has been compressed' do
@@ -256,19 +256,19 @@ module Rambling
             end
 
             it 'does not match any part of the word' do
-              expect(root).to_not have_branch 'ha'
-              expect(root).to_not have_branch 'hal'
+              expect(root.branch? 'ha').to be_false
+              expect(root.branch? 'hal').to be_false
             end
           end
         end
       end
 
-      describe '#add_branch' do
+      describe '#add' do
         let(:original_word) { 'word' }
         let(:word) { original_word.clone }
 
         it 'does not change the original word' do
-          root.add_branch word
+          root.add word
           expect(word).to eq original_word
         end
 
