@@ -13,7 +13,7 @@ module Rambling
       # Compresses the existing tree using redundant node elimination. Flags the trie as compressed.
       # @return [Root] self
       def compress!
-        @compressed = (compressed? or not compress_tree!.nil?)
+        @compressed = (compressed? or !!compress_tree!)
         self
       end
 
