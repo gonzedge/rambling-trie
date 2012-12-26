@@ -28,24 +28,19 @@ gem 'rambling-trie'
 
 ## How to use the Rambling Trie
 
-- - -
-### Deprecation warnings
-
-* Starting from version 0.4.0, `Rambling::Trie.new` is deprecated. Please use `Rambling::Trie.create` instead.
-* Starting from version 0.5.0, the `has_branch_for?`, `is_word?` and `add_branch_from` methods are deprecated. The methods `branch?`, `word?` and `add` should be used respectively.
-- - -
-
 To create the trie, initialize it like this:
 
 ``` ruby
 trie = Rambling::Trie.create
 ```
 
-You can also provide the path to a file that contains all the words to be added to the trie, and it will read the file and create the complete structure for you, like this:
+- - -
 
-``` ruby
-trie = Rambling::Trie.create '/path/to/file'
-```
+#### Deprecation warnings
+
+* Starting from version 0.4.0, `Rambling::Trie.new` is deprecated. Please use `Rambling::Trie.create` instead.
+
+- - -
 
 You can also provide a block and the created instance will be yielded for you to perform any operation on it:
 
@@ -54,6 +49,33 @@ Rambling::Trie.create do |trie|
   trie << 'word'
 end
 ```
+
+Additionally, you can provide the path to a file that contains all the words to be added to the trie, and it will read the file and create the complete structure for you, like this:
+
+``` ruby
+trie = Rambling::Trie.create '/path/to/file'
+```
+
+By default, a plain text file with the following format will be expected:
+
+``` text
+some
+words
+to
+populate
+the
+trie
+```
+
+If you want to use a custom file format, you will need to provide a custom file reader that defines the `each_word` method that yields each word contained in the file. Look at the `Rambling::Trie::PlainTextReader` class for an example.
+
+- - -
+
+#### Deprecation warnings
+
+* Starting from version 0.5.0, the `has_branch_for?`, `is_word?` and `add_branch_from` methods are deprecated. The methods `branch?`, `word?` and `add` should be used respectively.
+
+- - -
 
 To add new words to the trie, use `add` or `<<`:
 
