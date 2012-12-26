@@ -19,14 +19,20 @@ module Rambling
         end
       end
 
-      context 'with a filename' do
-        let(:filename) { File.join(::SPEC_ROOT, 'assets', 'test_words.txt') }
-        let(:words) { File.readlines(filename).map &:chomp }
+      context 'with a filepath' do
+        let(:filepath) { 'test_words.txt' }
+        let(:reader) { double(Trie::PlainTextReader) }
+        let(:words) { %w(a couple of test words over here) }
+
+        before do
+          yielder = reader.stub(:each_word)
+          words.each { |word| yielder = yielder.and_yield(word) }
+        end
 
         it 'loads every word' do
           words.each { |word| root.should_receive(:<<).with(word) }
 
-          Trie.create filename
+          Trie.create filepath, reader
         end
       end
     end
