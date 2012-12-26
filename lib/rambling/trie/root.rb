@@ -6,35 +6,35 @@ module Rambling
       # @yield [Root] the trie just created.
       def initialize
         super
-        @compressed = false
+        self.compressed = false
         yield self if block_given?
       end
 
       # Compresses the existing tree using redundant node elimination. Flags the trie as compressed.
       # @return [Root] self
       def compress!
-        @compressed = (compressed? or !!compress_tree!)
+        self.compressed = (compressed? or !!compress_tree!)
         self
       end
 
       # Flag for compressed tries. Overrides {Compressor#compressed?}.
       # @return [Boolean] `true` for compressed tries, `false` otherwise.
       def compressed?
-        @compressed
+        !!compressed
       end
 
       # Checks if a path for a word or partial word exists in the trie.
       # @param [String] word the word or partial word to look for in the trie.
       # @return [Boolean] `true` if the word or partial word is found, `false` otherwise.
       def branch?(word = '')
-        fulfills_condition? word, :branch?
+        is? :branch, word
       end
 
       # Checks if a whole word exists in the trie.
       # @param [String] word the word to look for in the trie.
       # @return [Boolean] `true` only if the word is found and the last character corresponds to a terminal node.
       def word?(word = '')
-        fulfills_condition? word, :word?
+        is? :word, word
       end
 
       alias_method :include?, :word?
@@ -53,8 +53,9 @@ module Rambling
 
       private
 
-      def fulfills_condition?(word, method)
-        method = method.to_s.slice 0...(method.length - 1)
+      attr_accessor :compressed
+
+      def is?(method, word)
         method = compressed? ? "#{method}_when_compressed?" : "#{method}_when_uncompressed?"
         send method, word.chars.to_a
       end

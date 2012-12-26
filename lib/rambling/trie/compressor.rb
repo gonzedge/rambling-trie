@@ -5,18 +5,18 @@ module Rambling
       # Flag for compressed tries.
       # @return [Boolean] `true` for compressed tries, `false` otherwise.
       def compressed?
-        @parent.nil? ? false : @parent.compressed?
+        parent and parent.compressed?
       end
 
       # Compress the current node using redundant node elimination.
       # @return [Root, Node] the compressed node.
       def compress_tree!
-        if @children.size == 1 and not terminal? and @letter
-          merge_with! @children.values.first
+        if children.size == 1 and not terminal? and letter
+          merge_with! children.values.first
           compress_tree!
         end
 
-        @children.values.each &:compress_tree!
+        children.values.each &:compress_tree!
 
         self
       end
@@ -24,25 +24,25 @@ module Rambling
       private
 
       def merge_with!(child)
-        new_letter = (@letter.to_s << child.letter.to_s).to_sym
+        new_letter = (letter.to_s << child.letter.to_s).to_sym
 
-        rehash_on_parent! @letter, new_letter
+        rehash_on_parent! letter, new_letter
         redefine_self! new_letter, child
 
-        @children.values.each { |node| node.parent = self }
+        children.values.each { |node| node.parent = self }
       end
 
       def rehash_on_parent!(old_letter, new_letter)
-        return if @parent.nil?
+        return if parent.nil?
 
-        @parent.delete old_letter
-        @parent[new_letter] = self
+        parent.delete old_letter
+        parent[new_letter] = self
       end
 
       def redefine_self!(new_letter, merged_node)
-        @letter = new_letter
-        @children = merged_node.children
-        @terminal = merged_node.terminal?
+        self.letter = new_letter
+        self.children = merged_node.children
+        self.terminal = merged_node.terminal?
       end
     end
   end

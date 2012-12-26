@@ -24,12 +24,13 @@ module Rambling
       # @param [String, nil] word the word from which to create this Node and his branch.
       # @param [Node, nil] parent the parent of this node.
       def initialize(word = nil, parent = nil)
-        @letter, @parent, @terminal, @children = [nil, parent, false, {}]
+        self.parent = parent
+        self.children = {}
 
         unless word.nil? or word.empty?
           letter = word.slice! 0
-          @letter = letter.to_sym unless letter.nil?
-          @terminal = word.empty?
+          self.letter = letter.to_sym if letter
+          self.terminal = word.empty?
           self << word
         end
       end
@@ -37,20 +38,24 @@ module Rambling
       # Flag for terminal nodes.
       # @return [Boolean] `true` for terminal nodes, `false` otherwise.
       def terminal?
-        @terminal
+        !!terminal
       end
 
       # String representation of the current node, if it is a terminal node.
       # @return [String] the string representation of the current node.
       # @raise [InvalidOperation] if node is not terminal or is root.
       def as_word
-        raise InvalidOperation, 'Cannot represent branch as a word' unless @letter.nil? or terminal?
-        get_letter_string
+        raise InvalidOperation, 'Cannot represent branch as a word' unless letter.nil? or terminal?
+        letter_string
       end
 
       protected
-      def get_letter_string
-        (@parent.nil? ? '' : @parent.get_letter_string) << @letter.to_s
+
+      attr_writer :letter, :children
+      attr_accessor :terminal
+
+      def letter_string
+        (parent ? parent.letter_string : '') << letter.to_s
       end
     end
   end

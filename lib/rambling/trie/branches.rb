@@ -10,19 +10,19 @@ module Rambling
       def add(word)
         raise InvalidOperation, 'Cannot add branch to compressed trie' if compressed?
         if word.empty?
-          @terminal = true
+          self.terminal = true
           return
         end
 
         first_letter = word.slice(0).to_sym
 
-        if @children.has_key? first_letter
+        if children.has_key? first_letter
           word.slice! 0
-          child = @children[first_letter]
+          child = children[first_letter]
           child << word
           child
         else
-          @children[first_letter] = Node.new word, self
+          children[first_letter] = Node.new word, self
         end
       end
 
@@ -41,7 +41,7 @@ module Rambling
         current_key, current_key_string = current_key first_letter
 
         unless current_key.nil?
-          return @children[current_key].branch_when_compressed?(chars) if current_key_string.length == first_letter.length
+          return children[current_key].branch_when_compressed?(chars) if current_key_string.length == first_letter.length
 
           while not chars.empty?
             char = chars.slice! 0
@@ -50,7 +50,7 @@ module Rambling
 
             return true if chars.empty?
             first_letter << char
-            return @children[current_key].branch_when_compressed?(chars) if current_key_string.length == first_letter.length
+            return children[current_key].branch_when_compressed?(chars) if current_key_string.length == first_letter.length
           end
         end
 
@@ -68,7 +68,7 @@ module Rambling
         while not chars.empty?
           first_letter << chars.slice!(0)
           key = first_letter.to_sym
-          return @children[key].word_when_compressed?(chars) if @children.has_key? key
+          return children[key].word_when_compressed?(chars) if children.has_key? key
         end
 
         false
@@ -79,7 +79,7 @@ module Rambling
       def current_key(letter)
         current_key_string = current_key = nil
 
-        @children.keys.each do |key|
+        children.keys.each do |key|
           key_string = key.to_s
           if key_string.start_with? letter
             current_key = key
@@ -95,7 +95,7 @@ module Rambling
         first_letter = chars.slice! 0
         unless first_letter.nil?
           first_letter_sym = first_letter.to_sym
-          return @children[first_letter_sym].send(method, chars) if @children.has_key? first_letter_sym
+          return children[first_letter_sym].send(method, chars) if children.has_key? first_letter_sym
         end
 
         false
