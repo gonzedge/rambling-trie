@@ -28,8 +28,7 @@ module Rambling
         self.children = {}
 
         unless word.nil? || word.empty?
-          letter = word.slice! 0
-          self.letter = letter.to_sym if letter
+          self.letter = word.slice! 0
           self.terminal = word.empty?
           self << word
         end
@@ -51,11 +50,15 @@ module Rambling
 
       protected
 
-      attr_writer :letter, :children
+      attr_writer :children
       attr_accessor :terminal
 
-      def letter_string
-        (parent ? parent.letter_string : '') << letter.to_s
+      def letter=(letter)
+        return unless letter
+
+        letter = letter.to_sym
+        @letter = letter
+        parent[letter] = self if parent
       end
     end
   end

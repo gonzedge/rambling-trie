@@ -24,23 +24,20 @@ module Rambling
       private
 
       def merge_with!(child)
-        new_letter = (letter.to_s << child.letter.to_s).to_sym
+        delete_old_key_on_parent!
+        redefine_self! child
 
-        rehash_on_parent! letter, new_letter
-        redefine_self! new_letter, child
-
-        children.values.each { |node| node.parent = self }
+        children.each { |_, node| node.parent = self }
       end
 
-      def rehash_on_parent!(old_letter, new_letter)
+      def delete_old_key_on_parent!
         return if parent.nil?
 
-        parent.delete old_letter
-        parent[new_letter] = self
+        parent.delete letter
       end
 
-      def redefine_self!(new_letter, merged_node)
-        self.letter = new_letter
+      def redefine_self!(merged_node)
+        self.letter = letter.to_s << merged_node.letter.to_s
         self.children = merged_node.children
         self.terminal = merged_node.terminal?
       end
