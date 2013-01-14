@@ -4,7 +4,7 @@ module Rambling
     module Inspector
       # @return [String] a string representation of the current node.
       def inspect
-        "#<#{self.class.name} letter: #{letter.inspect or 'nil'}, children: #{children.keys}>"
+        "#<#{self.class.name} letter: #{letter.inspect || 'nil'}, children: #{children.keys}>"
       end
     end
   end

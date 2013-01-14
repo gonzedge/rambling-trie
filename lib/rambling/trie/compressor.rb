@@ -5,13 +5,13 @@ module Rambling
       # Flag for compressed tries.
       # @return [Boolean] `true` for compressed tries, `false` otherwise.
       def compressed?
-        parent and parent.compressed?
+        parent && parent.compressed?
       end
 
       # Compress the current node using redundant node elimination.
       # @return [Root, Node] the compressed node.
       def compress_tree!
-        if children.size == 1 and not terminal? and letter
+        if children.size == 1 && !terminal? && letter
           merge_with! children.values.first
           compress_tree!
         end

@@ -31,7 +31,7 @@ module Rambling
       protected
 
       def branch_when_uncompressed?(chars)
-        chars.empty? or fulfills_uncompressed_condition?(:branch_when_uncompressed?, chars)
+        chars.empty? || fulfills_uncompressed_condition?(:branch_when_uncompressed?, chars)
       end
 
       def branch_when_compressed?(chars)
@@ -58,11 +58,11 @@ module Rambling
       end
 
       def word_when_uncompressed?(chars)
-        (chars.empty? and terminal?) or fulfills_uncompressed_condition?(:word_when_uncompressed?, chars)
+        (chars.empty? && terminal?) || fulfills_uncompressed_condition?(:word_when_uncompressed?, chars)
       end
 
       def word_when_compressed?(chars)
-        return true if chars.empty? and terminal?
+        return true if chars.empty? && terminal?
 
         first_letter = ''
         while not chars.empty?

@@ -27,7 +27,7 @@ module Rambling
         self.parent = parent
         self.children = {}
 
-        unless word.nil? or word.empty?
+        unless word.nil? || word.empty?
           letter = word.slice! 0
           self.letter = letter.to_sym if letter
           self.terminal = word.empty?
@@ -45,7 +45,7 @@ module Rambling
       # @return [String] the string representation of the current node.
       # @raise [InvalidOperation] if node is not terminal or is root.
       def as_word
-        raise InvalidOperation, 'Cannot represent branch as a word' unless letter.nil? or terminal?
+        raise InvalidOperation, 'Cannot represent branch as a word' unless letter.nil? || terminal?
         letter_string
       end
 
