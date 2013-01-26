@@ -2,7 +2,10 @@ module Rambling
   module Trie
     # A representation of a node in the Trie data structure.
     class Node
-      include ChildrenHashDeferer
+      extend Forwardable
+
+      delegate [:[], :[]=, :delete, :has_key?] => :children
+
       include Compressor
       include Branches
       include Enumerable

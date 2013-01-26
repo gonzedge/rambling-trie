@@ -26,6 +26,29 @@ module Rambling
           it 'is not compressed' do
             expect(node).to_not be_compressed
           end
+
+          it 'delegates `#[]` to its children' do
+            node.children.should_receive(:[]).with(:key).and_return('value')
+            expect(node[:key]).to eq 'value'
+          end
+
+          it 'delegates `#[]=` to its children' do
+            node.children.should_receive(:[]=).with(:key, 'value')
+            node[:key] = 'value'
+          end
+
+          it 'delegates `#delete` to its children' do
+            node.children.should_receive(:delete).with(:key).and_return('value')
+            expect(node.delete :key).to eq 'value'
+          end
+
+          it 'delegates `#has_key?` to its children' do
+            node.children.should_receive(:has_key?).with(:present_key).and_return(true)
+            expect(node).to have_key(:present_key)
+
+            node.children.should_receive(:has_key?).with(:absent_key).and_return(false)
+            expect(node).not_to have_key(:absent_key)
+          end
         end
 
         context 'with an empty word' do
