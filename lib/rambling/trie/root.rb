@@ -10,6 +10,25 @@ module Rambling
         yield self if block_given?
       end
 
+      # Adds a branch to the trie based on the word, without changing the passed word.
+      # @param [String] word the word to add the branch from.
+      # @return [Node] the just added branch's root node.
+      # @raise [InvalidOperation] if the trie is already compressed.
+      # @see Branches#add
+      # @note Avoids clearing the contents of the word variable.
+      def add(word)
+        super word.clone
+      end
+
+      alias_method :<<, :add
+
+      # Checks if a path for a word or partial word exists in the trie.
+      # @param [String] word the word or partial word to look for in the trie.
+      # @return [Boolean] `true` if the word or partial word is found, `false` otherwise.
+      def branch?(word = '')
+        is? :branch, word
+      end
+
       # Compresses the existing tree using redundant node elimination. Flags the trie as compressed.
       # @return [Root] self
       def compress!
@@ -23,11 +42,10 @@ module Rambling
         !!compressed
       end
 
-      # Checks if a path for a word or partial word exists in the trie.
-      # @param [String] word the word or partial word to look for in the trie.
-      # @return [Boolean] `true` if the word or partial word is found, `false` otherwise.
-      def branch?(word = '')
-        is? :branch, word
+      # If the current node is the root node.
+      # @return [Boolean] `true`
+      def root?
+        true
       end
 
       # Checks if a whole word exists in the trie.
@@ -38,18 +56,6 @@ module Rambling
       end
 
       alias_method :include?, :word?
-
-      # Adds a branch to the trie based on the word, without changing the passed word.
-      # @param [String] word the word to add the branch from.
-      # @return [Node] the just added branch's root node.
-      # @raise [InvalidOperation] if the trie is already compressed.
-      # @see Branches#add
-      # @note Avoids clearing the contents of the word variable.
-      def add(word)
-        super word.clone
-      end
-
-      alias_method :<<, :add
 
       private
 

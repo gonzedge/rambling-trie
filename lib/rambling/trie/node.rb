@@ -37,18 +37,24 @@ module Rambling
         end
       end
 
-      # Flag for terminal nodes.
-      # @return [Boolean] `true` for terminal nodes, `false` otherwise.
-      def terminal?
-        !!terminal
-      end
-
       # String representation of the current node, if it is a terminal node.
       # @return [String] the string representation of the current node.
       # @raise [InvalidOperation] if node is not terminal or is root.
       def as_word
         raise InvalidOperation, 'Cannot represent branch as a word' if letter && !terminal?
         to_s
+      end
+
+      # If the current node is the root node.
+      # @return [Boolean] `false`
+      def root?
+        false
+      end
+
+      # Flag for terminal nodes.
+      # @return [Boolean] `true` for terminal nodes, `false` otherwise.
+      def terminal?
+        !!terminal
       end
 
       # String representation of the current node.

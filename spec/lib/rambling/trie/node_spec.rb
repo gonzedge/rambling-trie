@@ -3,6 +3,12 @@ require 'spec_helper'
 module Rambling
   module Trie
     describe Node do
+      describe '#root?' do
+        it 'returns false' do
+          expect(subject).to_not be_root
+        end
+      end
+
       describe '.new' do
         context 'with no word' do
           let(:node) { Node.new }

@@ -11,7 +11,7 @@ module Rambling
       # Compress the current node using redundant node elimination.
       # @return [Root, Node] the compressed node.
       def compress_tree!
-        if children.size == 1 && !terminal? && letter
+        if compressable?
           merge_with! children.values.first
           compress_tree!
         end
@@ -22,6 +22,10 @@ module Rambling
       end
 
       private
+
+      def compressable?
+        !(root? || terminal?) && children.size == 1
+      end
 
       def merge_with!(child)
         delete_old_key_on_parent!
