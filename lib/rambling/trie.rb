@@ -1,3 +1,4 @@
+require 'forwardable'
 %w{
   branches compressor enumerable
   inspector invalid_operation node
