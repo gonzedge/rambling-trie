@@ -35,26 +35,7 @@ module Rambling
       end
 
       def branch_when_compressed?(chars)
-        return true if chars.empty?
-
-        first_letter = chars.slice! 0
-        current_key, current_key_string = current_key first_letter
-
-        unless current_key.nil?
-          return children[current_key].branch_when_compressed?(chars) if current_key_string.length == first_letter.length
-
-          while not chars.empty?
-            char = chars.slice! 0
-
-            break unless current_key_string[first_letter.length] == char
-
-            return true if chars.empty?
-            first_letter << char
-            return children[current_key].branch_when_compressed?(chars) if current_key_string.length == first_letter.length
-          end
-        end
-
-        false
+        chars.empty? || compressed_trie_has_branch?(chars)
       end
 
       def word_when_uncompressed?(chars)
@@ -75,6 +56,21 @@ module Rambling
       end
 
       private
+
+      def compressed_trie_has_branch?(chars)
+        current_length = 0
+        current_key, current_key_string = current_key chars.slice!(0)
+
+        begin
+          current_length += 1
+
+          if current_key_string.length == current_length || chars.empty?
+            return children[current_key].branch_when_compressed?(chars)
+          end
+
+          false
+        end while current_key_string[current_length] == chars.slice!(0)
+      end
 
       def current_key(letter)
         current_key_string = current_key = nil

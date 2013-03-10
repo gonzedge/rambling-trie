@@ -87,31 +87,6 @@ namespace :performance do
     puts 'Done'
   end
 
-  desc 'Generate CPU profiling reports'
-  task :cpu_profile do
-    require 'perftools'
-
-    puts 'Generating cpu profiling reports...'
-
-    rambling_trie = Rambling::Trie.create path('assets', 'dictionaries', 'words_with_friends.txt')
-    words = ['hi', 'help', 'beautiful', 'impressionism', 'anthropological']
-    methods = [:branch?, :word?]
-    tries = [lambda {rambling_trie.clone}, lambda {rambling_trie.clone.compress!}]
-
-    methods.each do |method|
-      tries.each do |trie_generator|
-        trie = trie_generator.call
-        result = PerfTools::CpuProfiler.start path('reports', "cpu_profile-#{trie.compressed? ? 'compressed' : 'uncompressed'}-#{method.to_s.sub(/\?/, '')}-#{Time.now.to_i}") do
-          words.each do |word|
-            200_000.times { trie.send method, word }
-          end
-        end
-      end
-    end
-
-    puts 'Done'
-  end
-
   desc 'Generate profiling and performance reports'
   task all: [:profile, :report]
 end

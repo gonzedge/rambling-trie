@@ -234,8 +234,13 @@ module Rambling
             end
 
             it 'matches part of the word' do
+              expect(root.branch? 'h').to be_true
+              expect(root.branch? 'he').to be_true
               expect(root.branch? 'hell').to be_true
+              expect(root.branch? 'hello').to be_true
+              expect(root.branch? 'hi').to be_true
               expect(root.branch? 'hig').to be_true
+              expect(root.branch? 'high').to be_true
             end
           end
         end
