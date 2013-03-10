@@ -97,7 +97,7 @@ module Rambling
 
           it 'compresses into corresponding three nodes' do
             expect(subject[:a].letter).to eq :a
-            expect(subject[:a].children.size).to eq 2
+            expect(subject[:a]).to have(2).children
 
             expect(subject[:a][:ll].letter).to eq :ll
             expect(subject[:a][:sk].letter).to eq :sk
@@ -120,12 +120,12 @@ module Rambling
           subject.compress!
 
           expect(subject[:re].letter).to eq :re
-          expect(subject[:re].children.size).to eq 2
+          expect(subject[:re]).to have(2).children
 
           expect(subject[:re][:pa].letter).to eq :pa
           expect(subject[:re][:st].letter).to eq :st
 
-          expect(subject[:re][:pa].children.size).to eq 2
+          expect(subject[:re][:pa]).to have(2).children
           expect(subject[:re][:st]).to have(0).children
 
           expect(subject[:re][:pa][:y].letter).to eq :y

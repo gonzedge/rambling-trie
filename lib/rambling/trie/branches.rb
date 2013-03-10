@@ -16,13 +16,13 @@ module Rambling
 
         first_letter = word.slice(0).to_sym
 
-        if children.has_key? first_letter
+        if children_tree.has_key? first_letter
           word.slice! 0
-          child = children[first_letter]
+          child = children_tree[first_letter]
           child << word
           child
         else
-          children[first_letter] = Node.new word, self
+          children_tree[first_letter] = Node.new word, self
         end
       end
 
@@ -49,7 +49,7 @@ module Rambling
         while not chars.empty?
           first_letter << chars.slice!(0)
           key = first_letter.to_sym
-          return children[key].word_when_compressed?(chars) if children.has_key? key
+          return children_tree[key].word_when_compressed?(chars) if children_tree.has_key? key
         end
 
         false
@@ -65,7 +65,7 @@ module Rambling
           current_length += 1
 
           if current_key_string.length == current_length || chars.empty?
-            return children[current_key].branch_when_compressed?(chars)
+            return children_tree[current_key].branch_when_compressed?(chars)
           end
         end while current_key_string[current_length] == chars.slice!(0)
         false
@@ -74,7 +74,7 @@ module Rambling
       def current_key(letter)
         current_key_string = current_key = nil
 
-        children.keys.each do |key|
+        children_tree.keys.each do |key|
           key_string = key.to_s
           if key_string.start_with? letter
             current_key = key
@@ -90,7 +90,7 @@ module Rambling
         first_letter = chars.slice! 0
         unless first_letter.nil?
           first_letter_sym = first_letter.to_sym
-          return children[first_letter_sym].send(method, chars) if children.has_key? first_letter_sym
+          return children_tree[first_letter_sym].send(method, chars) if children_tree.has_key? first_letter_sym
         end
 
         false

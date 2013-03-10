@@ -10,7 +10,7 @@ module Rambling
       def each(&block)
         enumerator = Enumerator.new do |words|
           words << as_word if terminal?
-          children.each { |key, child| child.each { |word| words << word } }
+          children.each { |child| child.each { |word| words << word } }
         end
 
         block.nil? ? enumerator : enumerator.each(&block)

@@ -12,11 +12,11 @@ module Rambling
       # @return [Root, Node] the compressed node.
       def compress_tree!
         if compressable?
-          merge_with! children.values.first
+          merge_with! children.first
           compress_tree!
         end
 
-        children.values.each &:compress_tree!
+        children.each &:compress_tree!
 
         self
       end
@@ -24,14 +24,14 @@ module Rambling
       private
 
       def compressable?
-        !(root? || terminal?) && children.size == 1
+        !(root? || terminal?) && children_tree.size == 1
       end
 
       def merge_with!(child)
         delete_old_key_on_parent!
         redefine_self! child
 
-        children.each { |_, node| node.parent = self }
+        children.each { |node| node.parent = self }
       end
 
       def delete_old_key_on_parent!
@@ -42,7 +42,7 @@ module Rambling
 
       def redefine_self!(merged_node)
         self.letter = letter.to_s << merged_node.letter.to_s
-        self.children = merged_node.children
+        self.children_tree = merged_node.children_tree
         self.terminal = merged_node.terminal?
       end
     end
