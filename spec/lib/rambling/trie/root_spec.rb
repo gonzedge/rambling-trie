@@ -154,7 +154,7 @@ module Rambling
           expect(subject[:you][:r][:s]).to be_compressed
         end
 
-        describe 'and trying to add a branch' do
+        describe 'and trying to add a word' do
           it 'raises an error' do
             subject << 'repay'
             subject << 'rest'
@@ -220,7 +220,22 @@ module Rambling
         end
       end
 
-      describe '#branch?' do
+      describe '#partial_word?' do
+        it 'is aliased as #match?' do
+          subject << 'hello'
+          subject << 'high'
+          expect(subject.match? 'hel').to be_true
+          expect(subject.match? 'hig').to be_true
+        end
+
+        it 'is aliased as #branch?, but with a warning' do
+          subject << 'hello'
+          subject << 'high'
+          subject.should_receive(:warn).with('The `#branch?` method will be deprecated, please use `#partial_word?` instead.').twice
+          expect(subject.branch? 'hel').to be_true
+          expect(subject.branch? 'hig').to be_true
+        end
+
         context 'word is contained' do
           before do
             subject << 'hello'
@@ -228,8 +243,8 @@ module Rambling
           end
 
           it 'matches part of the word' do
-            expect(subject.branch? 'hell').to be_true
-            expect(subject.branch? 'hig').to be_true
+            expect(subject.partial_word? 'hell').to be_true
+            expect(subject.partial_word? 'hig').to be_true
           end
 
           context 'and the root has been compressed' do
@@ -238,13 +253,13 @@ module Rambling
             end
 
             it 'matches part of the word' do
-              expect(subject.branch? 'h').to be_true
-              expect(subject.branch? 'he').to be_true
-              expect(subject.branch? 'hell').to be_true
-              expect(subject.branch? 'hello').to be_true
-              expect(subject.branch? 'hi').to be_true
-              expect(subject.branch? 'hig').to be_true
-              expect(subject.branch? 'high').to be_true
+              expect(subject.partial_word? 'h').to be_true
+              expect(subject.partial_word? 'he').to be_true
+              expect(subject.partial_word? 'hell').to be_true
+              expect(subject.partial_word? 'hello').to be_true
+              expect(subject.partial_word? 'hi').to be_true
+              expect(subject.partial_word? 'hig').to be_true
+              expect(subject.partial_word? 'high').to be_true
             end
           end
         end
@@ -255,8 +270,8 @@ module Rambling
           end
 
           it 'does not match any part of the word' do
-            expect(subject.branch? 'ha').to be_false
-            expect(subject.branch? 'hal').to be_false
+            expect(subject.partial_word? 'ha').to be_false
+            expect(subject.partial_word? 'hal').to be_false
           end
 
           context 'and the root has been compressed' do
@@ -265,8 +280,8 @@ module Rambling
             end
 
             it 'does not match any part of the word' do
-              expect(subject.branch? 'ha').to be_false
-              expect(subject.branch? 'hal').to be_false
+              expect(subject.partial_word? 'ha').to be_false
+              expect(subject.partial_word? 'hal').to be_false
             end
           end
         end

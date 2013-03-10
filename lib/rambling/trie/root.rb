@@ -22,11 +22,10 @@ module Rambling
 
       alias_method :<<, :add
 
-      # Checks if a path for a word or partial word exists in the trie.
-      # @param [String] word the word or partial word to look for in the trie.
-      # @return [Boolean] `true` if the word or partial word is found, `false` otherwise.
+      # @deprecated Use `#partial_word?` instead.
       def branch?(word = '')
-        is? :branch, word
+        warn 'The `#branch?` method will be deprecated, please use `#partial_word?` instead.'
+        partial_word? word
       end
 
       # Compresses the existing tree using redundant node elimination. Flags the trie as compressed.
@@ -41,6 +40,15 @@ module Rambling
       def compressed?
         !!compressed
       end
+
+      # Checks if a path for a word or partial word exists in the trie.
+      # @param [String] word the word or partial word to look for in the trie.
+      # @return [Boolean] `true` if the word or partial word is found, `false` otherwise.
+      def partial_word?(word = '')
+        is? :partial_word, word
+      end
+
+      alias_method :match?, :partial_word?
 
       # If the current node is the root node.
       # @return [Boolean] `true`

@@ -30,12 +30,12 @@ module Rambling
 
       protected
 
-      def branch_when_uncompressed?(chars)
-        chars.empty? || fulfills_uncompressed_condition?(:branch_when_uncompressed?, chars)
+      def partial_word_when_uncompressed?(chars)
+        chars.empty? || fulfills_uncompressed_condition?(:partial_word_when_uncompressed?, chars)
       end
 
-      def branch_when_compressed?(chars)
-        chars.empty? || compressed_trie_has_branch?(chars)
+      def partial_word_when_compressed?(chars)
+        chars.empty? || compressed_trie_has_partial_word?(chars)
       end
 
       def word_when_uncompressed?(chars)
@@ -57,7 +57,7 @@ module Rambling
 
       private
 
-      def compressed_trie_has_branch?(chars)
+      def compressed_trie_has_partial_word?(chars)
         current_length = 0
         current_key, current_key_string = current_key chars.slice!(0)
 
@@ -65,7 +65,7 @@ module Rambling
           current_length += 1
 
           if current_key_string.length == current_length || chars.empty?
-            return children_tree[current_key].branch_when_compressed?(chars)
+            return children_tree[current_key].partial_word_when_compressed?(chars)
           end
         end while current_key_string[current_length] == chars.slice!(0)
         false

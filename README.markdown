@@ -71,8 +71,17 @@ If you want to use a custom file format, you will need to provide a custom file 
 
 - - -
 
+#### Breaking changes
+
+* Starting from version 0.6.0, the `children` method returns an array of nodes instead of a hash. If you still need access to the underlying hash, use `children_tree` instead.
+
+- - -
+
+- - -
+
 #### Deprecation warnings
 
+* Starting from version 0.6.0, the `branch?` method is deprecated. The `partial_word?` method should be used instead.
 * Starting from version 0.5.0, the `has_branch_for?`, `is_word?` and `add_branch_from` methods are deprecated. The methods `branch?`, `word?` and `add` should be used respectively.
 
 - - -
@@ -91,10 +100,11 @@ trie.word? 'word'
 trie.include? 'word'
 ```
 
-If you wish to find if part of a word exists in the trie instance, you should call `branch?`:
+If you wish to find if part of a word exists in the trie instance, you should call `partial_word?`:
 
 ``` ruby
-trie.branch? 'partial_word'
+trie.partial_word? 'partial_word'
+trie.match? 'partial_word'
 ```
 
 ### Compression
@@ -108,8 +118,6 @@ trie.compress!
 ```
 
 This will reduce the amount of Trie nodes by eliminating the redundant ones, which are the only-child non-terminal nodes.
-
-Starting from version 0.3.2, the `has_branch_for?` (now `has_branch?`) and `is_word?` (now `word?`) methods work as expected on a compressed trie.
 
 __Note that the `compress!` method acts over the trie instance it belongs to.__
 __Also, adding words after compression is not supported.__

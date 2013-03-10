@@ -2,8 +2,8 @@ require 'benchmark'
 
 namespace :performance do
   def report(name, trie, output)
-    words = ['hi', 'help', 'beautiful', 'impressionism', 'anthropological']
-    methods = [:word?, :branch?]
+    words = %w(hi help beautiful impressionism anthropological)
+    methods = %i(word? partial_word?)
 
     output.puts "==> #{name}"
     methods.each do |method|
@@ -65,8 +65,8 @@ namespace :performance do
     puts 'Generating profiling reports...'
 
     rambling_trie = Rambling::Trie.create path('assets', 'dictionaries', 'words_with_friends.txt')
-    words = ['hi', 'help', 'beautiful', 'impressionism', 'anthropological']
-    methods = [:branch?, :word?]
+    words = %w(hi help beautiful impressionism anthropological)
+    methods = %i(word? partial_word?)
     tries = [lambda {rambling_trie.clone}, lambda {rambling_trie.clone.compress!}]
 
     methods.each do |method|
@@ -88,5 +88,5 @@ namespace :performance do
   end
 
   desc 'Generate profiling and performance reports'
-  task all: [:profile, :report]
+  task all: %i(profile report)
 end
