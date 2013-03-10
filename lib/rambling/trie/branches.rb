@@ -67,9 +67,8 @@ module Rambling
           if current_key_string.length == current_length || chars.empty?
             return children[current_key].branch_when_compressed?(chars)
           end
-
-          false
         end while current_key_string[current_length] == chars.slice!(0)
+        false
       end
 
       def current_key(letter)
