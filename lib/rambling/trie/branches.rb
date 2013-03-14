@@ -11,18 +11,8 @@ module Rambling
         raise InvalidOperation, 'Cannot add branch to compressed trie' if compressed?
         if word.empty?
           self.terminal = true
-          return
-        end
-
-        first_letter = word.slice(0).to_sym
-
-        if children_tree.has_key? first_letter
-          word.slice! 0
-          child = children_tree[first_letter]
-          child << word
-          child
         else
-          children_tree[first_letter] = Node.new word, self
+          add_to_children_tree word
         end
       end
 
@@ -56,6 +46,19 @@ module Rambling
       end
 
       private
+
+      def add_to_children_tree(word)
+        first_letter = word.slice(0).to_sym
+
+        if children_tree.has_key? first_letter
+          word.slice! 0
+          child = children_tree[first_letter]
+          child << word
+          child
+        else
+          children_tree[first_letter] = Node.new word, self
+        end
+      end
 
       def compressed_trie_has_partial_word?(chars)
         current_length = 0
