@@ -29,20 +29,19 @@ module Rambling
       end
 
       def word_when_uncompressed?(chars)
-        (chars.empty? && terminal?) || fulfills_uncompressed_condition?(:word_when_uncompressed?, chars)
+        if chars.empty?
+          terminal?
+        else
+          fulfills_uncompressed_condition? :word_when_uncompressed?, chars
+        end
       end
 
       def word_when_compressed?(chars)
-        return true if chars.empty? && terminal?
-
-        first_letter = ''
-        while not chars.empty?
-          first_letter << chars.slice!(0)
-          key = first_letter.to_sym
-          return children_tree[key].word_when_compressed?(chars) if children_tree.has_key? key
+        if chars.empty?
+          terminal?
+        else
+          compressed_trie_has_word? chars
         end
-
-        false
       end
 
       private
@@ -71,6 +70,19 @@ module Rambling
             return children_tree[current_key].partial_word_when_compressed?(chars)
           end
         end while current_key_string[current_length] == chars.slice!(0)
+
+        false
+      end
+
+      def compressed_trie_has_word?(chars)
+        current_key_string = ''
+
+        while !chars.empty?
+          current_key_string << chars.slice!(0)
+          current_key = current_key_string.to_sym
+          return children_tree[current_key].word_when_compressed?(chars) if children_tree.has_key? current_key
+        end
+
         false
       end
 
@@ -90,13 +102,8 @@ module Rambling
       end
 
       def fulfills_uncompressed_condition?(method, chars)
-        first_letter = chars.slice! 0
-        unless first_letter.nil?
-          first_letter_sym = first_letter.to_sym
-          return children_tree[first_letter_sym].send(method, chars) if children_tree.has_key? first_letter_sym
-        end
-
-        false
+        first_letter_sym = chars.slice!(0).to_sym
+        children_tree.has_key?(first_letter_sym) && children_tree[first_letter_sym].send(method, chars)
       end
     end
   end
