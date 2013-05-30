@@ -22,12 +22,6 @@ module Rambling
 
       alias_method :<<, :add
 
-      # @deprecated Use `#partial_word?` instead.
-      def branch?(word = '')
-        warn 'The `#branch?` method will be deprecated, please use `#partial_word?` instead.'
-        partial_word? word
-      end
-
       # Compresses the existing tree using redundant node elimination. Flags the trie as compressed.
       # @return [Root] self
       def compress!

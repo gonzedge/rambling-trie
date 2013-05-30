@@ -228,14 +228,6 @@ module Rambling
           expect(subject.match? 'hig').to be_true
         end
 
-        it 'is aliased as #branch?, but with a warning' do
-          subject << 'hello'
-          subject << 'high'
-          subject.should_receive(:warn).with('The `#branch?` method will be deprecated, please use `#partial_word?` instead.').twice
-          expect(subject.branch? 'hel').to be_true
-          expect(subject.branch? 'hig').to be_true
-        end
-
         context 'word is contained' do
           before do
             subject << 'hello'
