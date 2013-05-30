@@ -4,31 +4,31 @@ module Rambling
   module Trie
     describe Node do
       it 'delegates `#[]` to its children tree' do
-        subject.children_tree.should_receive(:[]).with(:key).and_return('value')
+        expect(subject.children_tree).to receive(:[]).with(:key).and_return('value')
         expect(subject[:key]).to eq 'value'
       end
 
       it 'delegates `#[]=` to its children tree' do
-        subject.children_tree.should_receive(:[]=).with(:key, 'value')
+        expect(subject.children_tree).to receive(:[]=).with(:key, 'value')
         subject[:key] = 'value'
       end
 
       it 'delegates `#delete` to its children tree' do
-        subject.children_tree.should_receive(:delete).with(:key).and_return('value')
+        expect(subject.children_tree).to receive(:delete).with(:key).and_return('value')
         expect(subject.delete :key).to eq 'value'
       end
 
       it 'delegates `#has_key?` to its children tree' do
-        subject.children_tree.should_receive(:has_key?).with(:present_key).and_return(true)
+        expect(subject.children_tree).to receive(:has_key?).with(:present_key).and_return(true)
         expect(subject).to have_key(:present_key)
 
-        subject.children_tree.should_receive(:has_key?).with(:absent_key).and_return(false)
+        expect(subject.children_tree).to receive(:has_key?).with(:absent_key).and_return(false)
         expect(subject).not_to have_key(:absent_key)
       end
 
       it 'delegates `#children` to its children tree values' do
         children = [double('child 1'), double('child 2')]
-        subject.children_tree.should_receive(:values).and_return(children)
+        expect(subject.children_tree).to receive(:values).and_return(children)
         expect(subject.children).to eq children
       end
 
@@ -205,7 +205,7 @@ module Rambling
 
         context 'parent is compressed' do
           before do
-            root.stub(:compressed?).and_return true
+            allow(root).to receive(:compressed?).and_return true
           end
 
           it 'returns true' do
@@ -215,7 +215,7 @@ module Rambling
 
         context 'parent is not compressed' do
           before do
-            root.stub(:compressed?).and_return false
+            allow(root).to receive(:compressed?).and_return false
           end
 
           it 'returns false' do
