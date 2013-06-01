@@ -16,7 +16,7 @@ module Rambling
       # @raise [InvalidOperation] if the trie is already compressed.
       # @see Branches#add
       # @note Avoids clearing the contents of the word variable.
-      def add(word)
+      def add word
         super word.clone
       end
 
@@ -25,7 +25,7 @@ module Rambling
       # Compresses the existing tree using redundant node elimination. Flags the trie as compressed.
       # @return [Root] self
       def compress!
-        self.compressed = (compressed? || !!compress_tree!)
+        self.compressed = compressed? || !!compress_tree!
         self
       end
 
@@ -38,7 +38,7 @@ module Rambling
       # Checks if a path for a word or partial word exists in the trie.
       # @param [String] word the word or partial word to look for in the trie.
       # @return [Boolean] `true` if the word or partial word is found, `false` otherwise.
-      def partial_word?(word = '')
+      def partial_word? word = ''
         is? :partial_word, word
       end
 
@@ -53,7 +53,7 @@ module Rambling
       # Checks if a whole word exists in the trie.
       # @param [String] word the word to look for in the trie.
       # @return [Boolean] `true` only if the word is found and the last character corresponds to a terminal node.
-      def word?(word = '')
+      def word? word = ''
         is? :word, word
       end
 
@@ -63,7 +63,7 @@ module Rambling
 
       attr_accessor :compressed
 
-      def is?(method, word)
+      def is? method, word
         method = compressed? ? "#{method}_when_compressed?" : "#{method}_when_uncompressed?"
         send method, word.chars.to_a
       end

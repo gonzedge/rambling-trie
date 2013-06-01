@@ -1,7 +1,7 @@
 require 'benchmark'
 
 namespace :performance do
-  def report(name, trie, output)
+  def report name, trie, output
     words = %w(hi help beautiful impressionism anthropological)
     methods = [:word?, :partial_word?]
 
@@ -9,13 +9,13 @@ namespace :performance do
     methods.each do |method|
       output.puts "`#{method}`:"
       words.each do |word|
-        output.print "#{word} - #{trie.send(method, word)}".ljust 30
+        output.print "#{word} - #{trie.send method, word}".ljust 30
         output.puts Benchmark.measure { 200_000.times { trie.send method, word }}
       end
     end
   end
 
-  def generate_report(filename = nil)
+  def generate_report filename = nil
     output = filename.nil? ? $stdout : File.open(filename, 'a+')
 
     output.puts "\nReport for rambling-trie version #{Rambling::Trie::VERSION}"
@@ -39,7 +39,7 @@ namespace :performance do
     output.close
   end
 
-  def path(*filename)
+  def path *filename
     File.join File.dirname(__FILE__), '..', '..', '..', '..', *filename
   end
 

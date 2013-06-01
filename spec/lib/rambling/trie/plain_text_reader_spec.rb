@@ -10,7 +10,7 @@ module Rambling
         it 'yields every word yielded by the file' do
           yielded_words = []
           subject.each_word(filepath) { |word| yielded_words << word }
-          expect(yielded_words).to eq(words)
+          expect(yielded_words).to eq words
         end
       end
     end

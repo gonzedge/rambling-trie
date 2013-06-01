@@ -26,7 +26,7 @@ module Rambling
       # Creates a new Node.
       # @param [String, nil] word the word from which to create this Node and his branch.
       # @param [Node, nil] parent the parent of this node.
-      def initialize(word = nil, parent = nil)
+      def initialize word = nil, parent = nil
         self.parent = parent
         self.children_tree = {}
 
@@ -74,7 +74,7 @@ module Rambling
       attr_writer :children_tree
       attr_accessor :terminal
 
-      def letter=(new_letter)
+      def letter= new_letter
         if new_letter
           @letter = new_letter.to_sym
           parent[letter] = self if parent

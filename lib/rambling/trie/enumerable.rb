@@ -7,7 +7,7 @@ module Rambling
       alias_method :size, :count
 
       # Calls block once for each of the words contained in the trie. If no block given, an Enumerator is returned.
-      def each(&block)
+      def each &block
         enumerator = Enumerator.new do |words|
           words << as_word if terminal?
           children.each { |child| child.each { |word| words << word } }

@@ -27,7 +27,7 @@ module Rambling
         !(root? || terminal?) && children_tree.size == 1
       end
 
-      def merge_with!(child)
+      def merge_with! child
         delete_old_key_on_parent!
         redefine_self! child
 
@@ -38,7 +38,7 @@ module Rambling
         parent.delete letter if parent
       end
 
-      def redefine_self!(merged_node)
+      def redefine_self! merged_node
         self.letter = letter.to_s << merged_node.letter.to_s
         self.children_tree = merged_node.children_tree
         self.terminal = merged_node.terminal?

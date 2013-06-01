@@ -42,7 +42,6 @@ module Rambling
 
       describe '#<<' do
         let(:node) { Node.new }
-        let(:word) { 'word' }
 
         it 'delegates to #add' do
           expect((node << 'a').letter).to eq :a
