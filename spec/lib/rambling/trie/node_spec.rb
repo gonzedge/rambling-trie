@@ -27,7 +27,7 @@ module Rambling
       end
 
       it 'delegates `#children` to its children tree values' do
-        children = [double('child 1'), double('child 2')]
+        children = [double(:child_1), double(:child_2)]
         expect(subject.children_tree).to receive(:values).and_return(children)
         expect(subject.children).to eq children
       end
@@ -200,7 +200,7 @@ module Rambling
       end
 
       describe '#compressed?' do
-        let(:root) { double 'Root' }
+        let(:root) { double :root }
         subject { Node.new '', root }
 
         context 'parent is compressed' do

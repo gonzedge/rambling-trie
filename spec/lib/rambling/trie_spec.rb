@@ -3,9 +3,9 @@ require 'spec_helper'
 module Rambling
   describe Trie do
     describe '.create' do
-      let(:root) { double Trie::Root }
+      let(:root) { double :root }
 
-      before { allow(Trie::Root).to receive(:new).and_yield(root).and_return(root) }
+      before { allow(Trie::Root).to receive(:new).and_yield(root).and_return root }
 
       it 'returns a new instance of the trie root node' do
         expect(Trie.create).to eq root
@@ -21,12 +21,12 @@ module Rambling
 
       context 'with a filepath' do
         let(:filepath) { 'test_words.txt' }
-        let(:reader) { double(Trie::PlainTextReader) }
+        let(:reader) { double :reader }
         let(:words) { %w(a couple of test words over here) }
 
         before do
           receive_and_yield = receive(:each_word)
-          words.each { |word| receive_and_yield = receive_and_yield.and_yield(word) }
+          words.inject(receive_and_yield) { |yielder, word| yielder.and_yield word }
           allow(reader).to receive_and_yield
         end
 
