@@ -35,9 +35,7 @@ module Rambling
       end
 
       def delete_old_key_on_parent!
-        return if parent.nil?
-
-        parent.delete letter
+        parent.delete letter if parent
       end
 
       def redefine_self!(merged_node)

@@ -74,12 +74,11 @@ module Rambling
       attr_writer :children_tree
       attr_accessor :terminal
 
-      def letter=(letter)
-        return unless letter
-
-        letter = letter.to_sym
-        @letter = letter
-        parent[letter] = self if parent
+      def letter=(new_letter)
+        if new_letter
+          @letter = new_letter.to_sym
+          parent[letter] = self if parent
+        end
       end
     end
   end
