@@ -16,7 +16,14 @@ module Rambling
         end
       end
 
-      alias_method :<<, :add
+      # Alias for #add
+      # @param [String] word the word to add the branch from.
+      # @return [Node] the just added branch's root node.
+      # @raise [InvalidOperation] if the trie is already compressed.
+      # @see Branches#add
+      def << word
+        add word
+      end
 
       protected
 

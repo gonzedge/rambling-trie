@@ -20,8 +20,6 @@ module Rambling
         super word.clone
       end
 
-      alias_method :<<, :add
-
       # Compresses the existing tree using redundant node elimination. Flags the trie as compressed.
       # @return [Root] self
       def compress!
