@@ -1,4 +1,6 @@
-# Rambling Trie [![Build Status](https://secure.travis-ci.org/gonzedge/rambling-trie.png)](http://travis-ci.org/gonzedge/rambling-trie) [![Dependency Status](https://gemnasium.com/gonzedge/rambling-trie.png)](https://gemnasium.com/gonzedge/rambling-trie) [![Code Climate](https://codeclimate.com/github/gonzedge/rambling-trie.png)](https://codeclimate.com/github/gonzedge/rambling-trie) [![Coverage Status](https://coveralls.io/repos/gonzedge/rambling-trie/badge.png)](https://coveralls.io/r/gonzedge/rambling-trie) [![Gem Version](https://badge.fury.io/rb/rambling-trie.png)](http://badge.fury.io/rb/rambling-trie)
+# Rambling Trie
+
+[![Gem Version](https://badge.fury.io/rb/rambling-trie.png)](http://badge.fury.io/rb/rambling-trie) [![Dependency Status](https://gemnasium.com/gonzedge/rambling-trie.png)](https://gemnasium.com/gonzedge/rambling-trie) [![Build Status](https://secure.travis-ci.org/gonzedge/rambling-trie.png)](http://travis-ci.org/gonzedge/rambling-trie) [![Code Climate](https://codeclimate.com/github/gonzedge/rambling-trie.png)](https://codeclimate.com/github/gonzedge/rambling-trie) [![Coverage Status](https://coveralls.io/repos/gonzedge/rambling-trie/badge.png)](https://coveralls.io/r/gonzedge/rambling-trie)
 
 The Rambling Trie is a custom implementation of the Trie data structure with Ruby, which includes compression abilities and is designed to be very fast to traverse.
 
