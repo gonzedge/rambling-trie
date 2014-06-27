@@ -47,7 +47,7 @@ module Rambling
           end
 
           it 'includes no children' do
-            expect(subject).to have(0).children
+            expect(subject.children.size).to eq 0
           end
 
           it 'is not a terminal node' do
@@ -71,7 +71,7 @@ module Rambling
           end
 
           it 'includes no children' do
-            expect(subject).to have(0).children
+            expect(subject.children.size).to eq 0
           end
 
           it 'is not a terminal node' do
@@ -95,7 +95,7 @@ module Rambling
           end
 
           it 'includes no children' do
-            expect(subject).to have(0).children
+            expect(subject.children.size).to eq 0
           end
 
           it 'is a terminal node' do
@@ -111,7 +111,7 @@ module Rambling
           end
 
           it 'includes one child' do
-            expect(subject).to have(1).children
+            expect(subject.children.size).to eq 1
           end
 
           it 'includes a child with the expected letter' do

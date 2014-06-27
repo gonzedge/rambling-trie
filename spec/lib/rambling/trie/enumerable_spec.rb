@@ -28,8 +28,8 @@ module Rambling
       end
 
       it 'includes the core Enumerable module' do
-        expect(root.all? { |word| words.include? word }).to be_true
-        expect(root.any? { |word| word.start_with? 's' }).to be_true
+        expect(root.all? { |word| words.include? word }).to be true
+        expect(root.any? { |word| word.start_with? 's' }).to be true
         expect(root.to_a).to match_array words
       end
     end

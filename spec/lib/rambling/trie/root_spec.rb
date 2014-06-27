@@ -11,7 +11,7 @@ module Rambling
 
       describe '.new' do
         it 'has no children' do
-          expect(subject).to have(0).children
+          expect(subject.children.size).to eq 0
         end
 
         it 'has no letter' do
@@ -42,8 +42,8 @@ module Rambling
           end
 
           it 'executes the block' do
-            expect(subject).to have(1).children
-            expect(subject.word? 'test').to be_true
+            expect(subject.children.size).to eq 1
+            expect(subject.word? 'test').to be true
           end
         end
       end
@@ -82,7 +82,7 @@ module Rambling
 
           it 'compresses into a single node without children' do
             expect(subject[:all].letter).to eq :all
-            expect(subject[:all]).to have(0).children
+            expect(subject[:all].children.size).to eq 0
             expect(subject[:all]).to be_terminal
             expect(subject[:all]).to be_compressed
           end
@@ -97,13 +97,13 @@ module Rambling
 
           it 'compresses into corresponding three nodes' do
             expect(subject[:a].letter).to eq :a
-            expect(subject[:a]).to have(2).children
+            expect(subject[:a].children.size).to eq 2
 
             expect(subject[:a][:ll].letter).to eq :ll
             expect(subject[:a][:sk].letter).to eq :sk
 
-            expect(subject[:a][:ll]).to have(0).children
-            expect(subject[:a][:sk]).to have(0).children
+            expect(subject[:a][:ll].children.size).to eq 0
+            expect(subject[:a][:sk].children.size).to eq 0
 
             expect(subject[:a][:ll]).to be_terminal
             expect(subject[:a][:sk]).to be_terminal
@@ -120,19 +120,19 @@ module Rambling
           subject.compress!
 
           expect(subject[:re].letter).to eq :re
-          expect(subject[:re]).to have(2).children
+          expect(subject[:re].children.size).to eq 2
 
           expect(subject[:re][:pa].letter).to eq :pa
           expect(subject[:re][:st].letter).to eq :st
 
-          expect(subject[:re][:pa]).to have(2).children
-          expect(subject[:re][:st]).to have(0).children
+          expect(subject[:re][:pa].children.size).to eq 2
+          expect(subject[:re][:st].children.size).to eq 0
 
           expect(subject[:re][:pa][:y].letter).to eq :y
           expect(subject[:re][:pa][:int].letter).to eq :int
 
-          expect(subject[:re][:pa][:y]).to have(0).children
-          expect(subject[:re][:pa][:int]).to have(0).children
+          expect(subject[:re][:pa][:y].children.size).to eq 0
+          expect(subject[:re][:pa][:int].children.size).to eq 0
 
           expect(subject[:re][:pa][:y].parent).to eq subject[:re][:pa]
           expect(subject[:re][:pa][:int].parent).to eq subject[:re][:pa]
@@ -174,8 +174,8 @@ module Rambling
           end
 
           it 'matches the whole word' do
-            expect(subject.word? 'hello').to be_true
-            expect(subject.word? 'high').to be_true
+            expect(subject.word? 'hello').to be true
+            expect(subject.word? 'high').to be true
           end
 
           it 'is aliased as #include?' do
@@ -189,8 +189,8 @@ module Rambling
             end
 
             it 'matches the whole word' do
-              expect(subject.word? 'hello').to be_true
-              expect(subject.word? 'high').to be_true
+              expect(subject.word? 'hello').to be true
+              expect(subject.word? 'high').to be true
             end
           end
         end
@@ -201,7 +201,7 @@ module Rambling
           end
 
           it 'does not match the whole word' do
-            expect(subject.word? 'halt').to be_false
+            expect(subject.word? 'halt').to be false
           end
 
           it 'is aliased as #include?' do
@@ -214,7 +214,7 @@ module Rambling
             end
 
             it 'does not match the whole word' do
-              expect(subject.word? 'halt').to be_false
+              expect(subject.word? 'halt').to be false
             end
           end
         end
@@ -224,8 +224,8 @@ module Rambling
         it 'is aliased as #match?' do
           subject << 'hello'
           subject << 'high'
-          expect(subject.match? 'hel').to be_true
-          expect(subject.match? 'hig').to be_true
+          expect(subject.match? 'hel').to be true
+          expect(subject.match? 'hig').to be true
         end
 
         context 'word is contained' do
@@ -235,8 +235,8 @@ module Rambling
           end
 
           it 'matches part of the word' do
-            expect(subject.partial_word? 'hell').to be_true
-            expect(subject.partial_word? 'hig').to be_true
+            expect(subject.partial_word? 'hell').to be true
+            expect(subject.partial_word? 'hig').to be true
           end
 
           context 'and the root has been compressed' do
@@ -245,13 +245,13 @@ module Rambling
             end
 
             it 'matches part of the word' do
-              expect(subject.partial_word? 'h').to be_true
-              expect(subject.partial_word? 'he').to be_true
-              expect(subject.partial_word? 'hell').to be_true
-              expect(subject.partial_word? 'hello').to be_true
-              expect(subject.partial_word? 'hi').to be_true
-              expect(subject.partial_word? 'hig').to be_true
-              expect(subject.partial_word? 'high').to be_true
+              expect(subject.partial_word? 'h').to be true
+              expect(subject.partial_word? 'he').to be true
+              expect(subject.partial_word? 'hell').to be true
+              expect(subject.partial_word? 'hello').to be true
+              expect(subject.partial_word? 'hi').to be true
+              expect(subject.partial_word? 'hig').to be true
+              expect(subject.partial_word? 'high').to be true
             end
           end
         end
@@ -262,8 +262,8 @@ module Rambling
           end
 
           it 'does not match any part of the word' do
-            expect(subject.partial_word? 'ha').to be_false
-            expect(subject.partial_word? 'hal').to be_false
+            expect(subject.partial_word? 'ha').to be false
+            expect(subject.partial_word? 'hal').to be false
           end
 
           context 'and the root has been compressed' do
@@ -272,8 +272,8 @@ module Rambling
             end
 
             it 'does not match any part of the word' do
-              expect(subject.partial_word? 'ha').to be_false
-              expect(subject.partial_word? 'hal').to be_false
+              expect(subject.partial_word? 'ha').to be false
+              expect(subject.partial_word? 'hal').to be false
             end
           end
         end
