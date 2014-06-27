@@ -1,6 +1,6 @@
 # Rambling Trie
 
-[![Gem Version](https://badge.fury.io/rb/rambling-trie.png)](http://badge.fury.io/rb/rambling-trie) [![Dependency Status](https://gemnasium.com/gonzedge/rambling-trie.png)](https://gemnasium.com/gonzedge/rambling-trie) [![Build Status](https://secure.travis-ci.org/gonzedge/rambling-trie.png)](http://travis-ci.org/gonzedge/rambling-trie) [![Code Climate](https://codeclimate.com/github/gonzedge/rambling-trie.png)](https://codeclimate.com/github/gonzedge/rambling-trie) [![Coverage Status](https://coveralls.io/repos/gonzedge/rambling-trie/badge.png)](https://coveralls.io/r/gonzedge/rambling-trie)
+[![Gem Version][badge_fury_badge]][badge_fury_link] [![Dependency Status][gemnasium_badge]][gemnasium_link] [![Build Status][travis_ci_badge]][travis_ci_link] [![Code Climate][code_climate_badge]][code_climage_link] [![Coverage Status][coveralls_badge]][coveralls_link]
 
 The Rambling Trie is a custom implementation of the Trie data structure with Ruby, which includes compression abilities and is designed to be very fast to traverse.
 
@@ -13,7 +13,7 @@ You will need:
 * Ruby 1.9.2 or up
 * RubyGems
 
-See [RVM](http://beginrescueend.com) or [rbenv](https://github.com/sstephenson/rbenv) for more information on how to manage Ruby versions.
+See [RVM][rvm] or [rbenv][rbenv] for more information on how to manage Ruby versions.
 
 ### Installation
 
@@ -181,3 +181,17 @@ The above copyright notice and this permission notice shall be included in all c
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+[badge_fury_badge]: https://badge.fury.io/rb/rambling-trie.svg
+[badge_fury_link]: https://badge.fury.io/rb/rambling-trie
+[code_climate_badge]: https://codeclimate.com/github/gonzedge/rambling-trie.png
+[code_climage_link]: https://codeclimate.com/github/gonzedge/rambling-trie
+[coveralls_badge]: https://coveralls.io/repos/gonzedge/rambling-trie/badge.png
+[coveralls_link]: https://coveralls.io/r/gonzedge/rambling-trie
+[gemnasium_badge]: https://gemnasium.com/gonzedge/rambling-trie.svg
+[gemnasium_link]: https://gemnasium.com/gonzedge/rambling-trie
+[travis_ci_badge]: https://secure.travis-ci.org/gonzedge/rambling-trie.svg
+[travis_ci_link]: https://travis-ci.org/gonzedge/rambling-trie
+[rvm]: https://rvm.io
+[rbenv]: https://github.com/sstephenson/rbenv
+[rubydoc]: http://rubydoc.info/gems/rambling-trie
+[rubydoc_github]: http://rubydoc.info/github/gonzedge/rambling-trie
