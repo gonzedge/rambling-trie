@@ -10,7 +10,7 @@ The Rambling Trie is a custom implementation of the Trie data structure with Rub
 
 You will need:
 
-* Ruby 1.9.2 or up
+* Ruby 1.9.3 or up
 * RubyGems
 
 See [RVM][rvm] or [rbenv][rbenv] for more information on how to manage Ruby versions.
