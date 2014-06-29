@@ -156,12 +156,6 @@ The Rambling Trie has been tested with the following Ruby versions:
 * 2.0.0
 * 1.9.3
 
-And the following Rails versions:
-
-* 3.2.x
-* 3.1.x
-
-It's possible that Rails 3.0.x is supported, but there is no guarantee.
 Ruby 1.8.7 and 1.9.2 are not supported.
 
 ## Contributing to Rambling Trie
