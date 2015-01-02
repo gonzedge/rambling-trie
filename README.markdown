@@ -166,7 +166,7 @@ Also, be sure to add tests for any feature you may develop or bug you may fix.
 
 ## License and copyright
 
-Copyright (c) 2012-2014 Edgar Gonzalez
+Copyright (c) 2012-2015 Edgar Gonzalez
 
 MIT License
 
