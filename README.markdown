@@ -178,13 +178,13 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 [badge_fury_badge]: https://badge.fury.io/rb/rambling-trie.svg
 [badge_fury_link]: https://badge.fury.io/rb/rambling-trie
-[code_climate_badge]: https://codeclimate.com/github/gonzedge/rambling-trie.png
+[code_climate_badge]: https://codeclimate.com/github/gonzedge/rambling-trie/badges/gpa.svg
 [code_climage_link]: https://codeclimate.com/github/gonzedge/rambling-trie
-[coveralls_badge]: https://coveralls.io/repos/gonzedge/rambling-trie/badge.png
+[coveralls_badge]: https://img.shields.io/coveralls/gonzedge/rambling-trie.svg
 [coveralls_link]: https://coveralls.io/r/gonzedge/rambling-trie
 [gemnasium_badge]: https://gemnasium.com/gonzedge/rambling-trie.svg
 [gemnasium_link]: https://gemnasium.com/gonzedge/rambling-trie
-[travis_ci_badge]: https://secure.travis-ci.org/gonzedge/rambling-trie.svg
+[travis_ci_badge]: https://travis-ci.org/gonzedge/rambling-trie.svg
 [travis_ci_link]: https://travis-ci.org/gonzedge/rambling-trie
 [rvm]: https://rvm.io
 [rbenv]: https://github.com/sstephenson/rbenv
