@@ -37,14 +37,6 @@ To create the trie, initialize it like this:
 trie = Rambling::Trie.create
 ```
 
-- - -
-
-#### Deprecation warnings
-
-* Starting from version 0.4.0, `Rambling::Trie.new` is deprecated. Please use `Rambling::Trie.create` instead.
-
-- - -
-
 You can also provide a block and the created instance will be yielded for you to perform any operation on it:
 
 ``` ruby
@@ -71,23 +63,6 @@ trie
 ```
 
 If you want to use a custom file format, you will need to provide a custom file reader that defines the `each_word` method that yields each word contained in the file. Look at the `Rambling::Trie::PlainTextReader` class for an example.
-
-- - -
-
-#### Breaking changes
-
-* Starting from version 0.6.0, the `children` method returns an array of nodes instead of a hash. If you still need access to the underlying hash, use `children_tree` instead.
-
-- - -
-
-- - -
-
-#### Deprecation warnings
-
-* Starting from version 0.6.0, the `branch?` method is deprecated. The `partial_word?` method should be used instead.
-* Starting from version 0.5.0, the `has_branch_for?`, `is_word?` and `add_branch_from` methods are deprecated. The methods `branch?`, `word?` and `add` should be used respectively.
-
-- - -
 
 To add new words to the trie, use `add` or `<<`:
 
