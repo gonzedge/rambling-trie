@@ -9,5 +9,5 @@ group :test do
   gem 'guard-rspec'
   gem 'rb-fsevent'
   gem 'rb-inotify'
-  gem 'simplecov', '~> 0.9.1', require: false
+  gem 'simplecov', '~> 0.10.0', require: false
 end
