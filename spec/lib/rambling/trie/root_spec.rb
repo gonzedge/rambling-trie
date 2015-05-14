@@ -19,11 +19,11 @@ module Rambling
         end
 
         it 'is not a terminal node' do
-          expect(subject).to_not be_terminal
+          expect(subject).not_to be_terminal
         end
 
         it 'is not a word' do
-          expect(subject).to_not be_word
+          expect(subject).not_to be_word
         end
 
         context 'with a block' do
@@ -34,11 +34,11 @@ module Rambling
           end
 
           it 'is not a terminal node' do
-            expect(subject).to_not be_terminal
+            expect(subject).not_to be_terminal
           end
 
           it 'is not a word' do
-            expect(subject).to_not be_word
+            expect(subject).not_to be_word
           end
 
           it 'executes the block' do
@@ -205,7 +205,7 @@ module Rambling
           end
 
           it 'is aliased as #include?' do
-            expect(subject).to_not include 'high'
+            expect(subject).not_to include 'high'
           end
 
           context 'and the root has been compressed' do

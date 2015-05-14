@@ -34,7 +34,7 @@ module Rambling
 
       describe '#root?' do
         it 'returns false' do
-          expect(subject).to_not be_root
+          expect(subject).not_to be_root
         end
       end
 
@@ -51,7 +51,7 @@ module Rambling
           end
 
           it 'is not a terminal node' do
-            expect(subject).to_not be_terminal
+            expect(subject).not_to be_terminal
           end
 
           it 'returns empty string as its word' do
@@ -59,7 +59,7 @@ module Rambling
           end
 
           it 'is not compressed' do
-            expect(subject).to_not be_compressed
+            expect(subject).not_to be_compressed
           end
         end
 
@@ -75,7 +75,7 @@ module Rambling
           end
 
           it 'is not a terminal node' do
-            expect(subject).to_not be_terminal
+            expect(subject).not_to be_terminal
           end
 
           it 'returns empty string as its word' do
@@ -83,7 +83,7 @@ module Rambling
           end
 
           it 'is not compressed' do
-            expect(subject).to_not be_compressed
+            expect(subject).not_to be_compressed
           end
         end
 
@@ -127,7 +127,7 @@ module Rambling
           end
 
           it 'does not mark itself as a terminal node' do
-            expect(subject).to_not be_terminal
+            expect(subject).not_to be_terminal
           end
 
           it 'marks the first child as a terminal node' do
@@ -143,13 +143,13 @@ module Rambling
           end
 
           it 'does not mark any other letter as terminal node' do
-            expect(subject[:p][:a][:g][:h][:e][:t][:t]).to_not be_terminal
-            expect(subject[:p][:a][:g][:h][:e][:t]).to_not be_terminal
-            expect(subject[:p][:a][:g][:h][:e]).to_not be_terminal
-            expect(subject[:p][:a][:g][:h]).to_not be_terminal
-            expect(subject[:p][:a][:g]).to_not be_terminal
-            expect(subject[:p][:a]).to_not be_terminal
-            expect(subject[:p]).to_not be_terminal
+            expect(subject[:p][:a][:g][:h][:e][:t][:t]).not_to be_terminal
+            expect(subject[:p][:a][:g][:h][:e][:t]).not_to be_terminal
+            expect(subject[:p][:a][:g][:h][:e]).not_to be_terminal
+            expect(subject[:p][:a][:g][:h]).not_to be_terminal
+            expect(subject[:p][:a][:g]).not_to be_terminal
+            expect(subject[:p][:a]).not_to be_terminal
+            expect(subject[:p]).not_to be_terminal
           end
         end
       end
@@ -219,7 +219,7 @@ module Rambling
           end
 
           it 'returns false' do
-            expect(subject).to_not be_compressed
+            expect(subject).not_to be_compressed
           end
         end
       end
