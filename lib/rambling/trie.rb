@@ -3,6 +3,7 @@ require 'forwardable'
   branches compressor enumerable inspector
   invalid_operation node missing_node
   plain_text_reader root version
+  container
 }.each do |file|
   require File.join('rambling', 'trie', file)
 end
@@ -14,13 +15,26 @@ module Rambling
     class << self
       # Creates a new Trie. Entry point for the Rambling::Trie API.
       # @param [String, nil] filepath the file to load the words from.
-      # @return [Root] the trie just created.
-      # @yield [Root] the trie just created.
-      def create filepath = nil, reader = PlainTextReader.new
-        Root.new do |root|
-          reader.each_word(filepath) { |word| root << word } if filepath
-          yield root if block_given?
+      # @return [Container] the trie just created.
+      # @yield [Container] the trie just created.
+      def create filepath = nil, reader = nil
+        reader ||= default_reader
+
+        Rambling::Trie::Container.new do |container|
+          if filepath
+            reader.each_word(filepath) do |word|
+              container << word
+            end
+          end
+
+          yield container if block_given?
         end
+      end
+
+      private
+
+      def default_reader
+        Rambling::Trie::PlainTextReader.new
       end
     end
   end
