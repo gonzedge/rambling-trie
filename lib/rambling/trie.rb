@@ -3,7 +3,9 @@ require 'forwardable'
   branches compressor enumerable
   inspector invalid_operation node
   plain_text_reader root version
-}.map { |file| File.join 'rambling', 'trie', file }.each &method(:require)
+}.each do |file|
+  require File.join('rambling', 'trie', file)
+end
 
 # General namespace for all Rambling gems.
 module Rambling
