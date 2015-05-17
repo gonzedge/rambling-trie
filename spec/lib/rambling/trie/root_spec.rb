@@ -25,27 +25,6 @@ module Rambling
         it 'is not a word' do
           expect(subject).not_to be_word
         end
-
-        context 'with a block' do
-          subject { Root.new { |root| root << 'test' } }
-
-          it 'has no letter' do
-            expect(subject.letter).to be_nil
-          end
-
-          it 'is not a terminal node' do
-            expect(subject).not_to be_terminal
-          end
-
-          it 'is not a word' do
-            expect(subject).not_to be_word
-          end
-
-          it 'executes the block' do
-            expect(subject.children.size).to eq 1
-            expect(subject.word? 'test').to be true
-          end
-        end
       end
 
       describe '#compress!' do

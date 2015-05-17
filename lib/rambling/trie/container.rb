@@ -17,6 +17,8 @@ module Rambling
         :compressed?
       ] => :root
 
+      # Creates a new Trie.
+      # @yield [Container] the trie just created.
       def initialize
         @root = Rambling::Trie::Root.new
 

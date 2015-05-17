@@ -2,14 +2,6 @@ module Rambling
   module Trie
     # A representation of the root node in the Trie data structure.
     class Root < Node
-      # Creates a new Trie.
-      # @yield [Root] the trie just created.
-      def initialize
-        super
-        self.compressed = false
-        yield self if block_given?
-      end
-
       # Adds a branch to the trie based on the word, without changing the passed word.
       # @param [String] word the word to add the branch from.
       # @return [Node] the just added branch's root node.
