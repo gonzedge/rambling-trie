@@ -22,7 +22,7 @@ module Rambling
 
         Rambling::Trie::Container.new do |container|
           if filepath
-            reader.each_word(filepath) do |word|
+            reader.each_word filepath do |word|
               container << word
             end
           end
