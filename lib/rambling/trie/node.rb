@@ -33,7 +33,7 @@ module Rambling
         unless word.nil? || word.empty?
           self.letter = word.slice! 0
           self.terminal = word.empty?
-          self << word
+          self.add word
         end
       end
 

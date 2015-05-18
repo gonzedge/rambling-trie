@@ -7,7 +7,7 @@ module Rambling
       let(:words) { %w(add some words and another word) }
 
       before do
-        words.each { |word| root << word.clone }
+        words.each { |word| root.add word.clone }
       end
 
       describe '#each' do

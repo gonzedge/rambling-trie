@@ -32,7 +32,6 @@ describe Rambling::Trie::Container do
     let(:root) do
       double :root,
         add: nil,
-        :<< => nil,
         each: nil,
         word?: nil,
         partial_word?: nil,
@@ -61,9 +60,9 @@ describe Rambling::Trie::Container do
       expect(root).to have_received(:scan).with 'hig'
     end
 
-    it 'delegates `#<<` to the root node' do
+    it 'aliases `#<<` to `#add`' do
       container << 'words'
-      expect(root).to have_received(:<<).with 'words'
+      expect(root).to have_received(:add).with 'words'
     end
 
     it 'delegates `#add` to the root node' do

@@ -46,7 +46,7 @@ module Rambling
 
         context 'with at least one word' do
           it 'keeps the root letter nil' do
-            subject << 'all'
+            subject.add 'all'
             subject.compress!
 
             expect(subject.letter).to be_nil
@@ -55,7 +55,7 @@ module Rambling
 
         context 'with a single word' do
           before do
-            subject << 'all'
+            subject.add 'all'
             subject.compress!
           end
 
@@ -69,8 +69,8 @@ module Rambling
 
         context 'with two words' do
           before do
-            subject << 'all'
-            subject << 'ask'
+            subject.add 'all'
+            subject.add 'ask'
             subject.compress!
           end
 
@@ -93,9 +93,9 @@ module Rambling
         end
 
         it 'reassigns the parent nodes correctly' do
-          subject << 'repay'
-          subject << 'rest'
-          subject << 'repaint'
+          subject.add 'repay'
+          subject.add 'rest'
+          subject.add 'repaint'
           subject.compress!
 
           expect(subject[:re].letter).to eq :re
@@ -118,9 +118,9 @@ module Rambling
         end
 
         it 'does not compress terminal nodes' do
-          subject << 'you'
-          subject << 'your'
-          subject << 'yours'
+          subject.add 'you'
+          subject.add 'your'
+          subject.add 'yours'
 
           subject.compress!
 
@@ -135,12 +135,12 @@ module Rambling
 
         describe 'and trying to add a word' do
           it 'raises an error' do
-            subject << 'repay'
-            subject << 'rest'
-            subject << 'repaint'
+            subject.add 'repay'
+            subject.add 'rest'
+            subject.add 'repaint'
             subject.compress!
 
-            expect { subject << 'restaurant' }.to raise_error InvalidOperation
+            expect { subject.add 'restaurant' }.to raise_error InvalidOperation
           end
         end
       end
@@ -148,8 +148,8 @@ module Rambling
       describe '#word?' do
         context 'word is contained' do
           before do
-            subject << 'hello'
-            subject << 'high'
+            subject.add 'hello'
+            subject.add 'high'
           end
 
           it 'matches the whole word' do
@@ -171,7 +171,7 @@ module Rambling
 
         context 'word is not contained' do
           before do
-            subject << 'hello'
+            subject.add 'hello'
           end
 
           it 'does not match the whole word' do
@@ -195,8 +195,8 @@ module Rambling
       describe '#partial_word?' do
         context 'word is contained' do
           before do
-            subject << 'hello'
-            subject << 'high'
+            subject.add 'hello'
+            subject.add 'high'
           end
 
           it 'matches part of the word' do
@@ -223,7 +223,7 @@ module Rambling
 
         context 'word is not contained' do
           before do
-            subject << 'hello'
+            subject.add 'hello'
           end
 
           it 'does not match any part of the word' do
@@ -249,12 +249,12 @@ module Rambling
       describe '#scan' do
         context 'words that match are not contained' do
           before do
-            subject << 'hi'
-            subject << 'hello'
-            subject << 'high'
-            subject << 'hell'
-            subject << 'highlight'
-            subject << 'histerical'
+            subject.add 'hi'
+            subject.add 'hello'
+            subject.add 'high'
+            subject.add 'hell'
+            subject.add 'highlight'
+            subject.add 'histerical'
           end
 
           it 'returns an array with the words that match' do
@@ -294,7 +294,7 @@ module Rambling
 
         context 'words that match are not contained' do
           before do
-            subject << 'hello'
+            subject.add 'hello'
           end
 
           it 'returns an empty array' do
@@ -319,11 +319,6 @@ module Rambling
 
         it 'does not change the original word' do
           subject.add word
-          expect(word).to eq original_word
-        end
-
-        it 'is still aliased as #<<' do
-          subject << word
           expect(word).to eq original_word
         end
       end

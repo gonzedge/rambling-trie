@@ -44,7 +44,7 @@ module Rambling
         let(:node) { Node.new }
 
         it 'delegates to #add' do
-          expect((node << 'a').letter).to eq :a
+          expect((node.add 'a').letter).to eq :a
         end
       end
     end

@@ -5,7 +5,7 @@ describe Rambling::Trie::Inspector do
   let(:node) { root[:o] }
 
   before do
-    %w(only three words).each { |word| root << word }
+    %w(only three words).each { |word| root.add word }
   end
 
   describe '#inspect' do
