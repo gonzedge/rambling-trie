@@ -12,6 +12,7 @@ module Rambling
         :word?,
         :include?,
         :partial_word?,
+        :scan,
         :match?,
         :compress!,
         :compressed?
@@ -24,6 +25,10 @@ module Rambling
 
         yield self if block_given?
       end
+
+      alias_method :include?, :word?
+      alias_method :match?, :partial_word?
+      alias_method :words, :scan
 
       private
 

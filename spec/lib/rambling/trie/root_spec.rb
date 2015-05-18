@@ -157,11 +157,6 @@ module Rambling
             expect(subject.word? 'high').to be true
           end
 
-          it 'is aliased as #include?' do
-            expect(subject).to include 'hello'
-            expect(subject).to include 'high'
-          end
-
           context 'and the root has been compressed' do
             before do
               subject.compress!
@@ -184,10 +179,6 @@ module Rambling
             expect(subject.word? 'al').to be false
           end
 
-          it 'is aliased as #include?' do
-            expect(subject).not_to include 'high'
-          end
-
           context 'and the root has been compressed' do
             before do
               subject.compress!
@@ -202,13 +193,6 @@ module Rambling
       end
 
       describe '#partial_word?' do
-        it 'is aliased as #match?' do
-          subject << 'hello'
-          subject << 'high'
-          expect(subject.match? 'hel').to be true
-          expect(subject.match? 'hig').to be true
-        end
-
         context 'word is contained' do
           before do
             subject << 'hello'
@@ -301,13 +285,6 @@ module Rambling
               ]
 
               expect(subject.scan 'hig').to eq [
-                'high',
-                'highlight'
-              ]
-            end
-
-            it 'is aliased as #words' do
-              expect(subject.words 'hig').to eq [
                 'high',
                 'highlight'
               ]
