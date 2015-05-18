@@ -1,6 +1,6 @@
 # Rambling Trie
 
-[![Gem Version][badge_fury_badge]][badge_fury_link] [![Dependency Status][gemnasium_badge]][gemnasium_link] [![Build Status][travis_ci_badge]][travis_ci_link] [![Code Climate][code_climate_badge]][code_climage_link] [![Coverage Status][coveralls_badge]][coveralls_link]
+[![Gem Version][badge_fury_badge]][badge_fury_link] [![Dependency Status][gemnasium_badge]][gemnasium_link] [![Build Status][travis_ci_badge]][travis_ci_link] [![Code Climate][code_climate_badge]][code_climage_link] [![Coverage Status][coveralls_badge]][coveralls_link] [![Documentation Status][inch_ci_badge]][inch_ci_link]
 
 The Rambling Trie is a custom implementation of the Trie data structure with Ruby, which includes compression abilities and is designed to be very fast to traverse.
 
@@ -153,15 +153,17 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 [badge_fury_badge]: https://badge.fury.io/rb/rambling-trie.svg
 [badge_fury_link]: https://badge.fury.io/rb/rambling-trie
-[code_climate_badge]: https://codeclimate.com/github/gonzedge/rambling-trie/badges/gpa.svg
 [code_climage_link]: https://codeclimate.com/github/gonzedge/rambling-trie
+[code_climate_badge]: https://codeclimate.com/github/gonzedge/rambling-trie/badges/gpa.svg
 [coveralls_badge]: https://img.shields.io/coveralls/gonzedge/rambling-trie.svg
 [coveralls_link]: https://coveralls.io/r/gonzedge/rambling-trie
 [gemnasium_badge]: https://gemnasium.com/gonzedge/rambling-trie.svg
 [gemnasium_link]: https://gemnasium.com/gonzedge/rambling-trie
-[travis_ci_badge]: https://travis-ci.org/gonzedge/rambling-trie.svg
-[travis_ci_link]: https://travis-ci.org/gonzedge/rambling-trie
-[rvm]: https://rvm.io
+[inch_ci_badge]: https://inch-ci.org/github/gonzedge/rambling-trie.svg?branch=master
+[inch_ci_link]: https://inch-ci.org/github/gonzedge/rambling-trie
 [rbenv]: https://github.com/sstephenson/rbenv
 [rubydoc]: http://rubydoc.info/gems/rambling-trie
 [rubydoc_github]: http://rubydoc.info/github/gonzedge/rambling-trie
+[rvm]: https://rvm.io
+[travis_ci_badge]: https://travis-ci.org/gonzedge/rambling-trie.svg
+[travis_ci_link]: https://travis-ci.org/gonzedge/rambling-trie
