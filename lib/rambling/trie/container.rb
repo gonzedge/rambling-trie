@@ -1,9 +1,9 @@
 module Rambling
   module Trie
     class Container
-      extend Forwardable
+      extend ::Forwardable
 
-      include Enumerable
+      include ::Enumerable
 
       delegate [
         :each,
