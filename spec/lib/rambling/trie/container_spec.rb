@@ -1,13 +1,25 @@
 require 'spec_helper'
 
 describe Rambling::Trie::Container do
+  let(:container) { Rambling::Trie::Container.new }
+  let(:root) do
+    double :root,
+      add: nil,
+      each: nil,
+      word?: nil,
+      partial_word?: nil,
+      scan: nil,
+      compress!: nil,
+      compressed?: nil
+  end
+
+  before do
+    allow(Rambling::Trie::Root).to receive(:new)
+      .and_return root
+  end
+
   describe '.new' do
     let(:root) { double :root }
-
-    before do
-      allow(Rambling::Trie::Root).to receive(:new)
-        .and_return root
-    end
 
     it 'initializes an empty trie root node' do
       Rambling::Trie::Container.new
@@ -27,24 +39,17 @@ describe Rambling::Trie::Container do
     end
   end
 
+  describe '#add' do
+    let(:clone) { double :clone }
+    let(:word) { double :word, clone: clone }
+
+    it 'clones the original word' do
+      container.add word
+      expect(root).to have_received(:add).with clone
+    end
+  end
+
   describe 'delegates and aliases' do
-    let(:container) { Rambling::Trie::Container.new }
-    let(:root) do
-      double :root,
-        add: nil,
-        each: nil,
-        word?: nil,
-        partial_word?: nil,
-        scan: nil,
-        compress!: nil,
-        compressed?: nil
-    end
-
-    before do
-      allow(Rambling::Trie::Root).to receive(:new)
-        .and_return root
-    end
-
     it 'aliases `#include?` to `#word?`' do
       container.include? 'words'
       expect(root).to have_received(:word?).with 'words'

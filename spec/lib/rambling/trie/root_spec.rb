@@ -312,16 +312,6 @@ module Rambling
           end
         end
       end
-
-      describe '#add' do
-        let(:original_word) { 'word' }
-        let(:word) { original_word.clone }
-
-        it 'does not change the original word' do
-          subject.add word
-          expect(word).to eq original_word
-        end
-      end
     end
   end
 end

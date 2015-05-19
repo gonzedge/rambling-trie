@@ -4,6 +4,13 @@ describe Rambling::Trie do
   shared_examples_for 'a compressable trie' do
     context 'and the trie is not compressed' do
       it_behaves_like 'a trie data structure'
+
+      it 'does not alter the input' do
+        word = 'string'
+        trie.add word
+
+        expect(word).to eq 'string'
+      end
     end
 
     context 'and the trie is compressed' do
