@@ -17,13 +17,13 @@ describe Rambling::Trie::Container do
   describe '.new' do
     context 'without a specified root' do
       before do
-        allow(Rambling::Trie::Root).to receive(:new)
+        allow(Rambling::Trie::Raw::Node).to receive(:new)
           .and_return root
       end
 
       it 'initializes an empty trie root node' do
         Rambling::Trie::Container.new
-        expect(Rambling::Trie::Root).to have_received :new
+        expect(Rambling::Trie::Raw::Node).to have_received :new
       end
     end
 
@@ -89,15 +89,71 @@ describe Rambling::Trie::Container do
     end
   end
 
+  describe '#word?' do
+    context 'for an uncompressed root' do
+      let(:root) do
+        double :root,
+          compressed?: false,
+          word?: nil
+      end
+
+      it 'calls the root with the word characters' do
+        container.word? 'words'
+        expect(root).to have_received(:word?).with %w(w o r d s)
+      end
+    end
+
+    context 'for a compressed root' do
+      let(:root) do
+        double :root,
+          compressed?: true,
+          word?: nil
+      end
+
+      it 'calls the root with the full word' do
+        container.word? 'words'
+        expect(root).to have_received(:word?).with 'words'
+      end
+    end
+  end
+
+  describe '#partial_word?' do
+    context 'for an uncompressed root' do
+      let(:root) do
+        double :root,
+          compressed?: false,
+          partial_word?: nil
+      end
+
+      it 'calls the root with the word characters' do
+        container.partial_word? 'words'
+        expect(root).to have_received(:partial_word?).with %w(w o r d s)
+      end
+    end
+
+    context 'for a compressed root' do
+      let(:root) do
+        double :root,
+          compressed?: true,
+          partial_word?: nil
+      end
+
+      it 'calls the root with the full word' do
+        container.partial_word? 'words'
+        expect(root).to have_received(:partial_word?).with 'words'
+      end
+    end
+  end
+
   describe 'delegates and aliases' do
     it 'aliases `#include?` to `#word?`' do
       container.include? 'words'
-      expect(root).to have_received(:word?).with 'words'
+      expect(root).to have_received(:word?).with %w(w o r d s)
     end
 
     it 'aliases `#match?` to `#partial_word?`' do
       container.match? 'words'
-      expect(root).to have_received(:partial_word?).with 'words'
+      expect(root).to have_received(:partial_word?).with %w(w o r d s)
     end
 
     it 'aliases `#words` to `#scan`' do
@@ -110,24 +166,9 @@ describe Rambling::Trie::Container do
       expect(root).to have_received(:add).with 'words'
     end
 
-    it 'delegates `#add` to the root node' do
-      container.add 'words'
-      expect(root).to have_received(:add).with 'words'
-    end
-
     it 'delegates `#each` to the root node' do
       container.each
       expect(root).to have_received :each
-    end
-
-    it 'delegates `#word?` to the root node' do
-      container.word? 'words'
-      expect(root).to have_received(:word?).with 'words'
-    end
-
-    it 'delegates `#partial_word?` to the root node' do
-      container.partial_word? 'words'
-      expect(root).to have_received(:partial_word?).with 'words'
     end
 
     it 'delegates `#compressed?` to the root node' do

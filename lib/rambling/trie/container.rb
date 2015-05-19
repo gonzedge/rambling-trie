@@ -7,12 +7,6 @@ module Rambling
 
       delegate [
         :each,
-        :add,
-        :word?,
-        :include?,
-        :partial_word?,
-        :scan,
-        :match?,
         :compress!,
         :compressed?
       ] => :root
@@ -44,6 +38,35 @@ module Rambling
         self
       end
 
+      # Checks if a path for a word or partial word exists in the trie.
+      # @param [String] word the word or partial word to look for in the trie.
+      # @return [Boolean] `true` if the word or partial word is found, `false` otherwise.
+      def partial_word? word = ''
+        if root.compressed?
+          root.partial_word? word
+        else
+          root.partial_word? word.chars.to_a
+        end
+      end
+
+      # Checks if a whole word exists in the trie.
+      # @param [String] word the word to look for in the trie.
+      # @return [Boolean] `true` only if the word is found and the last character corresponds to a terminal node.
+      def word? word = ''
+        if root.compressed?
+          root.word? word
+        else
+          root.word? word.chars.to_a
+        end
+      end
+
+      # Returns all words that start with the specified characters.
+      # @param [String] word the word to look for in the trie.
+      # @return [Array] all the words contained in the trie that start with the specified characters.
+      def scan word = ''
+        root.scan word
+      end
+
       alias_method :include?, :word?
       alias_method :match?, :partial_word?
       alias_method :words, :scan
@@ -55,7 +78,7 @@ module Rambling
       attr_accessor :root
 
       def default_root
-        Rambling::Trie::Root.new
+        Rambling::Trie::Raw::Node.new
       end
 
       def default_compressor
