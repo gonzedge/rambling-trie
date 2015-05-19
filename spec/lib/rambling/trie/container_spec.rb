@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe Rambling::Trie::Container do
-  let(:container) { Rambling::Trie::Container.new }
+  let(:container) { Rambling::Trie::Container.new root }
   let(:root) do
     double :root,
       add: nil,
@@ -13,24 +13,24 @@ describe Rambling::Trie::Container do
       compressed?: nil
   end
 
-  before do
-    allow(Rambling::Trie::Root).to receive(:new)
-      .and_return root
-  end
-
   describe '.new' do
-    let(:root) { double :root }
+    context 'without a specified root' do
+      before do
+        allow(Rambling::Trie::Root).to receive(:new)
+          .and_return root
+      end
 
-    it 'initializes an empty trie root node' do
-      Rambling::Trie::Container.new
-      expect(Rambling::Trie::Root).to have_received :new
+      it 'initializes an empty trie root node' do
+        Rambling::Trie::Container.new
+        expect(Rambling::Trie::Root).to have_received :new
+      end
     end
 
     context 'with a block' do
       it 'yields the container' do
         yielded_container = nil
 
-        container = Rambling::Trie::Container.new do |container|
+        container = Rambling::Trie::Container.new root do |container|
           yielded_container = container
         end
 
