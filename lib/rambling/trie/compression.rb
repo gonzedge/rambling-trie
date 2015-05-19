@@ -1,7 +1,7 @@
 module Rambling
   module Trie
     # Provides the compressing behavior for the Trie data structure.
-    module Compressor
+    module Compression
       # Flag for compressed tries.
       # @return [Boolean] `true` for compressed tries, `false` otherwise.
       def compressed?

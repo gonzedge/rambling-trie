@@ -6,7 +6,7 @@ module Rambling
 
       delegate [:[], :[]=, :delete, :has_key?] => :children_tree
 
-      include Compressor
+      include Compression
       include Branches
       include Enumerable
       include Inspector

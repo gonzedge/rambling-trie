@@ -1,6 +1,6 @@
 require 'forwardable'
 %w{
-  branches compressor enumerable inspector
+  branches compression enumerable inspector
   invalid_operation node missing_node
   plain_text_reader root version
   container

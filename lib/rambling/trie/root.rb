@@ -9,7 +9,7 @@ module Rambling
         self
       end
 
-      # Flag for compressed tries. Overrides {Compressor#compressed?}.
+      # Flag for compressed tries. Overrides {Compression#compressed?}.
       # @return [Boolean] `true` for compressed tries, `false` otherwise.
       def compressed?
         !!compressed
