@@ -33,8 +33,24 @@ module Rambling
       end
 
       describe '#root?' do
-        it 'returns false' do
-          expect(subject).not_to be_root
+        context 'when the node has a parent' do
+          before do
+            subject.parent = double :parent
+          end
+
+          it 'returns false' do
+            expect(subject).not_to be_root
+          end
+        end
+
+        context 'when the node does not have a parent' do
+          before do
+            subject.parent = nil
+          end
+
+          it 'returns true' do
+            expect(subject).to be_root
+          end
         end
       end
 

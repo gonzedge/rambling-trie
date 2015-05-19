@@ -52,9 +52,9 @@ module Rambling
       end
 
       # If the current node is the root node.
-      # @return [Boolean] `false`
+      # @return [Boolean] `true` only if the node does not have a parent
       def root?
-        false
+        !parent
       end
 
       # Flag for terminal nodes.
