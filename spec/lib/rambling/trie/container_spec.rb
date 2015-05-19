@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe Rambling::Trie::Container do
-  let(:container) { Rambling::Trie::Container.new root }
+  let(:container) { Rambling::Trie::Container.new root, compressor }
   let(:root) do
     double :root,
       add: nil,
@@ -12,6 +12,7 @@ describe Rambling::Trie::Container do
       compress!: nil,
       compressed?: nil
   end
+  let(:compressor) { double :compressor, compress: nil }
 
   describe '.new' do
     context 'without a specified root' do
@@ -23,6 +24,18 @@ describe Rambling::Trie::Container do
       it 'initializes an empty trie root node' do
         Rambling::Trie::Container.new
         expect(Rambling::Trie::Root).to have_received :new
+      end
+    end
+
+    context 'without a specified compressor' do
+      before do
+        allow(Rambling::Trie::Compressor).to receive(:new)
+          .and_return compressor
+      end
+
+      it 'initializes a compressor' do
+        Rambling::Trie::Container.new
+        expect(Rambling::Trie::Compressor).to have_received :new
       end
     end
 
@@ -46,6 +59,33 @@ describe Rambling::Trie::Container do
     it 'clones the original word' do
       container.add word
       expect(root).to have_received(:add).with clone
+    end
+  end
+
+  describe '#compress!' do
+    let(:node) { double :node, add: nil }
+
+    before do
+      allow(compressor).to receive(:compress).and_return node
+    end
+
+    it 'compresses the trie using the compressor' do
+      container.compress!
+
+      expect(compressor).to have_received(:compress)
+        .with root
+    end
+
+    it 'changes to the root returned by the compressor' do
+      container.compress!
+      container.add 'word'
+
+      expect(root).not_to have_received :add
+      expect(node).to have_received :add
+    end
+
+    it 'returns itself' do
+      expect(container.compress!).to eq container
     end
   end
 
@@ -88,11 +128,6 @@ describe Rambling::Trie::Container do
     it 'delegates `#partial_word?` to the root node' do
       container.partial_word? 'words'
       expect(root).to have_received(:partial_word?).with 'words'
-    end
-
-    it 'delegates `#compress!` to the root node' do
-      container.compress!
-      expect(root).to have_received :compress!
     end
 
     it 'delegates `#compressed?` to the root node' do
