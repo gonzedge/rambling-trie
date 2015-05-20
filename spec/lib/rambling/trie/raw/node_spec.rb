@@ -79,4 +79,81 @@ describe Rambling::Trie::Raw::Node do
       end
     end
   end
+
+  describe '#partial_word?' do
+    context 'when the chars array is empty' do
+      it 'returns true' do
+        expect(node.partial_word? []).to be true
+      end
+    end
+
+    context 'when the chars array is not empty' do
+      context 'when the node has a tree that matches the characters' do
+        before do
+          node.add 'abc'
+        end
+
+        it 'returns true' do
+          expect(node.partial_word? %w(a)).to be true
+          expect(node.partial_word? %w(a b)).to be true
+          expect(node.partial_word? %w(a b c)).to be true
+        end
+      end
+
+      context 'when the node has a tree that does not match the characters' do
+        before do
+          node.add 'cba'
+        end
+
+        it 'returns false' do
+          expect(node.partial_word? %w(a)).to be false
+          expect(node.partial_word? %w(a b)).to be false
+          expect(node.partial_word? %w(a b c)).to be false
+        end
+      end
+    end
+  end
+
+  describe '#word?' do
+    context 'when the chars array is empty' do
+      context 'when the node is terminal' do
+        before do
+          node.terminal!
+        end
+
+        it 'returns true' do
+          expect(node.word? []).to be true
+        end
+      end
+
+      context 'when the node is not terminal' do
+        it 'returns false' do
+          expect(node.word? []).to be false
+        end
+      end
+    end
+
+    context 'when the chars array is not empty' do
+      context 'when the node has a tree that matches all the characters' do
+        before do
+          node.add 'abc'
+        end
+
+        it 'returns true' do
+          expect(node.word? %w(a b c)).to be true
+        end
+      end
+
+      context 'when the node has a tree that does not match all the characters' do
+        before do
+          node.add 'abc'
+        end
+
+        it 'returns false' do
+          expect(node.word? %w(a)).to be false
+          expect(node.word? %w(a b)).to be false
+        end
+      end
+    end
+  end
 end
