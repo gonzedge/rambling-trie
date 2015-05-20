@@ -63,6 +63,13 @@ module Rambling
         !!terminal
       end
 
+      # Force [Node] to be `terminal`
+      # @return [Node] the modified node.
+      def terminal!
+        self.terminal = true
+        self
+      end
+
       # String representation of the current node.
       # @return [String] the string representation of the current node.
       def to_s

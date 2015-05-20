@@ -211,6 +211,19 @@ describe Rambling::Trie::Node do
     end
   end
 
+  describe '#terminal!' do
+    it 'forces the node to be terminal' do
+      expect(node).not_to be_terminal
+      node.terminal!
+
+      expect(node).to be_terminal
+    end
+
+    it 'returns the node' do
+      expect(node.terminal!).to eq node
+    end
+  end
+
   describe 'delegates and aliases' do
     it 'delegates `#[]` to its children tree' do
       expect(node.children_tree).to receive(:[]).with(:key).and_return('value')

@@ -10,7 +10,7 @@ module Rambling
       def add word
         raise InvalidOperation, 'Cannot add branch to compressed trie' if compressed?
         if word.empty?
-          self.terminal = true
+          terminal!
         else
           add_to_children_tree word
         end

@@ -9,7 +9,7 @@ module Rambling
         # @note This method clears the contents of the word variable.
         def add word
           if word.empty?
-            self.terminal = true
+            terminal!
           else
             add_to_children_tree word
           end
