@@ -4,7 +4,7 @@ gemspec
 
 gem 'coveralls', require: false
 
-group :test do
+group :development do
   gem 'rake'
   gem 'guard-rspec'
   gem 'rb-fsevent'
