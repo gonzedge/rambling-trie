@@ -57,12 +57,22 @@ module Rambling
 
       alias_method :include?, :word?
 
+      def scan word = ''
+        scan_children_tree word
+      end
+
       private
 
       attr_accessor :compressed
 
       def is? method, word
         method = compressed? ? "#{method}_when_compressed?" : "#{method}_when_uncompressed?"
+        send method, word.chars.to_a
+      end
+
+      def scan_children_tree word
+        method = compressed? ? :scan_children_tree_when_compressed : :scan_children_tree_when_uncompressed
+
         send method, word.chars.to_a
       end
     end

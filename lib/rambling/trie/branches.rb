@@ -51,6 +51,38 @@ module Rambling
         end
       end
 
+      def scan_children_tree_when_uncompressed chars
+        if chars.empty?
+          each.to_a
+        else
+          first_letter_sym = chars.slice!(0).to_sym
+          if children_tree.has_key? first_letter_sym
+            children_tree[first_letter_sym].scan_children_tree_when_uncompressed chars
+          else
+            []
+          end
+        end
+      end
+
+      def scan_children_tree_when_compressed chars
+        if chars.empty?
+          each.to_a
+        else
+          current_length = 0
+          current_key, current_key_string = current_key chars.slice!(0)
+
+          begin
+            current_length += 1
+
+            if current_key_string.length == current_length || chars.empty?
+              return children_tree[current_key].scan_children_tree_when_compressed chars
+            end
+          end while current_key_string[current_length] == chars.slice!(0)
+
+          []
+        end
+      end
+
       private
 
       def add_to_children_tree word

@@ -279,6 +279,73 @@ module Rambling
         end
       end
 
+      describe '#scan' do
+        context 'words that match are not contained' do
+          before do
+            subject << 'hi'
+            subject << 'hello'
+            subject << 'high'
+            subject << 'hell'
+            subject << 'highlight'
+            subject << 'histerical'
+          end
+
+          it 'returns an array with the words that match' do
+            expect(subject.scan 'hi').to eq [
+              'hi',
+              'high',
+              'highlight',
+              'histerical'
+            ]
+
+            expect(subject.scan 'hig').to eq [
+              'high',
+              'highlight'
+            ]
+          end
+
+          context 'and the root has been compressed' do
+            before do
+              subject.compress!
+            end
+
+            it 'returns an array with the words that match' do
+              expect(subject.scan 'hi').to eq [
+                'hi',
+                'high',
+                'highlight',
+                'histerical'
+              ]
+
+              expect(subject.scan 'hig').to eq [
+                'high',
+                'highlight'
+              ]
+            end
+          end
+        end
+
+        context 'words that match are not contained' do
+          before do
+            subject << 'hello'
+          end
+
+          it 'returns an empty array' do
+            expect(subject.scan 'hi').to eq []
+          end
+
+          context 'and the root has been compressed' do
+            before do
+              subject.compress!
+            end
+
+            it 'returns an empty array' do
+              expect(subject.scan 'hi').to eq []
+            end
+          end
+        end
+      end
+
       describe '#add' do
         let(:original_word) { 'word' }
         let(:word) { original_word.clone }
