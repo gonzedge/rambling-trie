@@ -58,7 +58,7 @@ module Rambling
       alias_method :include?, :word?
 
       def scan word = ''
-        scan_children_tree word
+        closest_node(word).to_a
       end
 
       private
@@ -70,8 +70,8 @@ module Rambling
         send method, word.chars.to_a
       end
 
-      def scan_children_tree word
-        method = compressed? ? :scan_children_tree_when_compressed : :scan_children_tree_when_uncompressed
+      def closest_node word
+        method = compressed? ? :closest_node_when_compressed : :closest_node_when_uncompressed
 
         send method, word.chars.to_a
       end
