@@ -1,6 +1,6 @@
 language: ruby
 install:
-  - bundle install --without development
+  - bundle install
 rvm:
   - 2.3.0
   - 2.2.4
