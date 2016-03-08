@@ -10,7 +10,7 @@ The Rambling Trie is a custom implementation of the Trie data structure with Rub
 
 You will need:
 
-* Ruby 1.9.3 or up
+* Ruby 2.1.0 or up
 * RubyGems
 
 See [RVM][rvm] or [rbenv][rbenv] for more information on how to manage Ruby versions.
@@ -130,10 +130,8 @@ The Rambling Trie has been tested with the following Ruby versions:
 * 2.3.x
 * 2.2.x
 * 2.1.x
-* 2.0.0
-* 1.9.3
 
-Ruby 1.8.7 and 1.9.2 are not supported.
+Ruby 1.8.x, 1.9.x and 2.0.x are not supported.
 
 ## Contributing to Rambling Trie
 
