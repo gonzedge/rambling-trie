@@ -61,6 +61,8 @@ module Rambling
         closest_node(word).to_a
       end
 
+      alias_method :words, :scan
+
       private
 
       attr_accessor :compressed

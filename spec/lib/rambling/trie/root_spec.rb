@@ -322,6 +322,13 @@ module Rambling
                 'highlight'
               ]
             end
+
+            it 'is aliased as #words' do
+              expect(subject.words 'hig').to eq [
+                'high',
+                'highlight'
+              ]
+            end
           end
         end
 
