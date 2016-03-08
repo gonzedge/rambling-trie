@@ -57,12 +57,27 @@ module Rambling
 
       alias_method :include?, :word?
 
+      # Returns all words that start with the specified characters.
+      # @param [String] word the word to look for in the trie.
+      # @return [Array] all the words contained in the trie that start with the specified characters.
+      def scan word = ''
+        closest_node(word).to_a
+      end
+
+      alias_method :words, :scan
+
       private
 
       attr_accessor :compressed
 
       def is? method, word
         method = compressed? ? "#{method}_when_compressed?" : "#{method}_when_uncompressed?"
+        send method, word.chars.to_a
+      end
+
+      def closest_node word
+        method = compressed? ? :closest_node_when_compressed : :closest_node_when_uncompressed
+
         send method, word.chars.to_a
       end
     end

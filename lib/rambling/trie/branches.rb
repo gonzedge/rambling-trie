@@ -51,6 +51,38 @@ module Rambling
         end
       end
 
+      def closest_node_when_uncompressed chars
+        if chars.empty?
+          self
+        else
+          first_letter_sym = chars.slice!(0).to_sym
+          if children_tree.has_key? first_letter_sym
+            children_tree[first_letter_sym].closest_node_when_uncompressed chars
+          else
+            Rambling::Trie::MissingNode.new
+          end
+        end
+      end
+
+      def closest_node_when_compressed chars
+        if chars.empty?
+          self
+        else
+          current_length = 0
+          current_key, current_key_string = current_key chars.slice!(0)
+
+          begin
+            current_length += 1
+
+            if current_key_string.length == current_length || chars.empty?
+              return children_tree[current_key].closest_node_when_compressed chars
+            end
+          end while current_key_string[current_length] == chars.slice!(0)
+
+          Rambling::Trie::MissingNode.new
+        end
+      end
+
       private
 
       def add_to_children_tree word
