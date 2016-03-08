@@ -85,6 +85,13 @@ trie.partial_word? 'partial_word'
 trie.match? 'partial_word'
 ```
 
+To get all the words that start with a particular string, you can use `scan`:
+
+``` ruby
+trie.scan 'hi' # => ['hi', 'high', 'highlight', ...]
+trie.words 'hi' # => ['hi', 'high', 'highlight', ...]
+```
+
 ### Compression
 
 By default, the Rambling Trie works as a Standard Trie.

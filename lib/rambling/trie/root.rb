@@ -57,6 +57,9 @@ module Rambling
 
       alias_method :include?, :word?
 
+      # Returns all words that start with the specified characters.
+      # @param [String] word the word to look for in the trie.
+      # @return [Array] all the words contained in the trie that start with the specified characters.
       def scan word = ''
         closest_node(word).to_a
       end
