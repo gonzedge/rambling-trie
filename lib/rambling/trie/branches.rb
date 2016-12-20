@@ -126,7 +126,7 @@ module Rambling
       end
 
       def current_key letter
-        current_key_string = current_key = nil
+        current_key_string = current_key = ''
 
         children_tree.keys.each do |key|
           key_string = key.to_s

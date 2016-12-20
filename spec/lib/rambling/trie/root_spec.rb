@@ -202,6 +202,7 @@ module Rambling
 
           it 'does not match the whole word' do
             expect(subject.word? 'halt').to be false
+            expect(subject.word? 'al').to be false
           end
 
           it 'is aliased as #include?' do
@@ -215,6 +216,7 @@ module Rambling
 
             it 'does not match the whole word' do
               expect(subject.word? 'halt').to be false
+              expect(subject.word? 'al').to be false
             end
           end
         end
@@ -264,6 +266,7 @@ module Rambling
           it 'does not match any part of the word' do
             expect(subject.partial_word? 'ha').to be false
             expect(subject.partial_word? 'hal').to be false
+            expect(subject.partial_word? 'al').to be false
           end
 
           context 'and the root has been compressed' do
@@ -274,6 +277,7 @@ module Rambling
             it 'does not match any part of the word' do
               expect(subject.partial_word? 'ha').to be false
               expect(subject.partial_word? 'hal').to be false
+              expect(subject.partial_word? 'al').to be false
             end
           end
         end
