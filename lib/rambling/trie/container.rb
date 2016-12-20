@@ -7,7 +7,6 @@ module Rambling
 
       delegate [
         :each,
-        :compress!,
         :compressed?
       ] => :root
 
@@ -43,22 +42,14 @@ module Rambling
       # @param [String] word the word or partial word to look for in the trie.
       # @return [Boolean] `true` if the word or partial word is found, `false` otherwise.
       def partial_word? word = ''
-        if root.compressed?
-          root.partial_word? word
-        else
-          root.partial_word? word.chars.to_a
-        end
+        root.partial_word? word.chars.to_a
       end
 
       # Checks if a whole word exists in the trie.
       # @param [String] word the word to look for in the trie.
       # @return [Boolean] `true` only if the word is found and the last character corresponds to a terminal node.
       def word? word = ''
-        if root.compressed?
-          root.word? word
-        else
-          root.word? word.chars.to_a
-        end
+        root.word? word.chars.to_a
       end
 
       # Returns all words that start with the specified characters.

@@ -112,7 +112,7 @@ describe Rambling::Trie::Container do
 
       it 'calls the root with the full word' do
         container.word? 'words'
-        expect(root).to have_received(:word?).with 'words'
+        expect(root).to have_received(:word?).with %w(w o r d s)
       end
     end
   end
@@ -138,9 +138,9 @@ describe Rambling::Trie::Container do
           partial_word?: nil
       end
 
-      it 'calls the root with the full word' do
+      it 'calls the root with the word characters' do
         container.partial_word? 'words'
-        expect(root).to have_received(:partial_word?).with 'words'
+        expect(root).to have_received(:partial_word?).with %w(w o r d s)
       end
     end
   end

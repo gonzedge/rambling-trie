@@ -21,11 +21,11 @@ module Rambling
         self
       end
 
-      private
-
       def compressable?
         !(root? || terminal?) && children_tree.size == 1
       end
+
+      private
 
       def merge_with! child
         delete_old_key_on_parent!

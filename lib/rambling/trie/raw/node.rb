@@ -27,6 +27,10 @@ module Rambling
           end
         end
 
+        def compressed?
+          false
+        end
+
         private
 
         def add_to_children_tree word
