@@ -1,9 +1,7 @@
 require 'forwardable'
 %w{
-  branches compression enumerable inspector invalid_operation node
-  missing_node plain_text_reader root compressor
-  raw_node compressed_node
-  container version
+  compression compressor inspector container enumerable invalid_operation
+  plain_text_reader node missing_node compressed_node raw_node version
 }.each do |file|
   require File.join('rambling', 'trie', file)
 end

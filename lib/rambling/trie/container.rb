@@ -4,10 +4,15 @@ module Rambling
       extend ::Forwardable
 
       include ::Enumerable
+      include Rambling::Trie::Inspector
 
       delegate [
         :each,
-        :compressed?
+        :compressed?,
+        :[],
+        :letter,
+        :children,
+        :children_tree
       ] => :root
 
       # Creates a new Trie.
@@ -34,7 +39,7 @@ module Rambling
       # Compresses the existing tree using redundant node elimination. Flags the trie as compressed.
       # @return [Container] self
       def compress!
-        self.root = compressor.compress root
+        self.root = compressor.compress root unless root.compressed?
         self
       end
 
@@ -56,7 +61,7 @@ module Rambling
       # @param [String] word the word to look for in the trie.
       # @return [Array] all the words contained in the trie that start with the specified characters.
       def scan word = ''
-        root.scan word
+        root.scan word.chars.to_a
       end
 
       alias_method :include?, :word?

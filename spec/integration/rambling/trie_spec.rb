@@ -11,6 +11,10 @@ describe Rambling::Trie do
 
         expect(word).to eq 'string'
       end
+
+      it 'is marked as not compressed' do
+        expect(trie).not_to be_compressed
+      end
     end
 
     context 'and the trie is compressed' do

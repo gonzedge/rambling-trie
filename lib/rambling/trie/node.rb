@@ -12,7 +12,6 @@ module Rambling
       ] => :children_tree
 
       include Rambling::Trie::Compression
-      include Rambling::Trie::Branches
       include Rambling::Trie::Enumerable
       include Rambling::Trie::Inspector
 
@@ -29,17 +28,10 @@ module Rambling
       attr_accessor :parent
 
       # Creates a new Node.
-      # @param [String, nil] word the word from which to create this Node and his branch.
       # @param [Node, nil] parent the parent of this node.
-      def initialize word = nil, parent = nil
+      def initialize parent = nil
         self.parent = parent
         self.children_tree = {}
-
-        unless word.nil? || word.empty?
-          self.letter = word.slice! 0
-          self.terminal = word.empty?
-          self.add word
-        end
       end
 
       # String representation of the current node, if it is a terminal node.

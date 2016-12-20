@@ -12,7 +12,7 @@ module Rambling
       end
 
       def compress_child node, parent = nil
-        new_node = Rambling::Trie::CompressedNode.new nil, parent
+        new_node = Rambling::Trie::CompressedNode.new parent
 
         if node.compressable?
           merged_node = compress_child node.children.first
