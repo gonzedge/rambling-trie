@@ -2,18 +2,25 @@ module Rambling
   module Trie
     # A representation of a node in an compressed Trie data structure.
     class CompressedNode < Rambling::Trie::Node
-      # Always raises [InvalidOperation] when trying to add a branch to the
-      # current trie node based on the word
+      # Always raises [Rambling::Trie::InvalidOperation] when trying to add a
+      # branch to the current trie node based on the word
       # @param [String] word the word to add the branch from.
       # @raise [InvalidOperation] if the trie is already compressed.
       def add word
         raise Rambling::Trie::InvalidOperation, 'Cannot add branch to compressed trie'
       end
 
+      # Checks if a path for set of characters exists in the trie.
+      # @param [Array] chars the characters to look for in the trie.
+      # @return [Boolean] `true` if the characters are found, `false` otherwise.
       def partial_word? chars
         chars.empty? || has_partial_word?(chars)
       end
 
+      # Checks if a path for set of characters represents a word in the trie.
+      # @param [Array] chars the characters to look for in the trie.
+      # @return [Boolean] `true` if the characters are found and form a word,
+      # `false` otherwise.
       def word? chars
         if chars.empty?
           terminal?
@@ -22,24 +29,17 @@ module Rambling
         end
       end
 
+      # Returns all words that start with the specified characters.
+      # @param [Array] chars the characters to look for in the trie.
+      # @return [Array] all the words contained in the trie that start with the specified characters.
       def scan chars
         closest_node(chars).to_a
       end
 
+      # Always return `true` for a raw (compressed) node.
+      # @return [Boolean] always true for a raw (compressed) node.
       def compressed?
         true
-      end
-
-      def letter= letter
-        super
-      end
-
-      def terminal= terminal
-        super
-      end
-
-      def children_tree= children_tree
-        super
       end
 
       protected

@@ -1,5 +1,6 @@
 module Rambling
   module Trie
+    # Wrapper on top of Trie data structure.
     class Container
       extend ::Forwardable
 
@@ -30,14 +31,17 @@ module Rambling
       # @param [String] word the word to add the branch from.
       # @return [Node] the just added branch's root node.
       # @raise [InvalidOperation] if the trie is already compressed.
-      # @see Branches#add
+      # @see RawNode#add
+      # @see CompressedNode#add
       # @note Avoids clearing the contents of the word variable.
       def add word
         root.add word.clone
       end
 
-      # Compresses the existing tree using redundant node elimination. Flags the trie as compressed.
+      # Compresses the existing tree using redundant node elimination. Flags
+      # the trie as compressed.
       # @return [Container] self
+      # @note Avoids compressing again if the trie has already been compressed.
       def compress!
         self.root = compressor.compress root unless root.compressed?
         self

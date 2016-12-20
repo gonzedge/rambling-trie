@@ -26,10 +26,17 @@ module Rambling
         end
       end
 
+      # Checks if a path for set of characters exists in the trie.
+      # @param [Array] chars the characters to look for in the trie.
+      # @return [Boolean] `true` if the characters are found, `false` otherwise.
       def partial_word? chars = []
         chars.empty? || fulfills_condition?(:partial_word?, chars)
       end
 
+      # Checks if a path for set of characters represents a word in the trie.
+      # @param [Array] chars the characters to look for in the trie.
+      # @return [Boolean] `true` if the characters are found and form a word,
+      # `false` otherwise.
       def word? chars = []
         if chars.empty?
           terminal?
@@ -38,10 +45,15 @@ module Rambling
         end
       end
 
+      # Returns all words that start with the specified characters.
+      # @param [Array] chars the characters to look for in the trie.
+      # @return [Array] all the words contained in the trie that start with the specified characters.
       def scan chars
         closest_node(chars).to_a
       end
 
+      # Always return `false` for a raw (uncompressed) node.
+      # @return [Boolean] always false for a raw (uncompressed) node.
       def compressed?
         false
       end

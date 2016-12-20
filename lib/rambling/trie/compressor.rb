@@ -1,6 +1,10 @@
 module Rambling
   module Trie
+    # Responsible for the compression process of a Trie data structure.
     class Compressor
+      # Compresses a Trie data structure.
+      # @param [RawNode] root the root of the Trie data structure
+      # @return [CompressedNode] root the root of the Trie data structure
       def compress root
         new_root = Rambling::Trie::CompressedNode.new
 
@@ -10,6 +14,8 @@ module Rambling
 
         new_root
       end
+
+      private
 
       def compress_child node, parent = nil
         new_node = Rambling::Trie::CompressedNode.new parent

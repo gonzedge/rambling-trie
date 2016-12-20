@@ -21,7 +21,7 @@ module Rambling
 
       # Children nodes.
       # @return [Hash] the children_tree hash, consisting of :letter => node.
-      attr_reader :children_tree
+      attr_accessor :children_tree
 
       # Parent node.
       # @return [Node, nil] the parent node or nil for the root element.
@@ -72,8 +72,6 @@ module Rambling
       def to_s
         parent.to_s << letter.to_s
       end
-
-      protected
 
       attr_writer :children_tree
       attr_accessor :terminal
