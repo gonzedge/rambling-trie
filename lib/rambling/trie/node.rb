@@ -2,14 +2,19 @@ module Rambling
   module Trie
     # A representation of a node in the Trie data structure.
     class Node
-      extend Forwardable
+      extend ::Forwardable
 
-      delegate [:[], :[]=, :delete, :has_key?] => :children_tree
+      delegate [
+        :[],
+        :[]=,
+        :delete,
+        :has_key?
+      ] => :children_tree
 
-      include Compression
-      include Branches
-      include Enumerable
-      include Inspector
+      include Rambling::Trie::Compression
+      include Rambling::Trie::Branches
+      include Rambling::Trie::Enumerable
+      include Rambling::Trie::Inspector
 
       # Letter or letters corresponding to this node.
       # @return [Symbol, nil] the corresponding letter(s) or nil.
