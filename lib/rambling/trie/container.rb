@@ -70,7 +70,7 @@ module Rambling
       attr_accessor :root
 
       def default_root
-        Rambling::Trie::Raw::Node.new
+        Rambling::Trie::RawNode.new
       end
 
       def default_compressor

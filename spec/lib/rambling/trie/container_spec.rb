@@ -17,13 +17,13 @@ describe Rambling::Trie::Container do
   describe '.new' do
     context 'without a specified root' do
       before do
-        allow(Rambling::Trie::Raw::Node).to receive(:new)
+        allow(Rambling::Trie::RawNode).to receive(:new)
           .and_return root
       end
 
       it 'initializes an empty trie root node' do
         Rambling::Trie::Container.new
-        expect(Rambling::Trie::Raw::Node).to have_received :new
+        expect(Rambling::Trie::RawNode).to have_received :new
       end
     end
 

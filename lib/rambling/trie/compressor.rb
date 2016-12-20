@@ -2,7 +2,7 @@ module Rambling
   module Trie
     class Compressor
       def compress root
-        new_root = Rambling::Trie::Compressed::Node.new
+        new_root = Rambling::Trie::CompressedNode.new
 
         root.children.each do |child|
           compress_child child, new_root
@@ -12,7 +12,7 @@ module Rambling
       end
 
       def compress_child node, parent = nil
-        new_node = Rambling::Trie::Compressed::Node.new nil, parent
+        new_node = Rambling::Trie::CompressedNode.new nil, parent
 
         if node.compressable?
           merged_node = compress_child node.children.first

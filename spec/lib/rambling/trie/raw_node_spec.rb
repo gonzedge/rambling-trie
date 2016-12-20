@@ -1,7 +1,7 @@
 require 'spec_helper'
 
-describe Rambling::Trie::Raw::Node do
-  let(:node) { Rambling::Trie::Raw::Node.new }
+describe Rambling::Trie::RawNode do
+  let(:node) { Rambling::Trie::RawNode.new }
 
   describe '#add' do
     context 'when the node has no branches' do
