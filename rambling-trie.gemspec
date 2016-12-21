@@ -20,9 +20,10 @@ Gem::Specification.new do |gem|
   gem.version = Rambling::Trie::VERSION
   gem.platform = Gem::Platform::RUBY
 
-  gem.add_development_dependency 'rspec', '~> 3.4'
-  gem.add_development_dependency 'rake', '~> 10.5'
-  gem.add_development_dependency 'ruby-prof', '~> 0.15.2'
-  gem.add_development_dependency 'yard', '~> 0.8.7'
+  gem.add_development_dependency 'rspec', '~> 3.5'
+  gem.add_development_dependency 'rake', '~> 12.0'
+  gem.add_development_dependency 'ruby-prof', '~> 0.16.2'
+  gem.add_development_dependency 'memory_profiler', '~> 0.9.7'
+  gem.add_development_dependency 'yard', '~> 0.9.5'
   gem.add_development_dependency 'redcarpet', '~> 3.3.4'
 end
