@@ -1,4 +1,5 @@
 require 'fileutils'
+require 'pathname'
 require 'benchmark'
 
 namespace :performance do
@@ -41,7 +42,8 @@ namespace :performance do
   end
 
   def path *filename
-    File.join File.dirname(__FILE__), '..', '..', '..', '..', *filename
+    full_path = File.join File.dirname(__FILE__), '..', '..', '..', '..', *filename
+    Pathname.new(full_path).cleanpath
   end
 
   def with_gc_stats &block
@@ -56,9 +58,14 @@ namespace :performance do
     generate_report
   end
 
+  desc 'Create report dir'
+  task :directory do
+    FileUtils.mkdir_p path('reports', Rambling::Trie::VERSION)
+  end
+
   namespace :report do
     desc 'Generate performance report and append result to reports/performance'
-    task :save do
+    task save: ['performance:directory'] do
       puts 'Generating performance report...'
       generate_report path('reports', 'performance')
       puts 'Report has been saved to reports/performance'
@@ -98,8 +105,17 @@ namespace :performance do
       puts 'Done'
     end
 
+    def memory_profile name, &block
+      puts
+      puts name
+
+      MemoryProfiler.report allow_files: 'lib/rambling/trie', ignore_files: 'tasks/performance' do
+        block.call
+      end.pretty_print to_file: path('reports', Rambling::Trie::VERSION, name)
+    end
+
     desc 'Generate memory profiling report'
-    task :memory do
+    task memory: ['performance:directory'] do
       require 'memory_profiler'
 
       puts 'Generating memory profiling reports...'
@@ -108,32 +124,24 @@ namespace :performance do
       dictionary = path 'assets', 'dictionaries', 'words_with_friends.txt'
       time = Time.now.to_i
 
-      puts
-      puts 'memory-profile-new-trie'
-      MemoryProfiler.report do
+      memory_profile "#{time}-memory-profile-new-trie" do
         with_gc_stats { trie = Rambling::Trie.create dictionary }
-      end.pretty_print to_file: path('reports', "#{time}-memory-profile-new-trie")
+      end
 
-      puts
-      puts 'memory-profile-compressed-trie'
-      MemoryProfiler.report do
+      memory_profile "#{time}-memory-profile-compressed-trie" do
         with_gc_stats { trie.compress! }
-      end.pretty_print to_file: path('reports', "#{time}-memory-profile-compressed-trie")
+      end
 
-      puts
-      puts 'memory-profile-trie-and-compress'
-      MemoryProfiler.report do
+      memory_profile "#{time}-memory-profile-trie-and-compress" do
         with_gc_stats { trie = Rambling::Trie.create dictionary }
         with_gc_stats { trie.compress! }
-      end.pretty_print to_file: path('reports', "#{time}-memory-profile-trie")
+      end
 
-      puts
-      puts 'memory-profile-trie-gc'
-      MemoryProfiler.report do
+      memory_profile "#{time}-memory-profile-trie-gc" do
         with_gc_stats { trie = Rambling::Trie.create dictionary }
         with_gc_stats { trie.compress! }
         with_gc_stats { GC.start }
-      end.pretty_print to_file: path('reports', "#{time}-memory-profile-trie-gc")
+      end
 
       puts 'End'
     end
