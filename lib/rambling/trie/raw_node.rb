@@ -8,9 +8,13 @@ module Rambling
         super parent
 
         unless word.nil? || word.empty?
-          self.letter = word.slice! 0
-          self.terminal = word.empty?
-          self.add word
+          if word.size == 1
+            self.letter = word
+            self.terminal!
+          else
+            self.letter = word.slice! 0
+            self.add word
+          end
         end
       end
 
