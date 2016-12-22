@@ -1,3 +1,4 @@
+require 'fileutils'
 require 'benchmark'
 
 namespace :performance do
@@ -58,35 +59,41 @@ namespace :performance do
     end
   end
 
-  desc 'Generate application profiling reports'
-  task :profile do
-    require 'ruby-prof'
+  namespace :profile do
+    desc 'Generate application profiling reports'
+    task :call_tree do
+      require 'ruby-prof'
 
-    puts 'Generating profiling reports...'
+      puts 'Generating call tree profiling reports...'
 
-    rambling_trie = Rambling::Trie.create path('assets', 'dictionaries', 'words_with_friends.txt')
-    words = %w(hi help beautiful impressionism anthropological)
-    methods = [:word?, :partial_word?]
-    tries = [lambda {rambling_trie.clone}, lambda {rambling_trie.clone.compress!}]
+      trie = Rambling::Trie.create path('assets', 'dictionaries', 'words_with_friends.txt')
+      words = %w(hi help beautiful impressionism anthropological)
+      methods = [:word?, :partial_word?]
+      tries = [lambda {trie.clone}, lambda {trie.clone.compress!}]
 
-    methods.each do |method|
-      tries.each do |trie_generator|
-        trie = trie_generator.call
-        result = RubyProf.profile do
-          words.each do |word|
-            200_000.times { trie.send method, word }
+      methods.each do |method|
+        tries.each do |trie_generator|
+          trie = trie_generator.call
+          result = RubyProf.profile merge_fibers: true do
+            words.each do |word|
+              200_000.times { trie.send method, word }
+            end
           end
-        end
 
-        File.open path('reports', "profile-#{trie.compressed? ? 'compressed' : 'uncompressed'}-#{method.to_s.sub(/\?/, '')}-#{Time.now.to_i}"), 'w' do |file|
-          RubyProf::CallTreePrinter.new(result).print file
+          path = path('reports', "profile-#{trie.compressed? ? 'compressed' : 'uncompressed'}-#{method.to_s.sub(/\?/, '')}-#{Time.now.to_i}")
+
+          FileUtils.mkdir_p path
+          printer = RubyProf::CallTreePrinter.new(result)
+          printer.print path: path
         end
       end
+
+      puts 'Done'
     end
 
     puts 'Done'
   end
 
   desc 'Generate profiling and performance reports'
-  task all: [:profile, :report]
+  task all: ['profile:call_tree', :report]
 end
