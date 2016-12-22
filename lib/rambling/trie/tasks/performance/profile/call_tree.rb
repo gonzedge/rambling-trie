@@ -21,10 +21,10 @@ namespace :performance do
             end
           end
 
-          path = path('reports', "profile-#{trie.compressed? ? 'compressed' : 'uncompressed'}-#{method.to_s.sub(/\?/, '')}-#{time}")
+          path = path('reports', Rambling::Trie::VERSION, "#{time}-profile-#{trie.compressed? ? 'compressed' : 'uncompressed'}-#{method.to_s.sub(/\?/, '')}")
 
           FileUtils.mkdir_p path
-          printer = RubyProf::CallTreePrinter.new(result)
+          printer = RubyProf::CallTreePrinter.new result
           printer.print path: path
         end
       end

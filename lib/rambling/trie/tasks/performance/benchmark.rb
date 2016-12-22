@@ -50,8 +50,8 @@ namespace :performance do
     desc 'Generate performance benchmark report store results in reports/'
     task save: ['performance:directory'] do
       puts 'Generating performance benchmark report...'
-      generate_benchmark path('reports', 'performance')
-      puts 'Benchmarks have been saved to reports/'
+      generate_benchmark path('reports', Rambling::Trie::VERSION, 'benchmark')
+      puts "Benchmarks have been saved to reports/#{Rambling::Trie::VERSION}/benchmark"
     end
   end
 end

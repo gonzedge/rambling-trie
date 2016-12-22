@@ -31,9 +31,32 @@ namespace :performance do
         with_gc_stats { trie = Rambling::Trie.create dictionary }
       end
 
+      words = %w(hi help beautiful impressionism anthropological)
+      methods = [:word?, :partial_word?]
+
+      # memory_profile "#{time}-memory-profile-searching-uncompressed-trie" do
+      #   with_gc_stats do
+      #     methods.each do |method|
+      #       words.each do |word|
+      #         200_000.times { trie.send method, word }
+      #       end
+      #     end
+      #   end
+      # end
+
       memory_profile "#{time}-memory-profile-compressed-trie" do
         with_gc_stats { trie.compress! }
       end
+
+      # memory_profile "#{time}-memory-profile-searching-compressed-trie" do
+      #   with_gc_stats do
+      #     methods.each do |method|
+      #       words.each do |word|
+      #         200_000.times { trie.send method, word }
+      #       end
+      #     end
+      #   end
+      # end
 
       memory_profile "#{time}-memory-profile-trie-and-compress" do
         with_gc_stats { trie = Rambling::Trie.create dictionary }
