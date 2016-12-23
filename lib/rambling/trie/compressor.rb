@@ -20,7 +20,7 @@ module Rambling
 
         new_node = Rambling::Trie::CompressedNode.new parent
         new_node.letter = node.letter.to_s << compressed_child.letter.to_s
-        new_node.terminal = compressed_child.terminal?
+        new_node.terminal! if compressed_child.terminal?
         new_node.children_tree = compressed_child.children_tree
 
         new_node.children.each do |child|
@@ -34,7 +34,7 @@ module Rambling
         new_node = Rambling::Trie::CompressedNode.new parent
 
         new_node.letter = node.letter
-        new_node.terminal = node.terminal?
+        new_node.terminal! if node.terminal?
 
         node.children.map do |child|
           compress child, new_node

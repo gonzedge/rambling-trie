@@ -73,15 +73,16 @@ module Rambling
         parent.to_s << letter.to_s
       end
 
-      attr_writer :children_tree
-      attr_accessor :terminal
-
       def letter= new_letter
         if new_letter
           @letter = new_letter.to_sym
           parent[letter] = self if parent
         end
       end
+
+      private
+
+      attr_accessor :terminal
     end
   end
 end
