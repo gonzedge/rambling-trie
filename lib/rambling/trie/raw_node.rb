@@ -2,22 +2,6 @@ module Rambling
   module Trie
     # A representation of a node in an uncompressed Trie data structure.
     class RawNode < Rambling::Trie::Node
-      # Creates a new Node.
-      # @param [Node, nil] parent the parent of this node.
-      def initialize word = nil, parent = nil
-        super parent
-
-        unless word.nil? || word.empty?
-          if word.size == 1
-            self.letter = word
-            self.terminal!
-          else
-            self.letter = word.slice! 0
-            self.add word
-          end
-        end
-      end
-
       # Adds a branch to the current trie node based on the word
       # @param [String] word the word to add the branch from.
       # @return [Rambling::Trie::RawNode] the just added branch's root node.
@@ -97,7 +81,7 @@ module Rambling
       end
 
       def new_node letter
-        node = Rambling::Trie::RawNode.new nil, self
+        node = Rambling::Trie::RawNode.new self
         node.letter = letter
         children_tree[letter] = node
       end

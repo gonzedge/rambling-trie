@@ -30,89 +30,102 @@ describe Rambling::Trie::RawNode do
       end
     end
 
-    context 'with an empty word' do
-      let(:node) { Rambling::Trie::RawNode.new '' }
+    describe '#letter=' do
+      let(:parent) { Rambling::Trie::RawNode.new }
+      let(:node) { Rambling::Trie::RawNode.new parent }
 
-      it 'does not have any letter' do
-        expect(node.letter).to be_nil
+      context 'with empty string' do
+        before do
+          node.letter = :a
+          node.add ''
+        end
+
+        it 'makes it the node letter' do
+          expect(node.letter).to eq :a
+        end
+
+        it 'includes no children' do
+          expect(node.children.size).to eq 0
+        end
+
+        it 'is a terminal node' do
+          expect(node).to be_terminal
+        end
       end
 
-      it 'includes no children' do
-        expect(node.children.size).to eq 0
+      context 'with one letter' do
+        before do
+          node.letter = :b
+          node.add 'a'
+        end
+
+        it 'takes the first as the node letter' do
+          expect(node.letter).to eq :b
+        end
+
+        it 'includes one child' do
+          expect(node.children.size).to eq 1
+        end
+
+        it 'includes a child with the expected letter' do
+          expect(node.children.first.letter).to eq :a
+        end
+
+        it 'has the expected letter as a key' do
+          expect(node).to have_key(:a)
+        end
+
+        it 'returns the child corresponding to the key' do
+          expect(node[:a]).to eq node.children_tree[:a]
+        end
+
+        it 'does not mark itself as a terminal node' do
+          expect(node).not_to be_terminal
+        end
+
+        it 'marks the first child as a terminal node' do
+          expect(node[:a]).to be_terminal
+        end
       end
 
-      it 'is not a terminal node' do
-        expect(node).not_to be_terminal
+      context 'with a large word' do
+        before do
+          node.letter = :s
+          node.add 'paghetti'
+        end
+
+        it 'marks the last letter as terminal node' do
+          expect(node[:p][:a][:g][:h][:e][:t][:t][:i]).to be_terminal
+        end
+
+        it 'does not mark any other letter as terminal node' do
+          expect(node[:p][:a][:g][:h][:e][:t][:t]).not_to be_terminal
+          expect(node[:p][:a][:g][:h][:e][:t]).not_to be_terminal
+          expect(node[:p][:a][:g][:h][:e]).not_to be_terminal
+          expect(node[:p][:a][:g][:h]).not_to be_terminal
+          expect(node[:p][:a][:g]).not_to be_terminal
+          expect(node[:p][:a]).not_to be_terminal
+          expect(node[:p]).not_to be_terminal
+        end
       end
 
-      it 'returns empty string as its word' do
-        expect(node.as_word).to be_empty
-      end
-    end
+      context 'with no parent' do
+        before do
+          node.letter = :a
+          node.add ''
+        end
 
-    context 'with one letter' do
-      let(:node) { Rambling::Trie::RawNode.new 'a' }
+        it 'makes it the node letter' do
+          expect(node.letter).to eq :a
+        end
 
-      it 'makes it the node letter' do
-        expect(node.letter).to eq :a
-      end
+        it 'includes no children' do
+          expect(node.children.size).to eq 0
+        end
 
-      it 'includes no children' do
-        expect(node.children.size).to eq 0
-      end
-
-      it 'is a terminal node' do
-        expect(node).to be_terminal
-      end
-    end
-
-    context 'with two letters' do
-      let(:node) { Rambling::Trie::RawNode.new 'ba' }
-
-      it 'takes the first as the node letter' do
-        expect(node.letter).to eq :b
-      end
-
-      it 'includes one child' do
-        expect(node.children.size).to eq 1
-      end
-
-      it 'includes a child with the expected letter' do
-        expect(node.children.first.letter).to eq :a
-      end
-
-      it 'has the expected letter as a key' do
-        expect(node).to have_key(:a)
-      end
-
-      it 'returns the child corresponding to the key' do
-        expect(node[:a]).to eq node.children_tree[:a]
-      end
-
-      it 'does not mark itself as a terminal node' do
-        expect(node).not_to be_terminal
-      end
-
-      it 'marks the first child as a terminal node' do
-        expect(node[:a]).to be_terminal
-      end
-    end
-
-    context 'with a large word' do
-      let(:node) { Rambling::Trie::RawNode.new 'spaghetti' }
-
-      it 'marks the last letter as terminal node' do
-        expect(node[:p][:a][:g][:h][:e][:t][:t][:i]).to be_terminal
-      end
-
-      it 'does not mark any other letter as terminal node' do
-        expect(node[:p][:a][:g][:h][:e][:t][:t]).not_to be_terminal
-        expect(node[:p][:a][:g][:h][:e][:t]).not_to be_terminal
-        expect(node[:p][:a][:g][:h][:e]).not_to be_terminal
-        expect(node[:p][:a][:g][:h]).not_to be_terminal
-        expect(node[:p][:a][:g]).not_to be_terminal
-        expect(node[:p][:a]).not_to be_terminal
-        expect(node[:p]).not_to be_terminal
+        it 'is a terminal node' do
+          expect(node).to be_terminal
+        end
       end
     end
 
@@ -124,8 +137,8 @@ describe Rambling::Trie::RawNode do
       end
     end
 
-    context 'with a specified' do
-      let(:node) { Rambling::Trie::RawNode.new nil, double(:root) }
+    context 'with a specified parent' do
+      let(:node) { Rambling::Trie::RawNode.new double(:root) }
 
       it 'is not marked as root' do
         expect(node).not_to be_root
@@ -304,8 +317,12 @@ describe Rambling::Trie::RawNode do
   end
 
   describe '#as_word' do
+    let(:node) { Rambling::Trie::RawNode.new }
+
     context 'for an empty node' do
-      let(:node) { Rambling::Trie::RawNode.new '' }
+      before do
+        node.add ''
+      end
 
       it 'returns nil' do
         expect(node.as_word).to be_empty
@@ -313,7 +330,10 @@ describe Rambling::Trie::RawNode do
     end
 
     context 'for one letter' do
-      let(:node) { Rambling::Trie::RawNode.new 'a' }
+      before do
+        node.letter = :a
+        node.add ''
+      end
 
       it 'returns the expected one letter word' do
         expect(node.as_word).to eq 'a'
@@ -321,7 +341,10 @@ describe Rambling::Trie::RawNode do
     end
 
     context 'for a small word' do
-      let(:node) { Rambling::Trie::RawNode.new 'all' }
+      before do
+        node.letter = :a
+        node.add 'll'
+      end
 
       it 'returns the expected small word' do
         expect(node[:l][:l].as_word).to eq 'all'
@@ -333,7 +356,10 @@ describe Rambling::Trie::RawNode do
     end
 
     context 'for a long word' do
-      let(:node) { Rambling::Trie::RawNode.new 'beautiful' }
+      before do
+        node.letter = :b
+        node.add 'eautiful'
+      end
 
       it 'returns the expected long word' do
         expect(node[:e][:a][:u][:t][:i][:f][:u][:l].as_word).to eq 'beautiful'
@@ -342,6 +368,7 @@ describe Rambling::Trie::RawNode do
 
     context 'for a node with nil letter' do
       let(:node) { Rambling::Trie::RawNode.new nil }
+
       it 'returns nil' do
         expect(node.as_word).to be_empty
       end
