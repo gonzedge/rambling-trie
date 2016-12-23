@@ -21,8 +21,8 @@ module Rambling
         if chars.empty?
           true
         else
-          first_letter_sym = chars.slice!(0).to_sym
-          child = children_tree[first_letter_sym]
+          letter = chars.slice!(0).to_sym
+          child = children_tree[letter]
           !!child && child.partial_word?(chars)
         end
       end
@@ -35,8 +35,8 @@ module Rambling
         if chars.empty?
           terminal?
         else
-          first_letter_sym = chars.slice!(0).to_sym
-          child = children_tree[first_letter_sym]
+          letter = chars.slice!(0).to_sym
+          child = children_tree[letter]
           !!child && child.word?(chars)
         end
       end
@@ -60,8 +60,8 @@ module Rambling
         if chars.empty?
           self
         else
-          first_letter_sym = chars.slice!(0).to_sym
-          child = children_tree[first_letter_sym]
+          letter = chars.slice!(0).to_sym
+          child = children_tree[letter]
 
           if child
             child.closest_node chars
@@ -74,8 +74,8 @@ module Rambling
       private
 
       def add_to_children_tree word
-        first_letter = word.slice!(0).to_sym
-        child = children_tree[first_letter] || new_node(first_letter)
+        letter = word.slice!(0).to_sym
+        child = children_tree[letter] || new_node(letter)
         child.add word
         child
       end
