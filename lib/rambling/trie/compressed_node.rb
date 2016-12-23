@@ -86,7 +86,8 @@ module Rambling
         while !chars.empty?
           current_key_string << chars.slice!(0)
           current_key = current_key_string.to_sym
-          return children_tree[current_key].word? chars if children_tree.has_key? current_key
+          child = children_tree[current_key]
+          return child.word? chars if child
         end
 
         false

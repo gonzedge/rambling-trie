@@ -34,7 +34,13 @@ module Rambling
       # @param [Array] chars the characters to look for in the trie.
       # @return [Boolean] `true` if the characters are found, `false` otherwise.
       def partial_word? chars = []
-        chars.empty? || fulfills_condition?(:partial_word?, chars)
+        if chars.empty?
+          true
+        else
+          first_letter_sym = chars.slice!(0).to_sym
+          child = children_tree[first_letter_sym]
+          !!child && child.partial_word?(chars)
+        end
       end
 
       # Checks if a path for set of characters represents a word in the trie.
@@ -45,7 +51,9 @@ module Rambling
         if chars.empty?
           terminal?
         else
-          fulfills_condition? :word?, chars
+          first_letter_sym = chars.slice!(0).to_sym
+          child = children_tree[first_letter_sym]
+          !!child && child.word?(chars)
         end
       end
 
@@ -69,8 +77,10 @@ module Rambling
           self
         else
           first_letter_sym = chars.slice!(0).to_sym
-          if children_tree.has_key? first_letter_sym
-            children_tree[first_letter_sym].closest_node chars
+          child = children_tree[first_letter_sym]
+
+          if child
+            child.closest_node chars
           else
             Rambling::Trie::MissingNode.new
           end
@@ -80,21 +90,16 @@ module Rambling
       private
 
       def add_to_children_tree word
-        first_letter = word.slice(0).to_sym
-
-        if children_tree.has_key? first_letter
-          word.slice! 0
-          child = children_tree[first_letter]
-          child.add word
-          child
-        else
-          children_tree[first_letter] = Rambling::Trie::RawNode.new word, self
-        end
+        first_letter = word.slice!(0).to_sym
+        child = children_tree[first_letter] || new_node(first_letter)
+        child.add word
+        child
       end
 
-      def fulfills_condition? method, chars
-        first_letter_sym = chars.slice!(0).to_sym
-        children_tree.has_key?(first_letter_sym) && children_tree[first_letter_sym].send(method, chars)
+      def new_node letter
+        node = Rambling::Trie::RawNode.new nil, self
+        node.letter = letter
+        children_tree[letter] = node
       end
     end
   end
