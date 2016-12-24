@@ -3,51 +3,43 @@ require_relative '../helpers/path'
 namespace :performance do
   include Helpers::Path
 
-  def banner output
-    output.puts "\nBenchmark for rambling-trie version #{Rambling::Trie::VERSION}"
-  end
-
-  def measure times, param, output
-    result = nil
-
-    measure = Benchmark.measure do
-      times.times do
-        result = yield param
-      end
+  class BenchmarkMeasurement
+    def initialize output
+      @output = output
     end
 
-    output.print "#{result}".ljust 10
-    output.puts measure
-  end
+    def perform times, params = nil
+      params = Array params
+      params << nil unless params.any?
 
-  def perform_benchmark times, params, output
-    params = Array params
-    if params.any?
       params.each do |param|
         output.print "#{param}".ljust 20
 
-        measure times, param, output do |param|
+        measure times, param do |param|
           yield param
         end
       end
-    else
-      measure times, nil, output do |param|
-        yield param
+    end
+
+    def banner
+      output.puts "\nBenchmark for rambling-trie version #{Rambling::Trie::VERSION}"
+    end
+
+    private
+
+    attr_reader :output
+
+    def measure times, param = nil
+      result = nil
+
+      measure = Benchmark.measure do
+        times.times do
+          result = yield param
+        end
       end
-    end
-  end
 
-  def benchmark_lookups trie, output
-    words = %w(hi help beautiful impressionism anthropological)
-
-    output.puts 'word?:'
-    perform_benchmark 200_000, words, output do |word|
-      trie.word? word
-    end
-
-    output.puts 'partial_word?:'
-    perform_benchmark 200_000, words, output do |word|
-      trie.partial_word? word
+      output.print "#{result}".ljust 10
+      output.puts measure
     end
   end
 
@@ -61,19 +53,31 @@ namespace :performance do
 
   def generate_lookups_benchmark filename = nil
     with_file filename do |output|
-      banner output
+      measure = BenchmarkMeasurement.new output
+      measure.banner
 
       trie = Rambling::Trie.create path('assets', 'dictionaries', 'words_with_friends.txt')
       [ trie, trie.clone.compress! ].each do |trie|
         output.puts "==> #{trie.compressed? ? 'Compressed' : 'Uncompressed'}"
-        benchmark_lookups trie, output
+        words = %w(hi help beautiful impressionism anthropological)
+
+        output.puts '`word?`'
+        measure.perform 200_000, words do |word|
+          trie.word? word
+        end
+
+        output.puts '`partial_word?`'
+        measure.perform 200_000, words do |word|
+          trie.partial_word? word
+        end
       end
     end
   end
 
   def generate_scans_benchmark filename = nil
     with_file filename do |output|
-      banner output
+      measure = BenchmarkMeasurement.new output
+      measure.banner
 
       words = {
         hi: 1_000,
@@ -86,9 +90,9 @@ namespace :performance do
 
       [ trie, trie.clone.compress! ].each do |trie|
         output.puts "==> #{trie.compressed? ? 'Compressed' : 'Uncompressed'}"
-        output.puts "scan:"
+        output.puts "`scan`"
         words.each do |word, times|
-          perform_benchmark times, word.to_s, output do |word|
+          measure.perform times, word.to_s do |word|
             trie.scan(word).size
           end
         end
@@ -110,7 +114,7 @@ namespace :performance do
     namespace :lookups do
       desc 'Generate performance benchmark report store results in reports/'
       task save: ['performance:directory'] do
-        puts 'Generating performance benchmark report...'
+        puts 'Generating performance benchmark report for lookups...'
         generate_lookups_benchmark path('reports', Rambling::Trie::VERSION, 'benchmark')
         puts "Benchmarks have been saved to reports/#{Rambling::Trie::VERSION}/benchmark-lookups"
       end
@@ -118,10 +122,12 @@ namespace :performance do
 
     task :creation do
       with_file do |output|
-        banner output
-        output.puts '==> Creation'
+        measure = BenchmarkMeasurement.new output
+        measure.banner
 
-        perform_benchmark '`Rambling::Trie.create`', 5, [], output do
+        output.puts '==> Creation'
+        output.puts '`Rambling::Trie.create`'
+        measure.perform 5 do
           trie = Rambling::Trie.create path('assets', 'dictionaries', 'words_with_friends.txt')
         end
       end
@@ -129,15 +135,25 @@ namespace :performance do
 
     task :compression do
       with_file do |output|
-        banner output
+        measure = BenchmarkMeasurement.new output
+        measure.banner
+
         output.puts '==> Compression'
+        output.puts '`compress!`'
 
         trie = Rambling::Trie.create path('assets', 'dictionaries', 'words_with_friends.txt')
-        perform_benchmark '`compress!`', 5, nil, output do
+        measure.perform 5 do
           trie.clone.compress!
         end
       end
     end
+
+    task all: [
+      'performance:benchmark:creation',
+      'performance:benchmark:compression',
+      'performance:benchmark:lookups',
+      'performance:benchmark:scans',
+    ]
 
     task :compare do
       Benchmark.ips do |b|
