@@ -1,7 +1,11 @@
 require_relative '../../helpers/path'
+require_relative '../../helpers/time'
 
 namespace :performance do
   namespace :profile do
+    include Helpers::Path
+    include Helpers::Time
+
     def profile times, params, path
       result = RubyProf.profile merge_fibers: true do
         params.each do |param|
@@ -23,7 +27,6 @@ namespace :performance do
       tries = [ trie, trie.clone.compress! ]
 
       words = %w(hi help beautiful impressionism anthropological)
-      time = Time.now.to_i
 
       tries.each do |trie|
         filename = "profile-#{trie.compressed? ? 'compressed' : 'uncompressed'}-word"
@@ -48,7 +51,7 @@ namespace :performance do
 
     namespace :call_tree do
       desc 'Generate application profiling reports for lookups'
-      task :lookups do
+      task lookups: ['performance:directory'] do
         generate_lookups_call_tree
       end
     end
