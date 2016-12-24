@@ -3,6 +3,10 @@ require_relative '../helpers/path'
 namespace :performance do
   include Helpers::Path
 
+  def banner output
+    output.puts "\nBenchmark for rambling-trie version #{Rambling::Trie::VERSION}"
+  end
+
   def measure times, param, output
     measure = Benchmark.measure do
       times.times do
@@ -12,9 +16,7 @@ namespace :performance do
     output.puts measure
   end
 
-  def perform_benchmark name, times, params, output
-    output.puts "`#{name}`:"
-
+  def perform_benchmark times, params, output
     params = Array params
     if params.any?
       params.each do |param|
@@ -31,15 +33,16 @@ namespace :performance do
     end
   end
 
-  def benchmark_lookups name, trie, output
+  def benchmark_lookups trie, output
     words = %w(hi help beautiful impressionism anthropological)
 
-    output.puts "==> #{name}"
-    perform_benchmark 'word?', 200_000, words, output do |word|
+    output.puts 'word?:'
+    perform_benchmark 200_000, words, output do |word|
       trie.word? word
     end
 
-    perform_benchmark 'partial_word?', 200_000, words, output do |word|
+    output.puts 'partial_word?:'
+    perform_benchmark 200_000, words, output do |word|
       trie.partial_word? word
     end
   end
@@ -54,21 +57,50 @@ namespace :performance do
 
   def generate_lookups_benchmark filename = nil
     with_file filename do |output|
-      output.puts "\nBenchmark for rambling-trie version #{Rambling::Trie::VERSION}"
+      banner output
 
       trie = Rambling::Trie.create path('assets', 'dictionaries', 'words_with_friends.txt')
-      benchmark_lookups 'Uncompressed', trie, output
+      [ trie, trie.clone.compress! ].each do |trie|
+        output.puts "==> #{trie.compressed? ? 'Compressed' : 'Uncompressed'}"
+        benchmark_lookups trie, output
+      end
+    end
+  end
 
-      trie.compress!
-      benchmark_lookups 'Compressed', trie, output
+  def generate_scans_benchmark filename = nil
+    with_file filename do |output|
+      banner output
+
+      words = {
+        hi: 1_000,
+        help: 10_000,
+        beautiful: 100_000,
+        impressionism: 200_000,
+        anthropological: 200_000,
+      }
+      trie = Rambling::Trie.create path('assets', 'dictionaries', 'words_with_friends.txt')
+
+      [ trie, trie.clone.compress! ].each do |trie|
+        output.puts "==> #{trie.compressed? ? 'Compressed' : 'Uncompressed'}"
+        output.puts "scan:"
+        words.each do |word, times|
+          perform_benchmark times, word.to_s, output do |word|
+            trie.scan word
+          end
+        end
+      end
     end
   end
 
   namespace :benchmark do
-    desc 'Generate performance benchmark report'
+    desc 'Generate lookups performance benchmark report'
     task :lookups do
-      puts 'Generating performance benchmark report...'
       generate_lookups_benchmark
+    end
+
+    desc 'Generate scans performance benchmark report'
+    task :scans do
+      generate_scans_benchmark
     end
 
     namespace :lookups do
@@ -82,7 +114,7 @@ namespace :performance do
 
     task :creation do
       with_file do |output|
-        output.puts "\nBenchmark for rambling-trie version #{Rambling::Trie::VERSION}"
+        banner output
         output.puts '==> Creation'
 
         perform_benchmark '`Rambling::Trie.create`', 5, [], output do
@@ -93,7 +125,7 @@ namespace :performance do
 
     task :compression do
       with_file do |output|
-        output.puts "\nBenchmark for rambling-trie version #{Rambling::Trie::VERSION}"
+        banner output
         output.puts '==> Compression'
 
         trie = Rambling::Trie.create path('assets', 'dictionaries', 'words_with_friends.txt')
