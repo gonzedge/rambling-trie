@@ -8,11 +8,15 @@ namespace :performance do
   end
 
   def measure times, param, output
+    result = nil
+
     measure = Benchmark.measure do
       times.times do
-        yield param
+        result = yield param
       end
     end
+
+    output.print "#{result}".ljust 10
     output.puts measure
   end
 
@@ -20,7 +24,7 @@ namespace :performance do
     params = Array params
     if params.any?
       params.each do |param|
-        output.print "#{param}".ljust 30
+        output.print "#{param}".ljust 20
 
         measure times, param, output do |param|
           yield param
@@ -85,7 +89,7 @@ namespace :performance do
         output.puts "scan:"
         words.each do |word, times|
           perform_benchmark times, word.to_s, output do |word|
-            trie.scan word
+            trie.scan(word).size
           end
         end
       end
