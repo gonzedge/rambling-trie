@@ -65,7 +65,7 @@ module Rambling
       # @param [String] word the word to look for in the trie.
       # @return [Array] all the words contained in the trie that start with the specified characters.
       def scan word = ''
-        root.scan word.chars.to_a
+        root.scan(word.chars).to_a
       end
 
       alias_method :include?, :word?
