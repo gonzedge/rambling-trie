@@ -61,7 +61,7 @@ namespace :performance do
 
       words = {
         hi: 1_000,
-        help: 10_000,
+        help: 100_000,
         beautiful: 100_000,
         impressionism: 200_000,
         anthropological: 200_000,
@@ -73,8 +73,8 @@ namespace :performance do
         FileUtils.mkdir_p path
 
         words.each do |word, times|
-          profile times, word.to_s, path do
-            trie.scan word
+          profile times, word.to_s, path do |word|
+            trie.scan(word).size
           end
         end
       end

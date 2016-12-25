@@ -59,7 +59,7 @@ namespace :performance do
         tries.each do |trie|
           times = 10
 
-          name = "memory-profile-searching-#{trie.compressed? ? 'uncompressed' : 'compressed'}-trie-word"
+          name = "memory-profile-searching-#{trie.compressed? ? 'compressed' : 'uncompressed'}-trie-word"
           memory_profile name do
             with_gc_stats do
               words.each do |word|
@@ -70,7 +70,7 @@ namespace :performance do
             end
           end
 
-          name = "memory-profile-searching-#{trie.compressed? ? 'uncompressed' : 'compressed'}-trie-partial-word"
+          name = "memory-profile-searching-#{trie.compressed? ? 'compressed' : 'uncompressed'}-trie-partial-word"
           memory_profile name do
             with_gc_stats do
               words.each do |word|
@@ -83,10 +83,33 @@ namespace :performance do
         end
       end
 
+      task scans: ['performance:directory'] do
+        words = {
+          hi: 1,
+          help: 100,
+          beautiful: 100,
+          impressionism: 200,
+          anthropological: 200,
+        }
+
+        trie = Rambling::Trie.create dictionary
+        [ trie, trie.clone.compress! ].each do |trie|
+          name = "memory-profile-#{trie.compressed? ? 'compressed' : 'uncompressed'}-trie-scan"
+          memory_profile name do
+            words.each do |word, times|
+              times.times do
+                trie.scan(word.to_s).size
+              end
+            end
+          end
+        end
+      end
+
       task all: [
         'performance:profile:memory:creation',
         'performance:profile:memory:compression',
-        'performance:profile:memory:lookups'
+        'performance:profile:memory:lookups',
+        'performance:profile:memory:scans'
       ]
     end
   end

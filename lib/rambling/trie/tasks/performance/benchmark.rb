@@ -81,7 +81,7 @@ namespace :performance do
 
       words = {
         hi: 1_000,
-        help: 10_000,
+        help: 100_000,
         beautiful: 100_000,
         impressionism: 200_000,
         anthropological: 200_000,
