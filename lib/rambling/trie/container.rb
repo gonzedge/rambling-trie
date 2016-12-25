@@ -5,15 +5,13 @@ module Rambling
       extend ::Forwardable
 
       include ::Enumerable
-      include Rambling::Trie::Inspector
 
       delegate [
         :each,
         :compressed?,
         :[],
         :letter,
-        :children,
-        :children_tree
+        :inspect
       ] => :root
 
       # Creates a new Trie.
