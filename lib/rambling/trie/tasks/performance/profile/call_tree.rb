@@ -73,7 +73,7 @@ namespace :performance do
         FileUtils.mkdir_p path
 
         words.each do |word, times|
-          profile times, word, path do
+          profile times, word.to_s, path do
             trie.scan word
           end
         end
