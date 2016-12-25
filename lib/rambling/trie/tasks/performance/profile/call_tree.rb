@@ -122,10 +122,10 @@ namespace :performance do
       end
 
       task all: [
-        'performance:profile:call_tree:creation',
-        'performance:profile:call_tree:compression',
-        'performance:profile:call_tree:lookups',
-        'performance:profile:call_tree:scans',
+        'creation',
+        'compression',
+        'lookups',
+        'scans',
       ]
     end
   end

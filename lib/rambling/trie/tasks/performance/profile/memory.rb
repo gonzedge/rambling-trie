@@ -106,10 +106,10 @@ namespace :performance do
       end
 
       task all: [
-        'performance:profile:memory:creation',
-        'performance:profile:memory:compression',
-        'performance:profile:memory:lookups',
-        'performance:profile:memory:scans'
+        'creation',
+        'compression',
+        'lookups',
+        'scans',
       ]
     end
   end
