@@ -129,6 +129,7 @@ namespace :performance do
         output.puts '`Rambling::Trie.create`'
         measure.perform 5 do
           trie = Rambling::Trie.create path('assets', 'dictionaries', 'words_with_friends.txt')
+          nil
         end
       end
     end
@@ -144,6 +145,7 @@ namespace :performance do
         trie = Rambling::Trie.create path('assets', 'dictionaries', 'words_with_friends.txt')
         measure.perform 5 do
           trie.clone.compress!
+          nil
         end
       end
     end
