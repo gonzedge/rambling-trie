@@ -33,7 +33,7 @@ namespace :performance do
 
       tries.each do |trie|
         filename = "profile-#{trie.compressed? ? 'compressed' : 'uncompressed'}-word"
-        path = path 'reports', Rambling::Trie::VERSION, 'call-tree', time.to_s, filename
+        path = path 'reports', Rambling::Trie::VERSION, 'call-tree', time, filename
         FileUtils.mkdir_p path
 
         profile 200_000, words, path do
@@ -41,7 +41,7 @@ namespace :performance do
         end
 
         filename = "profile-#{trie.compressed? ? 'compressed' : 'uncompressed'}-partial-word"
-        path = path 'reports', Rambling::Trie::VERSION, 'call-tree', time.to_s, filename
+        path = path 'reports', Rambling::Trie::VERSION, 'call-tree', time, filename
         FileUtils.mkdir_p path
 
         profile 200_000, words, path do
@@ -69,7 +69,7 @@ namespace :performance do
 
       tries.each do |trie|
         filename = "profile-#{trie.compressed? ? 'compressed' : 'uncompressed'}-scan"
-        path = path 'reports', Rambling::Trie::VERSION, 'call-tree', time.to_s, filename
+        path = path 'reports', Rambling::Trie::VERSION, 'call-tree', time, filename
         FileUtils.mkdir_p path
 
         words.each do |word, times|
@@ -88,7 +88,7 @@ namespace :performance do
         puts 'Generating call tree profiling reports for creation...'
         puts "\nCall Tree profile for rambling-trie version #{Rambling::Trie::VERSION}"
         filename = "profile-new-trie"
-        path = path 'reports', Rambling::Trie::VERSION, 'call-tree', time.to_s, filename
+        path = path 'reports', Rambling::Trie::VERSION, 'call-tree', time, filename
         FileUtils.mkdir_p path
 
         profile 5, nil, path do
@@ -102,7 +102,7 @@ namespace :performance do
         puts "\nCall Tree profile for rambling-trie version #{Rambling::Trie::VERSION}"
 
         filename = "profile-compressed-trie"
-        path = path 'reports', Rambling::Trie::VERSION, 'call-tree', time.to_s, filename
+        path = path 'reports', Rambling::Trie::VERSION, 'call-tree', time, filename
         FileUtils.mkdir_p path
 
         trie = Rambling::Trie.create path('assets', 'dictionaries', 'words_with_friends.txt')

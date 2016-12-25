@@ -116,7 +116,7 @@ namespace :performance do
       task save: ['performance:directory'] do
         puts 'Generating performance benchmark report for lookups...'
         generate_lookups_benchmark path('reports', Rambling::Trie::VERSION, 'benchmark')
-        puts "Benchmarks have been saved to reports/#{Rambling::Trie::VERSION}/benchmark-lookups"
+        puts "Benchmarks have been saved to reports/#{Rambling::Trie::VERSION}/benchmark"
       end
     end
 

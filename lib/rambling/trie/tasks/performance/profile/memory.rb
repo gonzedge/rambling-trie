@@ -20,7 +20,7 @@ namespace :performance do
         yield
       end
 
-      dir = path 'reports', Rambling::Trie::VERSION, 'memory', time.to_s
+      dir = path 'reports', Rambling::Trie::VERSION, 'memory', time
       FileUtils.mkdir_p dir
       result.pretty_print to_file: File.join(dir, name)
     end
