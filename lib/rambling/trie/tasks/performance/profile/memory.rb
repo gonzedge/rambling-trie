@@ -1,76 +1,93 @@
 require_relative '../../helpers/path'
+require_relative '../../helpers/time'
 
 namespace :performance do
   namespace :profile do
     include Helpers::Path
+    include Helpers::Time
 
-    def with_gc_stats &block
+    def with_gc_stats
       puts "Live objects before - #{GC.stat[:heap_live_slots]}"
-      block.call
+      yield
       puts "Live objects after  - #{GC.stat[:heap_live_slots]}"
     end
 
-    def memory_profile name, &block
+    def memory_profile name
       puts
       puts name
 
-      MemoryProfiler.report allow_files: 'lib/rambling/trie', ignore_files: 'tasks/performance' do
-        block.call
-      end.pretty_print to_file: path('reports', Rambling::Trie::VERSION, name)
+      result = MemoryProfiler.report allow_files: 'lib/rambling/trie', ignore_files: 'tasks/performance' do
+        yield
+      end
+
+      dir = path 'reports', Rambling::Trie::VERSION, 'memory', time.to_s
+      FileUtils.mkdir_p dir
+      result.pretty_print to_file: File.join(dir, name)
     end
 
-    desc 'Generate memory profiling report'
-    task memory: ['performance:directory'] do
-      puts 'Generating memory profiling reports...'
-
-      trie = nil
+    def dictionary
       dictionary = path 'assets', 'dictionaries', 'words_with_friends.txt'
-      time = Time.now.to_i
+    end
 
-      memory_profile "#{time}-memory-profile-new-trie" do
-        with_gc_stats { trie = Rambling::Trie.create dictionary }
+    namespace :memory do
+      task creation: ['performance:directory'] do
+        puts 'Generating memory profiling reports for creation...'
+
+        trie = nil
+
+        memory_profile "memory-profile-new-trie" do
+          with_gc_stats { trie = Rambling::Trie.create dictionary }
+        end
       end
 
-      words = %w(hi help beautiful impressionism anthropological)
-      methods = [:word?, :partial_word?]
+      task compression: ['performance:directory'] do
+        trie = Rambling::Trie.create dictionary
 
-      # memory_profile "#{time}-memory-profile-searching-uncompressed-trie" do
-      #   with_gc_stats do
-      #     methods.each do |method|
-      #       words.each do |word|
-      #         200_000.times { trie.send method, word }
-      #       end
-      #     end
-      #   end
-      # end
+        memory_profile "memory-profile-trie-and-compress" do
+          with_gc_stats { trie.compress! }
+        end
 
-      memory_profile "#{time}-memory-profile-compressed-trie" do
-        with_gc_stats { trie.compress! }
-      end
-
-      # memory_profile "#{time}-memory-profile-searching-compressed-trie" do
-      #   with_gc_stats do
-      #     methods.each do |method|
-      #       words.each do |word|
-      #         200_000.times { trie.send method, word }
-      #       end
-      #     end
-      #   end
-      # end
-
-      memory_profile "#{time}-memory-profile-trie-and-compress" do
-        with_gc_stats { trie = Rambling::Trie.create dictionary }
-        with_gc_stats { trie.compress! }
-      end
-
-      memory_profile "#{time}-memory-profile-trie-gc" do
-        with_gc_stats { trie = Rambling::Trie.create dictionary }
-        with_gc_stats { trie.compress! }
         with_gc_stats { GC.start }
       end
 
-      puts 'End'
-    end
+      task lookups: ['performance:directory'] do
+        trie = Rambling::Trie.create dictionary
+        words = %w(hi help beautiful impressionism anthropological)
 
+        tries = [ trie, trie.clone.compress! ]
+
+        tries.each do |trie|
+          times = 10
+
+          name = "memory-profile-searching-#{trie.compressed? ? 'uncompressed' : 'compressed'}-trie-word"
+          memory_profile name do
+            with_gc_stats do
+              words.each do |word|
+                times.times do
+                  trie.word? word
+                end
+              end
+            end
+          end
+
+          name = "memory-profile-searching-#{trie.compressed? ? 'uncompressed' : 'compressed'}-trie-partial-word"
+          memory_profile name do
+            with_gc_stats do
+              words.each do |word|
+                times.times do
+                  trie.partial_word? word
+                end
+              end
+            end
+          end
+        end
+      end
+
+      task all: [
+        'performance:profile:memory:creation',
+        'performance:profile:memory:compression',
+        'performance:profile:memory:lookups'
+      ]
+    end
   end
 end
