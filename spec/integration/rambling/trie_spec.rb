@@ -67,7 +67,7 @@ describe Rambling::Trie do
   describe 'with words from a file' do
     it_behaves_like 'a compressable trie' do
       let(:filepath) { File.join ::SPEC_ROOT, 'assets', 'test_words.txt' }
-      let(:words) { File.readlines(filepath).map &:chomp }
+      let(:words) { File.readlines(filepath).map &:chomp! }
       let(:trie) { Rambling::Trie.create filepath }
     end
   end
