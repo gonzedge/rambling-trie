@@ -22,18 +22,15 @@ module Rambling
       # @return [Boolean] `true` if the characters are found and form a word,
       # `false` otherwise.
       def word? chars
-        if chars.empty?
-          terminal?
-        else
-          has_word? chars
-        end
+        chars.empty? ? terminal? : has_word?(chars)
       end
 
       # Returns all words that start with the specified characters.
       # @param [Array] chars the characters to look for in the trie.
       # @return [Array] all the words contained in the trie that start with the specified characters.
       def scan chars
-        closest_node(chars).to_a
+        node = chars.empty? ? self : closest_node(chars)
+        node.to_a
       end
 
       # Always return `true` for a raw (compressed) node.
@@ -42,43 +39,10 @@ module Rambling
         true
       end
 
-      protected
-
-      def closest_node chars
-        if chars.empty?
-          self
-        else
-          current_length = 0
-          current_key = current_key chars.slice!(0)
-
-          begin
-            current_length += 1
-
-            if (current_key && current_key.length == current_length) || chars.empty?
-              return children_tree[current_key.to_sym].closest_node chars
-            end
-          end while current_key && current_key[current_length] == chars.slice!(0)
-
-          Rambling::Trie::MissingNode.new
-        end
-      end
-
       private
 
       def has_partial_word? chars
-        # TODO: can I make this algo better?
-        current_length = 0
-        current_key = current_key chars.slice!(0)
-
-        begin
-          current_length += 1
-
-          if (current_key && current_key.length == current_length) || chars.empty?
-            return children_tree[current_key.to_sym].partial_word? chars
-          end
-        end while current_key && current_key[current_length] == chars.slice!(0)
-
-        false
+        recursive_get(:partial_word?, chars) || false
       end
 
       def has_word? chars
@@ -96,6 +60,23 @@ module Rambling
         end
 
         false
+      end
+
+      def closest_node chars
+        recursive_get(:scan, chars) || Rambling::Trie::MissingNode.new
+      end
+
+      def recursive_get method, chars
+        current_length = 0
+        current_key = current_key chars.slice!(0)
+
+        begin
+          current_length += 1
+
+          if (current_key && current_key.length == current_length) || chars.empty?
+            return children_tree[current_key.to_sym].send method, chars
+          end
+        end while current_key && current_key[current_length] == chars.slice!(0)
       end
 
       def current_key letter
