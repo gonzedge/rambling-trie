@@ -73,9 +73,9 @@ module Rambling
         parent.to_s << letter.to_s
       end
 
-      def letter= new_letter
-        if new_letter
-          @letter = new_letter.to_sym
+      def letter= letter
+        if letter
+          @letter = letter.to_sym
           parent[letter] = self if parent
         end
       end
