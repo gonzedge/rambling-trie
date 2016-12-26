@@ -81,12 +81,16 @@ module Rambling
       end
 
       def has_word? chars
-        current_key_string = ''
+        current_key_string = nil
 
         while !chars.empty?
-          current_key_string << chars.slice!(0)
-          current_key = current_key_string.to_sym
-          child = children_tree[current_key]
+          if current_key_string
+            current_key_string << chars.slice!(0)
+          else
+            current_key_string = chars.slice!(0)
+          end
+
+          child = children_tree[current_key_string.to_sym]
           return child.word? chars if child
         end
 
