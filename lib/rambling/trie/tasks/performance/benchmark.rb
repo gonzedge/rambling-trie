@@ -20,12 +20,21 @@ namespace :performance do
       @output = output
     end
 
+    def param_to_s param
+      case param
+      when Rambling::Trie::Container
+        ''
+      else
+        param.to_s
+      end
+    end
+
     def perform times, params = nil
       params = Array params
       params << nil unless params.any?
 
       params.each do |param|
-        output.print "#{param}".ljust 20
+        output.print param_to_s(param).ljust 20
 
         measure times, param do |param|
           yield param
@@ -73,8 +82,9 @@ namespace :performance do
     measure = BenchmarkMeasurement.new output
     measure.banner
 
-    trie = Rambling::Trie.create path('assets', 'dictionaries', 'words_with_friends.txt')
-    [ trie, trie.clone.compress! ].each do |trie|
+    trie = Rambling::Trie.create dictionary
+    compressed_trie = Rambling::Trie.create(dictionary).compress!
+    [ trie, compressed_trie ].each do |trie|
       output.puts "==> #{trie.compressed? ? 'Compressed' : 'Uncompressed'}"
       words = %w(hi help beautiful impressionism anthropological)
 
@@ -101,9 +111,11 @@ namespace :performance do
       impressionism: 200_000,
       anthropological: 200_000,
     }
-    trie = Rambling::Trie.create path('assets', 'dictionaries', 'words_with_friends.txt')
 
-    [ trie, trie.clone.compress! ].each do |trie|
+    trie = Rambling::Trie.create dictionary
+    compressed_trie = Rambling::Trie.create(dictionary).compress!
+
+    [ trie, compressed_trie ].each do |trie|
       output.puts "==> #{trie.compressed? ? 'Compressed' : 'Uncompressed'}"
       output.puts "`scan`"
       words.each do |word, times|
@@ -148,7 +160,7 @@ namespace :performance do
       output.puts '==> Creation'
       output.puts '`Rambling::Trie.create`'
       measure.perform 5 do
-        trie = Rambling::Trie.create path('assets', 'dictionaries', 'words_with_friends.txt')
+        trie = Rambling::Trie.create dictionary
         nil
       end
     end
@@ -160,9 +172,16 @@ namespace :performance do
       output.puts '==> Compression'
       output.puts '`compress!`'
 
-      trie = Rambling::Trie.create path('assets', 'dictionaries', 'words_with_friends.txt')
-      measure.perform 5 do
-        trie.clone.compress!
+      tries = [
+        Rambling::Trie.create(dictionary),
+        Rambling::Trie.create(dictionary),
+        Rambling::Trie.create(dictionary),
+        Rambling::Trie.create(dictionary),
+        Rambling::Trie.create(dictionary),
+      ]
+
+      measure.perform 5, tries do |trie|
+        trie.compress!
         nil
       end
     end

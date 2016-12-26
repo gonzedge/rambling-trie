@@ -4,6 +4,10 @@ module Helpers
       Pathname.new(full_path *filename).cleanpath
     end
 
+    def dictionary
+      path 'assets', 'dictionaries', 'words_with_friends.txt'
+    end
+
     private
 
     def full_path *filename

@@ -26,12 +26,13 @@ namespace :performance do
       puts 'Generating call tree profiling reports for lookups...'
 
       puts "\nCall Tree profile for rambling-trie version #{Rambling::Trie::VERSION}"
-      trie = Rambling::Trie.create path('assets', 'dictionaries', 'words_with_friends.txt')
-      tries = [ trie, trie.clone.compress! ]
 
       words = %w(hi help beautiful impressionism anthropological)
 
-      tries.each do |trie|
+      trie = Rambling::Trie.create dictionary
+      compressed_trie = Rambling::Trie.create(dictionary).compress!
+
+      [ trie, compressed_trie ].each do |trie|
         filename = "profile-#{trie.compressed? ? 'compressed' : 'uncompressed'}-word"
         path = path 'reports', Rambling::Trie::VERSION, 'call-tree', time, filename
         FileUtils.mkdir_p path
@@ -56,8 +57,6 @@ namespace :performance do
       puts 'Generating call tree profiling reports for scans...'
 
       puts "\nCall Tree profile for rambling-trie version #{Rambling::Trie::VERSION}"
-      trie = Rambling::Trie.create path('assets', 'dictionaries', 'words_with_friends.txt')
-      tries = [ trie, trie.clone.compress! ]
 
       words = {
         hi: 1_000,
@@ -67,7 +66,10 @@ namespace :performance do
         anthropological: 200_000,
       }
 
-      tries.each do |trie|
+      trie = Rambling::Trie.create dictionary
+      compressed_trie = Rambling::Trie.create(dictionary).compress!
+
+      [ trie, compressed_trie ].each do |trie|
         filename = "profile-#{trie.compressed? ? 'compressed' : 'uncompressed'}-scan"
         path = path 'reports', Rambling::Trie::VERSION, 'call-tree', time, filename
         FileUtils.mkdir_p path
@@ -92,7 +94,7 @@ namespace :performance do
         FileUtils.mkdir_p path
 
         profile 5, nil, path do
-          trie = Rambling::Trie.create path('assets', 'dictionaries', 'words_with_friends.txt')
+          trie = Rambling::Trie.create dictionary
         end
       end
 
@@ -105,9 +107,17 @@ namespace :performance do
         path = path 'reports', Rambling::Trie::VERSION, 'call-tree', time, filename
         FileUtils.mkdir_p path
 
-        trie = Rambling::Trie.create path('assets', 'dictionaries', 'words_with_friends.txt')
-        profile 5, nil, path do
-          trie.clone.compress!
+        tries = [
+          Rambling::Trie.create(dictionary),
+          Rambling::Trie.create(dictionary),
+          Rambling::Trie.create(dictionary),
+          Rambling::Trie.create(dictionary),
+          Rambling::Trie.create(dictionary),
+        ]
+
+        profile 5, tries, path do |trie|
+          trie.compress!
+          nil
         end
       end
 

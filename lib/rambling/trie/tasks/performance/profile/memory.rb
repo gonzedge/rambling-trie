@@ -25,10 +25,6 @@ namespace :performance do
       result.pretty_print to_file: File.join(dir, name)
     end
 
-    def dictionary
-      dictionary = path 'assets', 'dictionaries', 'words_with_friends.txt'
-    end
-
     namespace :memory do
       task creation: ['performance:directory'] do
         puts 'Generating memory profiling reports for creation...'
@@ -52,14 +48,15 @@ namespace :performance do
 
       task lookups: ['performance:directory'] do
         trie = Rambling::Trie.create dictionary
+        compressed_trie = Rambling::Trie.create(dictionary).compress!
         words = %w(hi help beautiful impressionism anthropological)
 
-        tries = [ trie, trie.clone.compress! ]
+        tries = [ trie, compressed_trie ]
 
         tries.each do |trie|
           times = 10
 
-          name = "memory-profile-searching-#{trie.compressed? ? 'compressed' : 'uncompressed'}-trie-word"
+          name = "memory-profile-#{trie.compressed? ? 'compressed' : 'uncompressed'}-trie-word"
           memory_profile name do
             with_gc_stats do
               words.each do |word|
@@ -70,7 +67,7 @@ namespace :performance do
             end
           end
 
-          name = "memory-profile-searching-#{trie.compressed? ? 'compressed' : 'uncompressed'}-trie-partial-word"
+          name = "memory-profile-#{trie.compressed? ? 'compressed' : 'uncompressed'}-trie-partial-word"
           memory_profile name do
             with_gc_stats do
               words.each do |word|
@@ -93,7 +90,8 @@ namespace :performance do
         }
 
         trie = Rambling::Trie.create dictionary
-        [ trie, trie.clone.compress! ].each do |trie|
+        compressed_trie = Rambling::Trie.create(dictionary).compress!
+        [ trie, compressed_trie ].each do |trie|
           name = "memory-profile-#{trie.compressed? ? 'compressed' : 'uncompressed'}-trie-scan"
           memory_profile name do
             words.each do |word, times|
