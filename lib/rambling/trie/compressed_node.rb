@@ -54,10 +54,10 @@ module Rambling
           begin
             current_length += 1
 
-            if current_key.length == current_length || chars.empty?
+            if (current_key && current_key.length == current_length) || chars.empty?
               return children_tree[current_key.to_sym].closest_node chars
             end
-          end while current_key[current_length] == chars.slice!(0)
+          end while current_key && current_key[current_length] == chars.slice!(0)
 
           Rambling::Trie::MissingNode.new
         end
@@ -66,16 +66,17 @@ module Rambling
       private
 
       def has_partial_word? chars
+        # TODO: can I make this algo better?
         current_length = 0
         current_key = current_key chars.slice!(0)
 
         begin
           current_length += 1
 
-          if current_key.length == current_length || chars.empty?
+          if (current_key && current_key.length == current_length) || chars.empty?
             return children_tree[current_key.to_sym].partial_word? chars
           end
-        end while current_key[current_length] == chars.slice!(0)
+        end while current_key && current_key[current_length] == chars.slice!(0)
 
         false
       end
@@ -98,7 +99,7 @@ module Rambling
       end
 
       def current_key letter
-        current_key = ''
+        current_key = nil
 
         children_tree.keys.each do |key|
           key_string = key.to_s
