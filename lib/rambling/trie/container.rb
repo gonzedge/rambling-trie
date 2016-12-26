@@ -49,14 +49,14 @@ module Rambling
       # @param [String] word the word or partial word to look for in the trie.
       # @return [Boolean] `true` if the word or partial word is found, `false` otherwise.
       def partial_word? word = ''
-        root.partial_word? word.chars.to_a
+        root.partial_word? word.chars
       end
 
       # Checks if a whole word exists in the trie.
       # @param [String] word the word to look for in the trie.
       # @return [Boolean] `true` only if the word is found and the last character corresponds to a terminal node.
       def word? word = ''
-        root.word? word.chars.to_a
+        root.word? word.chars
       end
 
       # Returns all words that start with the specified characters.
