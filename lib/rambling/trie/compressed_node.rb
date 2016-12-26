@@ -49,15 +49,15 @@ module Rambling
           self
         else
           current_length = 0
-          current_key, current_key_string = current_key chars.slice!(0)
+          current_key = current_key chars.slice!(0)
 
           begin
             current_length += 1
 
-            if current_key_string.length == current_length || chars.empty?
-              return children_tree[current_key].closest_node chars
+            if current_key.length == current_length || chars.empty?
+              return children_tree[current_key.to_sym].closest_node chars
             end
-          end while current_key_string[current_length] == chars.slice!(0)
+          end while current_key[current_length] == chars.slice!(0)
 
           Rambling::Trie::MissingNode.new
         end
@@ -67,30 +67,30 @@ module Rambling
 
       def has_partial_word? chars
         current_length = 0
-        current_key, current_key_string = current_key chars.slice!(0)
+        current_key = current_key chars.slice!(0)
 
         begin
           current_length += 1
 
-          if current_key_string.length == current_length || chars.empty?
-            return children_tree[current_key].partial_word? chars
+          if current_key.length == current_length || chars.empty?
+            return children_tree[current_key.to_sym].partial_word? chars
           end
-        end while current_key_string[current_length] == chars.slice!(0)
+        end while current_key[current_length] == chars.slice!(0)
 
         false
       end
 
       def has_word? chars
-        current_key_string = nil
+        current_key = nil
 
         while !chars.empty?
-          if current_key_string
-            current_key_string << chars.slice!(0)
+          if current_key
+            current_key << chars.slice!(0)
           else
-            current_key_string = chars.slice!(0)
+            current_key = chars.slice!(0)
           end
 
-          child = children_tree[current_key_string.to_sym]
+          child = children_tree[current_key.to_sym]
           return child.word? chars if child
         end
 
@@ -98,18 +98,17 @@ module Rambling
       end
 
       def current_key letter
-        current_key_string = current_key = ''
+        current_key = ''
 
         children_tree.keys.each do |key|
           key_string = key.to_s
           if key_string.start_with? letter
-            current_key = key
-            current_key_string = key_string
+            current_key = key_string
             break
           end
         end
 
-        [current_key, current_key_string]
+        current_key
       end
     end
   end
