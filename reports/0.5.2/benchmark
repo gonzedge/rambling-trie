@@ -1,0 +1,38 @@
+
+Benchmark for rambling-trie version 0.5.2
+==> Creation
+`Rambling::Trie.create`
+                               14.280000   0.250000  14.530000 ( 14.580672)
+
+Benchmark for rambling-trie version 0.5.2
+==> Compression
+`compress!`
+                                1.000000   0.000000   1.000000 (  1.008522)
+
+Benchmark for rambling-trie version 0.5.2
+==> Uncompressed
+`word?`
+hi                  true        0.440000   0.010000   0.450000 (  0.446424)
+help                true        0.640000   0.000000   0.640000 (  0.652055)
+beautiful           false       0.990000   0.000000   0.990000 (  0.993208)
+impressionism       false       1.160000   0.010000   1.170000 (  1.174355)
+anthropological     false       0.940000   0.000000   0.940000 (  0.944238)
+`branch?`
+hi                  true        0.430000   0.000000   0.430000 (  0.432712)
+help                true        0.670000   0.010000   0.680000 (  0.670390)
+beautiful           false       1.040000   0.000000   1.040000 (  1.049231)
+impressionism       false       1.220000   0.000000   1.220000 (  1.235495)
+anthropological     false       0.970000   0.010000   0.980000 (  0.971492)
+==> Compressed
+`word?`
+hi                  true        0.450000   0.000000   0.450000 (  0.457564)
+help                true        0.650000   0.000000   0.650000 (  0.647665)
+beautiful           true        1.160000   0.000000   1.160000 (  1.169084)
+impressionism       true        1.510000   0.010000   1.520000 (  1.522861)
+anthropological     true        1.700000   0.000000   1.700000 (  1.710213)
+`branch?`
+hi                  true        1.130000   0.010000   1.140000 (  1.132676)
+help                true        2.110000   0.010000   2.120000 (  2.131092)
+beautiful           true        2.650000   0.000000   2.650000 (  2.661839)
+impressionism       true        4.230000   0.010000   4.240000 (  4.255421)
+anthropological     true        4.330000   0.010000   4.340000 (  4.354986)

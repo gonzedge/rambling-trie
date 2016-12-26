@@ -1,0 +1,54 @@
+
+Benchmark for rambling-trie version 0.9.0
+==> Creation
+`Rambling::Trie.create`
+                                8.690000   0.200000   8.890000 (  8.918021)
+
+Benchmark for rambling-trie version 0.9.0
+==> Compression
+`compress!`
+                                4.640000   0.020000   4.660000 (  4.677274)
+
+Benchmark for rambling-trie version 0.9.0
+==> Uncompressed
+`word?`
+hi                  true        0.280000   0.000000   0.280000 (  0.276694)
+help                true        0.490000   0.000000   0.490000 (  0.495048)
+beautiful           true        1.030000   0.010000   1.040000 (  1.039363)
+impressionism       true        1.120000   0.010000   1.130000 (  1.126399)
+anthropological     true        1.220000   0.000000   1.220000 (  1.236563)
+`partial_word?`
+hi                  true        0.240000   0.000000   0.240000 (  0.231750)
+help                true        0.430000   0.000000   0.430000 (  0.441642)
+beautiful           true        0.770000   0.000000   0.770000 (  0.766156)
+impressionism       true        1.020000   0.010000   1.030000 (  1.034686)
+anthropological     true        1.170000   0.000000   1.170000 (  1.175162)
+==> Compressed
+`word?`
+hi                  true        0.300000   0.000000   0.300000 (  0.295680)
+help                true        0.460000   0.000000   0.460000 (  0.468748)
+beautiful           true        1.080000   0.010000   1.090000 (  1.107791)
+impressionism       true        1.410000   0.010000   1.420000 (  1.529573)
+anthropological     true        1.460000   0.000000   1.460000 (  1.466326)
+`partial_word?`
+hi                  true        0.940000   0.010000   0.950000 (  0.941019)
+help                true        2.110000   0.000000   2.110000 (  2.125027)
+beautiful           true        2.850000   0.010000   2.860000 (  2.878007)
+impressionism       true        4.240000   0.010000   4.250000 (  4.262220)
+anthropological     true        4.160000   0.010000   4.170000 (  4.182782)
+
+Benchmark for rambling-trie version 0.9.0
+==> Uncompressed
+`scan`
+hi                  495         1.920000   0.010000   1.930000 (  1.935751)
+help                20          6.300000   0.010000   6.310000 (  6.327107)
+beautiful           6           2.600000   0.010000   2.610000 (  2.619788)
+impressionism       2           2.550000   0.010000   2.560000 (  2.586693)
+anthropological     2           2.910000   0.010000   2.920000 (  2.944770)
+==> Compressed
+`scan`
+hi                  495         1.200000   0.000000   1.200000 (  1.213703)
+help                20          5.420000   0.020000   5.440000 (  5.449947)
+beautiful           6           3.080000   0.000000   3.080000 (  3.095935)
+impressionism       2           5.430000   0.020000   5.450000 (  5.460049)
+anthropological     2           5.470000   0.020000   5.490000 (  5.520592)
