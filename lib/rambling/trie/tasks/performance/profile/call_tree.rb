@@ -126,6 +126,7 @@ namespace :performance do
         generate_scans_call_tree
       end
 
+      desc 'Generate all call tree profiling reports'
       task all: [
         'creation',
         'compression',

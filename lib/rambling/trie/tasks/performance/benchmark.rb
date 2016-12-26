@@ -128,16 +128,19 @@ namespace :performance do
 
   namespace :benchmark do
     namespace :output do
+      desc 'Set task reporting output to stdout'
       task :stdout do
         self.benchmark_report = BenchmarkReport.new IO.new(1)
       end
 
+      desc 'Set task reporting output to file'
       task file: ['performance:directory'] do
         path = path 'reports', Rambling::Trie::VERSION, 'benchmark'
         file = File.open path, 'a+'
         self.benchmark_report = BenchmarkReport.new file
       end
 
+      desc 'Close output stream'
       task :close do
         benchmark_report.finish unless benchmark_report.nil?
       end
@@ -153,6 +156,7 @@ namespace :performance do
       generate_scans_benchmark
     end
 
+    desc 'Generate creation performance benchmark report'
     task :creation do
       measure = BenchmarkMeasurement.new output
       measure.banner
@@ -165,6 +169,7 @@ namespace :performance do
       end
     end
 
+    desc 'Generate compression performance benchmark report'
     task :compression do
       measure = BenchmarkMeasurement.new output
       measure.banner
@@ -181,6 +186,7 @@ namespace :performance do
       end
     end
 
+    desc 'Generate all performance benchmark reports'
     task all: [
       'creation',
       'compression',
@@ -196,6 +202,7 @@ namespace :performance do
       ]
     end
 
+    desc 'Compare ips for different implementations (changes over time)'
     task :compare do
       Benchmark.ips do |b|
         hash = { 'thing' => 'gniht' }

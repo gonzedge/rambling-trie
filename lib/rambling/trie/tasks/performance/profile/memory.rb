@@ -26,6 +26,7 @@ namespace :performance do
     end
 
     namespace :memory do
+      desc 'Generate memory profiling reports for creation'
       task creation: ['performance:directory'] do
         puts 'Generating memory profiling reports for creation...'
 
@@ -36,6 +37,7 @@ namespace :performance do
         end
       end
 
+      desc 'Generate memory profiling reports for compression'
       task compression: ['performance:directory'] do
         trie = Rambling::Trie.create dictionary
 
@@ -46,6 +48,7 @@ namespace :performance do
         with_gc_stats { GC.start }
       end
 
+      desc 'Generate memory profiling reports for lookups'
       task lookups: ['performance:directory'] do
         words = %w(hi help beautiful impressionism anthropological)
 
@@ -78,6 +81,7 @@ namespace :performance do
         end
       end
 
+      desc 'Generate memory profiling reports for scans'
       task scans: ['performance:directory'] do
         words = {
           hi: 1,
@@ -101,6 +105,7 @@ namespace :performance do
         end
       end
 
+      desc 'Generate all memory profiling reports'
       task all: [
         'creation',
         'compression',
