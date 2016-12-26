@@ -47,13 +47,11 @@ namespace :performance do
       end
 
       task lookups: ['performance:directory'] do
-        trie = Rambling::Trie.create dictionary
-        compressed_trie = Rambling::Trie.create(dictionary).compress!
         words = %w(hi help beautiful impressionism anthropological)
 
-        tries = [ trie, compressed_trie ]
-
-        tries.each do |trie|
+        trie = Rambling::Trie.create dictionary
+        compressed_trie = Rambling::Trie.create(dictionary).compress!
+        [ trie, compressed_trie ].each do |trie|
           times = 10
 
           name = "memory-profile-#{trie.compressed? ? 'compressed' : 'uncompressed'}-trie-word"

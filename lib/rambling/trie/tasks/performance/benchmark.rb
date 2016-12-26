@@ -172,13 +172,8 @@ namespace :performance do
       output.puts '==> Compression'
       output.puts '`compress!`'
 
-      tries = [
-        Rambling::Trie.create(dictionary),
-        Rambling::Trie.create(dictionary),
-        Rambling::Trie.create(dictionary),
-        Rambling::Trie.create(dictionary),
-        Rambling::Trie.create(dictionary),
-      ]
+      tries = []
+      5.times { tries << Rambling::Trie.create(dictionary) }
 
       measure.perform 5, tries do |trie|
         trie.compress!

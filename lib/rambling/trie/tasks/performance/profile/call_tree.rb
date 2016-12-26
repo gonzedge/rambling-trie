@@ -107,13 +107,8 @@ namespace :performance do
         path = path 'reports', Rambling::Trie::VERSION, 'call-tree', time, filename
         FileUtils.mkdir_p path
 
-        tries = [
-          Rambling::Trie.create(dictionary),
-          Rambling::Trie.create(dictionary),
-          Rambling::Trie.create(dictionary),
-          Rambling::Trie.create(dictionary),
-          Rambling::Trie.create(dictionary),
-        ]
+        tries = []
+        5.times { tries << Rambling::Trie.create(dictionary) }
 
         profile 5, tries, path do |trie|
           trie.compress!
