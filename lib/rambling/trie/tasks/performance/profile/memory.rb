@@ -16,7 +16,7 @@ namespace :performance do
       puts
       puts name
 
-      result = MemoryProfiler.report allow_files: 'lib/rambling/trie', ignore_files: 'tasks/performance' do
+      result = MemoryProfiler.report allow_files: 'lib/rambling/trie', ignore_files: 'lib/rambling/trie/tasks' do
         yield
       end
 
