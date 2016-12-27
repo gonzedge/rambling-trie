@@ -72,7 +72,7 @@ module Rambling
         begin
           current_length += 1
 
-          if (current_key && current_key.length == current_length) || chars.empty?
+          if current_key && (current_key.length == current_length || chars.empty?)
             return children_tree[current_key.to_sym].send method, chars
           end
         end while current_key && current_key[current_length] == chars.slice!(0)

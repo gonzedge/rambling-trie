@@ -330,13 +330,18 @@ describe Rambling::Trie::RawNode do
 
       context 'when the chars are found' do
         it 'returns the found child' do
+          expect(node.scan %w(c)).to eq node[:c]
           expect(node.scan %w(c b)).to eq node[:c][:b]
+          expect(node.scan %w(c b a)).to eq node[:c][:b][:a]
         end
       end
 
       context 'when the chars are not found' do
         it 'returns a MissingNode' do
+          expect(node.scan %w(a)).to be_a Rambling::Trie::MissingNode
+          expect(node.scan %w(a b)).to be_a Rambling::Trie::MissingNode
           expect(node.scan %w(a b c)).to be_a Rambling::Trie::MissingNode
+          expect(node.scan %w(c b a d)).to be_a Rambling::Trie::MissingNode
         end
       end
     end

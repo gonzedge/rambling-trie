@@ -63,6 +63,8 @@ describe Rambling::Trie::CompressedNode do
         end
 
         it 'returns false' do
+          expect(node.partial_word? %w(a)).to be false
+          expect(node.partial_word? %w(a b)).to be false
           expect(node.partial_word? %w(a b c)).to be false
         end
       end
@@ -142,7 +144,10 @@ describe Rambling::Trie::CompressedNode do
 
       context 'when the chars are not found' do
         it 'returns a MissingNode' do
+          expect(node.scan %w(a)).to be_a Rambling::Trie::MissingNode
+          expect(node.scan %w(a b)).to be_a Rambling::Trie::MissingNode
           expect(node.scan %w(a b c)).to be_a Rambling::Trie::MissingNode
+          expect(node.scan %w(c b a d)).to be_a Rambling::Trie::MissingNode
         end
       end
     end
