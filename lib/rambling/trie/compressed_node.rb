@@ -29,8 +29,7 @@ module Rambling
       # @param [Array] chars the characters to look for in the trie.
       # @return [Array] all the words contained in the trie that start with the specified characters.
       def scan chars
-        node = chars.empty? ? self : closest_node(chars)
-        node.to_a
+        chars.empty? ? self : closest_node(chars)
       end
 
       # Always return `true` for a raw (compressed) node.

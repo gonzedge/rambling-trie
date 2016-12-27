@@ -316,6 +316,32 @@ describe Rambling::Trie::RawNode do
     end
   end
 
+  describe '#scan' do
+    context 'when the chars array is empty' do
+      it 'returns itself' do
+        expect(node.scan []).to eq node
+      end
+    end
+
+    context 'when the chars array is not empty' do
+      before do
+        node.add 'cba'
+      end
+
+      context 'when the chars are found' do
+        it 'returns the found child' do
+          expect(node.scan %w(c b)).to eq node[:c][:b]
+        end
+      end
+
+      context 'when the chars are not found' do
+        it 'returns a MissingNode' do
+          expect(node.scan %w(a b c)).to be_a Rambling::Trie::MissingNode
+        end
+      end
+    end
+  end
+
   describe '#as_word' do
     let(:node) { Rambling::Trie::RawNode.new }
 

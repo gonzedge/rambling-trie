@@ -45,7 +45,7 @@ module Rambling
       # @param [Array] chars the characters to look for in the trie.
       # @return [Array] all the words contained in the trie that start with the specified characters.
       def scan chars
-        closest_node chars
+        chars.empty? ? self : closest_node(chars)
       end
 
       # Always return `false` for a raw (uncompressed) node.
@@ -57,18 +57,10 @@ module Rambling
       protected
 
       def closest_node chars
-        if chars.empty?
-          self
-        else
-          letter = chars.slice!(0).to_sym
-          child = children_tree[letter]
+        letter = chars.slice!(0).to_sym
+        child = children_tree[letter]
 
-          if child
-            child.closest_node chars
-          else
-            Rambling::Trie::MissingNode.new
-          end
-        end
+        child ? child.scan(chars) : Rambling::Trie::MissingNode.new
       end
 
       private
