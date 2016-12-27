@@ -1,0 +1,15 @@
+
+Report for rambling-trie version 0.0.2
+==> Uncompressed
+`is_word?`:
+hi - true                       3.450000   0.020000   3.470000 (  3.510972)
+help - true                     7.210000   0.000000   7.210000 (  7.295565)
+beautiful - true               15.670000   0.000000  15.670000 ( 15.844908)
+impressionism - true           23.390000   0.050000  23.440000 ( 29.888448)
+anthropological - true         26.080000   0.000000  26.080000 ( 27.340999)
+`has_branch_tree?`:
+hi - true                       3.610000   0.010000   3.620000 (  3.665560)
+help - true                     7.320000   0.000000   7.320000 (  7.414742)
+beautiful - true               16.400000   0.030000  16.430000 ( 23.497308)
+impressionism - true           22.750000   0.000000  22.750000 ( 23.161017)
+anthropological - true         26.610000   0.030000  26.640000 ( 31.485474)

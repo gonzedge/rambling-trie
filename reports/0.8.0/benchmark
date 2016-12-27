@@ -11,31 +11,31 @@ Benchmark for rambling-trie version 0.8.0
 
 Benchmark for rambling-trie version 0.8.0
 ==> Uncompressed
-`word?`
-hi                  true        0.450000   0.000000   0.450000 (  0.454279)
-help                true        0.690000   0.010000   0.700000 (  0.693596)
-beautiful           false       0.990000   0.000000   0.990000 (  0.998656)
-impressionism       false       1.220000   0.010000   1.230000 (  1.264206)
-anthropological     false       0.950000   0.000000   0.950000 (  0.957030)
-`partial_word?`
-hi                  true        0.440000   0.000000   0.440000 (  0.439851)
-help                true        0.710000   0.000000   0.710000 (  0.735498)
-beautiful           false       1.020000   0.010000   1.030000 (  1.025391)
-impressionism       false       1.330000   0.010000   1.340000 (  1.357658)
-anthropological     false       1.090000   0.000000   1.090000 (  1.100565)
+`word?`:
+hi - true                       0.650000   0.010000   0.660000 (  0.659684)
+help - true                     0.960000   0.010000   0.970000 (  0.984089)
+beautiful - true                1.670000   0.030000   1.700000 (  1.717785)
+impressionism - true            2.150000   0.020000   2.170000 (  2.205084)
+anthropological - true          2.390000   0.030000   2.420000 (  2.430608)
+`partial_word?`:
+hi - true                       0.640000   0.000000   0.640000 (  0.654671)
+help - true                     0.950000   0.010000   0.960000 (  0.962673)
+beautiful - true                1.680000   0.020000   1.700000 (  1.702710)
+impressionism - true            2.130000   0.020000   2.150000 (  2.164127)
+anthropological - true          2.420000   0.010000   2.430000 (  2.458437)
 ==> Compressed
-`word?`
-hi                  true        0.500000   0.010000   0.510000 (  0.525034)
-help                true        0.730000   0.000000   0.730000 (  0.738205)
-beautiful           true        1.390000   0.010000   1.400000 (  1.431795)
-impressionism       true        1.710000   0.010000   1.720000 (  1.740600)
-anthropological     true        1.890000   0.010000   1.900000 (  1.921640)
-`partial_word?`
-hi                  true        1.340000   0.010000   1.350000 (  1.399614)
-help                true        2.480000   0.020000   2.500000 (  2.537612)
-beautiful           true        3.130000   0.020000   3.150000 (  3.241165)
-impressionism       true        4.690000   0.020000   4.710000 (  4.764379)
-anthropological     true        4.800000   0.030000   4.830000 (  4.914433)
+`word?`:
+hi - true                       0.720000   0.010000   0.730000 (  0.731756)
+help - true                     1.080000   0.000000   1.080000 (  1.098258)
+beautiful - true                1.880000   0.020000   1.900000 (  1.900955)
+impressionism - true            2.410000   0.010000   2.420000 (  2.436703)
+anthropological - true          2.590000   0.010000   2.600000 (  2.607531)
+`partial_word?`:
+hi - true                       1.790000   0.020000   1.810000 (  1.813468)
+help - true                     3.280000   0.030000   3.310000 (  3.344987)
+beautiful - true                4.290000   0.030000   4.320000 (  4.337935)
+impressionism - true            6.680000   0.040000   6.720000 (  6.748263)
+anthropological - true          6.450000   0.050000   6.500000 (  6.536386)
 
 Benchmark for rambling-trie version 0.8.0
 ==> Uncompressed

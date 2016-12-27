@@ -1,38 +1,28 @@
 
-Benchmark for rambling-trie version 0.5.2
-==> Creation
-`Rambling::Trie.create`
-                               14.280000   0.250000  14.530000 ( 14.580672)
-
-Benchmark for rambling-trie version 0.5.2
-==> Compression
-`compress!`
-                                1.000000   0.000000   1.000000 (  1.008522)
-
-Benchmark for rambling-trie version 0.5.2
+Report for rambling-trie version 0.5.2
 ==> Uncompressed
-`word?`
-hi                  true        0.440000   0.010000   0.450000 (  0.446424)
-help                true        0.640000   0.000000   0.640000 (  0.652055)
-beautiful           false       0.990000   0.000000   0.990000 (  0.993208)
-impressionism       false       1.160000   0.010000   1.170000 (  1.174355)
-anthropological     false       0.940000   0.000000   0.940000 (  0.944238)
-`branch?`
-hi                  true        0.430000   0.000000   0.430000 (  0.432712)
-help                true        0.670000   0.010000   0.680000 (  0.670390)
-beautiful           false       1.040000   0.000000   1.040000 (  1.049231)
-impressionism       false       1.220000   0.000000   1.220000 (  1.235495)
-anthropological     false       0.970000   0.010000   0.980000 (  0.971492)
+`word?`:
+hi - true                       1.500000   0.000000   1.500000 (  1.499697)
+help - true                     2.210000   0.010000   2.220000 (  2.212756)
+beautiful - true                3.620000   0.000000   3.620000 (  3.623696)
+impressionism - true            4.520000   0.000000   4.520000 (  4.522376)
+anthropological - true          5.070000   0.000000   5.070000 (  5.067066)
+`branch?`:
+hi - true                       1.500000   0.000000   1.500000 (  1.501476)
+help - true                     2.330000   0.000000   2.330000 (  2.329682)
+beautiful - true                3.780000   0.010000   3.790000 (  3.792003)
+impressionism - true            4.700000   0.010000   4.710000 (  4.711288)
+anthropological - true          5.070000   0.010000   5.080000 (  5.084224)
 ==> Compressed
-`word?`
-hi                  true        0.450000   0.000000   0.450000 (  0.457564)
-help                true        0.650000   0.000000   0.650000 (  0.647665)
-beautiful           true        1.160000   0.000000   1.160000 (  1.169084)
-impressionism       true        1.510000   0.010000   1.520000 (  1.522861)
-anthropological     true        1.700000   0.000000   1.700000 (  1.710213)
-`branch?`
-hi                  true        1.130000   0.010000   1.140000 (  1.132676)
-help                true        2.110000   0.010000   2.120000 (  2.131092)
-beautiful           true        2.650000   0.000000   2.650000 (  2.661839)
-impressionism       true        4.230000   0.010000   4.240000 (  4.255421)
-anthropological     true        4.330000   0.010000   4.340000 (  4.354986)
+`word?`:
+hi - true                       1.370000   0.000000   1.370000 (  1.369631)
+help - true                     2.070000   0.000000   2.070000 (  2.075997)
+beautiful - true                3.070000   0.010000   3.080000 (  3.069997)
+impressionism - true            4.120000   0.000000   4.120000 (  4.118552)
+anthropological - true          4.400000   0.000000   4.400000 (  4.402264)
+`branch?`:
+hi - true                       3.250000   0.000000   3.250000 (  3.251743)
+help - true                     6.350000   0.000000   6.350000 (  6.350048)
+beautiful - true                8.030000   0.010000   8.040000 (  8.039111)
+impressionism - true           11.210000   0.010000  11.220000 ( 11.221866)
+anthropological - true         11.030000   0.000000  11.030000 ( 11.033180)

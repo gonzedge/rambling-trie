@@ -1,38 +1,29 @@
+# Ruby 2
 
-Benchmark for rambling-trie version 0.6.0
-==> Creation
-`Rambling::Trie.create`
-                               14.340000   0.180000  14.520000 ( 14.559366)
-
-Benchmark for rambling-trie version 0.6.0
-==> Compression
-`compress!`
-                                1.310000   0.010000   1.320000 (  1.319482)
-
-Benchmark for rambling-trie version 0.6.0
+Report for rambling-trie version 0.6.0
 ==> Uncompressed
-`word?`
-hi                  true        0.470000   0.000000   0.470000 (  0.472369)
-help                true        0.710000   0.010000   0.720000 (  0.714770)
-beautiful           false       1.020000   0.000000   1.020000 (  1.030547)
-impressionism       false       1.230000   0.010000   1.240000 (  1.239037)
-anthropological     false       1.040000   0.000000   1.040000 (  1.046832)
-`partial_word?`
-hi                  true        0.490000   0.000000   0.490000 (  0.494032)
-help                true        0.700000   0.000000   0.700000 (  0.705838)
-beautiful           false       1.120000   0.010000   1.130000 (  1.125941)
-impressionism       false       1.250000   0.000000   1.250000 (  1.264367)
-anthropological     false       1.050000   0.000000   1.050000 (  1.054386)
+`word?`:
+hi - true                       0.610000   0.000000   0.610000 (  0.612543)
+help - true                     1.260000   0.000000   1.260000 (  1.265502)
+beautiful - true                1.900000   0.000000   1.900000 (  1.895766)
+impressionism - true            2.400000   0.000000   2.400000 (  2.408141)
+anthropological - true          2.690000   0.000000   2.690000 (  2.687713)
+`partial_word?`:
+hi - true                       0.780000   0.000000   0.780000 (  0.780757)
+help - true                     1.350000   0.000000   1.350000 (  1.343227)
+beautiful - true                1.960000   0.000000   1.960000 (  1.960688)
+impressionism - true            2.440000   0.000000   2.440000 (  2.446920)
+anthropological - true          2.720000   0.010000   2.730000 (  2.720656)
 ==> Compressed
-`word?`
-hi                  true        0.440000   0.010000   0.450000 (  0.444409)
-help                true        0.700000   0.000000   0.700000 (  0.704686)
-beautiful           true        1.230000   0.000000   1.230000 (  1.231000)
-impressionism       true        1.580000   0.010000   1.590000 (  1.597748)
-anthropological     true        1.740000   0.000000   1.740000 (  1.751116)
-`partial_word?`
-hi                  true        1.240000   0.010000   1.250000 (  1.251704)
-help                true        2.410000   0.000000   2.410000 (  2.424183)
-beautiful           true        2.970000   0.010000   2.980000 (  2.980832)
-impressionism       true        4.570000   0.010000   4.580000 (  4.604819)
-anthropological     true        4.740000   0.020000   4.760000 (  4.773200)
+`word?`:
+hi - true                       0.710000   0.000000   0.710000 (  0.704231)
+help - true                     1.280000   0.000000   1.280000 (  1.288317)
+beautiful - true                1.930000   0.000000   1.930000 (  1.930539)
+impressionism - true            2.390000   0.000000   2.390000 (  2.387371)
+anthropological - true          2.780000   0.000000   2.780000 (  2.782034)
+`partial_word?`:
+hi - true                       3.210000   0.010000   3.220000 (  3.215962)
+help - true                     6.250000   0.010000   6.260000 (  6.257020)
+beautiful - true                7.980000   0.010000   7.990000 (  7.990850)
+impressionism - true            9.940000   0.010000   9.950000 (  9.952037)
+anthropological - true         10.290000   0.010000  10.300000 ( 10.297771)

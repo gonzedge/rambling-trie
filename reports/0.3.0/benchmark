@@ -1,0 +1,29 @@
+# Compression methods do not work for this version. Results might me misleading.
+
+Report for rambling-trie version 0.3.0
+==> Uncompressed
+`is_word?`:
+hi - true                       1.350000   0.000000   1.350000 (  1.391111)
+help - true                     2.560000   0.010000   2.570000 (  5.079415)
+beautiful - true                4.910000   0.020000   4.930000 (  9.857225)
+impressionism - true            6.590000   0.010000   6.600000 (  6.818113)
+anthropological - true          7.500000   0.000000   7.500000 (  7.598839)
+`has_branch_for?`:
+hi - true                       1.360000   0.000000   1.360000 (  1.396728)
+help - true                     2.200000   0.000000   2.200000 (  2.248082)
+beautiful - true                4.630000   0.000000   4.630000 (  4.689703)
+impressionism - true            6.500000   0.010000   6.510000 (  6.583604)
+anthropological - true          7.390000   0.000000   7.390000 (  7.480366)
+==> Compressed
+`is_word?`:
+hi - true                       1.130000   0.000000   1.130000 (  1.156289)
+help - true                     1.830000   0.000000   1.830000 (  1.863831)
+beautiful - false               3.180000   0.000000   3.180000 (  3.225922)
+impressionism - false           3.500000   0.020000   3.520000 (  6.908667)
+anthropological - false         2.570000   0.000000   2.570000 (  5.118108)
+`has_branch_for?`:
+hi - true                       1.320000   0.010000   1.330000 (  2.566249)
+help - true                     1.740000   0.000000   1.740000 (  1.771953)
+beautiful - false               2.950000   0.000000   2.950000 (  3.002136)
+impressionism - false           3.500000   0.000000   3.500000 (  3.553638)
+anthropological - false         2.340000   0.000000   2.340000 (  2.385174)
