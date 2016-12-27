@@ -7,11 +7,18 @@ module Rambling
       include ::Enumerable
 
       delegate [
-        :each,
-        :compressed?,
         :[],
+        :as_word,
+        :children,
+        :children_tree,
+        :compressed?,
+        :each,
+        :has_key?,
+        :inspect,
         :letter,
-        :inspect
+        :parent,
+        :size,
+        :to_s
       ] => :root
 
       # Creates a new Trie.

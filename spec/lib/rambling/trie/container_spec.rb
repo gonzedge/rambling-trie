@@ -152,12 +152,22 @@ describe Rambling::Trie::Container do
   describe 'delegates and aliases' do
     before do
       allow(root).to receive_messages(
-        word?: nil,
+        :[] => nil,
+        add: nil,
+        as_word: nil,
+        children: nil,
+        children_tree: nil,
+        compressed?: nil,
+        each: nil,
+        has_key?: nil,
+        inspect: nil,
+        letter: nil,
+        parent: nil,
         partial_word?: nil,
         scan: nil,
-        add: nil,
-        each: nil,
-        compressed?: nil
+        size: nil,
+        to_s: nil,
+        word?: nil,
       )
     end
 
@@ -181,14 +191,64 @@ describe Rambling::Trie::Container do
       expect(root).to have_received(:add).with 'words'
     end
 
-    it 'delegates `#each` to the root node' do
-      container.each
-      expect(root).to have_received :each
+    it 'delegates `#[]` to the root node' do
+      container.[]
+      expect(root).to have_received :[]
+    end
+
+    it 'delegates `#as_word` to the root node' do
+      container.as_word
+      expect(root).to have_received :as_word
+    end
+
+    it 'delegates `#children` to the root node' do
+      container.children
+      expect(root).to have_received :children
+    end
+
+    it 'delegates `#children_tree` to the root node' do
+      container.children_tree
+      expect(root).to have_received :children_tree
     end
 
     it 'delegates `#compressed?` to the root node' do
       container.compressed?
       expect(root).to have_received :compressed?
+    end
+
+    it 'delegates `#each` to the root node' do
+      container.each
+      expect(root).to have_received :each
+    end
+
+    it 'delegates `#has_key?` to the root node' do
+      container.has_key?
+      expect(root).to have_received :has_key?
+    end
+
+    it 'delegates `#inspect` to the root node' do
+      container.inspect
+      expect(root).to have_received :inspect
+    end
+
+    it 'delegates `#letter` to the root node' do
+      container.letter
+      expect(root).to have_received :letter
+    end
+
+    it 'delegates `#parent` to the root node' do
+      container.parent
+      expect(root).to have_received :parent
+    end
+
+    it 'delegates `#size` to the root node' do
+      container.size
+      expect(root).to have_received :size
+    end
+
+    it 'delegates `#to_s` to the root node' do
+      container.to_s
+      expect(root).to have_received :to_s
     end
   end
 
