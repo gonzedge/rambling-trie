@@ -15,6 +15,9 @@ require 'rambling-trie'
 ::SPEC_ROOT = File.dirname __FILE__
 
 RSpec.configure do |config|
+  config.color = true
+  config.tty = true
+  config.formatter = :documentation
   config.order = :random
   config.run_all_when_everything_filtered = true
   config.raise_errors_for_deprecations!
