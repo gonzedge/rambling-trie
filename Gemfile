@@ -3,12 +3,9 @@ source 'https://rubygems.org'
 
 gemspec
 
-gem 'coveralls', require: false
-
-group :development do
-  gem 'simplecov', require: false
-end
-
 group :test do
+  gem 'simplecov', require: false
+  gem 'codeclimate-test-reporter', require: false
+  gem 'coveralls', require: false
   gem 'guard-rspec'
 end

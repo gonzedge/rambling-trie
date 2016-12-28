@@ -1,4 +1,7 @@
 language: ruby
+addons:
+  code_climate:
+    repo_token: 6f07a33d1bf4060910c8b97cb9bf97230bbf1fad75765fef98f3cca9f29cd6b0
 before_install:
   - gem install bundler
 install:
