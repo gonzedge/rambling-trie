@@ -7,5 +7,8 @@ group :test do
   gem 'simplecov', require: false
   gem 'codeclimate-test-reporter', require: false
   gem 'coveralls', require: false
+end
+
+group :local do
   gem 'guard-rspec'
 end
