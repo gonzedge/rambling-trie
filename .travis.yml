@@ -5,7 +5,7 @@ addons:
 before_install:
   - gem install bundler
 install:
-  - bundle install --without test
+  - bundle install
 rvm:
   - 2.4.0
   - 2.3.3
