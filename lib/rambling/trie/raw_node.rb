@@ -54,15 +54,6 @@ module Rambling
         false
       end
 
-      protected
-
-      def closest_node chars
-        letter = chars.slice!(0).to_sym
-        child = children_tree[letter]
-
-        child ? child.scan(chars) : Rambling::Trie::MissingNode.new
-      end
-
       private
 
       def add_to_children_tree word
@@ -76,6 +67,13 @@ module Rambling
         node = Rambling::Trie::RawNode.new self
         node.letter = letter
         children_tree[letter] = node
+      end
+
+      def closest_node chars
+        letter = chars.slice!(0).to_sym
+        child = children_tree[letter]
+
+        child ? child.scan(chars) : Rambling::Trie::MissingNode.new
       end
     end
   end
