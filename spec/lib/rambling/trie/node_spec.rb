@@ -69,11 +69,6 @@ describe Rambling::Trie::Node do
       node[:key] = 'value'
     end
 
-    it 'delegates `#delete` to its children tree' do
-      expect(node.children_tree).to receive(:delete).with(:key).and_return('value')
-      expect(node.delete :key).to eq 'value'
-    end
-
     it 'delegates `#has_key?` to its children tree' do
       expect(node.children_tree).to receive(:has_key?).with(:present_key).and_return(true)
       expect(node).to have_key(:present_key)

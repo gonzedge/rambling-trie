@@ -2,8 +2,7 @@ module Rambling
   module Trie
     # Wrapper on top of Trie data structure.
     class Container
-      extend ::Forwardable
-
+      extend Rambling::Trie::Forwardable
       include ::Enumerable
 
       delegate [
@@ -13,6 +12,7 @@ module Rambling
         :children_tree,
         :compressed?,
         :each,
+        :to_a,
         :has_key?,
         :inspect,
         :letter,
