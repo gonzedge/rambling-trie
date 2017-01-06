@@ -1,19 +1,5 @@
-require_relative '../helpers/path'
-
 namespace :performance do
   include Helpers::Path
-
-  class BenchmarkReport
-    attr_reader :output
-
-    def initialize output
-      @output = output
-    end
-
-    def finish
-      output.close
-    end
-  end
 
   class BenchmarkMeasurement
     def initialize output
@@ -42,10 +28,6 @@ namespace :performance do
       end
     end
 
-    def banner
-      output.puts "\nBenchmark for rambling-trie version #{Rambling::Trie::VERSION}"
-    end
-
     private
 
     attr_reader :output
@@ -64,23 +46,20 @@ namespace :performance do
     end
   end
 
-  def benchmark_report= benchmark_report
-    @benchmark_report = benchmark_report
+  def performance_report= performance_report
+    @performance_report = performance_report
   end
 
-  def benchmark_report
-    Rake::Task['performance:benchmark:output:stdout'].invoke unless @benchmark_report
-
-    @benchmark_report
+  def performance_report
+    @performance_report ||= PerformanceReport.new
   end
 
   def output
-    benchmark_report.output
+    performance_report.output
   end
 
   def generate_lookups_benchmark filename = nil
     measure = BenchmarkMeasurement.new output
-    measure.banner
 
     trie = Rambling::Trie.create dictionary
     compressed_trie = Rambling::Trie.create(dictionary).compress!
@@ -102,7 +81,6 @@ namespace :performance do
 
   def generate_scans_benchmark filename = nil
     measure = BenchmarkMeasurement.new output
-    measure.banner
 
     words = {
       hi: 1_000,
@@ -128,38 +106,37 @@ namespace :performance do
 
   namespace :benchmark do
     namespace :output do
-      desc 'Set task reporting output to stdout'
-      task :stdout do
-        self.benchmark_report = BenchmarkReport.new IO.new(1)
-      end
-
       desc 'Set task reporting output to file'
       task file: ['performance:directory'] do
         path = path 'reports', Rambling::Trie::VERSION, 'benchmark'
         file = File.open path, 'a+'
-        self.benchmark_report = BenchmarkReport.new file
+        self.performance_report = PerformanceReport.new file
       end
 
       desc 'Close output stream'
       task :close do
-        benchmark_report.finish unless benchmark_report.nil?
+        performance_report.finish
       end
     end
 
+    desc 'Output banner'
+    task :banner do
+      performance_report.start 'Benchmark'
+    end
+
     desc 'Generate lookups performance benchmark report'
-    task :lookups do
+    task lookups: :banner do
       generate_lookups_benchmark
     end
 
     desc 'Generate scans performance benchmark report'
-    task :scans do
+    task scans: :banner do
       generate_scans_benchmark
     end
 
     desc 'Generate creation performance benchmark report'
-    task :creation do
+    task creation: :banner do
       measure = BenchmarkMeasurement.new output
-      measure.banner
 
       output.puts '==> Creation'
       output.puts '`Rambling::Trie.create`'
@@ -170,9 +147,8 @@ namespace :performance do
     end
 
     desc 'Generate compression performance benchmark report'
-    task :compression do
+    task compression: :banner do
       measure = BenchmarkMeasurement.new output
-      measure.banner
 
       output.puts '==> Compression'
       output.puts '`compress!`'
@@ -188,17 +164,17 @@ namespace :performance do
 
     desc 'Generate all performance benchmark reports'
     task all: [
-      'creation',
-      'compression',
-      'lookups',
-      'scans',
+      :creation,
+      :compression,
+      :lookups,
+      :scans,
     ]
 
     namespace :all do
       desc "Generate and store performance benchmark report in reports/#{Rambling::Trie::VERSION}"
       task save: [
         'output:file',
-        'all'
+        :all
       ]
     end
 

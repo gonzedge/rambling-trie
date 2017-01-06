@@ -1,31 +1,46 @@
-require_relative '../../helpers/path'
-require_relative '../../helpers/time'
-
 namespace :performance do
   namespace :profile do
     include Helpers::Path
     include Helpers::Time
 
-    def profile times, params, path
-      params = Array params
-      params << nil unless params.any?
+    def performance_report
+      @performance_report ||= PerformanceReport.new
+    end
 
-      result = RubyProf.profile merge_fibers: true do
-        params.each do |param|
-          times.times do
-            yield param
-          end
-        end
+    def output
+      performance_report.output
+    end
+
+    class CallTreeProfile
+      def initialize dirname
+        @dirname = dirname
       end
 
-      printer = RubyProf::CallTreePrinter.new result
-      printer.print path: path
+      def perform times, params = nil
+        params = Array params
+        params << nil unless params.any?
+
+        result = RubyProf.profile merge_fibers: true do
+          params.each do |param|
+            times.times do
+              yield param
+            end
+          end
+        end
+
+        path = path 'reports', Rambling::Trie::VERSION, 'call-tree', time, dirname
+        FileUtils.mkdir_p path
+        printer = RubyProf::CallTreePrinter.new result
+        printer.print path: path
+      end
+
+      private
+
+      attr_reader :dirname
     end
 
     def generate_lookups_call_tree
-      puts 'Generating call tree profiling reports for lookups...'
-
-      puts "\nCall Tree profile for rambling-trie version #{Rambling::Trie::VERSION}"
+      output.puts 'Generating call tree profiling reports for lookups...'
 
       words = %w(hi help beautiful impressionism anthropological)
 
@@ -33,30 +48,24 @@ namespace :performance do
       compressed_trie = Rambling::Trie.create(dictionary).compress!
 
       [ trie, compressed_trie ].each do |trie|
-        filename = "profile-#{trie.compressed? ? 'compressed' : 'uncompressed'}-word"
-        path = path 'reports', Rambling::Trie::VERSION, 'call-tree', time, filename
-        FileUtils.mkdir_p path
+        prefix = "profile-#{trie.compressed? ? 'compressed' : 'uncompressed'}"
 
-        profile 200_000, words, path do
+        call_tree_profile = CallTreeProfile.new "#{prefix}-word"
+        call_tree_profile.perform 200_000, words do
           trie.word? word
         end
 
-        filename = "profile-#{trie.compressed? ? 'compressed' : 'uncompressed'}-partial-word"
-        path = path 'reports', Rambling::Trie::VERSION, 'call-tree', time, filename
-        FileUtils.mkdir_p path
-
-        profile 200_000, words, path do
+        call_tree_profile = CallTreeProfile.new "#{prefix}-partial-word"
+        call_tree_profile.perform 200_000, words do
           trie.partial_word? word
         end
       end
 
-      puts 'Done'
+      output.puts 'Done'
     end
 
     def generate_scans_call_tree
-      puts 'Generating call tree profiling reports for scans...'
-
-      puts "\nCall Tree profile for rambling-trie version #{Rambling::Trie::VERSION}"
+      output.puts 'Generating call tree profiling reports for scans...'
 
       words = {
         hi: 1_000,
@@ -70,68 +79,68 @@ namespace :performance do
       compressed_trie = Rambling::Trie.create(dictionary).compress!
 
       [ trie, compressed_trie ].each do |trie|
-        filename = "profile-#{trie.compressed? ? 'compressed' : 'uncompressed'}-scan"
-        path = path 'reports', Rambling::Trie::VERSION, 'call-tree', time, filename
-        FileUtils.mkdir_p path
+        dirname = "profile-#{trie.compressed? ? 'compressed' : 'uncompressed'}-scan"
+        call_tree_profile = CallTreeProfile.new dirname
 
         words.each do |word, times|
-          profile times, word.to_s, path do |word|
-            trie.scan(word).size
+          call_tree_profile.perform times, word.to_s do |word|
+            trie.partial_word? word
           end
         end
       end
 
-      puts 'Done'
+      output.puts 'Done'
     end
 
     namespace :call_tree do
-      desc 'Generate call tree profiling reports for creation'
-      task creation: ['performance:directory'] do
-        puts 'Generating call tree profiling reports for creation...'
-        puts "\nCall Tree profile for rambling-trie version #{Rambling::Trie::VERSION}"
-        filename = "profile-new-trie"
-        path = path 'reports', Rambling::Trie::VERSION, 'call-tree', time, filename
-        FileUtils.mkdir_p path
+      desc 'Output banner'
+      task :banner do
+        performance_report.start 'Call Tree profile'
+      end
 
-        profile 5, nil, path do
+      desc 'Generate call tree profiling reports for creation'
+      task creation: ['performance:directory', :banner] do
+        output.puts 'Generating call tree profiling reports for creation...'
+
+        call_tree_profile = CallTreeProfile.new 'profile-new-trie'
+        call_tree_profile.perform 5 do
           trie = Rambling::Trie.create dictionary
         end
+
+        output.puts 'Done'
       end
 
       desc 'Generate call tree profiling reports for compression'
-      task compression: ['performance:directory'] do
-        puts 'Generating call tree profiling reports for compression...'
-        puts "\nCall Tree profile for rambling-trie version #{Rambling::Trie::VERSION}"
-
-        filename = "profile-compressed-trie"
-        path = path 'reports', Rambling::Trie::VERSION, 'call-tree', time, filename
-        FileUtils.mkdir_p path
+      task compression: ['performance:directory', :banner] do
+        output.puts 'Generating call tree profiling reports for compression...'
 
         tries = []
         5.times { tries << Rambling::Trie.create(dictionary) }
 
-        profile 5, tries, path do |trie|
-          trie.compress!
-          nil
+        call_tree_profile = CallTreeProfile.new 'profile-compressed-trie'
+        call_tree_profile.perform 5, tries do |trie|
+          trie.compress!; nil
         end
+
+        output.puts 'Done'
       end
 
       desc 'Generate call tree profiling reports for lookups'
-      task lookups: ['performance:directory'] do
+      task lookups: ['performance:directory', :banner] do
         generate_lookups_call_tree
       end
 
       desc 'Generate call tree profiling reports for scans'
-      task scans: ['performance:directory'] do
+      task scans: ['performance:directory', :banner] do
         generate_scans_call_tree
       end
 
       desc 'Generate all call tree profiling reports'
       task all: [
-        'creation',
-        'compression',
-        'lookups',
-        'scans',
+        :creation,
+        :compression,
+        :lookups,
+        :scans,
       ]
     end
   end
