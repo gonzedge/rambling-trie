@@ -57,8 +57,7 @@ namespace :performance do
     task compression: ['performance:directory', :banner] do
       output.puts 'Generating flamegraph reports for compression...'
 
-      tries = []
-      1.times { tries << Rambling::Trie.create(dictionary) }
+      tries = [ Rambling::Trie.create(dictionary) ]
 
       flamegraph = FlamegraphProfile.new 'compressed-trie'
       flamegraph.perform 1, tries do |trie|
@@ -67,10 +66,54 @@ namespace :performance do
       end
     end
 
+    desc 'Generate flamegraph reports for lookups'
+    task lookups: ['performance:directory', :banner] do
+      output.puts 'Generating flamegraph reports for lookups...'
+
+      words = %w(hi help beautiful impressionism anthropological)
+
+      trie = Rambling::Trie.create dictionary
+      compressed_trie = Rambling::Trie.create(dictionary).compress!
+
+      [ trie, compressed_trie ].each do |trie|
+        prefix = "#{trie.compressed? ? 'compressed' : 'uncompressed'}-trie"
+
+        flamegraph = FlamegraphProfile.new "#{prefix}-word"
+        flamegraph.perform 1, words do |word|
+          trie.word? word
+        end
+
+        flamegraph = FlamegraphProfile.new "#{prefix}-partial-word"
+        flamegraph.perform 1, words do |word|
+          trie.partial_word? word
+        end
+      end
+    end
+
+    desc 'Generate flamegraph reports for scans'
+    task scans: ['performance:directory', :banner] do
+      output.puts 'Generating flamegraph reports for scans...'
+
+      words = %w(hi help beautiful impressionism anthropological)
+
+      trie = Rambling::Trie.create dictionary
+      compressed_trie = Rambling::Trie.create(dictionary).compress!
+
+      [ trie, compressed_trie ].each do |trie|
+        prefix = "#{trie.compressed? ? 'compressed' : 'uncompressed'}-trie"
+        flamegraph = FlamegraphProfile.new "#{prefix}-scan"
+        flamegraph.perform 1, words do |word|
+          trie.scan(word).size
+        end
+      end
+    end
+
     desc 'Generate all flamegraph reports'
     task all: [
       :creation,
       :compression,
+      :lookups,
+      :scans,
     ]
   end
 end

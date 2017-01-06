@@ -84,7 +84,7 @@ namespace :performance do
 
         words.each do |word, times|
           call_tree_profile.perform times, word.to_s do |word|
-            trie.partial_word? word
+            trie.scan(word).size
           end
         end
       end
