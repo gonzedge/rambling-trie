@@ -7,6 +7,8 @@ group :development do
   gem 'ruby-prof'
   gem 'memory_profiler'
   gem 'benchmark-ips'
+  gem 'flamegraph'
+  gem 'stackprof'
 end
 
 group :test do
