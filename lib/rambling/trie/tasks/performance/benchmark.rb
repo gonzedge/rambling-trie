@@ -204,6 +204,7 @@ namespace :performance do
 
     desc 'Compare ips for different implementations (changes over time)'
     task :compare do
+      require 'benchmark/ips'
       Benchmark.ips do |b|
         hash = { 'thing' => 'gniht' }
 
