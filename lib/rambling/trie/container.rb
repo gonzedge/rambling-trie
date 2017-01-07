@@ -21,6 +21,10 @@ module Rambling
         :to_s
       ] => :root
 
+      # The root node of this trie.
+      # @return [Node] the root node of this trie.
+      attr_reader :root
+
       # Creates a new Trie.
       # @param [Node] root the root node for the trie
       # @param [Compressor] compressor responsible for compressing the trie
@@ -81,7 +85,7 @@ module Rambling
       private
 
       attr_reader :compressor
-      attr_accessor :root
+      attr_writer :root
 
       def default_root
         Rambling::Trie::RawNode.new

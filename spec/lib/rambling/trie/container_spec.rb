@@ -43,6 +43,12 @@ describe Rambling::Trie::Container do
     end
   end
 
+  describe '#root' do
+    it 'returns the trie root node' do
+      expect(container.root).to eq root
+    end
+  end
+
   describe '#add' do
     let(:clone) { double :clone }
     let(:word) { double :word, clone: clone }
