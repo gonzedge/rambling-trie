@@ -11,7 +11,7 @@ Gem::Specification.new do |gem|
   gem.date = Time.now.strftime '%Y-%m-%d'
 
   gem.executables = `git ls-files -- bin/*`.split("\n").map { |f| File.basename f }
-  gem.files = `git ls-files`.split "\n"
+  gem.files = `git ls-files -- {lib,*file,*.gemspec,LICENSE*,README*}`.split "\n"
   gem.test_files = `git ls-files -- {test,spec,features}/*`.split "\n"
   gem.require_paths = ['lib']
 
