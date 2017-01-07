@@ -23,7 +23,7 @@ describe Rambling::Trie do
     end
 
     context 'with a filepath' do
-      let(:filepath) { 'test_words.txt' }
+      let(:filepath) { 'a test filepath' }
       let(:reader) { double :reader }
       let(:words) { %w(a couple of test words over here) }
 
@@ -44,7 +44,7 @@ describe Rambling::Trie do
     end
 
     context 'without any reader' do
-      let(:filepath) { 'test_words.txt' }
+      let(:filepath) { 'a test filepath' }
       let(:reader) { double :reader, each_word: nil }
 
       before do

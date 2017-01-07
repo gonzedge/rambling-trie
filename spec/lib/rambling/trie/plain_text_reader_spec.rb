@@ -4,7 +4,7 @@ module Rambling
   module Trie
     describe PlainTextReader do
       describe '#each_word' do
-        let(:filepath) { File.join(::SPEC_ROOT, 'assets', 'test_words.txt') }
+        let(:filepath) { File.join(::SPEC_ROOT, 'assets', 'test_words.en_US.txt') }
         let(:words) { File.readlines(filepath).map &:chomp }
 
         it 'yields every word yielded by the file' do
