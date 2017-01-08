@@ -148,7 +148,7 @@ Also, be sure to add tests for any feature you may develop or bug you may fix.
 
 ## License and copyright
 
-Copyright (c) 2012-2016 Edgar Gonzalez
+Copyright (c) 2012-2017 Edgar Gonzalez
 
 MIT License
 
