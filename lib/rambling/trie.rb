@@ -1,7 +1,7 @@
 require 'forwardable'
 %w{
   forwardable compression compressor inspector container enumerable
-  invalid_operation plain_text_reader marshal_serializer yaml_serializer node
+  invalid_operation readers marshal_serializer yaml_serializer node
   missing_node compressed_node raw_node version
 }.each do |file|
   require File.join('rambling', 'trie', file)
@@ -58,7 +58,7 @@ module Rambling
       private
 
       def default_reader
-        Rambling::Trie::PlainTextReader.new
+        Rambling::Trie::Readers::PlainText.new
       end
 
       def default_serializer

@@ -62,7 +62,7 @@ the
 trie
 ```
 
-If you want to use a custom file format, you will need to provide a custom file reader that defines the `each_word` method that yields each word contained in the file. Look at the `Rambling::Trie::PlainTextReader` class for an example.
+If you want to use a custom file format, you will need to provide a custom file reader that defines the `each_word` method that yields each word contained in the file. Look at the `Rambling::Trie::Readers::PlainText` class for an example.
 
 To add new words to the trie, use `add` or `<<`:
 

@@ -49,11 +49,11 @@ describe Rambling::Trie do
       let(:reader) { double :reader, each_word: nil }
 
       before do
-        allow(Rambling::Trie::PlainTextReader).to receive(:new)
+        allow(Rambling::Trie::Readers::PlainText).to receive(:new)
           .and_return reader
       end
 
-      it 'defaults to the PlainTextReader' do
+      it 'defaults to a plain text reader' do
         Rambling::Trie.create filepath, nil
 
         expect(reader).to have_received(:each_word).with filepath
