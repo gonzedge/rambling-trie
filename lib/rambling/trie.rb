@@ -18,10 +18,9 @@ module Rambling
       # @return [Container] the trie just created.
       # @yield [Container] the trie just created.
       def create filepath = nil, reader = nil
-        reader ||= default_reader
-
         Rambling::Trie::Container.new do |container|
           if filepath
+            reader ||= default_reader
             reader.each_word filepath do |word|
               container << word
             end
