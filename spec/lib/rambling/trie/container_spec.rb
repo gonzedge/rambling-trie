@@ -38,7 +38,7 @@ describe Rambling::Trie::Container do
           yielded_container = container
         end
 
-        expect(yielded_container).to eq container
+        expect(yielded_container).to be container
       end
     end
   end
@@ -158,6 +158,7 @@ describe Rambling::Trie::Container do
   describe 'delegates and aliases' do
     before do
       allow(root).to receive_messages(
+        :== => nil,
         :[] => nil,
         add: nil,
         as_word: nil,
@@ -200,6 +201,11 @@ describe Rambling::Trie::Container do
     it 'delegates `#[]` to the root node' do
       container.[]
       expect(root).to have_received :[]
+    end
+
+    it 'delegates `#==` to the root node' do
+      container.==
+      expect(root).to have_received :==
     end
 
     it 'delegates `#as_word` to the root node' do

@@ -6,6 +6,7 @@ module Rambling
       include ::Enumerable
 
       delegate [
+        :==,
         :[],
         :as_word,
         :children,

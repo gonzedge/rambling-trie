@@ -79,6 +79,10 @@ module Rambling
         end
       end
 
+      def == other
+        letter == other.letter && children_tree == other.children_tree
+      end
+
       private
 
       attr_accessor :terminal
