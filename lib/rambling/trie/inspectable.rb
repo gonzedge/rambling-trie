@@ -4,7 +4,28 @@ module Rambling
     module Inspectable
       # @return [String] a string representation of the current node.
       def inspect
-        "#<#{self.class.name} letter: #{letter.inspect || 'nil'}, children: #{children_tree.keys}>"
+        "#<#{class_name} #{attributes}>"
+      end
+
+      private
+
+      def class_name
+        self.class.name
+      end
+
+      def attributes
+        [
+          letter_inspect,
+          children_inspect,
+        ].join ', '
+      end
+
+      def letter_inspect
+        "letter: #{letter.inspect}"
+      end
+
+      def children_inspect
+        "children: #{children_tree.keys}"
       end
     end
   end
