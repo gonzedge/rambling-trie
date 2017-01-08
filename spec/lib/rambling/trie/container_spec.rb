@@ -158,7 +158,6 @@ describe Rambling::Trie::Container do
   describe 'delegates and aliases' do
     before do
       allow(root).to receive_messages(
-        :== => nil,
         :[] => nil,
         add: nil,
         as_word: nil,
@@ -201,11 +200,6 @@ describe Rambling::Trie::Container do
     it 'delegates `#[]` to the root node' do
       container.[]
       expect(root).to have_received :[]
-    end
-
-    it 'delegates `#==` to the root node' do
-      container.==
-      expect(root).to have_received :==
     end
 
     it 'delegates `#as_word` to the root node' do
@@ -536,6 +530,24 @@ describe Rambling::Trie::Container do
         it 'returns an empty array' do
           expect(container.scan 'hi').to eq []
         end
+      end
+    end
+  end
+
+  describe '#==' do
+    context 'when the root nodes are the same' do
+      let(:other_container) { Rambling::Trie::Container.new container.root }
+
+      it 'returns true' do
+        expect(container).to eq other_container
+      end
+    end
+
+    context 'when the root nodes are not the same' do
+      let(:other_container) { Rambling::Trie::Container.new { |c| c << 'hola' } }
+
+      it 'returns false' do
+        expect(container).not_to eq other_container
       end
     end
   end

@@ -5,9 +5,11 @@ module Rambling
       # Compares two nodes.
       # @param [Node] other the node to compare against.
       # @return [Boolean] `true` if the nodes' `#letter`s and `#children_tree`s
-      #   are equal, `false` otherwise
+      #   are equal, `false` otherwise.
       def == other
-        letter == other.letter && children_tree == other.children_tree
+        letter == other.letter &&
+          terminal? == other.terminal? &&
+          children_tree == other.children_tree
       end
     end
   end

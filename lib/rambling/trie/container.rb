@@ -6,7 +6,6 @@ module Rambling
       include ::Enumerable
 
       delegate [
-        :==,
         :[],
         :as_word,
         :children,
@@ -76,6 +75,13 @@ module Rambling
       # @return [Array] all the words contained in the trie that start with the specified characters.
       def scan word = ''
         root.scan(word.chars).to_a
+      end
+
+      # Compares to Trie data structures.
+      # @param [Container] other the trie to compare against.
+      # @return [Boolean] `true` if the tries are equal, `false` otherwise.
+      def == other
+        root == other.root
       end
 
       alias_method :include?, :word?
