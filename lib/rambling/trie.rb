@@ -1,8 +1,8 @@
 require 'forwardable'
 %w{
   forwardable compression compressor inspector container enumerable
-  invalid_operation plain_text_reader node missing_node compressed_node
-  raw_node version
+  invalid_operation plain_text_reader marshal_serializer yaml_serializer node
+  missing_node compressed_node raw_node version
 }.each do |file|
   require File.join('rambling', 'trie', file)
 end
@@ -14,6 +14,7 @@ module Rambling
     class << self
       # Creates a new Trie. Entry point for the Rambling::Trie API.
       # @param [String, nil] filepath the file to load the words from.
+      # @param [Reader, nil] reader the file parser to get each word.
       # @return [Container] the trie just created.
       # @yield [Container] the trie just created.
       def create filepath = nil, reader = nil
@@ -30,10 +31,49 @@ module Rambling
         end
       end
 
+      # Loads an existing Trie from disk into memory.
+      # @param [String] filepath the file to load the words from.
+      # @param [Serializer, nil] serializer the object responsible of loading the trie
+      # from disk.
+      # @return [Container] the trie just loaded.
+      # @yield [Container] the trie just loaded.
+      def load filepath, serializer = nil
+        serializer ||= serializer(filepath)
+        root = serializer.load filepath
+        Rambling::Trie::Container.new root do |container|
+          yield container if block_given?
+        end
+      end
+
+      # Dumps an existing Trie from memory into disk.
+      # @param [Container] trie the trie to dump into disk.
+      # @param [Hash] options the dump configuration options
+      def dump trie, options = {}
+        serializer = serializers[options[:format]] || default_serializer
+        serializer.dump trie, options[:filename]
+      end
+
       private
 
       def default_reader
         Rambling::Trie::PlainTextReader.new
+      end
+
+      def default_serializer
+        serializers[:marshal]
+      end
+
+      def serializer filepath
+        format = File.extname filepath
+        format.slice! 0
+        serializers[format.to_sym] || default_serializer
+      end
+
+      def serializers
+        {
+          marshal: Rambling::Trie::MarshalSerializer.new,
+          yml: Rambling::Trie::YamlSerializer.new,
+        }
       end
     end
   end

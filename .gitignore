@@ -13,7 +13,7 @@ Gemfile.lock
 # SimpleCov
 coverage/
 
-# RubyProf
+# RubyProf/Memory Profiler/Benchmark IPS
 reports/
 
 # Bundler

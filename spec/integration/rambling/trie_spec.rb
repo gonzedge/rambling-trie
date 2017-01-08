@@ -79,4 +79,52 @@ describe Rambling::Trie do
       let(:trie) { Rambling::Trie.create filepath }
     end
   end
+
+  shared_examples_for 'a serializable trie' do
+    it_behaves_like 'a compressable trie' do
+      let(:trie) { loaded_trie }
+    end
+
+    context 'and the trie is compressed' do
+      let(:trie) { loaded_trie.compress! }
+
+      it_behaves_like 'a trie data structure'
+
+      it 'is marked as compressed' do
+        expect(trie).to be_compressed
+      end
+    end
+  end
+
+  describe 'saving and loading full trie from a file' do
+    let(:words_filepath) { File.join ::SPEC_ROOT, 'assets', 'test_words.en_US.txt' }
+    let(:words) { File.readlines(words_filepath).map &:chomp! }
+    let(:trie_to_serialize) { Rambling::Trie.create words_filepath }
+    let(:trie_filename) { File.join ::SPEC_ROOT, '..', 'tmp', 'trie-root' }
+
+    context 'when serialized with Ruby marshal format (default)' do
+      it_behaves_like 'a serializable trie' do
+        let(:trie_filepath) { "#{trie_filename}.marshal" }
+        let(:loaded_trie) { Rambling::Trie.load trie_filepath }
+
+        before do
+          FileUtils.rm_f trie_filepath
+          Rambling::Trie.dump trie_to_serialize, filename: trie_filename
+        end
+      end
+    end
+
+    context 'when serialized with YAML' do
+      it_behaves_like 'a serializable trie' do
+        let(:trie_filepath) { "#{trie_filename}.yml" }
+        let(:yaml_serializer) { Rambling::Trie::YamlSerializer.new }
+        let(:loaded_trie) { Rambling::Trie.load trie_filepath, yaml_serializer }
+
+        before do
+          FileUtils.rm_f trie_filepath
+          Rambling::Trie.dump trie_to_serialize, filename: trie_filename, format: :yml
+        end
+      end
+    end
+  end
 end

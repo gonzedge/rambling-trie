@@ -3,7 +3,8 @@ module Rambling
     # File reader for .txt files
     class PlainTextReader
       # Yields each word read from a .txt file
-      # @param [String] filepath the full path of the file to load the words from.
+      # @param [String] filepath the full path of the file to load the words
+      # from.
       # @yield [String] Each line read from the file.
       def each_word filepath
         each_line(filepath) { |line| yield line.chomp! }

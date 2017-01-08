@@ -1,0 +1,20 @@
+module Rambling
+  module Trie
+    # Serializer for Ruby marshal format (.marshal) files
+    class MarshalSerializer
+      # Loads marshaled object from file and deserializes it into a node.
+      # @param [String] filepath the full path of the file to load the
+      # marshaled object.
+      # @return [Node] The deserialized Trie root node.
+      def load filepath
+        Marshal.load File.read filepath
+      end
+
+      def dump trie, filename
+        File.open "#{filename}.marshal", 'w+' do |f|
+          f.write Marshal.dump trie.root
+        end
+      end
+    end
+  end
+end
