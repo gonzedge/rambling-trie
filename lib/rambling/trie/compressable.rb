@@ -1,7 +1,7 @@
 module Rambling
   module Trie
-    # Provides the compressing behavior for the Trie data structure.
-    module Compression
+    # Provides the compressable behavior for the Trie data structure.
+    module Compressable
       # Indicates if the current [Rambling::Trie::Node] can be compressed.
       # @return [Boolean] `true` for non-terminal nodes with one child,
       # `false` otherwise.

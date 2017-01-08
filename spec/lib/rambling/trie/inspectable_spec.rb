@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Rambling::Trie::Inspector do
+describe Rambling::Trie::Inspectable do
   let(:root) { Rambling::Trie::RawNode.new }
 
   before do

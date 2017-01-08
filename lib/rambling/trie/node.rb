@@ -3,9 +3,11 @@ module Rambling
     # A representation of a node in the Trie data structure.
     class Node
       extend Rambling::Trie::Forwardable
-      include Rambling::Trie::Compression
+      include Rambling::Trie::Compressable
       include Rambling::Trie::Enumerable
-      include Rambling::Trie::Inspector
+      include Rambling::Trie::Comparable
+      include Rambling::Trie::Stringifyable
+      include Rambling::Trie::Inspectable
 
       delegate [
         :[],
@@ -66,21 +68,11 @@ module Rambling
         self
       end
 
-      # String representation of the current node.
-      # @return [String] the string representation of the current node.
-      def to_s
-        parent.to_s << letter.to_s
-      end
-
       def letter= letter
         if letter
           @letter = letter.to_sym
           parent[letter] = self if parent
         end
-      end
-
-      def == other
-        letter == other.letter && children_tree == other.children_tree
       end
 
       private
