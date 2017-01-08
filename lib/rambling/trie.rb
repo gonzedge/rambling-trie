@@ -52,7 +52,7 @@ module Rambling
       # serializing and dumping the trie into disk.
       def dump trie, filepath, serializer = nil
         serializer ||= serializer filepath
-        serializer.dump trie, filepath
+        serializer.dump trie.root, filepath
       end
 
       private

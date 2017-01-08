@@ -63,12 +63,13 @@ describe Rambling::Trie do
 
   describe '.load' do
     let(:root) { Rambling::Trie::RawNode.new }
+    let(:container) { Rambling::Trie::Container.new root }
     let(:serializer) { double :serializer, load: root }
     let(:filepath) { 'a path to a file' }
 
     it 'returns a new container with the loaded root node' do
       trie = Rambling::Trie.load filepath, serializer
-      expect(trie.root).to eq root
+      expect(trie).to eq container
     end
 
     it 'uses the serializer to load the root node from the given filepath' do
@@ -107,14 +108,15 @@ describe Rambling::Trie do
           yielded_trie = trie
         end
 
-        expect(yielded_trie.root).to eq root
+        expect(yielded_trie).to eq container
       end
     end
   end
 
   describe '.dump' do
     let(:filename) { 'a trie' }
-    let(:trie) { double :trie }
+    let(:root) { double :root }
+    let(:trie) { Rambling::Trie::Container.new root }
 
     let(:marshal_serializer) { double :marshal_serializer, dump: nil }
     let(:yaml_serializer) { double :yaml_serializer, dump: nil }
@@ -128,16 +130,16 @@ describe Rambling::Trie do
 
     it 'uses the marshal serializer by default' do
       Rambling::Trie.dump trie, filename
-      expect(marshal_serializer).to have_received(:dump).with trie, filename
+      expect(marshal_serializer).to have_received(:dump).with root, filename
     end
 
     context 'when provided with a format' do
       it 'uses the corresponding serializer' do
         Rambling::Trie.dump trie, "#{filename}.marshal"
-        expect(marshal_serializer).to have_received(:dump).with trie, "#{filename}.marshal"
+        expect(marshal_serializer).to have_received(:dump).with root, "#{filename}.marshal"
 
         Rambling::Trie.dump trie, "#{filename}.yml"
-        expect(yaml_serializer).to have_received(:dump).with trie, "#{filename}.yml"
+        expect(yaml_serializer).to have_received(:dump).with root, "#{filename}.yml"
       end
     end
   end

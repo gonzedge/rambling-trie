@@ -17,9 +17,9 @@ module Rambling
           ::YAML.load serializer.load filepath
         end
 
-        def dump trie, filepath
+        def dump node, filepath
           require 'yaml'
-          serializer.dump ::YAML.dump(trie.root), filepath
+          serializer.dump ::YAML.dump(node), filepath
         end
 
         private

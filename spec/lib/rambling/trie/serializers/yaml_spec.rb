@@ -8,7 +8,7 @@ describe Rambling::Trie::Serializers::Yaml do
   let(:filepath) { File.join ::SPEC_ROOT, 'tmp', 'trie-root.yml' }
 
   it 'loads the object as it was dumped' do
-    serializer.dump trie, filepath
-    expect(serializer.load filepath).to eq trie
+    serializer.dump trie.root, filepath
+    expect(serializer.load filepath).to eq trie.root
   end
 end

@@ -15,8 +15,8 @@ module Rambling
           ::Marshal.load serializer.load filepath
         end
 
-        def dump trie, filepath
-          serializer.dump ::Marshal.dump(trie.root), filepath
+        def dump node, filepath
+          serializer.dump ::Marshal.dump(node), filepath
         end
 
         private
