@@ -16,6 +16,7 @@ module Rambling
       def attributes
         [
           letter_inspect,
+          terminal_inspect,
           children_inspect,
         ].join ', '
       end
@@ -24,8 +25,12 @@ module Rambling
         "letter: #{letter.inspect}"
       end
 
+      def terminal_inspect
+        "terminal: #{terminal?.inspect}"
+      end
+
       def children_inspect
-        "children: #{children_tree.keys}"
+        "children: #{children_tree.keys.inspect}"
       end
     end
   end
