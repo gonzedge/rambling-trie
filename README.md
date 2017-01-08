@@ -78,14 +78,14 @@ trie.word? 'word'
 trie.include? 'word'
 ```
 
-If you wish to find if part of a word exists in the trie instance, you should call `partial_word?`:
+If you wish to find if part of a word exists in the trie instance, you should call `partial_word?` or `match?`:
 
 ``` ruby
 trie.partial_word? 'partial_word'
 trie.match? 'partial_word'
 ```
 
-To get all the words that start with a particular string, you can use `scan`:
+To get all the words that start with a particular string, you can use `scan` or `words`:
 
 ``` ruby
 trie.scan 'hi' # => ['hi', 'high', 'highlight', ...]
@@ -118,13 +118,36 @@ trie.compressed?
 Starting from version 0.4.2, you can use any `Enumerable` method over a trie instance, and it will iterate over each word contained in the trie. You can now do things like:
 
 ``` ruby
-trie.each do |word|
-  puts word
-end
-
+trie.each { |word| puts word }
 trie.any? { |word| word.include? 'x' }
+trie.all? { |word| word.include? 'x' }
 # etc.
 ```
+
+## Serialization
+
+Starting from version 1.0.0, you can store a full trie instance on disk an retrieve/use it later on. Loading a trie from disk takes less time, less cpu and less memory than loading every word into the trie every time. This is particularly useful for production applications, when you have word lists that you know are going to be static, or that change with little frequency.
+
+To store a trie on disk, you can use `.dump` like this:
+
+``` ruby
+Rambling::Trie.dump trie, '/path/to/file'
+```
+
+Then, when you need to use a trie next time, you don't have to create a new one with all the necessary words. Rather, you can retrieve a previously stored one:
+
+``` ruby
+trie = Rambling::Trie.load trie, '/path/to/file'
+```
+
+### Supported formats
+
+Currently, these formats are supported to store tries on disk:
+
+- Ruby's [Marshal][marshal] format
+- [YAML][yaml]
+
+When dumping into or loading from disk, the format is determined automatically based on the file extension.
 
 ## Further Documentation
 
