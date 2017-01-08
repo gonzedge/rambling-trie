@@ -61,18 +61,26 @@ namespace :performance do
   def generate_lookups_benchmark filename = nil
     measure = BenchmarkMeasurement.new output
 
+    words = %w(hi help beautiful impressionism anthropological)
     trie = Rambling::Trie.create dictionary
     compressed_trie = Rambling::Trie.create(dictionary).compress!
-    [ trie, compressed_trie ].each do |trie|
-      output.puts "==> #{trie.compressed? ? 'Compressed' : 'Uncompressed'}"
-      words = %w(hi help beautiful impressionism anthropological)
+    tries = [ trie, compressed_trie ]
 
-      output.puts '`word?`'
+    output.puts
+    output.puts '==> Lookups - `word?`'
+    tries.each do |trie|
+      output.puts "--- #{trie.compressed? ? 'Compressed' : 'Uncompressed'}"
+
       measure.perform 200_000, words do |word|
         trie.word? word
       end
+    end
 
-      output.puts '`partial_word?`'
+    output.puts
+    output.puts '==> Lookups - `partial_word?`'
+    tries.each do |trie|
+      output.puts "--- #{trie.compressed? ? 'Compressed' : 'Uncompressed'}"
+
       measure.perform 200_000, words do |word|
         trie.partial_word? word
       end
@@ -92,10 +100,12 @@ namespace :performance do
 
     trie = Rambling::Trie.create dictionary
     compressed_trie = Rambling::Trie.create(dictionary).compress!
+    tries = [ trie, compressed_trie ]
 
-    [ trie, compressed_trie ].each do |trie|
-      output.puts "==> #{trie.compressed? ? 'Compressed' : 'Uncompressed'}"
-      output.puts "`scan`"
+    output.puts
+    output.puts '==> Scans - `scan`'
+    tries.each do |trie|
+      output.puts "--- #{trie.compressed? ? 'Compressed' : 'Uncompressed'}"
       words.each do |word, times|
         measure.perform times, word.to_s do |word|
           trie.scan(word).size
@@ -138,8 +148,8 @@ namespace :performance do
     task creation: :banner do
       measure = BenchmarkMeasurement.new output
 
-      output.puts '==> Creation'
-      output.puts '`Rambling::Trie.create`'
+      output.puts
+      output.puts '==> Creation - `Rambling::Trie.create`'
       measure.perform 5 do
         trie = Rambling::Trie.create dictionary
         nil
@@ -150,8 +160,8 @@ namespace :performance do
     task compression: :banner do
       measure = BenchmarkMeasurement.new output
 
-      output.puts '==> Compression'
-      output.puts '`compress!`'
+      output.puts
+      output.puts '==> Compression - `compress!`'
 
       tries = []
       5.times { tries << Rambling::Trie.create(dictionary) }
