@@ -1,11 +1,11 @@
 module Rambling
   module Trie
     module Readers
-      # File reader for .txt files
+      # File reader for .txt files.
       class PlainText
-        # Yields each word read from a .txt file
+        # Yields each word read from a .txt file.
         # @param [String] filepath the full path of the file to load the words
-        # from.
+        #   from.
         # @yield [String] Each line read from the file.
         def each_word filepath
           each_line(filepath) { |line| yield line.chomp! }

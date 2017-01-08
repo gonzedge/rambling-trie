@@ -36,21 +36,21 @@ module Rambling
         yield self if block_given?
       end
 
-      # Adds a branch to the trie based on the word, without changing the passed word.
+      # Adds a word to the trie, without altering the passed word.
       # @param [String] word the word to add the branch from.
       # @return [Node] the just added branch's root node.
       # @raise [InvalidOperation] if the trie is already compressed.
       # @see RawNode#add
       # @see CompressedNode#add
-      # @note Avoids clearing the contents of the word variable.
+      # @note Avoids altering the contents of the word variable.
       def add word
         root.add word.clone
       end
 
-      # Compresses the existing tree using redundant node elimination. Flags
+      # Compresses the existing tree using redundant node elimination. Marks
       # the trie as compressed.
       # @return [Container] self
-      # @note Avoids compressing again if the trie has already been compressed.
+      # @note Only compresses tries that have not already been compressed.
       def compress!
         self.root = compressor.compress root unless root.compressed?
         self
@@ -58,21 +58,30 @@ module Rambling
 
       # Checks if a path for a word or partial word exists in the trie.
       # @param [String] word the word or partial word to look for in the trie.
-      # @return [Boolean] `true` if the word or partial word is found, `false` otherwise.
+      # @return [Boolean] `true` if the word or partial word is found, `false`
+      #   otherwise.
+      # @see RawNode#partial_word?
+      # @see CompressedNode#partial_word?
       def partial_word? word = ''
         root.partial_word? word.chars
       end
 
       # Checks if a whole word exists in the trie.
       # @param [String] word the word to look for in the trie.
-      # @return [Boolean] `true` only if the word is found and the last character corresponds to a terminal node.
+      # @return [Boolean] `true` only if the word is found and the last
+      #   character corresponds to a terminal node.
+      # @see RawNode#word?
+      # @see CompressedNode#word?
       def word? word = ''
         root.word? word.chars
       end
 
       # Returns all words that start with the specified characters.
       # @param [String] word the word to look for in the trie.
-      # @return [Array] all the words contained in the trie that start with the specified characters.
+      # @return [Array<String>] all the words contained in the trie that start
+      #   with the specified characters.
+      # @see RawNode#scan
+      # @see CompressedNode#scan
       def scan word = ''
         root.scan(word.chars).to_a
       end

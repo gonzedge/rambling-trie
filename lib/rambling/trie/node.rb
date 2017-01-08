@@ -16,44 +16,52 @@ module Rambling
         :has_key?
       ] => :children_tree
 
-      # Letter or letters corresponding to this node.
-      # @return [Symbol, nil] the corresponding letter(s) or nil.
+      # @overload letter
+      #   Letter(s) corresponding to the current node.
+      # @overload letter=(letter)
+      #   Sets the letter(s) corresponding to the current node. Ensures the
+      #   {Node#letter #letter} in the {Node#parent #parent}'s
+      #   {Node#children_tree #children_tree} is updated.
+      #   @param [String, Symbol, nil] letter the new letter value.
+      # @return [Symbol, nil] the corresponding letter(s).
       attr_reader :letter
 
-      # Children nodes.
-      # @return [Hash] the children_tree hash, consisting of :letter => node.
+      # Children nodes tree.
+      # @return [Hash] the children_tree hash, consisting of `:letter => node`.
       attr_accessor :children_tree
 
       # Parent node.
-      # @return [Node, nil] the parent node or nil for the root element.
+      # @return [Node, nil] the parent of the current node.
       attr_accessor :parent
 
-      # Creates a new Node.
-      # @param [Node, nil] parent the parent of this node.
+      # Creates a new node.
+      # @param [Node, nil] parent the parent of the current node.
       def initialize parent = nil
         self.parent = parent
         self.children_tree = {}
       end
 
-      # Children nodes of the current node.
-      # @return [Array] the array of children nodes contained in the current node.
+      # Children nodes.
+      # @return [Array<Node>] the array of children nodes contained in the
+      #   current node.
       def children
         children_tree.values
       end
 
-      # If the current node is the root node.
-      # @return [Boolean] `true` only if the node does not have a parent
+      # Indicates if the current node is the root node.
+      # @return [Boolean] `true` if the node does not have a parent, `false`
+      #   otherwise.
       def root?
         !parent
       end
 
-      # Flag for terminal nodes.
+      # Indicates if a {Node Node} is terminal or not.
       # @return [Boolean] `true` for terminal nodes, `false` otherwise.
       def terminal?
         !!terminal
       end
 
-      # Force [Node] to be `terminal`
+      # Mark {Node Node} as terminal.
       # @return [Node] the modified node.
       def terminal!
         self.terminal = true

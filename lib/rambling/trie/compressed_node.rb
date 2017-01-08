@@ -2,38 +2,40 @@ module Rambling
   module Trie
     # A representation of a node in an compressed Trie data structure.
     class CompressedNode < Rambling::Trie::Node
-      # Always raises [Rambling::Trie::InvalidOperation] when trying to add a
-      # branch to the current trie node based on the word
-      # @param [String] word the word to add the branch from.
+      # Always raises {Rambling::Trie::InvalidOperation InvalidOperation} when
+      # trying to add a word to the current compressed trie node
+      # @param [String] word the word to add to the trie.
       # @raise [InvalidOperation] if the trie is already compressed.
+      # @return [nil] this never returns as it always raises an exception.
       def add word
-        raise Rambling::Trie::InvalidOperation, 'Cannot add branch to compressed trie'
+        raise Rambling::Trie::InvalidOperation, 'Cannot add word to compressed trie'
       end
 
-      # Checks if a path for set of characters exists in the trie.
-      # @param [Array] chars the characters to look for in the trie.
+      # Checks if a path for set a of characters exists in the trie.
+      # @param [Array<String>] chars the characters to look for in the trie.
       # @return [Boolean] `true` if the characters are found, `false` otherwise.
       def partial_word? chars
         chars.empty? || has_partial_word?(chars)
       end
 
       # Checks if a path for set of characters represents a word in the trie.
-      # @param [Array] chars the characters to look for in the trie.
+      # @param [Array<String>] chars the characters to look for in the trie.
       # @return [Boolean] `true` if the characters are found and form a word,
-      # `false` otherwise.
+      #   `false` otherwise.
       def word? chars
         chars.empty? ? terminal? : has_word?(chars)
       end
 
-      # Returns all words that start with the specified characters.
-      # @param [Array] chars the characters to look for in the trie.
-      # @return [Array] all the words contained in the trie that start with the specified characters.
+      # Returns the node that starts with the specified characters.
+      # @param [Array<String>] chars the characters to look for in the trie.
+      # @return [Node] the node that matches the specified characters.
+      #   {MissingNode MissingNode} when not found.
       def scan chars
         chars.empty? ? self : closest_node(chars)
       end
 
-      # Always return `true` for a raw (compressed) node.
-      # @return [Boolean] always true for a raw (compressed) node.
+      # Always return `true` for a compressed node.
+      # @return [Boolean] always `true` for a compressed node.
       def compressed?
         true
       end

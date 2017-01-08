@@ -12,9 +12,10 @@ module Rambling
   # Entry point for rambling-trie API.
   module Trie
     class << self
-      # Creates a new Trie. Entry point for the Rambling::Trie API.
+      # Creates a new Rambling::Trie. Entry point for the Rambling::Trie API.
       # @param [String, nil] filepath the file to load the words from.
-      # @param [Reader, nil] reader the file parser to get each word.
+      # @param [Reader, nil] reader the file parser to get each word. See
+      #   {Rambling::Trie::Readers Readers}.
       # @return [Container] the trie just created.
       # @yield [Container] the trie just created.
       def create filepath = nil, reader = nil
@@ -33,7 +34,7 @@ module Rambling
       # Loads an existing Trie from disk into memory.
       # @param [String] filepath the file to load the words from.
       # @param [Serializer, nil] serializer the object responsible of loading the trie
-      # from disk.
+      #   from disk. See {Rambling::Trie::Serializers Serializers}.
       # @return [Container] the trie just loaded.
       # @yield [Container] the trie just loaded.
       def load filepath, serializer = nil
@@ -48,7 +49,8 @@ module Rambling
       # @param [Container] trie the trie to dump into disk.
       # @param [String] filepath the file to dump to serialized trie into.
       # @param [Serializer, nil] serializer the object responsible of
-      # serializing and dumping the trie into disk.
+      #   serializing and dumping the trie into disk. See
+      #   {Rambling::Trie::Serializers Serializers}.
       def dump trie, filepath, serializer = nil
         serializer ||= serializer filepath
         serializer.dump trie.root, filepath
