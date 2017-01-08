@@ -1,6 +1,7 @@
 
 Benchmark for rambling-trie version 0.9.2
 
+
 ==> Creation - `Rambling::Trie.create`
                                 8.970000   0.200000   9.170000 (  9.283692)
 

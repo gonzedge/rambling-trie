@@ -8,6 +8,7 @@ class PerformanceReport
   def start name
     output.puts
     output.puts "#{name} for rambling-trie version #{Rambling::Trie::VERSION}"
+    output.puts
   end
 
   def finish

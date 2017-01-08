@@ -2,6 +2,7 @@
 
 Benchmark for rambling-trie version 0.9.3
 
+
 ==> Creation - `Rambling::Trie.create`
                                11.190000   0.170000  11.360000 ( 11.405677)
 
@@ -57,6 +58,7 @@ anthropological     2           5.680000   0.010000   5.690000 (  5.724649)
 # Ruby 2.4 without Forwardable!
 
 Benchmark for rambling-trie version 0.9.3
+
 
 ==> Creation - `Rambling::Trie.create`
                                 8.800000   0.160000   8.960000 (  8.985548)
