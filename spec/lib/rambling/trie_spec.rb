@@ -81,9 +81,9 @@ describe Rambling::Trie do
       let(:yaml_serializer) { double :yaml_serializer, load: nil }
 
       before do
-        allow(Rambling::Trie::MarshalSerializer).to receive(:new)
+        allow(Rambling::Trie::Serializers::Marshal).to receive(:new)
           .and_return marshal_serializer
-        allow(Rambling::Trie::YamlSerializer).to receive(:new)
+        allow(Rambling::Trie::Serializers::Yaml).to receive(:new)
           .and_return yaml_serializer
       end
 
@@ -120,9 +120,9 @@ describe Rambling::Trie do
     let(:yaml_serializer) { double :yaml_serializer, dump: nil }
 
     before do
-      allow(Rambling::Trie::MarshalSerializer).to receive(:new)
+      allow(Rambling::Trie::Serializers::Marshal).to receive(:new)
         .and_return marshal_serializer
-      allow(Rambling::Trie::YamlSerializer).to receive(:new)
+      allow(Rambling::Trie::Serializers::Yaml).to receive(:new)
         .and_return yaml_serializer
     end
 

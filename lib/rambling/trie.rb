@@ -1,8 +1,8 @@
 require 'forwardable'
 %w{
   forwardable compression compressor inspector container enumerable
-  invalid_operation readers marshal_serializer yaml_serializer node
-  missing_node compressed_node raw_node version
+  invalid_operation readers serializers node missing_node compressed_node
+  raw_node version
 }.each do |file|
   require File.join('rambling', 'trie', file)
 end
@@ -73,9 +73,9 @@ module Rambling
 
       def serializers
         {
-          marshal: Rambling::Trie::MarshalSerializer.new,
-          yml: Rambling::Trie::YamlSerializer.new,
-          yaml: Rambling::Trie::YamlSerializer.new,
+          marshal: Rambling::Trie::Serializers::Marshal.new,
+          yml: Rambling::Trie::Serializers::Yaml.new,
+          yaml: Rambling::Trie::Serializers::Yaml.new,
         }
       end
     end

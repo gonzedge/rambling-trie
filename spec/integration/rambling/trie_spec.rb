@@ -126,7 +126,7 @@ describe Rambling::Trie do
     context 'when serialized with YAML' do
       it_behaves_like 'a serializable trie' do
         let(:trie_filepath) { "#{trie_filename}.yml" }
-        let(:serializer) { Rambling::Trie::YamlSerializer.new }
+        let(:serializer) { Rambling::Trie::Serializers::Yaml.new }
         let(:loaded_trie) { Rambling::Trie.load trie_filepath, serializer }
       end
     end
