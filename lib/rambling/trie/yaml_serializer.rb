@@ -11,9 +11,9 @@ module Rambling
         YAML.load File.read filepath
       end
 
-      def dump trie, filename
+      def dump trie, filepath
         require 'yaml'
-        File.open "#{filename}.yml", 'w+' do |f|
+        File.open filepath, 'w+' do |f|
           f.write YAML.dump trie.root
         end
       end

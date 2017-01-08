@@ -38,7 +38,7 @@ module Rambling
       # @return [Container] the trie just loaded.
       # @yield [Container] the trie just loaded.
       def load filepath, serializer = nil
-        serializer ||= serializer(filepath)
+        serializer ||= serializer filepath
         root = serializer.load filepath
         Rambling::Trie::Container.new root do |container|
           yield container if block_given?
@@ -47,10 +47,12 @@ module Rambling
 
       # Dumps an existing Trie from memory into disk.
       # @param [Container] trie the trie to dump into disk.
-      # @param [Hash] options the dump configuration options
-      def dump trie, options = {}
-        serializer = serializers[options[:format]] || default_serializer
-        serializer.dump trie, options[:filename]
+      # @param [String] filepath the file to dump to serialized trie into.
+      # @param [Serializer, nil] serializer the object responsible of
+      # serializing and dumping the trie into disk.
+      def dump trie, filepath, serializer = nil
+        serializer ||= serializer filepath
+        serializer.dump trie, filepath
       end
 
       private
@@ -73,6 +75,7 @@ module Rambling
         {
           marshal: Rambling::Trie::MarshalSerializer.new,
           yml: Rambling::Trie::YamlSerializer.new,
+          yaml: Rambling::Trie::YamlSerializer.new,
         }
       end
     end

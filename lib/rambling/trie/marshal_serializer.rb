@@ -10,8 +10,8 @@ module Rambling
         Marshal.load File.read filepath
       end
 
-      def dump trie, filename
-        File.open "#{filename}.marshal", 'w+' do |f|
+      def dump trie, filepath
+        File.open filepath, 'w+' do |f|
           f.write Marshal.dump trie.root
         end
       end

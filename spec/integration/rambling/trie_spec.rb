@@ -81,12 +81,25 @@ describe Rambling::Trie do
   end
 
   shared_examples_for 'a serializable trie' do
-    it_behaves_like 'a compressable trie' do
-      let(:trie) { loaded_trie }
+    context 'and the trie is not compressed' do
+      before do
+        # FileUtils.rm_f trie_filepath
+        Rambling::Trie.dump trie_to_serialize, trie_filepath, serializer
+      end
+
+      it_behaves_like 'a compressable trie' do
+        let(:trie) { loaded_trie }
+      end
     end
 
     context 'and the trie is compressed' do
-      let(:trie) { loaded_trie.compress! }
+      let(:trie) { loaded_trie }
+
+      before do
+        FileUtils.rm_f trie_filepath
+        puts "filepath: #{trie_filepath}"
+        Rambling::Trie.dump trie_to_serialize.compress!, trie_filepath, serializer
+      end
 
       it_behaves_like 'a trie data structure'
 
@@ -106,24 +119,15 @@ describe Rambling::Trie do
       it_behaves_like 'a serializable trie' do
         let(:trie_filepath) { "#{trie_filename}.marshal" }
         let(:loaded_trie) { Rambling::Trie.load trie_filepath }
-
-        before do
-          FileUtils.rm_f trie_filepath
-          Rambling::Trie.dump trie_to_serialize, filename: trie_filename
-        end
+        let(:serializer) { nil }
       end
     end
 
     context 'when serialized with YAML' do
       it_behaves_like 'a serializable trie' do
         let(:trie_filepath) { "#{trie_filename}.yml" }
-        let(:yaml_serializer) { Rambling::Trie::YamlSerializer.new }
-        let(:loaded_trie) { Rambling::Trie.load trie_filepath, yaml_serializer }
-
-        before do
-          FileUtils.rm_f trie_filepath
-          Rambling::Trie.dump trie_to_serialize, filename: trie_filename, format: :yml
-        end
+        let(:serializer) { Rambling::Trie::YamlSerializer.new }
+        let(:loaded_trie) { Rambling::Trie.load trie_filepath, serializer }
       end
     end
   end

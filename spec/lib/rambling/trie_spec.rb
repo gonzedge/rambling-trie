@@ -127,17 +127,17 @@ describe Rambling::Trie do
     end
 
     it 'uses the marshal serializer by default' do
-      Rambling::Trie.dump trie, filename: filename
+      Rambling::Trie.dump trie, filename
       expect(marshal_serializer).to have_received(:dump).with trie, filename
     end
 
     context 'when provided with a format' do
       it 'uses the corresponding serializer' do
-        Rambling::Trie.dump trie, filename: filename, format: :marshal
-        expect(marshal_serializer).to have_received(:dump).with trie, filename
+        Rambling::Trie.dump trie, "#{filename}.marshal"
+        expect(marshal_serializer).to have_received(:dump).with trie, "#{filename}.marshal"
 
-        Rambling::Trie.dump trie, filename: filename, format: :yml
-        expect(yaml_serializer).to have_received(:dump).with trie, filename
+        Rambling::Trie.dump trie, "#{filename}.yml"
+        expect(yaml_serializer).to have_received(:dump).with trie, "#{filename}.yml"
       end
     end
   end
