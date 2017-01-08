@@ -3,21 +3,28 @@ module Rambling
     module Serializers
       # Serializer for Ruby yaml format (.yaml) files
       class Yaml
-        # Loads yamled object from file and deserializes it into a node.
-        # @param [String] filepath the full path of the file to load the
-        # object from yaml.
+        def initialize serializer = nil
+          @serializer = serializer || Rambling::Trie::Serializers::File.new
+        end
+
+        # Loads serialized object from YAML file and deserializes it into a
+        # node.
+        # @param [String] filepath the full path of the YAML file to load the
+        # object from.
         # @return [Node] The deserialized Trie root node.
         def load filepath
           require 'yaml'
-          ::YAML.load File.read filepath
+          ::YAML.load serializer.load filepath
         end
 
         def dump trie, filepath
           require 'yaml'
-          File.open filepath, 'w+' do |f|
-            f.write ::YAML.dump trie.root
-          end
+          serializer.dump ::YAML.dump(trie.root), filepath
         end
+
+        private
+
+        attr_reader :serializer
       end
     end
   end
