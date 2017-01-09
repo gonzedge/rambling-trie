@@ -64,28 +64,28 @@ trie
 
 If you want to use a custom file format, you will need to provide a custom file reader that defines the `each_word` method that yields each word contained in the file. Look at the `Rambling::Trie::Readers::PlainText` class for an example, and at the [Configuration section][configuration] to see how to add a custom file reader.
 
-To add new words to the trie, use `add` or `<<`:
+To add new words to the trie, use `add` or its alias `<<`:
 
 ``` ruby
 trie.add 'word'
 trie << 'word'
 ```
 
-And to find out if a word already exists in the trie, use `word?` or `include?`:
+And to find out if a word already exists in the trie, use `word?` or its alias `include?`:
 
 ``` ruby
 trie.word? 'word'
 trie.include? 'word'
 ```
 
-If you wish to find if part of a word exists in the trie instance, you should call `partial_word?` or `match?`:
+If you wish to find if part of a word exists in the trie instance, you should call `partial_word?` or its alias `match?`:
 
 ``` ruby
 trie.partial_word? 'partial_word'
 trie.match? 'partial_word'
 ```
 
-To get all the words that start with a particular string, you can use `scan` or `words`:
+To get all the words that start with a particular string, you can use `scan` or its alias `words`:
 
 ``` ruby
 trie.scan 'hi' # => ['hi', 'high', 'highlight', ...]
@@ -94,18 +94,17 @@ trie.words 'hi' # => ['hi', 'high', 'highlight', ...]
 
 ### Compression
 
-By default, the Rambling Trie works as a Standard Trie.
-Starting from version 0.1.0, you can obtain a compressed trie from the Standard one, by using the compression feature.
-Just call the `compress!` method on the trie instance:
+By default, the Rambling Trie works as a standard trie. Starting from version 0.1.0, you can obtain a compressed trie from the standard one, by using the compression feature. Just call the `compress!` method on the trie instance:
 
 ``` ruby
 trie.compress!
 ```
 
-This will reduce the amount of trie nodes by eliminating the redundant ones, which are the only-child non-terminal nodes.
+This will reduce the size of the trie by using redundant node elimination (redundant nodes are the only-child non-terminal nodes).
 
-__Note that the `compress!` method acts over the trie instance it belongs to.__
-__Also, adding words after compression is not supported.__
+> _**Note**: The `compress!` method acts over the trie instance it belongs to
+> and is destructive. Also, adding words after compression (with `#add` or
+> `#<<`) is not supported._
 
 You can find out if a trie instance is compressed by calling the `compressed?` method:
 
@@ -194,9 +193,9 @@ The Rambling Trie has been tested with the following Ruby versions:
 
 **No longer supported**:
 
-* 1.8.x
+* 2.0.x (might still work, but is not officially supported)
 * 1.9.x
-* 2.0.x (might still work, but it's not officially supported)
+* 1.8.x
 
 ## Contributing to Rambling Trie
 
