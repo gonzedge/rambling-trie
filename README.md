@@ -144,7 +144,7 @@ trie = Rambling::Trie.load trie, '/path/to/file'
 
 Currently, these formats are supported to store tries on disk:
 
-- Ruby's [Marshal][marshal] format
+- Ruby's [binary (Marshal)][marshal] format
 - [YAML][yaml]
 
 When dumping into or loading from disk, the format is determined automatically based on the file extension.
