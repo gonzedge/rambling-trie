@@ -1,6 +1,6 @@
 module Rambling
   module Trie
-    # Raised when trying to execute an invalid operation on a Trie data
+    # Raised when trying to execute an invalid operation on a trie data
     # structure.
     class InvalidOperation < Exception
       # Creates a new {InvalidOperation InvalidOperation} exception.

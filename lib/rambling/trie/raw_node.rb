@@ -1,6 +1,6 @@
 module Rambling
   module Trie
-    # A representation of a node in an uncompressed Trie data structure.
+    # A representation of a node in an uncompressed trie data structure.
     class RawNode < Rambling::Trie::Node
       # Adds a word to the current raw (uncompressed) trie node.
       # @param [String] word the word to add to the trie.

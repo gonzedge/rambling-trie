@@ -1,6 +1,6 @@
 module Rambling
   module Trie
-    # Wrapper on top of Trie data structure.
+    # Wrapper on top of trie data structure.
     class Container
       extend Rambling::Trie::Forwardable
       include ::Enumerable
@@ -25,7 +25,7 @@ module Rambling
       # @return [Node] the root node of this trie.
       attr_reader :root
 
-      # Creates a new Trie.
+      # Creates a new trie.
       # @param [Node] root the root node for the trie
       # @param [Compressor] compressor responsible for compressing the trie
       # @yield [Container] the trie just created.
@@ -86,7 +86,7 @@ module Rambling
         root.scan(word.chars).to_a
       end
 
-      # Compares to Trie data structures.
+      # Compares two trie data structures.
       # @param [Container] other the trie to compare against.
       # @return [Boolean] `true` if the tries are equal, `false` otherwise.
       def == other

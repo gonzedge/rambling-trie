@@ -1,6 +1,6 @@
 module Rambling
   module Trie
-    # A representation of a node in an compressed Trie data structure.
+    # A representation of a node in an compressed trie data structure.
     class CompressedNode < Rambling::Trie::Node
       # Always raises {Rambling::Trie::InvalidOperation InvalidOperation} when
       # trying to add a word to the current compressed trie node
