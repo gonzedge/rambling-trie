@@ -13,7 +13,7 @@ You will need:
 * Ruby 2.1.0 or up
 * RubyGems
 
-See [RVM][rvm] or [rbenv][rbenv] for more information on how to manage Ruby versions.
+See [RVM][rvm], [rbenv][rbenv] or [chruby][chruby] for more information on how to manage Ruby versions.
 
 ### Installation
 
@@ -216,6 +216,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 [badge_fury_badge]: https://badge.fury.io/rb/rambling-trie.svg
 [badge_fury_link]: https://badge.fury.io/rb/rambling-trie
+[chruby]: https://github.com/postmodern/chruby
 [code_climage_link]: https://codeclimate.com/github/gonzedge/rambling-trie
 [code_climate_badge]: https://codeclimate.com/github/gonzedge/rambling-trie/badges/gpa.svg
 [configuration]: #configuration
