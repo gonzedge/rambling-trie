@@ -29,9 +29,9 @@ module Rambling
       # @param [Node] root the root node for the trie
       # @param [Compressor] compressor responsible for compressing the trie
       # @yield [Container] the trie just created.
-      def initialize root = nil, compressor = nil
-        @root = root || default_root
-        @compressor = compressor || default_compressor
+      def initialize root, compressor
+        @root = root
+        @compressor = compressor
 
         yield self if block_given?
       end
@@ -102,14 +102,6 @@ module Rambling
 
       attr_reader :compressor
       attr_writer :root
-
-      def default_root
-        Rambling::Trie::RawNode.new
-      end
-
-      def default_compressor
-        Rambling::Trie::Compressor.new
-      end
     end
   end
 end

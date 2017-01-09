@@ -3,6 +3,7 @@ module Rambling
     module Configuration
       class Properties
         attr_reader :readers, :serializers
+        attr_accessor :compressor, :root_builder
 
         def initialize
           reset
@@ -11,6 +12,9 @@ module Rambling
         def reset
           reset_readers
           reset_serializers
+
+          self.compressor = Rambling::Trie::Compressor.new
+          self.root_builder = lambda { Rambling::Trie::RawNode.new }
         end
 
         private
