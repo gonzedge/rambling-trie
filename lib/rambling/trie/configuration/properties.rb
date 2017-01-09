@@ -1,14 +1,33 @@
 module Rambling
   module Trie
     module Configuration
+      # Provides configurable properties for Rambling::Trie.
       class Properties
-        attr_reader :readers, :serializers
-        attr_accessor :compressor, :root_builder
+        # The configured {Readers Readers}.
+        # @return [ProviderCollection] the mapping of configured {Readers
+        #   Readers}.
+        attr_reader :readers
 
+        # The configured {Serializers Serializers}.
+        # @return [ProviderCollection] the mapping of configured {Serializers
+        #   Serializers}.
+        attr_reader :serializers
+
+        # The configured {Compressor Compressor}.
+        # @return [Compressor] the configured compressor.
+        attr_accessor :compressor
+
+        # The configured root_builder, which should return a {Node Node} when
+        # called.
+        # @return [Proc<Node>] the configured root_builder.
+        attr_accessor :root_builder
+
+        # Returns a new properties instance.
         def initialize
           reset
         end
 
+        # Resets back to default properties.
         def reset
           reset_readers
           reset_serializers
