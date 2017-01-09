@@ -18,18 +18,15 @@ module Rambling
       def merge_with_child_and_compress node
         child = node.children.first
 
-        new_node = Rambling::Trie::CompressedNode.new node.parent
-        new_node.letter = node.letter.to_s << child.letter.to_s
-        new_node.terminal! if child.terminal?
+        letter = node.letter.to_s << child.letter.to_s
+        new_node = new_compressed_node node, letter, child.terminal?
         new_node.children_tree = child.children_tree
 
         compress new_node
       end
 
       def copy_node_and_compress_children node
-        new_node = Rambling::Trie::CompressedNode.new node.parent
-        new_node.letter = node.letter
-        new_node.terminal! if node.terminal?
+        new_node = new_compressed_node node, node.letter, node.terminal?
 
         node.children.each do |child|
           compressed_child = compress child
@@ -38,6 +35,13 @@ module Rambling
           new_node[compressed_child.letter] = compressed_child
         end
 
+        new_node
+      end
+
+      def new_compressed_node node, letter, terminal
+        new_node = Rambling::Trie::CompressedNode.new node.parent
+        new_node.letter = letter
+        new_node.terminal! if terminal
         new_node
       end
     end
