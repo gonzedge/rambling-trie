@@ -197,3 +197,5 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 [rvm]: https://rvm.io
 [travis_ci_badge]: https://travis-ci.org/gonzedge/rambling-trie.svg
 [travis_ci_link]: https://travis-ci.org/gonzedge/rambling-trie
+[marshal]: https://ruby-doc.org/core-2.4.0/Marshal.html
+[yaml]: https://ruby-doc.org/stdlib-2.4.0/libdoc/yaml/rdoc/YAML.html
