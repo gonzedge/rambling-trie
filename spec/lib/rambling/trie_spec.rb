@@ -51,7 +51,7 @@ describe Rambling::Trie do
 
       before do
         Rambling::Trie.config do |c|
-          c.readers[:default] = reader
+          c.readers.add :default, reader
           c.readers.default = reader
         end
       end
@@ -88,10 +88,10 @@ describe Rambling::Trie do
 
       before do
         Rambling::Trie.config do |c|
-          c.serializers[:default] = default_serializer
-          c.serializers[:marshal] = marshal_serializer
-          c.serializers[:yml] = yaml_serializer
-          c.serializers[:yaml] = yaml_serializer
+          c.serializers.add :default, default_serializer
+          c.serializers.add :marshal, marshal_serializer
+          c.serializers.add :yml, yaml_serializer
+          c.serializers.add :yaml, yaml_serializer
 
           c.serializers.default = default_serializer
         end
@@ -137,9 +137,9 @@ describe Rambling::Trie do
 
     before do
       Rambling::Trie.config do |c|
-        c.serializers[:default] = default_serializer
-        c.serializers[:marshal] = marshal_serializer
-        c.serializers[:yml] = yaml_serializer
+        c.serializers.add :default, default_serializer
+        c.serializers.add :marshal, marshal_serializer
+        c.serializers.add :yml, yaml_serializer
 
         c.serializers.default = default_serializer
       end
