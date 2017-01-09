@@ -1,13 +1,10 @@
 require 'spec_helper'
 
 describe Rambling::Trie do
-  before do
-    Rambling::Trie.config.reset
-  end
-
   describe '.create' do
     let(:root) { Rambling::Trie::RawNode.new }
-    let!(:container) { Rambling::Trie::Container.new root }
+    let(:compressor) { Rambling::Trie::Compressor.new }
+    let!(:container) { Rambling::Trie::Container.new root, compressor }
 
     before do
       allow(Rambling::Trie::Container).to receive(:new)
@@ -69,7 +66,8 @@ describe Rambling::Trie do
 
   describe '.load' do
     let(:root) { Rambling::Trie::RawNode.new }
-    let(:container) { Rambling::Trie::Container.new root }
+    let(:compressor) { Rambling::Trie::Compressor.new }
+    let(:container) { Rambling::Trie::Container.new root, compressor }
     let(:serializer) { double :serializer, load: root }
     let(:filepath) { 'a path to a file' }
 
@@ -130,7 +128,8 @@ describe Rambling::Trie do
   describe '.dump' do
     let(:filename) { 'a trie' }
     let(:root) { double :root }
-    let(:trie) { Rambling::Trie::Container.new root }
+    let(:compressor) { double :compressor }
+    let(:trie) { Rambling::Trie::Container.new root, compressor }
 
     let(:marshal_serializer) { double :marshal_serializer, dump: nil }
     let(:yaml_serializer) { double :yaml_serializer, dump: nil }

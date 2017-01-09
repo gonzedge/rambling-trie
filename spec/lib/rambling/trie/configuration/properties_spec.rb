@@ -19,6 +19,14 @@ describe Rambling::Trie::Configuration::Properties do
 
       expect(readers[:txt]).to be_instance_of Rambling::Trie::Readers::PlainText
     end
+
+    it 'configures the compressor' do
+      expect(properties.compressor).to be_instance_of Rambling::Trie::Compressor
+    end
+
+    it 'configures the root_builder' do
+      expect(properties.root_builder.call).to be_instance_of Rambling::Trie::RawNode
+    end
   end
 
   describe '#reset' do

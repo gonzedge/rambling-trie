@@ -26,3 +26,5 @@ RSpec.configure do |config|
   config.run_all_when_everything_filtered = true
   config.raise_errors_for_deprecations!
 end
+
+require 'support/config'

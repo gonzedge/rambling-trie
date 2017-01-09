@@ -17,7 +17,9 @@ module Rambling
 
       delegate [
         :readers,
-        :serializers
+        :serializers,
+        :compressor,
+        :root_builder
       ] => :properties
 
       # Creates a new Rambling::Trie. Entry point for the Rambling::Trie API.
@@ -27,7 +29,7 @@ module Rambling
       # @return [Container] the trie just created.
       # @yield [Container] the trie just created.
       def create filepath = nil, reader = nil
-        Rambling::Trie::Container.new do |container|
+        Rambling::Trie::Container.new root_builder.call, compressor do |container|
           if filepath
             reader ||= readers.resolve filepath
             reader.each_word filepath do |word|
@@ -48,7 +50,7 @@ module Rambling
       def load filepath, serializer = nil
         serializer ||= serializers.resolve filepath
         root = serializer.load filepath
-        Rambling::Trie::Container.new root do |container|
+        Rambling::Trie::Container.new root, compressor do |container|
           yield container if block_given?
         end
       end

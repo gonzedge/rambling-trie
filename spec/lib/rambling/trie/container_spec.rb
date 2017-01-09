@@ -6,46 +6,20 @@ describe Rambling::Trie::Container do
   let(:root) { Rambling::Trie::RawNode.new }
 
   describe '.new' do
-    context 'without a specified root' do
-      before do
-        allow(Rambling::Trie::RawNode).to receive(:new)
-          .and_return root
-      end
-
-      it 'initializes an empty trie root node' do
-        Rambling::Trie::Container.new
-        expect(Rambling::Trie::RawNode).to have_received :new
-      end
-    end
-
-    context 'without a specified compressor' do
-      before do
-        allow(Rambling::Trie::Compressor).to receive(:new)
-          .and_return compressor
-      end
-
-      it 'initializes a compressor' do
-        Rambling::Trie::Container.new
-        expect(Rambling::Trie::Compressor).to have_received :new
-      end
+    it 'uses the provided node as root' do
+      expect(container.root).to be root
     end
 
     context 'with a block' do
       it 'yields the container' do
         yielded_container = nil
 
-        container = Rambling::Trie::Container.new root do |container|
+        container = Rambling::Trie::Container.new root, compressor do |container|
           yielded_container = container
         end
 
         expect(yielded_container).to be container
       end
-    end
-  end
-
-  describe '#root' do
-    it 'returns the trie root node' do
-      expect(container.root).to eq root
     end
   end
 
@@ -536,7 +510,7 @@ describe Rambling::Trie::Container do
 
   describe '#==' do
     context 'when the root nodes are the same' do
-      let(:other_container) { Rambling::Trie::Container.new container.root }
+      let(:other_container) { Rambling::Trie::Container.new container.root, compressor }
 
       it 'returns true' do
         expect(container).to eq other_container
@@ -544,7 +518,12 @@ describe Rambling::Trie::Container do
     end
 
     context 'when the root nodes are not the same' do
-      let(:other_container) { Rambling::Trie::Container.new { |c| c << 'hola' } }
+      let(:other_root) { Rambling::Trie::RawNode.new }
+      let(:other_container) do
+        Rambling::Trie::Container.new other_root, compressor do |c|
+          c << 'hola'
+        end
+      end
 
       it 'returns false' do
         expect(container).not_to eq other_container
