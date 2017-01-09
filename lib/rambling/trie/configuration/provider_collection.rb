@@ -25,12 +25,12 @@ module Rambling
           providers[extension] = provider
         end
 
-        def default= item
-          if providers.values.any? && !providers.values.include?(item)
+        def default= provider
+          if provider_not_in_list? provider
             raise ArgumentError, "default #{name} should be part of configured #{name}s"
           end
 
-          @default = item
+          @default = provider
         end
 
         def providers
@@ -55,6 +55,11 @@ module Rambling
           format = File.extname filepath
           format.slice! 0
           format.to_sym
+        end
+
+        def provider_not_in_list? provider
+          (provider && providers.values.empty?) ||
+            (providers.values.any? && !providers.values.include?(provider))
         end
       end
     end
