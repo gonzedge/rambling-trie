@@ -29,7 +29,9 @@ Or, include it in your `Gemfile` and bundle it:
 gem 'rambling-trie'
 ```
 
-## How to use the Rambling Trie
+## Using the Rambling Trie
+
+### Creation
 
 To create the trie, initialize it like this:
 
@@ -63,6 +65,8 @@ trie
 ```
 
 If you want to use a custom file format, you will need to provide a custom file reader that defines the `each_word` method that yields each word contained in the file. Look at the `Rambling::Trie::Readers::PlainText` class for an example, and at the [Configuration section][configuration] to see how to add a custom file reader.
+
+### Operations
 
 To add new words to the trie, use `add` or its alias `<<`:
 
