@@ -62,7 +62,7 @@ the
 trie
 ```
 
-If you want to use a custom file format, you will need to provide a custom file reader that defines the `each_word` method that yields each word contained in the file. Look at the `Rambling::Trie::Readers::PlainText` class for an example.
+If you want to use a custom file format, you will need to provide a custom file reader that defines the `each_word` method that yields each word contained in the file. Look at the `Rambling::Trie::Readers::PlainText` class for an example, and at the [Configuration section][configuration] to see how to add a custom file reader.
 
 To add new words to the trie, use `add` or `<<`:
 
@@ -166,8 +166,8 @@ You can configure those values by using `.config` like this:
 require 'rambling-trie'
 
 Rambling::Trie.config do |config|
-  config.compressor = MyCustomCompressor.new
-  config.root_builder = lambda { MyCustomNode.new }
+  config.compressor = MyCompressor.new
+  config.root_builder = lambda { MyNode.new }
 
   config.readers.add :html, MyHtmlReader.new
   config.readers.default = config.readers[:html]
@@ -219,6 +219,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 [badge_fury_link]: https://badge.fury.io/rb/rambling-trie
 [code_climage_link]: https://codeclimate.com/github/gonzedge/rambling-trie
 [code_climate_badge]: https://codeclimate.com/github/gonzedge/rambling-trie/badges/gpa.svg
+[configuration]: #configuration
 [coveralls_badge]: https://img.shields.io/coveralls/gonzedge/rambling-trie.svg
 [coveralls_link]: https://coveralls.io/r/gonzedge/rambling-trie
 [gemnasium_badge]: https://gemnasium.com/gonzedge/rambling-trie.svg
