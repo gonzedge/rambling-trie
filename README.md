@@ -162,7 +162,11 @@ The Rambling Trie has been tested with the following Ruby versions:
 * 2.2.x
 * 2.1.x
 
-Ruby 1.8.x, 1.9.x and 2.0.x are not supported.
+**No longer supported**:
+
+* 1.8.x
+* 1.9.x
+* 2.0.x (might still work, but it's not officially supported)
 
 ## Contributing to Rambling Trie
 
