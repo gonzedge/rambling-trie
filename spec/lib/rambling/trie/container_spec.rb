@@ -12,13 +12,13 @@ describe Rambling::Trie::Container do
 
     context 'with a block' do
       it 'yields the container' do
-        yielded_container = nil
+        yielded = nil
 
         container = Rambling::Trie::Container.new root, compressor do |container|
-          yielded_container = container
+          yielded = container
         end
 
-        expect(yielded_container).to be container
+        expect(yielded).to be container
       end
     end
   end
