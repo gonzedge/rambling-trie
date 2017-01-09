@@ -165,15 +165,15 @@ You can configure those values by using `.config` like this:
 ```ruby
 require 'rambling-trie'
 
-Rambling::Trie.config do |c|
-  c.compressor = MyCustomCompressor.new
-  c.root_builder = lambda { MyCustomNode.new }
+Rambling::Trie.config do |config|
+  config.compressor = MyCustomCompressor.new
+  config.root_builder = lambda { MyCustomNode.new }
 
-  c.readers.add :html, MyHtmlReader.new
-  c.readers.default = c.readers[:html]
+  config.readers.add :html, MyHtmlReader.new
+  config.readers.default = c.readers[:html]
 
-  c.serializers.add :json, MyJsonSerializer.new
-  c.serializers.default = c.serializers[:yml]
+  config.serializers.add :json, MyJsonSerializer.new
+  config.serializers.default = c.serializers[:yml]
 end
 
 # Create a trie or load one from disk and do things with it...
