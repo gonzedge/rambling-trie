@@ -33,13 +33,13 @@ gem 'rambling-trie'
 
 ### Creation
 
-To create the trie, initialize it like this:
+To create a new trie, initialize it like this:
 
 ``` ruby
 trie = Rambling::Trie.create
 ```
 
-You can also provide a block and the created instance will be yielded for you to perform any operation on it:
+You can also provide a block and the created trie instance will be yielded for you to perform any operation on it:
 
 ``` ruby
 Rambling::Trie.create do |trie|
@@ -64,7 +64,7 @@ the
 trie
 ```
 
-If you want to use a custom file format, you will need to provide a custom file reader that defines the `each_word` method that yields each word contained in the file. Look at the `Rambling::Trie::Readers::PlainText` class for an example, and at the [Configuration section][configuration] to see how to add a custom file reader.
+If you want to use a custom file format, you will need to provide a custom file reader that defines an `#each_word` method that yields each word contained in the file. Look at the [`PlainText` reader][plain-text-reader] class for an example, and at the [Configuration section][configuration] to see how to add your own custom file readers.
 
 ### Operations
 
@@ -137,7 +137,7 @@ To store a trie on disk, you can use `.dump` like this:
 Rambling::Trie.dump trie, '/path/to/file'
 ```
 
-Then, when you need to use a trie next time, you don't have to create a new one with all the necessary words. Rather, you can retrieve a previously stored one:
+Then, when you need to use a trie next time, you don't have to create a new one with all the necessary words. Rather, you can retrieve a previously stored one with `.load` like this:
 
 ``` ruby
 trie = Rambling::Trie.load trie, '/path/to/file'
@@ -223,7 +223,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 [chruby]: https://github.com/postmodern/chruby
 [code_climage_link]: https://codeclimate.com/github/gonzedge/rambling-trie
 [code_climate_badge]: https://codeclimate.com/github/gonzedge/rambling-trie/badges/gpa.svg
-[configuration]: #configuration
+[configuration]: https://github.com/gonzedge/rambling-trie#configuration
 [coveralls_badge]: https://img.shields.io/coveralls/gonzedge/rambling-trie.svg
 [coveralls_link]: https://coveralls.io/r/gonzedge/rambling-trie
 [gemnasium_badge]: https://gemnasium.com/gonzedge/rambling-trie.svg
@@ -239,3 +239,4 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 [travis_ci_link]: https://travis-ci.org/gonzedge/rambling-trie
 [trie-wiki]: https://en.wikipedia.org/wiki/Trie
 [yaml]: https://ruby-doc.org/stdlib-2.4.0/libdoc/yaml/rdoc/YAML.html
+[plain-text-reader]: https://github.com/gonzedge/rambling-trie/blob/master/lib/rambling/trie/readers/plain_text.rb
