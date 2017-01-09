@@ -1,8 +1,9 @@
 require 'forwardable'
+
 %w{
-  forwardable comparable compressable compressor container enumerable
-  inspectable invalid_operation readers serializers stringifyable node
-  missing_node compressed_node raw_node version
+  forwardable comparable compressable compressor configuration container
+  enumerable inspectable invalid_operation readers serializers stringifyable
+  node missing_node compressed_node raw_node version
 }.each do |file|
   require File.join('rambling', 'trie', file)
 end
@@ -12,6 +13,13 @@ module Rambling
   # Entry point for rambling-trie API.
   module Trie
     class << self
+      extend Rambling::Trie::Forwardable
+
+      delegate [
+        :readers,
+        :serializers
+      ] => :properties
+
       # Creates a new Rambling::Trie. Entry point for the Rambling::Trie API.
       # @param [String, nil] filepath the file to load the words from.
       # @param [Reader, nil] reader the file parser to get each word. See
@@ -21,7 +29,7 @@ module Rambling
       def create filepath = nil, reader = nil
         Rambling::Trie::Container.new do |container|
           if filepath
-            reader ||= default_reader
+            reader ||= readers.resolve filepath
             reader.each_word filepath do |word|
               container << word
             end
@@ -38,7 +46,7 @@ module Rambling
       # @return [Container] the trie just loaded.
       # @yield [Container] the trie just loaded.
       def load filepath, serializer = nil
-        serializer ||= serializer filepath
+        serializer ||= serializers.resolve filepath
         root = serializer.load filepath
         Rambling::Trie::Container.new root do |container|
           yield container if block_given?
@@ -52,32 +60,22 @@ module Rambling
       #   serializing and dumping the trie into disk. See
       #   {Rambling::Trie::Serializers Serializers}.
       def dump trie, filepath, serializer = nil
-        serializer ||= serializer filepath
+        serializer ||= serializers.resolve filepath
         serializer.dump trie.root, filepath
+      end
+
+      # Provides configuration properties for the Rambling::Trie gem.
+      # @return [Properties] the configured properties of the gem.
+      # @yield [Properties] the configured properties of the gem.
+      def config
+        yield properties if block_given?
+        properties
       end
 
       private
 
-      def default_reader
-        Rambling::Trie::Readers::PlainText.new
-      end
-
-      def default_serializer
-        serializers[:marshal]
-      end
-
-      def serializer filepath
-        format = File.extname filepath
-        format.slice! 0
-        serializers[format.to_sym] || default_serializer
-      end
-
-      def serializers
-        {
-          marshal: Rambling::Trie::Serializers::Marshal.new,
-          yml: Rambling::Trie::Serializers::Yaml.new,
-          yaml: Rambling::Trie::Serializers::Yaml.new,
-        }
+      def properties
+        @properties ||= Rambling::Trie::Configuration::Properties.new
       end
     end
   end

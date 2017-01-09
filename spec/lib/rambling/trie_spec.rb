@@ -1,6 +1,10 @@
 require 'spec_helper'
 
 describe Rambling::Trie do
+  before do
+    Rambling::Trie.config.reset
+  end
+
   describe '.create' do
     let(:root) { Rambling::Trie::RawNode.new }
     let!(:container) { Rambling::Trie::Container.new root }
@@ -49,8 +53,10 @@ describe Rambling::Trie do
       let(:reader) { double :reader, each_word: nil }
 
       before do
-        allow(Rambling::Trie::Readers::PlainText).to receive(:new)
-          .and_return reader
+        Rambling::Trie.config do |c|
+          c.readers[:default] = reader
+          c.readers.default = reader
+        end
       end
 
       it 'defaults to a plain text reader' do
@@ -79,13 +85,18 @@ describe Rambling::Trie do
 
     context 'without a serializer' do
       let(:marshal_serializer) { double :marshal_serializer, load: nil }
+      let(:default_serializer) { double :default_serializer, load: nil }
       let(:yaml_serializer) { double :yaml_serializer, load: nil }
 
       before do
-        allow(Rambling::Trie::Serializers::Marshal).to receive(:new)
-          .and_return marshal_serializer
-        allow(Rambling::Trie::Serializers::Yaml).to receive(:new)
-          .and_return yaml_serializer
+        Rambling::Trie.config do |c|
+          c.serializers[:default] = default_serializer
+          c.serializers[:marshal] = marshal_serializer
+          c.serializers[:yml] = yaml_serializer
+          c.serializers[:yaml] = yaml_serializer
+
+          c.serializers.default = default_serializer
+        end
       end
 
       it 'determines the serializer based on the file extension' do
@@ -95,8 +106,11 @@ describe Rambling::Trie do
         trie = Rambling::Trie.load 'test.yml'
         expect(yaml_serializer).to have_received(:load).with 'test.yml'
 
+        trie = Rambling::Trie.load 'test.yaml'
+        expect(yaml_serializer).to have_received(:load).with 'test.yaml'
+
         trie = Rambling::Trie.load 'test'
-        expect(marshal_serializer).to have_received(:load).with 'test'
+        expect(default_serializer).to have_received(:load).with 'test'
       end
     end
 
@@ -120,17 +134,21 @@ describe Rambling::Trie do
 
     let(:marshal_serializer) { double :marshal_serializer, dump: nil }
     let(:yaml_serializer) { double :yaml_serializer, dump: nil }
+    let(:default_serializer) { double :default_serializer, dump: nil }
 
     before do
-      allow(Rambling::Trie::Serializers::Marshal).to receive(:new)
-        .and_return marshal_serializer
-      allow(Rambling::Trie::Serializers::Yaml).to receive(:new)
-        .and_return yaml_serializer
+      Rambling::Trie.config do |c|
+        c.serializers[:default] = default_serializer
+        c.serializers[:marshal] = marshal_serializer
+        c.serializers[:yml] = yaml_serializer
+
+        c.serializers.default = default_serializer
+      end
     end
 
-    it 'uses the marshal serializer by default' do
+    it 'uses the configured default serializer by default' do
       Rambling::Trie.dump trie, filename
-      expect(marshal_serializer).to have_received(:dump).with root, filename
+      expect(default_serializer).to have_received(:dump).with root, filename
     end
 
     context 'when provided with a format' do
@@ -141,6 +159,18 @@ describe Rambling::Trie do
         Rambling::Trie.dump trie, "#{filename}.yml"
         expect(yaml_serializer).to have_received(:dump).with root, "#{filename}.yml"
       end
+    end
+  end
+
+  describe '.config' do
+    it 'returns the properties' do
+      expect(Rambling::Trie.config).to eq Rambling::Trie.send :properties
+    end
+
+    it 'yields the properties' do
+      yielded = nil
+      Rambling::Trie.config { |c| yielded = c }
+      expect(yielded).to eq Rambling::Trie.send :properties
     end
   end
 end
