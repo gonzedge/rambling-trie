@@ -126,7 +126,7 @@ trie.all? { |word| word.include? 'x' }
 
 ### Serialization
 
-Starting from version 1.0.0, you can store a full trie instance on disk an retrieve/use it later on. Loading a trie from disk takes less time, less cpu and less memory than loading every word into the trie every time. This is particularly useful for production applications, when you have word lists that you know are going to be static, or that change with little frequency.
+Starting from version 1.0.0, you can store a full trie instance on disk and retrieve/use it later on. Loading a trie from disk takes less time, less cpu and less memory than loading every word into the trie every time. This is particularly useful for production applications, when you have word lists that you know are going to be static, or that change with little frequency.
 
 To store a trie on disk, you can use `.dump` like this:
 
