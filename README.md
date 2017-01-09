@@ -170,10 +170,10 @@ Rambling::Trie.config do |config|
   config.root_builder = lambda { MyCustomNode.new }
 
   config.readers.add :html, MyHtmlReader.new
-  config.readers.default = c.readers[:html]
+  config.readers.default = config.readers[:html]
 
   config.serializers.add :json, MyJsonSerializer.new
-  config.serializers.default = c.serializers[:yml]
+  config.serializers.default = config.serializers[:yml]
 end
 
 # Create a trie or load one from disk and do things with it...
