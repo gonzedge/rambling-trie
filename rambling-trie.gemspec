@@ -5,7 +5,7 @@ require 'rambling/trie/version'
 Gem::Specification.new do |gem|
   gem.authors = ['Edgar Gonzalez', 'Lilibeth De La Cruz']
   gem.email = ['edggonzalezg@gmail.com', 'lilibethdlc@gmail.com']
-  gem.description = 'The Rambling Trie is a custom implementation of the Trie data structure with Ruby, which includes compression abilities and is designed to be very fast to traverse.'
+  gem.description = 'The Rambling Trie is a custom implementation of the trie data structure with Ruby, which includes compression abilities and is designed to be very fast to traverse.'
   gem.summary = 'A custom implementation of the trie data structure.'
   gem.homepage = 'http://github.com/gonzedge/rambling-trie'
   gem.date = Time.now.strftime '%Y-%m-%d'

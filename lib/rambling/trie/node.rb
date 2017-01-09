@@ -1,6 +1,6 @@
 module Rambling
   module Trie
-    # A representation of a node in the Trie data structure.
+    # A representation of a node in the trie data structure.
     class Node
       extend Rambling::Trie::Forwardable
       include Rambling::Trie::Compressable

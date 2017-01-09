@@ -1,6 +1,6 @@
 module Rambling
   module Trie
-    # Provides the comparable behavior for the Trie data structure.
+    # Provides the comparable behavior for the trie data structure.
     module Comparable
       # Compares two nodes.
       # @param [Node] other the node to compare against.

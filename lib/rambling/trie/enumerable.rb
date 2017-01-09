@@ -1,6 +1,6 @@
 module Rambling
   module Trie
-    # Provides enumerable behavior to the Trie data structure.
+    # Provides enumerable behavior to the trie data structure.
     module Enumerable
       include ::Enumerable
 

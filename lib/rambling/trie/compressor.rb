@@ -1,8 +1,8 @@
 module Rambling
   module Trie
-    # Responsible for the compression process of a Trie data structure.
+    # Responsible for the compression process of a trie data structure.
     class Compressor
-      # Compresses a {Node Node} from a Trie data structure.
+      # Compresses a {Node Node} from a trie data structure.
       # @param [RawNode] node the node to compress.
       # @return [CompressedNode] node the compressed version of the node.
       def compress node

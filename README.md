@@ -2,7 +2,7 @@
 
 [![Gem Version][badge_fury_badge]][badge_fury_link] [![Dependency Status][gemnasium_badge]][gemnasium_link] [![Build Status][travis_ci_badge]][travis_ci_link] [![Code Climate][code_climate_badge]][code_climage_link] [![Coverage Status][coveralls_badge]][coveralls_link] [![Documentation Status][inch_ci_badge]][inch_ci_link]
 
-The Rambling Trie is a custom implementation of the Trie data structure with Ruby, which includes compression abilities and is designed to be very fast to traverse.
+The Rambling Trie is a custom implementation of the [trie data structure][trie-wiki] with Ruby, which includes compression abilities and is designed to be very fast to traverse.
 
 ## Installing the Rambling Trie
 
@@ -95,14 +95,14 @@ trie.words 'hi' # => ['hi', 'high', 'highlight', ...]
 ### Compression
 
 By default, the Rambling Trie works as a Standard Trie.
-Starting from version 0.1.0, you can obtain a Compressed Trie from the Standard one, by using the compression feature.
+Starting from version 0.1.0, you can obtain a compressed trie from the Standard one, by using the compression feature.
 Just call the `compress!` method on the trie instance:
 
 ``` ruby
 trie.compress!
 ```
 
-This will reduce the amount of Trie nodes by eliminating the redundant ones, which are the only-child non-terminal nodes.
+This will reduce the amount of trie nodes by eliminating the redundant ones, which are the only-child non-terminal nodes.
 
 __Note that the `compress!` method acts over the trie instance it belongs to.__
 __Also, adding words after compression is not supported.__
@@ -225,11 +225,12 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 [gemnasium_link]: https://gemnasium.com/gonzedge/rambling-trie
 [inch_ci_badge]: https://inch-ci.org/github/gonzedge/rambling-trie.svg?branch=master
 [inch_ci_link]: https://inch-ci.org/github/gonzedge/rambling-trie
+[marshal]: https://ruby-doc.org/core-2.4.0/Marshal.html
 [rbenv]: https://github.com/sstephenson/rbenv
 [rubydoc]: http://rubydoc.info/gems/rambling-trie
 [rubydoc_github]: http://rubydoc.info/github/gonzedge/rambling-trie
 [rvm]: https://rvm.io
 [travis_ci_badge]: https://travis-ci.org/gonzedge/rambling-trie.svg
 [travis_ci_link]: https://travis-ci.org/gonzedge/rambling-trie
-[marshal]: https://ruby-doc.org/core-2.4.0/Marshal.html
+[trie-wiki]: https://en.wikipedia.org/wiki/Trie
 [yaml]: https://ruby-doc.org/stdlib-2.4.0/libdoc/yaml/rdoc/YAML.html

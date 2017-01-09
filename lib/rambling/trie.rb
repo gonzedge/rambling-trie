@@ -41,7 +41,7 @@ module Rambling
         end
       end
 
-      # Loads an existing Trie from disk into memory.
+      # Loads an existing trie from disk into memory.
       # @param [String] filepath the file to load the words from.
       # @param [Serializer, nil] serializer the object responsible of loading the trie
       #   from disk. See {Rambling::Trie::Serializers Serializers}.
@@ -55,7 +55,7 @@ module Rambling
         end
       end
 
-      # Dumps an existing Trie from memory into disk.
+      # Dumps an existing trie from memory into disk.
       # @param [Container] trie the trie to dump into disk.
       # @param [String] filepath the file to dump to serialized trie into.
       # @param [Serializer, nil] serializer the object responsible of

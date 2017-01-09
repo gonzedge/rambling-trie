@@ -1,6 +1,6 @@
 module Rambling
   module Trie
-    # Provides pretty printing behavior for the Trie data structure.
+    # Provides pretty printing behavior for the trie data structure.
     module Inspectable
       # @return [String] a string representation of the current node.
       def inspect
