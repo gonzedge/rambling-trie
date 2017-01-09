@@ -18,9 +18,9 @@ describe Rambling::Trie do
 
     context 'with a block' do
       it 'yields the new container' do
-        yielded_trie = nil
-        Rambling::Trie.create { |trie| yielded_trie = trie }
-        expect(yielded_trie).to eq container
+        yielded = nil
+        Rambling::Trie.create { |trie| yielded = trie }
+        expect(yielded).to eq container
       end
     end
 
@@ -114,13 +114,13 @@ describe Rambling::Trie do
 
     context 'with a block' do
       it 'yields the new container' do
-        yielded_trie = nil
+        yielded = nil
 
         Rambling::Trie.load filepath, serializer do |trie|
-          yielded_trie = trie
+          yielded = trie
         end
 
-        expect(yielded_trie).to eq container
+        expect(yielded).to eq container
       end
     end
   end
