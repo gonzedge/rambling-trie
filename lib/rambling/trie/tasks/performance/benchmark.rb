@@ -58,13 +58,17 @@ namespace :performance do
     performance_report.output
   end
 
+  def tries
+    [
+      Rambling::Trie.load(raw_trie_path),
+      Rambling::Trie.load(compressed_trie_path)
+    ]
+  end
+
   def generate_lookups_benchmark filename = nil
     measure = BenchmarkMeasurement.new output
 
     words = %w(hi help beautiful impressionism anthropological)
-    trie = Rambling::Trie.create dictionary
-    compressed_trie = Rambling::Trie.create(dictionary).compress!
-    tries = [ trie, compressed_trie ]
 
     output.puts
     output.puts '==> Lookups - `word?`'
@@ -97,10 +101,6 @@ namespace :performance do
       impressionism: 200_000,
       anthropological: 200_000,
     }
-
-    trie = Rambling::Trie.create dictionary
-    compressed_trie = Rambling::Trie.create(dictionary).compress!
-    tries = [ trie, compressed_trie ]
 
     output.puts
     output.puts '==> Scans - `scan`'
@@ -164,7 +164,7 @@ namespace :performance do
       output.puts '==> Compression - `compress!`'
 
       tries = []
-      5.times { tries << Rambling::Trie.create(dictionary) }
+      5.times { tries << Rambling::Trie.load(raw_trie_path) }
 
       measure.perform 5, tries do |trie|
         trie.compress!
@@ -172,10 +172,38 @@ namespace :performance do
       end
     end
 
+    namespace :serialization do
+      desc 'Generate serialization performance benchmark report (raw trie)'
+      task raw: :banner do
+        measure = BenchmarkMeasurement.new output
+
+        output.puts
+        output.puts '==> Serialization (raw trie) - `Rambling::Trie.load`'
+        measure.perform 5 do
+          trie = Rambling::Trie.load raw_trie_path
+          nil
+        end
+      end
+
+      desc 'Generate serialization performance benchmark report (compressed trie)'
+      task compressed: :banner do
+        measure = BenchmarkMeasurement.new output
+
+        output.puts
+        output.puts '==> Serialization (compressed trie) - `Rambling::Trie.load`'
+        measure.perform 5 do
+          trie = Rambling::Trie.load compressed_trie_path
+          nil
+        end
+      end
+    end
+
     desc 'Generate all performance benchmark reports'
     task all: [
       :creation,
       :compression,
+      'serialization:raw',
+      'serialization:compressed',
       :lookups,
       :scans,
     ]
