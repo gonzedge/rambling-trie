@@ -97,7 +97,6 @@ describe Rambling::Trie do
 
       before do
         FileUtils.rm_f trie_filepath
-        puts "filepath: #{trie_filepath}"
         Rambling::Trie.dump trie_to_serialize.compress!, trie_filepath, serializer
       end
 
