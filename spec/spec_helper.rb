@@ -4,7 +4,7 @@ require 'coveralls'
 
 Coveralls.wear!
 
-SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter.new [
+SimpleCov.formatters = [
   SimpleCov::Formatter::HTMLFormatter,
   CodeClimate::TestReporter::Formatter,
   Coveralls::SimpleCov::Formatter
