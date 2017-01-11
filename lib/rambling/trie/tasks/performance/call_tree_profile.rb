@@ -1,4 +1,7 @@
 class CallTreeProfile
+  include Helpers::Path
+  include Helpers::Time
+
   def initialize dirname
     @dirname = dirname
   end
