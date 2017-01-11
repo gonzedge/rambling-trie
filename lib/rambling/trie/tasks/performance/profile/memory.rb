@@ -2,42 +2,8 @@ namespace :performance do
   namespace :profile do
     include Helpers::Path
     include Helpers::Time
-
-    def performance_report
-      @performance_report ||= PerformanceReport.new
-    end
-
-    def output
-      performance_report.output
-    end
-
-    class MemoryProfile
-      def initialize name
-        @name = name
-      end
-
-      def perform
-        result = MemoryProfiler.report allow_files: 'lib/rambling/trie', ignore_files: 'lib/rambling/trie/tasks' do
-          with_gc_stats do
-            yield
-          end
-        end
-
-        dir = path 'reports', Rambling::Trie::VERSION, 'memory', time
-        FileUtils.mkdir_p dir
-        result.pretty_print to_file: File.join(dir, name)
-      end
-
-      private
-
-      attr_reader :name
-    end
-
-    def with_gc_stats
-      output.puts "Live objects before - #{GC.stat[:heap_live_slots]}"
-      yield
-      output.puts "Live objects after  - #{GC.stat[:heap_live_slots]}"
-    end
+    include Helpers::Util
+    include Helpers::GC
 
     namespace :memory do
       desc 'Output banner'
@@ -49,20 +15,18 @@ namespace :performance do
       task creation: ['performance:directory', :banner] do
         output.puts 'Generating memory profiling reports for creation...'
 
-        trie = nil
-
-        memory_profile = MemoryProfile.new 'memory-profile-new-trie'
+        memory_profile = MemoryProfile.new 'creation'
         memory_profile.perform do
-          trie = Rambling::Trie.create dictionary
+          Rambling::Trie.create dictionary
         end
       end
 
       desc 'Generate memory profiling reports for compression'
       task compression: ['performance:directory', :banner] do
         output.puts 'Generating memory profiling reports for compression...'
-        trie = Rambling::Trie.create dictionary
+        trie = Rambling::Trie.load raw_trie_path
 
-        memory_profile = MemoryProfile.new 'memory-profile-trie-and-compress'
+        memory_profile = MemoryProfile.new 'compression'
         memory_profile.perform do
           trie.compress!
         end
@@ -70,20 +34,38 @@ namespace :performance do
         with_gc_stats { GC.start }
       end
 
+      namespace :serialization do
+        desc 'Generate memory profiling reports for serialization (raw)'
+        task raw: ['performance:directory', :banner] do
+          output.puts 'Generating memory profiling reports for serialization (raw)...'
+
+          memory_profile = MemoryProfile.new 'serialization-raw'
+          memory_profile.perform do
+            Rambling::Trie.load raw_trie_path
+          end
+        end
+
+        desc 'Generate memory profiling reports for serialization (compressed)'
+        task compressed: ['performance:directory', :banner] do
+          output.puts 'Generating memory profiling reports for serialization (compressed)...'
+
+          memory_profile = MemoryProfile.new 'serialization-compressed'
+          memory_profile.perform do
+            Rambling::Trie.load compressed_trie_path
+          end
+        end
+      end
+
       desc 'Generate memory profiling reports for lookups'
       task lookups: ['performance:directory', :banner] do
         output.puts 'Generating memory profiling reports for lookups...'
 
         words = %w(hi help beautiful impressionism anthropological)
+        times = 10
 
-        trie = Rambling::Trie.create dictionary
-        compressed_trie = Rambling::Trie.create(dictionary).compress!
-        [ trie, compressed_trie ].each do |trie|
-          times = 10
-
-          prefix = "memory-profile-#{trie.compressed? ? 'compressed' : 'uncompressed'}-trie"
-          name = "#{prefix}-word"
-          memory_profile = MemoryProfile.new name
+        tries.each do |trie|
+          prefix = "#{trie.compressed? ? 'compressed' : 'uncompressed'}-trie"
+          memory_profile = MemoryProfile.new "#{prefix}-word"
           memory_profile.perform do
             words.each do |word|
               times.times do
@@ -91,9 +73,11 @@ namespace :performance do
               end
             end
           end
+        end
 
-          name = "#{prefix}-partial-word"
-          memory_profile = MemoryProfile.new name
+        tries.each do |trie|
+          prefix = "#{trie.compressed? ? 'compressed' : 'uncompressed'}-trie"
+          memory_profile = MemoryProfile.new "#{prefix}-partial-word"
           memory_profile.perform do
             words.each do |word|
               times.times do
@@ -116,11 +100,9 @@ namespace :performance do
           anthropological: 200,
         }
 
-        trie = Rambling::Trie.create dictionary
-        compressed_trie = Rambling::Trie.create(dictionary).compress!
-        [ trie, compressed_trie ].each do |trie|
-          name = "memory-profile-#{trie.compressed? ? 'compressed' : 'uncompressed'}-trie-scan"
-          memory_profile = MemoryProfile.new name
+        tries.each do |trie|
+          prefix = "#{trie.compressed? ? 'compressed' : 'uncompressed'}-trie"
+          memory_profile = MemoryProfile.new "#{prefix}-scan"
           memory_profile.perform do
             words.each do |word, times|
               times.times do
@@ -135,6 +117,8 @@ namespace :performance do
       task all: [
         :creation,
         :compression,
+        'serialization:raw',
+        'serialization:compressed',
         :lookups,
         :scans,
       ]

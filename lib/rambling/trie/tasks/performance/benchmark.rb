@@ -1,118 +1,6 @@
 namespace :performance do
   include Helpers::Path
-
-  class BenchmarkMeasurement
-    def initialize output
-      @output = output
-    end
-
-    def param_to_s param
-      case param
-      when Rambling::Trie::Container
-        ''
-      else
-        param.to_s
-      end
-    end
-
-    def perform times, params = nil
-      params = Array params
-      params << nil unless params.any?
-
-      params.each do |param|
-        output.print param_to_s(param).ljust 20
-
-        measure times, param do |param|
-          yield param
-        end
-      end
-    end
-
-    private
-
-    attr_reader :output
-
-    def measure times, param = nil
-      result = nil
-
-      measure = Benchmark.measure do
-        times.times do
-          result = yield param
-        end
-      end
-
-      output.print "#{result}".ljust 10
-      output.puts measure
-    end
-  end
-
-  def performance_report= performance_report
-    @performance_report = performance_report
-  end
-
-  def performance_report
-    @performance_report ||= PerformanceReport.new
-  end
-
-  def output
-    performance_report.output
-  end
-
-  def tries
-    [
-      Rambling::Trie.load(raw_trie_path),
-      Rambling::Trie.load(compressed_trie_path)
-    ]
-  end
-
-  def generate_lookups_benchmark filename = nil
-    measure = BenchmarkMeasurement.new output
-
-    words = %w(hi help beautiful impressionism anthropological)
-
-    output.puts
-    output.puts '==> Lookups - `word?`'
-    tries.each do |trie|
-      output.puts "--- #{trie.compressed? ? 'Compressed' : 'Uncompressed'}"
-
-      measure.perform 200_000, words do |word|
-        trie.word? word
-      end
-    end
-
-    output.puts
-    output.puts '==> Lookups - `partial_word?`'
-    tries.each do |trie|
-      output.puts "--- #{trie.compressed? ? 'Compressed' : 'Uncompressed'}"
-
-      measure.perform 200_000, words do |word|
-        trie.partial_word? word
-      end
-    end
-  end
-
-  def generate_scans_benchmark filename = nil
-    measure = BenchmarkMeasurement.new output
-
-    words = {
-      hi: 1_000,
-      help: 100_000,
-      beautiful: 100_000,
-      impressionism: 200_000,
-      anthropological: 200_000,
-    }
-
-    output.puts
-    output.puts '==> Scans - `scan`'
-    tries.each do |trie|
-      output.puts "--- #{trie.compressed? ? 'Compressed' : 'Uncompressed'}"
-      words.each do |word, times|
-        measure.perform times, word.to_s do |word|
-          trie.scan(word).size
-        end
-      end
-    end
-  end
+  include Helpers::Util
 
   namespace :benchmark do
     namespace :output do
@@ -132,16 +20,6 @@ namespace :performance do
     desc 'Output banner'
     task :banner do
       performance_report.start 'Benchmark'
-    end
-
-    desc 'Generate lookups performance benchmark report'
-    task lookups: :banner do
-      generate_lookups_benchmark
-    end
-
-    desc 'Generate scans performance benchmark report'
-    task scans: :banner do
-      generate_scans_benchmark
     end
 
     desc 'Generate creation performance benchmark report'
@@ -194,6 +72,57 @@ namespace :performance do
         measure.perform 5 do
           trie = Rambling::Trie.load compressed_trie_path
           nil
+        end
+      end
+    end
+
+    desc 'Generate lookups performance benchmark report'
+    task lookups: :banner do
+      measure = BenchmarkMeasurement.new output
+
+      words = %w(hi help beautiful impressionism anthropological)
+
+      output.puts
+      output.puts '==> Lookups - `word?`'
+      tries.each do |trie|
+        output.puts "--- #{trie.compressed? ? 'Compressed' : 'Uncompressed'}"
+
+        measure.perform 200_000, words do |word|
+          trie.word? word
+        end
+      end
+
+      output.puts
+      output.puts '==> Lookups - `partial_word?`'
+      tries.each do |trie|
+        output.puts "--- #{trie.compressed? ? 'Compressed' : 'Uncompressed'}"
+
+        measure.perform 200_000, words do |word|
+          trie.partial_word? word
+        end
+      end
+    end
+
+    desc 'Generate scans performance benchmark report'
+    task scans: :banner do
+      measure = BenchmarkMeasurement.new output
+
+      words = {
+        hi: 1_000,
+        help: 100_000,
+        beautiful: 100_000,
+        impressionism: 200_000,
+        anthropological: 200_000,
+      }
+
+      output.puts
+      output.puts '==> Scans - `scan`'
+      tries.each do |trie|
+        output.puts "--- #{trie.compressed? ? 'Compressed' : 'Uncompressed'}"
+        words.each do |word, times|
+          measure.perform times, word.to_s do |word|
+            trie.scan(word).size
+          end
         end
       end
     end

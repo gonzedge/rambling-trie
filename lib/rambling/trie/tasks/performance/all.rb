@@ -4,6 +4,7 @@ namespace :performance do
     'benchmark:all',
     'profile:call_tree:all',
     'profile:memory:all',
+    'flamegraph:all',
   ]
 
   namespace :all do
@@ -12,6 +13,7 @@ namespace :performance do
       'benchmark:all:save',
       'profile:call_tree:all',
       'profile:memory:all',
+      'flamegraph:all',
     ]
   end
 end
