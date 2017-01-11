@@ -1,4 +1,7 @@
 class FlamegraphProfile
+  include Helpers::Path
+  include Helpers::Time
+
   def initialize filename
     @filename = filename
   end

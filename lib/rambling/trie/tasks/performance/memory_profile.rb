@@ -1,5 +1,7 @@
 class MemoryProfile
   include Helpers::GC
+  include Helpers::Path
+  include Helpers::Time
 
   def initialize name
     @name = name

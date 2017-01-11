@@ -17,7 +17,7 @@ class BenchmarkMeasurement
     params << nil unless params.any?
 
     params.each do |param|
-      output.print param_to_s(param).ljust 20
+      output.print "#{times} iterations - #{param_to_s(param)}".ljust 40
 
       measure times, param do |param|
         yield param
@@ -38,7 +38,8 @@ class BenchmarkMeasurement
       end
     end
 
-    output.print "#{result}".ljust 10
+    output.puts "#{result}".ljust 10
+    output.print ' ' * 30
     output.puts measure
   end
 end
