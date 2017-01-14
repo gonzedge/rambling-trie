@@ -22,3 +22,10 @@ task :performance, [:type, :method] => 'performance:directory' do |t, args|
   task = Performance::Task.new configuration
   task.run args
 end
+
+namespace :performance do
+  desc 'Create report dir'
+  task :directory do
+    Performance::Directory.create
+  end
+end
