@@ -1,34 +1,32 @@
-class CallTreeProfile
-  include Helpers::Path
-  include Helpers::Time
+require_relative 'performer'
 
-  def initialize dirname
-    @dirname = dirname
-  end
-
-  def perform iterations = 1, params = nil
-    params = Array params
-    params << nil unless params.any?
-
-    FileUtils.mkdir_p dirpath
-
-    result = RubyProf.profile merge_fibers: true do
-      params.each do |param|
-        iterations.times do
-          yield param
-        end
-      end
+module Performance
+  class CallTreeProfile < Performance::Performer
+    def initialize dirname
+      @dirname = dirname
     end
 
-    printer = RubyProf::CallTreePrinter.new result
-    printer.print path: dirpath
-  end
+    def do_perform iterations, params
+      FileUtils.mkdir_p dirpath
 
-  private
+      result = RubyProf.profile merge_fibers: true do
+        params.each do |param|
+          iterations.times do
+            yield param
+          end
+        end
+      end
 
-  attr_reader :dirname
+      printer = RubyProf::CallTreePrinter.new result
+      printer.print path: dirpath
+    end
 
-  def dirpath
-    path 'reports', Rambling::Trie::VERSION, 'call-tree', time, dirname
+    private
+
+    attr_reader :dirname
+
+    def dirpath
+      path 'reports', Rambling::Trie::VERSION, 'call-tree', time, dirname
+    end
   end
 end

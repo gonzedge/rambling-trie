@@ -1,35 +1,33 @@
-class FlamegraphProfile
-  include Helpers::Path
-  include Helpers::Time
+require_relative 'performer'
 
-  def initialize filename
-    @filename = filename
-  end
+module Performance
+  class FlamegraphProfile < Performance::Performer
+    def initialize filename
+      @filename = filename
+    end
 
-  def perform iterations = 1, params = nil
-    params = Array params
-    params << nil unless params.any?
+    def do_perform iterations, params
+      FileUtils.mkdir_p dirpath
 
-    FileUtils.mkdir_p dirpath
-
-    result = Flamegraph.generate path do
-      params.each do |param|
-        iterations.times do
-          yield param
+      result = Flamegraph.generate filepath do
+        params.each do |param|
+          iterations.times do
+            yield param
+          end
         end
       end
     end
-  end
 
-  private
+    private
 
-  attr_reader :filename
+    attr_reader :filename
 
-  def dirpath
-    path 'reports', Rambling::Trie::VERSION, 'flamegraph', time
-  end
+    def dirpath
+      path 'reports', Rambling::Trie::VERSION, 'flamegraph', time
+    end
 
-  def filepath
-    File.join dirpath, "#{filename}.html"
+    def filepath
+      File.join dirpath, "#{filename}.html"
+    end
   end
 end
