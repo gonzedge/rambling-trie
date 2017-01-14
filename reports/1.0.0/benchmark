@@ -1,55 +1,91 @@
 
-Benchmark for rambling-trie version 0.9.4
+Benchmarks for rambling-trie version 1.0.0
 
 
 ==> Creation - `Rambling::Trie.create`
-                                8.580000   0.180000   8.760000 (  8.829836)
+5 iterations -
+                                8.870000   0.150000   9.020000 (  9.056112)
 
 ==> Compression - `compress!`
-                                1.200000   0.060000   1.260000 (  1.306860)
-                                1.690000   0.020000   1.710000 (  1.756211)
-                                1.600000   0.010000   1.610000 (  1.650760)
-                                1.300000   0.010000   1.310000 (  1.304134)
-                                1.220000   0.000000   1.220000 (  1.233986)
+5 iterations -
+                                6.870000   0.130000   7.000000 (  7.027154)
+
+==> Serialization (raw trie) - `Rambling::Trie.load`
+5 iterations -
+                                4.800000   0.100000   4.900000 (  5.023404)
+
+==> Serialization (compressed trie) - `Rambling::Trie.load`
+5 iterations -
+                                2.440000   0.060000   2.500000 (  2.505485)
 
 ==> Lookups - `word?`
 --- Uncompressed
-hi                  true        0.220000   0.000000   0.220000 (  0.222878)
-help                true        0.390000   0.000000   0.390000 (  0.393381)
-beautiful           true        0.850000   0.010000   0.860000 (  0.856472)
-impressionism       true        1.130000   0.020000   1.150000 (  1.160272)
-anthropological     true        1.250000   0.010000   1.260000 (  1.266517)
+200000 iterations - hi                  true
+                                0.230000   0.000000   0.230000 (  0.238253)
+200000 iterations - help                true
+                                0.370000   0.000000   0.370000 (  0.372436)
+200000 iterations - beautiful           true
+                                0.870000   0.010000   0.880000 (  0.880463)
+200000 iterations - impressionism       true
+                                1.170000   0.000000   1.170000 (  1.186295)
+200000 iterations - anthropological     true
+                                1.230000   0.000000   1.230000 (  1.234170)
 --- Compressed
-hi                  true        0.240000   0.000000   0.240000 (  0.234155)
-help                true        0.420000   0.000000   0.420000 (  0.422460)
-beautiful           true        0.820000   0.000000   0.820000 (  0.826549)
-impressionism       true        1.110000   0.000000   1.110000 (  1.121056)
-anthropological     true        1.350000   0.010000   1.360000 (  1.395097)
+200000 iterations - hi                  true
+                                0.240000   0.010000   0.250000 (  0.245425)
+200000 iterations - help                true
+                                0.400000   0.000000   0.400000 (  0.397421)
+200000 iterations - beautiful           true
+                                0.790000   0.000000   0.790000 (  0.798388)
+200000 iterations - impressionism       true
+                                1.130000   0.010000   1.140000 (  1.142955)
+200000 iterations - anthropological     true
+                                1.240000   0.000000   1.240000 (  1.244606)
 
 ==> Lookups - `partial_word?`
 --- Uncompressed
-hi                  true        0.250000   0.000000   0.250000 (  0.257315)
-help                true        0.410000   0.000000   0.410000 (  0.403439)
-beautiful           true        0.840000   0.000000   0.840000 (  0.854207)
-impressionism       true        1.060000   0.010000   1.070000 (  1.062115)
-anthropological     true        1.210000   0.000000   1.210000 (  1.241373)
+200000 iterations - hi                  true
+                                0.290000   0.000000   0.290000 (  0.294087)
+200000 iterations - help                true
+                                0.660000   0.020000   0.680000 (  0.673933)
+200000 iterations - beautiful           true
+                                1.180000   0.040000   1.220000 (  1.218664)
+200000 iterations - impressionism       true
+                                1.100000   0.020000   1.120000 (  1.129640)
+200000 iterations - anthropological     true
+                                1.230000   0.020000   1.250000 (  1.262786)
 --- Compressed
-hi                  true        0.980000   0.000000   0.980000 (  0.987485)
-help                true        2.260000   0.010000   2.270000 (  2.277815)
-beautiful           true        2.880000   0.010000   2.890000 (  2.907382)
-impressionism       true        4.450000   0.020000   4.470000 (  4.507825)
-anthropological     true        4.390000   0.010000   4.400000 (  4.422091)
+200000 iterations - hi                  true
+                                1.090000   0.010000   1.100000 (  1.104883)
+200000 iterations - help                true
+                                2.340000   0.030000   2.370000 (  2.365291)
+200000 iterations - beautiful           true
+                                2.900000   0.010000   2.910000 (  2.919128)
+200000 iterations - impressionism       true
+                                4.400000   0.010000   4.410000 (  4.417351)
+200000 iterations - anthropological     true
+                                4.250000   0.010000   4.260000 (  4.293205)
 
-==> Scans - `scan`
+==> Lookups - `scan`
 --- Uncompressed
-hi                  495         2.090000   0.010000   2.100000 (  2.106743)
-help                20          6.330000   0.020000   6.350000 (  6.381562)
-beautiful           6           2.430000   0.000000   2.430000 (  2.449911)
-impressionism       2           2.420000   0.010000   2.430000 (  2.438121)
-anthropological     2           2.680000   0.000000   2.680000 (  2.697914)
+1000 iterations - hi                    495
+                                1.860000   0.010000   1.870000 (  1.874963)
+100000 iterations - help                20
+                                6.160000   0.010000   6.170000 (  6.186338)
+100000 iterations - beautiful           6
+                                2.460000   0.010000   2.470000 (  2.474290)
+200000 iterations - impressionism       2
+                                2.280000   0.010000   2.290000 (  2.286570)
+200000 iterations - anthropological     2
+                                2.520000   0.000000   2.520000 (  2.533813)
 --- Compressed
-hi                  495         1.150000   0.010000   1.160000 (  1.158632)
-help                20          5.200000   0.010000   5.210000 (  5.251173)
-beautiful           6           3.010000   0.000000   3.010000 (  3.019481)
-impressionism       2           5.470000   0.020000   5.490000 (  5.522418)
-anthropological     2           5.400000   0.010000   5.410000 (  5.449662)
+1000 iterations - hi                    495
+                                1.170000   0.000000   1.170000 (  1.175783)
+100000 iterations - help                20
+                                5.380000   0.020000   5.400000 (  5.406286)
+100000 iterations - beautiful           6
+                                3.080000   0.010000   3.090000 (  3.098023)
+200000 iterations - impressionism       2
+                                5.350000   0.010000   5.360000 (  5.403594)
+200000 iterations - anthropological     2
+                                5.430000   0.020000   5.450000 (  5.461206)
