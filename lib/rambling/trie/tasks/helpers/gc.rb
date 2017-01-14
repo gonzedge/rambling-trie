@@ -1,9 +1,9 @@
 module Helpers
   module GC
-    def with_gc_stats
-      puts "Live objects before - #{::GC.stat[:heap_live_slots]}"
+    def with_gc_stats name = nil
+      puts "Live objects before #{name} - #{::GC.stat[:heap_live_slots]}"
       yield
-      puts "Live objects after  - #{::GC.stat[:heap_live_slots]}"
+      puts "Live objects after #{name}  - #{::GC.stat[:heap_live_slots]}"
     end
   end
 end

@@ -1,40 +1,37 @@
-class MemoryProfile
-  include Helpers::GC
-  include Helpers::Path
-  include Helpers::Time
+require_relative 'performer'
 
-  def initialize filename
-    @filename = filename
-  end
+module Performance
+  class MemoryProfile < Performance::Performer
+    def initialize filename
+      @filename = filename
+    end
 
-  def perform iterations = 1, params = nil
-    params = Array params
-    params << nil unless params.any?
+    def do_perform iterations, params
+      FileUtils.mkdir_p dirpath
 
-    FileUtils.mkdir_p dirpath
-
-    result = MemoryProfiler.report allow_files: 'lib/rambling/trie', ignore_files: 'lib/rambling/trie/tasks' do
-      with_gc_stats do
-        params.each do |param|
-          iterations.times do
-            yield param
+      result = MemoryProfiler.report allow_files: 'lib/rambling/trie', ignore_files: 'lib/rambling/trie/tasks' do
+        with_gc_stats "performing #{filename}" do
+          params.each do |param|
+            iterations.times do
+              yield param
+            end
           end
         end
       end
+
+      result.pretty_print to_file: filepath
     end
 
-    result.pretty_print to_file: filepath
-  end
+    private
 
-  private
+    attr_reader :filename
 
-  attr_reader :filename
+    def dirpath
+      path 'reports', Rambling::Trie::VERSION, 'memory', time
+    end
 
-  def dirpath
-    path 'reports', Rambling::Trie::VERSION, 'memory', time
-  end
-
-  def filepath
-    File.join dirpath, filename
+    def filepath
+      File.join dirpath, filename
+    end
   end
 end

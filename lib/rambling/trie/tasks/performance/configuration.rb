@@ -1,3 +1,7 @@
+require_relative '../helpers/gc'
+require_relative '../helpers/path'
+require_relative '../helpers/trie'
+
 module Performance
   class Configuration
     include Helpers::GC
@@ -19,7 +23,7 @@ module Performance
         'benchmark' => {
           'creation' => lambda do |output|
             task = execution_tasks['creation']
-            measure = BenchmarkMeasurement.new output
+            measure = Performance::Benchmark.new output
 
             output.puts
             output.puts '==> Creation - `Rambling::Trie.create`'
@@ -29,7 +33,7 @@ module Performance
           end,
           'compression' => lambda do |output|
             task = execution_tasks['compression']
-            measure = BenchmarkMeasurement.new output
+            measure = Performance::Benchmark.new output
 
             output.puts
             output.puts '==> Compression - `compress!`'
@@ -46,7 +50,7 @@ module Performance
           end,
           'serialization:raw' => lambda do |output|
             task = execution_tasks['serialization:raw']
-            measure = BenchmarkMeasurement.new output
+            measure = Performance::Benchmark.new output
 
             output.puts
             output.puts '==> Serialization (raw trie) - `Rambling::Trie.load`'
@@ -56,7 +60,7 @@ module Performance
           end,
           'serialization:compressed' => lambda do |output|
             task = execution_tasks['serialization:compressed']
-            measure = BenchmarkMeasurement.new output
+            measure = Performance::Benchmark.new output
 
             output.puts
             output.puts '==> Serialization (compressed trie) - `Rambling::Trie.load`'
@@ -67,7 +71,7 @@ module Performance
           'lookups:word' => lambda do |output|
             task = execution_tasks['lookups:word']
             words = %w(hi help beautiful impressionism anthropological)
-            measure = BenchmarkMeasurement.new output
+            measure = Performance::Benchmark.new output
 
             output.puts
             output.puts '==> Lookups - `word?`'
@@ -81,7 +85,7 @@ module Performance
           'lookups:partial_word' => lambda do |output|
             task = execution_tasks['lookups:partial_word']
             words = %w(hi help beautiful impressionism anthropological)
-            measure = BenchmarkMeasurement.new output
+            measure = Performance::Benchmark.new output
 
             output.puts
             output.puts '==> Lookups - `partial_word?`'
@@ -102,7 +106,7 @@ module Performance
               anthropological: 200_000,
             }
 
-            measure = BenchmarkMeasurement.new output
+            measure = Performance::Benchmark.new output
 
             output.puts
             output.puts '==> Lookups - `scan`'
@@ -121,7 +125,7 @@ module Performance
             output.puts 'Generating call tree profiling reports for creation...'
             task = execution_tasks['creation']
 
-            call_tree_profile = CallTreeProfile.new 'creation'
+            call_tree_profile = Performance::CallTreeProfile.new 'creation'
             call_tree_profile.perform 5 do
               task.call
             end
@@ -135,7 +139,7 @@ module Performance
             tries = []
             5.times { tries << Rambling::Trie.load(raw_trie_path) }
 
-            call_tree_profile = CallTreeProfile.new 'compression'
+            call_tree_profile = Performance::CallTreeProfile.new 'compression'
             call_tree_profile.perform 5, tries do |trie|
               task.call trie
             end
@@ -146,7 +150,7 @@ module Performance
             task = execution_tasks['serialization:raw']
             output.puts 'Generating call tree profiling reports for serialization (raw)...'
 
-            call_tree_profile = CallTreeProfile.new 'serialization-raw'
+            call_tree_profile = Performance::CallTreeProfile.new 'serialization-raw'
             call_tree_profile.perform 5 do
               task.call
             end
@@ -157,7 +161,7 @@ module Performance
             task = execution_tasks['serialization:compressed']
             output.puts 'Generating call tree profiling reports for serialization (compressed)...'
 
-            call_tree_profile = CallTreeProfile.new 'serialization-compressed'
+            call_tree_profile = Performance::CallTreeProfile.new 'serialization-compressed'
             call_tree_profile.perform 5 do
               task.call
             end
@@ -173,7 +177,7 @@ module Performance
             tries.each do |trie|
               prefix = "#{trie.compressed? ? 'compressed' : 'uncompressed'}-trie"
 
-              call_tree_profile = CallTreeProfile.new "#{prefix}-word"
+              call_tree_profile = Performance::CallTreeProfile.new "#{prefix}-word"
               call_tree_profile.perform 200_000, words do |word|
                 task.call trie, word
               end
@@ -190,7 +194,7 @@ module Performance
             tries.each do |trie|
               prefix = "#{trie.compressed? ? 'compressed' : 'uncompressed'}-trie"
 
-              call_tree_profile = CallTreeProfile.new "#{prefix}-partial-word"
+              call_tree_profile = Performance::CallTreeProfile.new "#{prefix}-partial-word"
               call_tree_profile.perform 200_000, words do |word|
                 task.call trie, word
               end
@@ -212,7 +216,7 @@ module Performance
 
             tries.each do |trie|
               prefix = "#{trie.compressed? ? 'compressed' : 'uncompressed'}-trie"
-              call_tree_profile = CallTreeProfile.new "#{prefix}-scan"
+              call_tree_profile = Performance::CallTreeProfile.new "#{prefix}-scan"
 
               words.each do |word, iterations|
                 call_tree_profile.perform iterations, word.to_s do |word|
@@ -229,7 +233,7 @@ module Performance
             output.puts 'Generating memory profiling reports for creation...'
             task = execution_tasks['creation']
 
-            memory_profile = MemoryProfile.new 'creation'
+            memory_profile = Performance::MemoryProfile.new 'creation'
             memory_profile.perform do
               task.call
             end
@@ -240,18 +244,20 @@ module Performance
 
             trie = Rambling::Trie.load raw_trie_path
 
-            memory_profile = MemoryProfile.new 'compression'
+            memory_profile = Performance::MemoryProfile.new 'compression'
             memory_profile.perform do
               task.call trie
             end
 
-            with_gc_stats { GC.start }
+            with_gc_stats 'garbage collection' do
+              GC.start
+            end
           end,
           'serialization:raw' => lambda do |output|
             output.puts 'Generating memory profiling reports for serialization (raw)...'
             task = execution_tasks['serialization:raw']
 
-            memory_profile = MemoryProfile.new 'serialization-raw'
+            memory_profile = Performance::MemoryProfile.new 'serialization-raw'
             memory_profile.perform do
               task.call
             end
@@ -260,7 +266,7 @@ module Performance
             output.puts 'Generating memory profiling reports for serialization (compressed)...'
             task = execution_tasks['serialization:compressed']
 
-            memory_profile = MemoryProfile.new 'serialization-compressed'
+            memory_profile = Performance::MemoryProfile.new 'serialization-compressed'
             memory_profile.perform do
               task.call
             end
@@ -274,7 +280,7 @@ module Performance
 
             tries.each do |trie|
               prefix = "#{trie.compressed? ? 'compressed' : 'uncompressed'}-trie"
-              memory_profile = MemoryProfile.new "#{prefix}-word"
+              memory_profile = Performance::MemoryProfile.new "#{prefix}-word"
               memory_profile.perform do
                 words.each do |word|
                   iterations.times do
@@ -293,7 +299,7 @@ module Performance
 
             tries.each do |trie|
               prefix = "#{trie.compressed? ? 'compressed' : 'uncompressed'}-trie"
-              memory_profile = MemoryProfile.new "#{prefix}-partial-word"
+              memory_profile = Performance::MemoryProfile.new "#{prefix}-partial-word"
               memory_profile.perform do
                 words.each do |word|
                   iterations.times do
@@ -317,7 +323,7 @@ module Performance
 
             tries.each do |trie|
               prefix = "#{trie.compressed? ? 'compressed' : 'uncompressed'}-trie"
-              memory_profile = MemoryProfile.new "#{prefix}-scan"
+              memory_profile = Performance::MemoryProfile.new "#{prefix}-scan"
               memory_profile.perform do
                 words.each do |word, iterations|
                   iterations.times do
@@ -333,7 +339,7 @@ module Performance
             task = execution_tasks['creation']
             output.puts 'Generating flamegraph reports for creation...'
 
-            flamegraph = FlamegraphProfile.new 'creation'
+            flamegraph = Performance::FlamegraphProfile.new 'creation'
             flamegraph.perform 1 do
               task.call
             end
@@ -344,7 +350,7 @@ module Performance
 
             trie = Rambling::Trie.load raw_trie_path
 
-            flamegraph = FlamegraphProfile.new 'compression'
+            flamegraph = Performance::FlamegraphProfile.new 'compression'
             flamegraph.perform 1 do
               task.call trie
             end
@@ -353,7 +359,7 @@ module Performance
             task = execution_tasks['serialization:raw']
             output.puts 'Generating flamegraph reports for serialization (raw)...'
 
-            flamegraph = FlamegraphProfile.new 'serialization-raw'
+            flamegraph = Performance::FlamegraphProfile.new 'serialization-raw'
             flamegraph.perform 1 do
               task.call
             end
@@ -362,7 +368,7 @@ module Performance
             task = execution_tasks['serialization:compressed']
             output.puts 'Generating flamegraph reports for serialization (compressed)...'
 
-            flamegraph = FlamegraphProfile.new 'serialization-compressed'
+            flamegraph = Performance::FlamegraphProfile.new 'serialization-compressed'
             flamegraph.perform 1 do
               task.call
             end
@@ -376,7 +382,7 @@ module Performance
             tries.each do |trie|
               prefix = "#{trie.compressed? ? 'compressed' : 'uncompressed'}-trie"
 
-              flamegraph = FlamegraphProfile.new "#{prefix}-word"
+              flamegraph = Performance::FlamegraphProfile.new "#{prefix}-word"
               flamegraph.perform 1, words do |word|
                 task.call trie, word
               end
@@ -390,7 +396,7 @@ module Performance
 
             tries.each do |trie|
               prefix = "#{trie.compressed? ? 'compressed' : 'uncompressed'}-trie"
-              flamegraph = FlamegraphProfile.new "#{prefix}-partial-word"
+              flamegraph = Performance::FlamegraphProfile.new "#{prefix}-partial-word"
               flamegraph.perform 1, words do |word|
                 task.call trie, word
               end
@@ -404,7 +410,7 @@ module Performance
 
             tries.each do |trie|
               prefix = "#{trie.compressed? ? 'compressed' : 'uncompressed'}-trie"
-              flamegraph = FlamegraphProfile.new "#{prefix}-scan"
+              flamegraph = Performance::FlamegraphProfile.new "#{prefix}-scan"
               flamegraph.perform 1, words do |word|
                 task.call trie, word.to_s
               end
