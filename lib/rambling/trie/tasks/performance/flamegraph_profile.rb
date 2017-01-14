@@ -6,17 +6,15 @@ class FlamegraphProfile
     @filename = filename
   end
 
-  def perform times, params = nil
+  def perform iterations = 1, params = nil
     params = Array params
     params << nil unless params.any?
 
-    dirname = path 'reports', Rambling::Trie::VERSION, 'flamegraph', time
-    FileUtils.mkdir_p dirname
-    path = File.join dirname, "#{filename}.html"
+    FileUtils.mkdir_p dirpath
 
     result = Flamegraph.generate path do
       params.each do |param|
-        times.times do
+        iterations.times do
           yield param
         end
       end
@@ -26,4 +24,12 @@ class FlamegraphProfile
   private
 
   attr_reader :filename
+
+  def dirpath
+    path 'reports', Rambling::Trie::VERSION, 'flamegraph', time
+  end
+
+  def filepath
+    File.join dirpath, "#{filename}.html"
+  end
 end
