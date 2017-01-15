@@ -3,7 +3,7 @@ require_relative 'performer'
 
 module Performance
   class Benchmark < Performance::Performer
-    def initialize output
+    def initialize filename = nil, output = $stdout.dup
       @output = output
     end
 
