@@ -1,12 +1,12 @@
-require_relative 'performer'
+require_relative 'reporter'
 
 module Performance
-  class MemoryProfile < Performance::Performer
+  class MemoryProfile < Performance::Reporter
     def initialize filename
       @filename = filename
     end
 
-    def do_perform iterations, params
+    def do_report iterations, params
       FileUtils.mkdir_p dirpath
 
       result = MemoryProfiler.report allow_files: 'lib/rambling/trie', ignore_files: 'lib/rambling/trie/tasks' do

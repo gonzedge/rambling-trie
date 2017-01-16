@@ -12,14 +12,14 @@ module Performance
       'compression'
     end
 
-    def execute performer_class
-      performer = performer_class.new name
+    def execute reporter_class
+      reporter = reporter_class.new name
 
       tries = []
       iterations.times { tries << Rambling::Trie.load(raw_trie_path) }
 
       i = 0
-      performer.perform iterations do |trie|
+      reporter.report iterations do |trie|
         tries[i].compress!
         i += 1
         nil

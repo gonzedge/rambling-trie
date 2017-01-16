@@ -1,13 +1,13 @@
 require 'benchmark'
-require_relative 'performer'
+require_relative 'reporter'
 
 module Performance
-  class Benchmark < Performance::Performer
+  class Benchmark < Performance::Reporter
     def initialize filename = nil, output = $stdout.dup
       @output = output
     end
 
-    def do_perform iterations, params
+    def do_report iterations, params
       params.each do |param|
         output.print "#{iterations} iterations - #{param.to_s}".ljust 40
 

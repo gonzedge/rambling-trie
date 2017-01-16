@@ -12,9 +12,9 @@ module Performance
       'creation'
     end
 
-    def execute performer_class
-      performer = performer_class.new name
-      performer.perform iterations, params do
+    def execute reporter_class
+      reporter = reporter_class.new name
+      reporter.report iterations, params do
         Rambling::Trie.create dictionary; nil
       end
     end
