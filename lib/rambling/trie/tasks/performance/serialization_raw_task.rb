@@ -12,9 +12,9 @@ module Performance
       'serialization:raw'
     end
 
-    def execute performer_class
-      performer = performer_class.new filename
-      performer.perform iterations, params do
+    def execute reporter_class
+      reporter = reporter_class.new filename
+      reporter.report iterations, params do
         Rambling::Trie.load raw_trie_path; nil
       end
     end

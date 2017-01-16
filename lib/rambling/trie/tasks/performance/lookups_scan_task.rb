@@ -8,10 +8,10 @@ module Performance
       'lookups:scan'
     end
 
-    def execute performer_class, trie
-      performer = performer_class.new filename trie
+    def execute reporter_class, trie
+      reporter = reporter_class.new filename trie
       params_to_iterations.each do |word, iterations|
-        performer.perform iterations, word.to_s do |word|
+        reporter.report iterations, word.to_s do |word|
           trie.scan(word).size
         end
       end

@@ -8,9 +8,9 @@ module Performance
       'lookups:word'
     end
 
-    def execute performer_class, trie
-      performer = performer_class.new filename trie
-      performer.perform iterations, params do |word|
+    def execute reporter_class, trie
+      reporter = reporter_class.new filename trie
+      reporter.report iterations, params do |word|
         trie.word? word
       end
     end

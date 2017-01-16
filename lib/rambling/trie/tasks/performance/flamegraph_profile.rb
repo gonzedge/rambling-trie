@@ -1,12 +1,12 @@
-require_relative 'performer'
+require_relative 'reporter'
 
 module Performance
-  class FlamegraphProfile < Performance::Performer
+  class FlamegraphProfile < Performance::Reporter
     def initialize filename
       @filename = filename
     end
 
-    def do_perform iterations, params
+    def do_report iterations, params
       FileUtils.mkdir_p dirpath
 
       result = Flamegraph.generate filepath do

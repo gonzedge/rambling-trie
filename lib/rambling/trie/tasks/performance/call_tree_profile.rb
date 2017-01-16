@@ -1,12 +1,12 @@
-require_relative 'performer'
+require_relative 'reporter'
 
 module Performance
-  class CallTreeProfile < Performance::Performer
+  class CallTreeProfile < Performance::Reporter
     def initialize dirname
       @dirname = dirname
     end
 
-    def do_perform iterations, params
+    def do_report iterations, params
       FileUtils.mkdir_p dirpath
 
       result = RubyProf.profile merge_fibers: true do
