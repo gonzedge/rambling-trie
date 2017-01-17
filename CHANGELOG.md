@@ -257,6 +257,34 @@
 
 ## 0.7.0 [compare][compare-v0.6.1-and-v0.7.0]
 
+### Breaking Changes
+
+- Remove deprecated `#branch?` method by [@gonzedge][github-user-gonzedge]
+- Drop support for Ruby 1.9.2 by [@gonzedge][github-user-gonzedge]
+- Remove Rails version specification (not relevant) by
+  [@gonzedge][github-user-gonzedge]
+
+### Enhancements
+
+#### Major
+
+- Add Ruby 2.1.0, 2.1.1, 2.1.2, 2.1.3, 2.1.4, 2.1.5 to supported versions by
+  [@gonzedge][github-user-gonzedge]
+- Upgrade to RSpec 3 [@gonzedge][github-user-gonzedge]
+    - Update gem dependencies and be more restrictive about gem dependecy
+      versions
+    - Update other dev dependencies
+    - Use RSpec's new syntax for message expectations
+- Add LICENSE to gemspec by [@gonzedge][github-user-gonzedge]
+
+#### Minor
+
+- Update license by [@gonzedge][github-user-gonzedge]
+- Explicitly define `#<<` alias for `#add` by [@gonzedge][github-user-gonzedge]
+
+    This avoids having to call `.alias_method` again for
+    `#add` method overloads.
+
 ## 0.6.1 [compare][compare-v0.6.0-and-v0.6.1]
 
 ## 0.6.0 [compare][compare-v0.5.2-and-v0.6.0]
