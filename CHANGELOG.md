@@ -224,6 +224,15 @@
 
 ## 0.8.1 [compare][compare-v0.8.0-and-v0.8.1]
 
+### Enhancements
+
+#### Major
+
+- Fix `NoMethodError` missing branch from compressed root [#8][github-issue-08]
+  by [@gonzedge][github-user-gonzedge]
+- Add Ruby 2.2.5, 2.2.6, 2.3.1, 2.3.2 and 2.3.3 to supported versions by
+  [@gonzedge][github-user-gonzedge]
+
 ## 0.8.0 [compare][compare-v0.7.0-and-v0.8.0]
 
 ## 0.7.0 [compare][compare-v0.6.1-and-v0.7.0]
