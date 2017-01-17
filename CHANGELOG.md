@@ -287,7 +287,38 @@
 
 ## 0.6.1 [compare][compare-v0.6.0-and-v0.6.1]
 
+### Enhancements
+
+#### Major
+
+- Performance improvements on uncompressed `#word?` and `#partial_word?` by
+  [@gonzedge][github-user-gonzedge]
+
 ## 0.6.0 [compare][compare-v0.5.2-and-v0.6.0]
+
+### Breaking Changes
+
+- Change return value of `#children` by [@gonzedge][github-user-gonzedge]
+
+     Returns the array of child nodes instead of the `Hash` representing the tree
+     of children
+
+- Rename `#branch?` method to `#partial_word?` by [@gonzedge][github-user-gonzedge]
+- Rename old `#children` method to `#children_tree` by [@gonzedge][github-user-gonzedge]
+
+### Enhancements
+
+#### Major
+
+- Add `#root?` method by [@gonzedge][github-user-gonzedge]
+- Add Ruby 2.0.0 to supported versions by [@gonzedge][github-user-gonzedge]
+
+#### Minor
+
+- Remove perftools.rb dependency by [@gonzedge][github-user-gonzedge]
+- Use `Forwardable` instead of own delegator by [@gonzedge][github-user-gonzedge]
+- Specify 'MIT License' in the license file by [@gonzedge][github-user-gonzedge]
+- Update license year by [@gonzedge][github-user-gonzedge]
 
 ## 0.5.2 [compare][compare-v0.5.1-and-v0.5.2]
 
