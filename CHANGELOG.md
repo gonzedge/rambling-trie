@@ -235,6 +235,26 @@
 
 ## 0.8.0 [compare][compare-v0.7.0-and-v0.8.0]
 
+### Breaking Changes
+
+- Drop support for Ruby 1.9.x and 2.0.x by [@gonzedge][github-user-gonzedge]
+
+### Enhancements
+
+#### Major
+
+- Add `#scan` method and its alias `#words` to find all words that match a
+  given partial word [#7][github-issue-07] by [@gonzedge][github-user-gonzedge]
+    - Return matching `Node`
+    - Use [Null Object pattern][design-patterns-null-object] to return empty
+      array with `Rambling::Trie::MissingNode`
+- Add Ruby 2.1.6, 2.1.7, 2.1.8, 2.2.1, 2.2.2, 2.2.3, 2.2.4, and 2.3.0 to
+  supported versions by [@gonzedge][github-user-gonzedge]
+
+#### Minor
+
+- Update license date by [@gonzedge][github-user-gonzedge]
+
 ## 0.7.0 [compare][compare-v0.6.1-and-v0.7.0]
 
 ## 0.6.1 [compare][compare-v0.6.0-and-v0.6.1]
