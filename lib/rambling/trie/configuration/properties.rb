@@ -22,6 +22,8 @@ module Rambling
         # @return [Proc<Node>] the configured root_builder.
         attr_accessor :root_builder
 
+        attr_accessor :tmp_path
+
         # Returns a new properties instance.
         def initialize
           reset
@@ -34,6 +36,7 @@ module Rambling
 
           self.compressor = Rambling::Trie::Compressor.new
           self.root_builder = lambda { Rambling::Trie::RawNode.new }
+          self.tmp_path = '/tmp'
         end
 
         private
