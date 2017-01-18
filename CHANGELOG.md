@@ -391,9 +391,68 @@
 
 ## 0.4.2 [compare][compare-v0.4.1-and-v0.4.2]
 
+### Enhancements
+
+#### Major
+
+- Fix variable mutation on `Root#add_branch_for` [#6][github-issue-06] by
+  [@gonzedge][github-user-gonzedge]
+    - Defined `#<<` instead of alias for overriding purposes
+- Add `Enumerable` capabilities [#5][github-issue-05] by
+  [@gonzedge][github-user-gonzedge]
+- Restructure file/directory tree again by [@gonzedge][github-user-gonzedge]
+    Files now live under `lib/rambling/trie` instead of `lib/rambling-trie`
+
+#### Minor
+
+- Fix param name for `#create` and `#new` by [@gonzedge][github-user-gonzedge]
+- Adding Travis CI configuration by [@gonzedge][github-user-gonzedge]
+
 ## 0.4.1 [compare][compare-v0.4.0-and-v0.4.1]
 
+### Breaking Changes
+
+- Move `ChildrenHashDeferer` to `Rambling::Trie` module by
+  [@gonzedge][github-user-gonzedge]
+
+### Enhancements
+
+#### Major
+
+- Add missing deprecation warning for `Rambling::Trie.new` by
+  [@gonzedge][github-user-gonzedge]
+- Add the `#<<` method to `Node` [#4][github-issue-04] by
+  [@gonzedge][github-user-gonzedge]
+- Add `#include?` method to `Root` [#3][github-issue-03] by
+  [@gonzedge][github-user-gonzedge]
+
+#### Minor
+
+- Lowered complexity of `has_branch_for?` implementation for compressed by
+  [@gonzedge][github-user-gonzedge]
+- Minor performance improvements for compressed trie by
+  [@gonzedge][github-user-gonzedge]
+- Use new `#<<` method in place of `#add_branch_from` by
+  [@gonzedge][github-user-gonzedge]
+
 ## 0.4.0 [compare][compare-v0.3.4-and-v0.4.0]
+
+#### Major
+
+- Create new `Rambling::Trie.create` API entry point by
+  [@gonzedge][github-user-gonzedge]
+- Changed gem name and directory structure to match standard by
+  [@gonzedge][github-user-gonzedge]
+
+#### Minor
+
+- Update documentation for new entry point by [@gonzedge][github-user-gonzedge]
+- Chang some `describe`s to `context` by [@gonzedge][github-user-gonzedge]
+- Add bundler rake tasks by [@gonzedge][github-user-gonzedge]
+- Updated gemspec to match standard style by [@gonzedge][github-user-gonzedge]
+- Added perftools.rb to the mix (cpu profiling) by
+  [@gonzedge][github-user-gonzedge]
+- Removed unused variable by [@gonzedge][github-user-gonzedge]
 
 ## 0.3.4 [compare][compare-v0.3.3-and-v0.3.4]
 
@@ -439,8 +498,15 @@
 [compare-v0.9.1-and-v0.9.2]: https://github.com/gonzedge/rambling-trie/compare/v0.9.1...v0.9.2
 [compare-v0.9.2-and-v0.9.3]: https://github.com/gonzedge/rambling-trie/compare/v0.9.2...v0.9.3
 [compare-v0.9.3-and-master]: https://github.com/gonzedge/rambling-trie/compare/v0.9.3...master
+[design-patterns-null-object]: http://wiki.c2.com/?NullObject
 [github-commit-current-key-less-memory]: https://github.com/gonzedge/rambling-trie/commit/218fac218a77e70ba04a3672ff5abfddf6544f57
 [github-commit-reduced-memory-footprint]: https://github.com/gonzedge/rambling-trie/commit/aa8c0262f888e88df6a2f1e1351d8f14b21e43c4
+[github-issue-03]: https://github.com/gonzedge/rambling-trie/issues/3
+[github-issue-04]: https://github.com/gonzedge/rambling-trie/issues/4
+[github-issue-05]: https://github.com/gonzedge/rambling-trie/issues/5
+[github-issue-06]: https://github.com/gonzedge/rambling-trie/issues/6
+[github-issue-07]: https://github.com/gonzedge/rambling-trie/issues/7
+[github-issue-08]: https://github.com/gonzedge/rambling-trie/issues/8
 [github-issue-10]: https://github.com/gonzedge/rambling-trie/issues/10
 [github-issue-11]: https://github.com/gonzedge/rambling-trie/issues/11
 [github-user-gonzedge]: https://github.com/gonzedge
