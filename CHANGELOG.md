@@ -1,19 +1,19 @@
 # Changelog
 
-## 1.0.0 (unreleased) [compare][compare-v0.9.3-and-master]
+## 1.0.0 (unreleased) [compare][compare_v0.9.3_and_master]
 
 ### Breaking Changes
 
-- Rename `PlainTextReader` to `Readers::PlainText` by [@gonzedge][github-user-gonzedge]
-- Rename `Compression` to `Compressable` by [@gonzedge][github-user-gonzedge]
-- Rename `Inspect` to `Inspectable` by [@gonzedge][github-user-gonzedge]
+- Rename `PlainTextReader` to `Readers::PlainText` by [@gonzedge][github_user_gonzedge]
+- Rename `Compression` to `Compressable` by [@gonzedge][github_user_gonzedge]
+- Rename `Inspect` to `Inspectable` by [@gonzedge][github_user_gonzedge]
 
 ### Enhancements
 
 #### Major
 
 - Add `Serializers` to dump trie into/load trie from disk
-  [#10][github-issue-10] by [@gonzedge][github-user-gonzedge]
+  [#10][github_issue_10] by [@gonzedge][github_user_gonzedge]
 
     ``` ruby
     # Save `your_trie` into a file
@@ -23,8 +23,8 @@
     trie = Rambling::Trie.load 'a filename'
     ```
 
-- Add ability to configure `rambling-trie` [#11][github-issue-11]
-  by [@gonzedge][github-user-gonzedge]
+- Add ability to configure `rambling-trie` [#11][github_issue_11]
+  by [@gonzedge][github_user_gonzedge]
 
     ``` ruby
     Rambling::Trie.config do |config|
@@ -39,7 +39,7 @@
     end
     ```
 
-- Add `#==` to compare nodes by [@gonzedge][github-user-gonzedge]
+- Add `#==` to compare nodes by [@gonzedge][github_user_gonzedge]
 
     Contained in `Rambling::Trie::Comparable` module. Two nodes are equal to
     each other if they have the same letter, they are both either terminal or
@@ -47,46 +47,46 @@
 
 #### Minor
 
-- Extract modules for peripheral node functionality by [@gonzedge][github-user-gonzedge]
+- Extract modules for peripheral node functionality by [@gonzedge][github_user_gonzedge]
     - Move `#to_s` to `Stringifyable` module
     - Move `#as_word` to `Stringifyable` module by
     - Move `#==` to `Comparable` module
     - Rename `Compression` to `Compressable`
     - Rename `Inspector` to `Inspectable`
-- Add `#terminal?` value to inspect output by [@gonzedge][github-user-gonzedge]
-- Freeze `Rambling::Trie::VERSION` by [@gonzedge][github-user-gonzedge]
+- Add `#terminal?` value to inspect output by [@gonzedge][github_user_gonzedge]
+- Freeze `Rambling::Trie::VERSION` by [@gonzedge][github_user_gonzedge]
 - Refactor performance instrumentation tasks by
-  [@gonzedge][github-user-gonzedge]
+  [@gonzedge][github_user_gonzedge]
     - Add `Performance` module
     - Add `Performance::Reporter` & `Performance::Directory` classes
     - Move task execution into individual classes
     - Unify all tasks into single entry point `rake performance[type,method]`
-- Change benchmark report format by [@gonzedge][github-user-gonzedge]
-- Correct supported versions by [@gonzedge][github-user-gonzedge]
+- Change benchmark report format by [@gonzedge][github_user_gonzedge]
+- Correct supported versions by [@gonzedge][github_user_gonzedge]
 - Only create new `Reader` instance when filepath is given on initialization by
-  [@gonzedge][github-user-gonzedge]
-- Update license year by [@gonzedge][github-user-gonzedge]
+  [@gonzedge][github_user_gonzedge]
+- Update license year by [@gonzedge][github_user_gonzedge]
 
-## 0.9.3 [compare][compare-v0.9.2-and-v0.9.3]
+## 0.9.3 [compare][compare_v0.9.2_and_v0.9.3]
 
 ### Enhancements
 
 #### Major
 
-- Add Ruby 2.4 to supported versions by [@gonzedge][github-user-gonzedge]
-- Drastically reduce size of gem by [@gonzedge][github-user-gonzedge]
+- Add Ruby 2.4 to supported versions by [@gonzedge][github_user_gonzedge]
+- Drastically reduce size of gem by [@gonzedge][github_user_gonzedge]
 
     By excluding unnecessary `assets/` and `reports/` when building the gem.
     **Size reduction**: from ~472KB to ~21KB.
 
-- Make root node accessible via container by [@gonzedge][github-user-gonzedge]
+- Make root node accessible via container by [@gonzedge][github_user_gonzedge]
 
     So that anyone using rambling-trie can develop their custom algorithms
 
 - Expose root node's `#to_a` method through `Container` by
-  [@gonzedge][github-user-gonzedge]
+  [@gonzedge][github_user_gonzedge]
 - Add own `Forwardable#delegate` because of [Ruby 2.4 performance
-  degradation][ruby-bug-13111] by [@gonzedge][github-user-gonzedge]
+  degradation][ruby_bug_13111] by [@gonzedge][github_user_gonzedge]
 
     Was able to take Creation and Compression benchmarks (~8.8s and ~1.5s
     respectively) back down to the Ruby 2.3.3 levels by adding own definition of
@@ -94,28 +94,28 @@
 
 #### Minor
 
-- Ensure unicode words are supported by [@gonzedge][github-user-gonzedge]
+- Ensure unicode words are supported by [@gonzedge][github_user_gonzedge]
 - Add flamegraph reports to performance instrumentation tasks by
-  [@gonzedge][github-user-gonzedge]
+  [@gonzedge][github_user_gonzedge]
 - Move benchmark/profiling dependencies from gemspec to Gemfile by
-  [@gonzedge][github-user-gonzedge]
-- Add missing docs by [@gonzedge][github-user-gonzedge]
-- Improvements on TravisCI setup by [@gonzedge][github-user-gonzedge]
+  [@gonzedge][github_user_gonzedge]
+- Add missing docs by [@gonzedge][github_user_gonzedge]
+- Improvements on TravisCI setup by [@gonzedge][github_user_gonzedge]
 - Add codeclimate test coverage integration by
-  [@gonzedge][github-user-gonzedge]
+  [@gonzedge][github_user_gonzedge]
 - Move rspec config from .rspec to spec_helper by
-  [@gonzedge][github-user-gonzedge]
+  [@gonzedge][github_user_gonzedge]
 
-## 0.9.2 [compare][compare-v0.9.1-and-v0.9.2]
+## 0.9.2 [compare][compare_v0.9.1_and_v0.9.2]
 
 ### Enhancements
 
 #### Major
 
 - Fix "undefined method `to_sym`" on compressed trie's `#partial_word?` and
-  `#scan` by [@gonzedge][github-user-gonzedge]
+  `#scan` by [@gonzedge][github_user_gonzedge]
 - Expose all usable `Node` methods in `Container` through delegation by
-  [@gonzedge][github-user-gonzedge]
+  [@gonzedge][github_user_gonzedge]
     - Expose `#as_word`
     - Expose `#children`
     - Expose `#children_tree`
@@ -127,45 +127,45 @@
 #### Minor
 
 - Unify `#scan` implementation between `Raw` and `Compressed` node by
-  [@gonzedge][github-user-gonzedge]
+  [@gonzedge][github_user_gonzedge]
 
-## 0.9.1 [compare][compare-v0.9.0-and-v0.9.1]
+## 0.9.1 [compare][compare_v0.9.0_and_v0.9.1]
 
 ### Enhancements
 
 #### Major
 
 - Performance improvements for all trie operations by
-  [@gonzedge][github-user-gonzedge]
+  [@gonzedge][github_user_gonzedge]
 - Reduce memory footprint without affecting performance for compressed node
-  operations by [@gonzedge][github-user-gonzedge]
+  operations by [@gonzedge][github_user_gonzedge]
 
     Including `#word?`, `#partial_word?` and `#closest_node`. See these commits
     for more info:
 
-    - [aa8c0262f888e88df6a2f1e1351d8f14b21e43c4][github-commit-reduced-memory-footprint]
-    - [218fac218a77e70ba04a3672ff5abfddf6544f57][github-commit-current-key-less-memory]
+    - [aa8c0262f888e88df6a2f1e1351d8f14b21e43c4][github_commit_reduced_memory_footprint]
+    - [218fac218a77e70ba04a3672ff5abfddf6544f57][github_commit_current_key_less_memory]
 
 #### Minor
 
-- Make trie integration test a bit faster by [@gonzedge][github-user-gonzedge]
+- Make trie integration test a bit faster by [@gonzedge][github_user_gonzedge]
 - Remove unnecessary `#to_a` calls from `Container` by
-  [@gonzedge][github-user-gonzedge]
+  [@gonzedge][github_user_gonzedge]
 - Extract `#recursive_get` to unify `#partial_word?` and `#scan`
-  implementations by [@gonzedge][github-user-gonzedge]
+  implementations by [@gonzedge][github_user_gonzedge]
 - Better `#word?` implementation for compressed node by
-  [@gonzedge][github-user-gonzedge]
-- Rename `new_letter` => `letter` by [@gonzedge][github-user-gonzedge]
+  [@gonzedge][github_user_gonzedge]
+- Rename `new_letter` => `letter` by [@gonzedge][github_user_gonzedge]
 - Further performance instrumentation improvements by
-  [@gonzedge][github-user-gonzedge]
-- Split out benchmark reports per version by [@gonzedge][github-user-gonzedge]
+  [@gonzedge][github_user_gonzedge]
+- Split out benchmark reports per version by [@gonzedge][github_user_gonzedge]
 
-## 0.9.0 [compare][compare-v0.8.1-and-v0.9.0]
+## 0.9.0 [compare][compare_v0.8.1_and_v0.9.0]
 
 ### Breaking Changes
 
 - `Rambling::Trie.create` now returns a `Container` instead of a `Root` by
-  [@gonzedge][github-user-gonzedge]
+  [@gonzedge][github_user_gonzedge]
 
     `Container` exposes these API entry points:
 
@@ -182,188 +182,188 @@
     - yield on `#initialize`
 
 - Remove `Branches` module, all of its behavior is now contained in `RawNode`
-  and `CompressedNode` by [@gonzedge][github-user-gonzedge]
+  and `CompressedNode` by [@gonzedge][github_user_gonzedge]
 - Rename `Compressor` module to `Compression` (`Compressor` is now the class
   that transforms between a `RawNode` and a `CompressedNode`) by
-  [@gonzedge][github-user-gonzedge]
+  [@gonzedge][github_user_gonzedge]
 
 ### Enhancements
 
 #### Major
 
 - Separate uncompressed trie vs compressed trie logic into separate objects by
-  [@gonzedge][github-user-gonzedge]
+  [@gonzedge][github_user_gonzedge]
     - Create separate `RawNode` and `CompressedNode` classes
     - Add `Compressor` for `#compress!` implementation that maps from a
       `RawNode` to a `CompressedNode`
     -
 - Add `#terminal!` to `Node` to force node to be terminal by
-  [@gonzedge][github-user-gonzedge]
-- Move `#root?` into `Node` by [@gonzedge][github-user-gonzedge]
+  [@gonzedge][github_user_gonzedge]
+- Move `#root?` into `Node` by [@gonzedge][github_user_gonzedge]
 - Improve memory footprint of compressed trie (`CompressedNode`) by
-  [@gonzedge][github-user-gonzedge]
-- Small memory improvements to `RawNode` by [@gonzedge][github-user-gonzedge]
+  [@gonzedge][github_user_gonzedge]
+- Small memory improvements to `RawNode` by [@gonzedge][github_user_gonzedge]
 - Improve `Rambling::Trie::Enumerable` performance, hence `#scan` performance
-  by [@gonzedge][github-user-gonzedge]
-- Improve performance for `#scan` by [@gonzedge][github-user-gonzedge]
+  by [@gonzedge][github_user_gonzedge]
+- Improve performance for `#scan` by [@gonzedge][github_user_gonzedge]
 - Additional performance improvements for raw and compressed nodes operations
-  by [@gonzedge][github-user-gonzedge]
-- Improve trie creation performance by [@gonzedge][github-user-gonzedge]
+  by [@gonzedge][github_user_gonzedge]
+- Improve trie creation performance by [@gonzedge][github_user_gonzedge]
 - Improve performance of trie initialization from file by
-  [@gonzedge][github-user-gonzedge]
+  [@gonzedge][github_user_gonzedge]
 
 #### Minor
 
-- Delegate `#inspect` to `#root` node by [@gonzedge][github-user-gonzedge]
+- Delegate `#inspect` to `#root` node by [@gonzedge][github_user_gonzedge]
 - Rename `first_letter` to `letter` in `RawNode` by
-  [@gonzedge][github-user-gonzedge]
-- Expand performance instrumentation by [@gonzedge][github-user-gonzedge]
+  [@gonzedge][github_user_gonzedge]
+- Expand performance instrumentation by [@gonzedge][github_user_gonzedge]
 
     Include memory profiles, call tree profiles and benchmark measurements for
     `#scan` method
 
-## 0.8.1 [compare][compare-v0.8.0-and-v0.8.1]
+## 0.8.1 [compare][compare_v0.8.0_and_v0.8.1]
 
 ### Enhancements
 
 #### Major
 
-- Fix `NoMethodError` missing branch from compressed root [#8][github-issue-08]
-  by [@gonzedge][github-user-gonzedge]
+- Fix `NoMethodError` missing branch from compressed root [#8][github_issue_08]
+  by [@gonzedge][github_user_gonzedge]
 - Add Ruby 2.2.5, 2.2.6, 2.3.1, 2.3.2 and 2.3.3 to supported versions by
-  [@gonzedge][github-user-gonzedge]
+  [@gonzedge][github_user_gonzedge]
 
-## 0.8.0 [compare][compare-v0.7.0-and-v0.8.0]
+## 0.8.0 [compare][compare_v0.7.0_and_v0.8.0]
 
 ### Breaking Changes
 
-- Drop support for Ruby 1.9.x and 2.0.x by [@gonzedge][github-user-gonzedge]
+- Drop support for Ruby 1.9.x and 2.0.x by [@gonzedge][github_user_gonzedge]
 
 ### Enhancements
 
 #### Major
 
 - Add `#scan` method and its alias `#words` to find all words that match a
-  given partial word [#7][github-issue-07] by [@gonzedge][github-user-gonzedge]
+  given partial word [#7][github_issue_07] by [@gonzedge][github_user_gonzedge]
     - Return matching `Node`
-    - Use [Null Object pattern][design-patterns-null-object] to return empty
+    - Use [Null Object pattern][design_patterns_null_object] to return empty
       array with `Rambling::Trie::MissingNode`
 - Add Ruby 2.1.6, 2.1.7, 2.1.8, 2.2.1, 2.2.2, 2.2.3, 2.2.4, and 2.3.0 to
-  supported versions by [@gonzedge][github-user-gonzedge]
+  supported versions by [@gonzedge][github_user_gonzedge]
 
 #### Minor
 
-- Update license date by [@gonzedge][github-user-gonzedge]
+- Update license date by [@gonzedge][github_user_gonzedge]
 
-## 0.7.0 [compare][compare-v0.6.1-and-v0.7.0]
+## 0.7.0 [compare][compare_v0.6.1_and_v0.7.0]
 
 ### Breaking Changes
 
-- Remove deprecated `#branch?` method by [@gonzedge][github-user-gonzedge]
-- Drop support for Ruby 1.9.2 by [@gonzedge][github-user-gonzedge]
+- Remove deprecated `#branch?` method by [@gonzedge][github_user_gonzedge]
+- Drop support for Ruby 1.9.2 by [@gonzedge][github_user_gonzedge]
 - Remove Rails version specification (not relevant) by
-  [@gonzedge][github-user-gonzedge]
+  [@gonzedge][github_user_gonzedge]
 
 ### Enhancements
 
 #### Major
 
 - Add Ruby 2.1.0, 2.1.1, 2.1.2, 2.1.3, 2.1.4, 2.1.5 to supported versions by
-  [@gonzedge][github-user-gonzedge]
-- Upgrade to RSpec 3 [@gonzedge][github-user-gonzedge]
+  [@gonzedge][github_user_gonzedge]
+- Upgrade to RSpec 3 [@gonzedge][github_user_gonzedge]
     - Update gem dependencies and be more restrictive about gem dependecy
       versions
     - Update other dev dependencies
     - Use RSpec's new syntax for message expectations
-- Add LICENSE to gemspec by [@gonzedge][github-user-gonzedge]
+- Add LICENSE to gemspec by [@gonzedge][github_user_gonzedge]
 
 #### Minor
 
-- Update license by [@gonzedge][github-user-gonzedge]
-- Explicitly define `#<<` alias for `#add` by [@gonzedge][github-user-gonzedge]
+- Update license by [@gonzedge][github_user_gonzedge]
+- Explicitly define `#<<` alias for `#add` by [@gonzedge][github_user_gonzedge]
 
     This avoids having to call `.alias_method` again for
     `#add` method overloads.
 
-## 0.6.1 [compare][compare-v0.6.0-and-v0.6.1]
+## 0.6.1 [compare][compare_v0.6.0_and_v0.6.1]
 
 ### Enhancements
 
 #### Major
 
 - Performance improvements on uncompressed `#word?` and `#partial_word?` by
-  [@gonzedge][github-user-gonzedge]
+  [@gonzedge][github_user_gonzedge]
 
-## 0.6.0 [compare][compare-v0.5.2-and-v0.6.0]
+## 0.6.0 [compare][compare_v0.5.2_and_v0.6.0]
 
 ### Breaking Changes
 
-- Change return value of `#children` by [@gonzedge][github-user-gonzedge]
+- Change return value of `#children` by [@gonzedge][github_user_gonzedge]
 
      Returns the array of child nodes instead of the `Hash` representing the tree
      of children
 
-- Rename `#branch?` method to `#partial_word?` by [@gonzedge][github-user-gonzedge]
-- Rename old `#children` method to `#children_tree` by [@gonzedge][github-user-gonzedge]
+- Rename `#branch?` method to `#partial_word?` by [@gonzedge][github_user_gonzedge]
+- Rename old `#children` method to `#children_tree` by [@gonzedge][github_user_gonzedge]
 
 ### Enhancements
 
 #### Major
 
-- Add `#root?` method by [@gonzedge][github-user-gonzedge]
-- Add Ruby 2.0.0 to supported versions by [@gonzedge][github-user-gonzedge]
+- Add `#root?` method by [@gonzedge][github_user_gonzedge]
+- Add Ruby 2.0.0 to supported versions by [@gonzedge][github_user_gonzedge]
 
 #### Minor
 
-- Remove perftools.rb dependency by [@gonzedge][github-user-gonzedge]
-- Use `Forwardable` instead of own delegator by [@gonzedge][github-user-gonzedge]
-- Specify 'MIT License' in the license file by [@gonzedge][github-user-gonzedge]
-- Update license year by [@gonzedge][github-user-gonzedge]
+- Remove perftools.rb dependency by [@gonzedge][github_user_gonzedge]
+- Use `Forwardable` instead of own delegator by [@gonzedge][github_user_gonzedge]
+- Specify 'MIT License' in the license file by [@gonzedge][github_user_gonzedge]
+- Update license year by [@gonzedge][github_user_gonzedge]
 
-## 0.5.2 [compare][compare-v0.5.1-and-v0.5.2]
+## 0.5.2 [compare][compare_v0.5.1_and_v0.5.2]
 
 ### Enhancements
 
 #### Major
 
-- Add `#to_s` method for node by [@gonzedge][github-user-gonzedge]
+- Add `#to_s` method for node by [@gonzedge][github_user_gonzedge]
 
 #### Minor
 
-- Safer `#letter=` implementation by [@gonzedge][github-user-gonzedge]
-- Refactor `#as_word` to use `#to_s` by [@gonzedge][github-user-gonzedge]
+- Safer `#letter=` implementation by [@gonzedge][github_user_gonzedge]
+- Refactor `#as_word` to use `#to_s` by [@gonzedge][github_user_gonzedge]
 - Change spec format and remove rails matchers on guard by
-  [@lilibethdlc][github-user-lilibethdlc]
+  [@lilibethdlc][github_user_lilibethdlc]
 - Default rspec output to documentation and syntax to `expect` by
-  [@gonzedge][github-user-gonzedge]
+  [@gonzedge][github_user_gonzedge]
 - Require `bundler/gem_tasks` instead of calling `install_tasks` directly by
-  [@lilibethdlc][github-user-lilibethdlc]
+  [@lilibethdlc][github_user_lilibethdlc]
 
-## 0.5.1 [compare][compare-v0.5.0-and-v0.5.1]
+## 0.5.1 [compare][compare_v0.5.0_and_v0.5.1]
 
 ### Enhancements
 
 #### Major
 
 - Extract file reading logic into own `PlainTextReader` object by
-  [@gonzedge][github-user-gonzedge]
+  [@gonzedge][github_user_gonzedge]
 - Replace instance variables with attr accessors/writers by
-  [@gonzedge][github-user-gonzedge]
+  [@gonzedge][github_user_gonzedge]
       Including `#letter`, `#children`, `#terminal`
 
 #### Minor
 
-- Add `#inspect` documentation by [@gonzedge][github-user-gonzedge]
-- Refactor `nil` check by [@gonzedge][github-user-gonzedge]
-- Update benchmark reports by [@gonzedge][github-user-gonzedge]
+- Add `#inspect` documentation by [@gonzedge][github_user_gonzedge]
+- Refactor `nil` check by [@gonzedge][github_user_gonzedge]
+- Update benchmark reports by [@gonzedge][github_user_gonzedge]
 
-## 0.5.0 [compare][compare-v0.4.2-and-v0.5.0]
+## 0.5.0 [compare][compare_v0.4.2_and_v0.5.0]
 
 ### Breaking Changes
 
 - Remove deprecated `Rambling::Trie.new` entry point by
-  [@gonzedge][github-user-gonzedge]
-- Remove deprecated methods by [@gonzedge][github-user-gonzedge]
+  [@gonzedge][github_user_gonzedge]
+- Remove deprecated methods by [@gonzedge][github_user_gonzedge]
     Includes `#has_branch_for?`, `#is_word?` and `#add_branch_from`
 
 ### Enhancements
@@ -371,304 +371,304 @@
 #### Major
 
 - Yield created trie on `Rambling::Trie.create` by
-  [@gonzedge][github-user-gonzedge]
+  [@gonzedge][github_user_gonzedge]
 - Add `Inspector` module for pretty printing by
-  [@lilibethdlc][github-user-lilibethdlc]
-- Rename `#has_branch?` to `#branch?` by [@gonzedge][github-user-gonzedge]
-- Rename `#add_branch` to `#add` by [@gonzedge][github-user-gonzedge]
+  [@lilibethdlc][github_user_lilibethdlc]
+- Rename `#has_branch?` to `#branch?` by [@gonzedge][github_user_gonzedge]
+- Rename `#add_branch` to `#add` by [@gonzedge][github_user_gonzedge]
 - Use faster string concatenation with `#<<` instead of `#+` by
-  [@lilibethdlc][github-user-lilibethdlc]
+  [@lilibethdlc][github_user_lilibethdlc]
 - Add missing `InvalidOperation` exception messages by
-  [@gonzedge][github-user-gonzedge]
+  [@gonzedge][github_user_gonzedge]
 
 #### Minor
 
-- Configure specs to be run in random order by [@gonzedge][github-user-gonzedge]
-- Default `word` to `nil` on `Node` initialization by [@gonzedge][github-user-gonzedge]
-- Change required files list from array to `%w{}` by [@gonzedge][github-user-gonzedge]
-- Change expectation syntax from `should` to `expect().to` by [@gonzedge][github-user-gonzedge]
-- Upgrade development dependencies by [@gonzedge][github-user-gonzedge]
+- Configure specs to be run in random order by [@gonzedge][github_user_gonzedge]
+- Default `word` to `nil` on `Node` initialization by [@gonzedge][github_user_gonzedge]
+- Change required files list from array to `%w{}` by [@gonzedge][github_user_gonzedge]
+- Change expectation syntax from `should` to `expect().to` by [@gonzedge][github_user_gonzedge]
+- Upgrade development dependencies by [@gonzedge][github_user_gonzedge]
 
-## 0.4.2 [compare][compare-v0.4.1-and-v0.4.2]
+## 0.4.2 [compare][compare_v0.4.1_and_v0.4.2]
 
 ### Enhancements
 
 #### Major
 
-- Fix variable mutation on `Root#add_branch_for` [#6][github-issue-06] by
-  [@gonzedge][github-user-gonzedge]
+- Fix variable mutation on `Root#add_branch_for` [#6][github_issue_06] by
+  [@gonzedge][github_user_gonzedge]
     - Define `#<<` instead of alias for overriding purposes
-- Add `Enumerable` capabilities [#5][github-issue-05] by
-  [@gonzedge][github-user-gonzedge]
-- Restructure file/directory tree again by [@gonzedge][github-user-gonzedge]
+- Add `Enumerable` capabilities [#5][github_issue_05] by
+  [@gonzedge][github_user_gonzedge]
+- Restructure file/directory tree again by [@gonzedge][github_user_gonzedge]
     Files now live under `lib/rambling/trie` instead of `lib/rambling-trie`
 
 #### Minor
 
-- Fix param name for `#create` and `#new` by [@gonzedge][github-user-gonzedge]
-- Adding Travis CI configuration by [@gonzedge][github-user-gonzedge]
+- Fix param name for `#create` and `#new` by [@gonzedge][github_user_gonzedge]
+- Adding Travis CI configuration by [@gonzedge][github_user_gonzedge]
 
-## 0.4.1 [compare][compare-v0.4.0-and-v0.4.1]
+## 0.4.1 [compare][compare_v0.4.0_and_v0.4.1]
 
 ### Breaking Changes
 
 - Move `ChildrenHashDeferer` to `Rambling::Trie` module by
-  [@gonzedge][github-user-gonzedge]
+  [@gonzedge][github_user_gonzedge]
 
 ### Enhancements
 
 #### Major
 
 - Add missing deprecation warning for `Rambling::Trie.new` by
-  [@gonzedge][github-user-gonzedge]
-- Add the `#<<` method to `Node` [#4][github-issue-04] by
-  [@gonzedge][github-user-gonzedge]
-- Add `#include?` method to `Root` [#3][github-issue-03] by
-  [@gonzedge][github-user-gonzedge]
+  [@gonzedge][github_user_gonzedge]
+- Add the `#<<` method to `Node` [#4][github_issue_04] by
+  [@gonzedge][github_user_gonzedge]
+- Add `#include?` method to `Root` [#3][github_issue_03] by
+  [@gonzedge][github_user_gonzedge]
 
 #### Minor
 
 - Lower complexity of `has_branch_for?` implementation for compressed by
-  [@gonzedge][github-user-gonzedge]
+  [@gonzedge][github_user_gonzedge]
 - Minor performance improvements for compressed trie by
-  [@gonzedge][github-user-gonzedge]
+  [@gonzedge][github_user_gonzedge]
 - Use new `#<<` method in place of `#add_branch_from` by
-  [@gonzedge][github-user-gonzedge]
+  [@gonzedge][github_user_gonzedge]
 
-## 0.4.0 [compare][compare-v0.3.4-and-v0.4.0]
+## 0.4.0 [compare][compare_v0.3.4_and_v0.4.0]
 
 ### Enhancements
 
 #### Major
 
 - Create new `Rambling::Trie.create` API entry point by
-  [@gonzedge][github-user-gonzedge]
+  [@gonzedge][github_user_gonzedge]
 - Change gem name and directory structure to match standard by
-  [@gonzedge][github-user-gonzedge]
+  [@gonzedge][github_user_gonzedge]
 
 #### Minor
 
-- Update documentation for new entry point by [@gonzedge][github-user-gonzedge]
-- Chang some `describe`s to `context` by [@gonzedge][github-user-gonzedge]
-- Add bundler rake tasks by [@gonzedge][github-user-gonzedge]
-- Update gemspec to match standard style by [@gonzedge][github-user-gonzedge]
+- Update documentation for new entry point by [@gonzedge][github_user_gonzedge]
+- Chang some `describe`s to `context` by [@gonzedge][github_user_gonzedge]
+- Add bundler rake tasks by [@gonzedge][github_user_gonzedge]
+- Update gemspec to match standard style by [@gonzedge][github_user_gonzedge]
 - Add perftools.rb to the mix (cpu profiling) by
-  [@gonzedge][github-user-gonzedge]
-- Remove unused variable by [@gonzedge][github-user-gonzedge]
+  [@gonzedge][github_user_gonzedge]
+- Remove unused variable by [@gonzedge][github_user_gonzedge]
 
-## 0.3.4 [compare][compare-v0.3.3-and-v0.3.4]
+## 0.3.4 [compare][compare_v0.3.3_and_v0.3.4]
 
 ### Enhancements
 
 #### Major
 
 - Fix issue with `Rambling::Trie` class definition by
-  [@gonzedge][github-user-gonzedge]
+  [@gonzedge][github_user_gonzedge]
 - Performance improvement on `#has_branch_for?` by
-  [@gonzedge][github-user-gonzedge]
+  [@gonzedge][github_user_gonzedge]
 
 #### Minor
 
-- Add guard to Gemfile by [@gonzedge][github-user-gonzedge]
-- Add simplecov for code coverage by [@gonzedge][github-user-gonzedge]
-- Refactor rambling-trie requires by [@gonzedge][github-user-gonzedge]
-- Remov unnecessary internal `#trie_node` by [@gonzedge][github-user-gonzedge]
-- Refactor specs to "The RSpec Way" by [@gonzedge][github-user-gonzedge]
-- Add new benchmarking report info by [@gonzedge][github-user-gonzedge]
-- Update RubyDoc.info link and compression info by [@gonzedge][github-user-gonzedge]
+- Add guard to Gemfile by [@gonzedge][github_user_gonzedge]
+- Add simplecov for code coverage by [@gonzedge][github_user_gonzedge]
+- Refactor rambling-trie requires by [@gonzedge][github_user_gonzedge]
+- Remov unnecessary internal `#trie_node` by [@gonzedge][github_user_gonzedge]
+- Refactor specs to "The RSpec Way" by [@gonzedge][github_user_gonzedge]
+- Add new benchmarking report info by [@gonzedge][github_user_gonzedge]
+- Update RubyDoc.info link and compression info by [@gonzedge][github_user_gonzedge]
 
-## 0.3.3 [compare][compare-v0.3.2-and-v0.3.3]
+## 0.3.3 [compare][compare_v0.3.2_and_v0.3.3]
 
 ### Enhancements
 
 #### Major
 
 - Performance improvements for compressed and uncompressed tries by
-  [@gonzedge][github-user-gonzedge]
+  [@gonzedge][github_user_gonzedge]
 - Add API documentation link (rubydoc.info - yard) by
-  [@gonzedge][github-user-gonzedge]
+  [@gonzedge][github_user_gonzedge]
 - Add yard and redcarpet to development dependencies by
-  [@gonzedge][github-user-gonzedge]
+  [@gonzedge][github_user_gonzedge]
 - Add inline documentation for rambling-trie by
-  [@gonzedge][github-user-gonzedge]
+  [@gonzedge][github_user_gonzedge]
 
 #### Minor
 
-- Minor refactoring by [@gonzedge][github-user-gonzedge]
+- Minor refactoring by [@gonzedge][github_user_gonzedge]
 - Improve `#has_branch_for?` for compressed trie by
-  [@gonzedge][github-user-gonzedge]
-- Update README info for `has_branch_for?` method by [@gonzedge][github-user-gonzedge]
+  [@gonzedge][github_user_gonzedge]
+- Update README info for `has_branch_for?` method by [@gonzedge][github_user_gonzedge]
 
-## 0.3.2 [compare][compare-v0.3.1-and-v0.3.2]
+## 0.3.2 [compare][compare_v0.3.1_and_v0.3.2]
 
 ### Enhancements
 
 #### Major
 
 - Fix bug when adding terminal word that exists as non-terminal node
-  [#2][github-issue-02] by [@gonzedge][github-user-gonzedge]
-- Fix `#has_branch_for?` for compressed trie [#2][github-issue-02] by
-  [@gonzedge][github-user-gonzedge]
-- Fix `#is_word?` method for compressed trie [#2][github-issue-02] by
-  [@gonzedge][github-user-gonzedge]
+  [#2][github_issue_02] by [@gonzedge][github_user_gonzedge]
+- Fix `#has_branch_for?` for compressed trie [#2][github_issue_02] by
+  [@gonzedge][github_user_gonzedge]
+- Fix `#is_word?` method for compressed trie [#2][github_issue_02] by
+  [@gonzedge][github_user_gonzedge]
 
 #### Minor
 
 - Refactor branch methods and improve performance a bit by
-  [@gonzedge][github-user-gonzedge]
-- Add performance report file by [@gonzedge][github-user-gonzedge]
-- Add performance report file appending by [@gonzedge][github-user-gonzedge]
+  [@gonzedge][github_user_gonzedge]
+- Add performance report file by [@gonzedge][github_user_gonzedge]
+- Add performance report file appending by [@gonzedge][github_user_gonzedge]
 
-## 0.3.1 [compare][compare-v0.3.0-and-v0.3.1]
+## 0.3.1 [compare][compare_v0.3.0_and_v0.3.1]
 
 ### Enhancements
 
 #### Major
 
 - Include version on gemspec from version file by
-  [@gonzedge][github-user-gonzedge]
-- Restrict `#compress!` to `Root` by [@gonzedge][github-user-gonzedge]
+  [@gonzedge][github_user_gonzedge]
+- Restrict `#compress!` to `Root` by [@gonzedge][github_user_gonzedge]
 - Move branches logic to own `Branches` module by
-  [@gonzedge][github-user-gonzedge]
+  [@gonzedge][github_user_gonzedge]
 
 #### Minor
 
-- Add first rake tasks and version file by [@gonzedge][github-user-gonzedge]
-- Add performance report tasks by [@gonzedge][github-user-gonzedge]
+- Add first rake tasks and version file by [@gonzedge][github_user_gonzedge]
+- Add performance report tasks by [@gonzedge][github_user_gonzedge]
 
-## 0.3.0 [compare][compare-v0.2.0-and-v0.3.0]
+## 0.3.0 [compare][compare_v0.2.0_and_v0.3.0]
 
 ### Enhancements
 
 #### Major
 
-- Add LICENSE by [@gonzedge][github-user-gonzedge]
-- Handle empty string edge case by [@gonzedge][github-user-gonzedge]
+- Add LICENSE by [@gonzedge][github_user_gonzedge]
+- Handle empty string edge case by [@gonzedge][github_user_gonzedge]
 - Performance gain replacing `block.call` with `Object.send` by
-  [@gonzedge][github-user-gonzedge]
+  [@gonzedge][github_user_gonzedge]
 
 #### Minor
 
-- Refactor `Compressor` by [@gonzedge][github-user-gonzedge]
+- Refactor `Compressor` by [@gonzedge][github_user_gonzedge]
 - Remove `Gemfile.lock` to avoid hard dependencies by
-  [@gonzedge][github-user-gonzedge]
+  [@gonzedge][github_user_gonzedge]
 
-## 0.2.0 [compare][compare-v0.1.0-and-v0.2.0]
+## 0.2.0 [compare][compare_v0.1.0_and_v0.2.0]
 
 ### Breaking Changes
 
-- Return self after compression by [@gonzedge][github-user-gonzedge]
-- Change `#letter` from string to symbol by [@gonzedge][github-user-gonzedge]
-- Use symbols instead of strings for letters and hash keys by [@gonzedge][github-user-gonzedge]
+- Return self after compression by [@gonzedge][github_user_gonzedge]
+- Change `#letter` from string to symbol by [@gonzedge][github_user_gonzedge]
+- Use symbols instead of strings for letters and hash keys by [@gonzedge][github_user_gonzedge]
 
 ### Enhancements
 
 #### Major
 
-- Do not compress terminal nodes by [@gonzedge][github-user-gonzedge]
-- Add `#parent` attribute by [@gonzedge][github-user-gonzedge]
-- Add `#terminal?` by [@gonzedge][github-user-gonzedge]
-- Add `#compress!` by [@gonzedge][github-user-gonzedge]
-- Add `#compressed?` by [@gonzedge][github-user-gonzedge]
+- Do not compress terminal nodes by [@gonzedge][github_user_gonzedge]
+- Add `#parent` attribute by [@gonzedge][github_user_gonzedge]
+- Add `#terminal?` by [@gonzedge][github_user_gonzedge]
+- Add `#compress!` by [@gonzedge][github_user_gonzedge]
+- Add `#compressed?` by [@gonzedge][github_user_gonzedge]
 - Read file line by line instead of loading it all into memory by
-  [@gonzedge][github-user-gonzedge]
+  [@gonzedge][github_user_gonzedge]
 - Add `ChildrenHashDeferer` and `TrieCompressor` modules by
-  [@gonzedge][github-user-gonzedge]
+  [@gonzedge][github_user_gonzedge]
     Results of refactoring compression and hash methods
-- Remove `#word` caching for memory gains by [@gonzedge][github-user-gonzedge]
+- Remove `#word` caching for memory gains by [@gonzedge][github_user_gonzedge]
 
 #### Minor
 
-- Added `#transfer_ownership` method by [@gonzedge][github-user-gonzedge]
+- Added `#transfer_ownership` method by [@gonzedge][github_user_gonzedge]
 
-## 0.1.0 [compare][compare-v0.0.2-and-v0.1.0]
+## 0.1.0 [compare][compare_v0.0.2_and_v0.1.0]
 
 ### Breaking Changes
 
-- Rename `#has_branch_tree?` to `#has_branch_for?` by [@gonzedge][github-user-gonzedge]
+- Rename `#has_branch_tree?` to `#has_branch_for?` by [@gonzedge][github_user_gonzedge]
 
 ### Enhancements
 
 #### Major
 
-- Added project README by [@gonzedge][github-user-gonzedge]
+- Added project README by [@gonzedge][github_user_gonzedge]
 
 #### Minor
 
-- Set minimum RSpec version to 2.0.0 by [@gonzedge][github-user-gonzedge]
+- Set minimum RSpec version to 2.0.0 by [@gonzedge][github_user_gonzedge]
 
-## 0.0.2 [compare][compare-v0.0.1-and-v0.0.2]
+## 0.0.2 [compare][compare_v0.0.1_and_v0.0.2]
 
 ### Breaking Changes
 
-- Make `#get_parent_letter_string` protected by [@gonzedge][github-user-gonzedge]
+- Make `#get_parent_letter_string` protected by [@gonzedge][github_user_gonzedge]
 
 ### Enhancements
 
 #### Major
 
-- Fix empty and nil letter edge case and tests by [@gonzedge][github-user-gonzedge]
-- Add the word caching for terminal nodes by [@gonzedge][github-user-gonzedge]
-- Add `#as_word` by [@gonzedge][github-user-gonzedge]
-- Add `InvalidTrieOperation` by [@gonzedge][github-user-gonzedge]
+- Fix empty and nil letter edge case and tests by [@gonzedge][github_user_gonzedge]
+- Add the word caching for terminal nodes by [@gonzedge][github_user_gonzedge]
+- Add `#as_word` by [@gonzedge][github_user_gonzedge]
+- Add `InvalidTrieOperation` by [@gonzedge][github_user_gonzedge]
 
-## 0.0.1 [compare][compare-v0.0.0-and-v0.0.1]
+## 0.0.1 [compare][compare_v0.0.0_and_v0.0.1]
 
 ### Enhancements
 
 #### Major
 
-- Add the `Rambling` module for namespacing by [@gonzedge][github-user-gonzedge]
-- Add `TrieNode` by [@gonzedge][github-user-gonzedge]
-- Add `#is_word?` method by [@gonzedge][github-user-gonzedge]
-- Add `#has_branch_tree?` by [@lilibethdlc][github-user-lilibethdlc]
+- Add the `Rambling` module for namespacing by [@gonzedge][github_user_gonzedge]
+- Add `TrieNode` by [@gonzedge][github_user_gonzedge]
+- Add `#is_word?` method by [@gonzedge][github_user_gonzedge]
+- Add `#has_branch_tree?` by [@lilibethdlc][github_user_lilibethdlc]
 - Add methods `#[]` and `#has_key?` to trie node by
-  [@gonzedge][github-user-gonzedge]
-- Add gemspec info draft by [@gonzedge][github-user-gonzedge]
-- Adding correct bundle install source by [@lilibethdlc][github-user-lilibethdlc]
+  [@gonzedge][github_user_gonzedge]
+- Add gemspec info draft by [@gonzedge][github_user_gonzedge]
+- Adding correct bundle install source by [@lilibethdlc][github_user_lilibethdlc]
 
 #### Minor
 
-- Revising add branch recursion by [@lilibethdlc][github-user-lilibethdlc]
+- Revising add branch recursion by [@lilibethdlc][github_user_lilibethdlc]
 
-[compare-v0.0.0-and-v0.0.1]: https://github.com/gonzedge/rambling-trie/compare/v0.0.0...v0.0.1
-[compare-v0.0.1-and-v0.0.2]: https://github.com/gonzedge/rambling-trie/compare/v0.0.1...v0.0.2
-[compare-v0.0.2-and-v0.1.0]: https://github.com/gonzedge/rambling-trie/compare/v0.0.2...v0.1.0
-[compare-v0.1.0-and-v0.2.0]: https://github.com/gonzedge/rambling-trie/compare/v0.1.0...v0.2.0
-[compare-v0.2.0-and-v0.3.0]: https://github.com/gonzedge/rambling-trie/compare/v0.2.0...v0.3.0
-[compare-v0.3.0-and-v0.3.1]: https://github.com/gonzedge/rambling-trie/compare/v0.3.0...v0.3.1
-[compare-v0.3.1-and-v0.3.2]: https://github.com/gonzedge/rambling-trie/compare/v0.3.1...v0.3.2
-[compare-v0.3.2-and-v0.3.3]: https://github.com/gonzedge/rambling-trie/compare/v0.3.2...v0.3.3
-[compare-v0.3.3-and-v0.3.4]: https://github.com/gonzedge/rambling-trie/compare/v0.3.3...v0.3.4
-[compare-v0.3.4-and-v0.4.0]: https://github.com/gonzedge/rambling-trie/compare/v0.3.4...v0.4.0
-[compare-v0.4.0-and-v0.4.1]: https://github.com/gonzedge/rambling-trie/compare/v0.4.0...v0.4.1
-[compare-v0.4.1-and-v0.4.2]: https://github.com/gonzedge/rambling-trie/compare/v0.4.1...v0.4.2
-[compare-v0.4.2-and-v0.5.0]: https://github.com/gonzedge/rambling-trie/compare/v0.4.2...v0.5.0
-[compare-v0.5.0-and-v0.5.1]: https://github.com/gonzedge/rambling-trie/compare/v0.5.0...v0.5.1
-[compare-v0.5.1-and-v0.5.2]: https://github.com/gonzedge/rambling-trie/compare/v0.5.1...v0.5.2
-[compare-v0.5.2-and-v0.6.0]: https://github.com/gonzedge/rambling-trie/compare/v0.5.2...v0.6.0
-[compare-v0.6.0-and-v0.6.1]: https://github.com/gonzedge/rambling-trie/compare/v0.6.0...v0.6.1
-[compare-v0.6.1-and-v0.7.0]: https://github.com/gonzedge/rambling-trie/compare/v0.6.1...v0.7.0
-[compare-v0.7.0-and-v0.7.0]: https://github.com/gonzedge/rambling-trie/compare/v0.7.0...v0.7.0
-[compare-v0.7.0-and-v0.8.0]: https://github.com/gonzedge/rambling-trie/compare/v0.7.0...v0.8.0
-[compare-v0.8.0-and-v0.8.1]: https://github.com/gonzedge/rambling-trie/compare/v0.8.0...v0.8.1
-[compare-v0.8.1-and-v0.9.0]: https://github.com/gonzedge/rambling-trie/compare/v0.8.1...v0.9.0
-[compare-v0.9.0-and-v0.9.1]: https://github.com/gonzedge/rambling-trie/compare/v0.9.0...v0.9.1
-[compare-v0.9.1-and-v0.9.2]: https://github.com/gonzedge/rambling-trie/compare/v0.9.1...v0.9.2
-[compare-v0.9.2-and-v0.9.3]: https://github.com/gonzedge/rambling-trie/compare/v0.9.2...v0.9.3
-[compare-v0.9.3-and-master]: https://github.com/gonzedge/rambling-trie/compare/v0.9.3...master
-[design-patterns-null-object]: http://wiki.c2.com/?NullObject
-[github-commit-current-key-less-memory]: https://github.com/gonzedge/rambling-trie/commit/218fac218a77e70ba04a3672ff5abfddf6544f57
-[github-commit-reduced-memory-footprint]: https://github.com/gonzedge/rambling-trie/commit/aa8c0262f888e88df6a2f1e1351d8f14b21e43c4
-[github-issue-02]: https://github.com/gonzedge/rambling-trie/issues/2
-[github-issue-03]: https://github.com/gonzedge/rambling-trie/issues/3
-[github-issue-04]: https://github.com/gonzedge/rambling-trie/issues/4
-[github-issue-05]: https://github.com/gonzedge/rambling-trie/issues/5
-[github-issue-06]: https://github.com/gonzedge/rambling-trie/issues/6
-[github-issue-07]: https://github.com/gonzedge/rambling-trie/issues/7
-[github-issue-08]: https://github.com/gonzedge/rambling-trie/issues/8
-[github-issue-10]: https://github.com/gonzedge/rambling-trie/issues/10
-[github-issue-11]: https://github.com/gonzedge/rambling-trie/issues/11
-[github-user-gonzedge]: https://github.com/gonzedge
-[github-user-lilibethdlc]: https://github.com/lilibethdlc
-[ruby-bug-13111]: https://bugs.ruby-lang.org/issues/13111
+[compare_v0.0.0_and_v0.0.1]: https://github.com/gonzedge/rambling-trie/compare/v0.0.0...v0.0.1
+[compare_v0.0.1_and_v0.0.2]: https://github.com/gonzedge/rambling-trie/compare/v0.0.1...v0.0.2
+[compare_v0.0.2_and_v0.1.0]: https://github.com/gonzedge/rambling-trie/compare/v0.0.2...v0.1.0
+[compare_v0.1.0_and_v0.2.0]: https://github.com/gonzedge/rambling-trie/compare/v0.1.0...v0.2.0
+[compare_v0.2.0_and_v0.3.0]: https://github.com/gonzedge/rambling-trie/compare/v0.2.0...v0.3.0
+[compare_v0.3.0_and_v0.3.1]: https://github.com/gonzedge/rambling-trie/compare/v0.3.0...v0.3.1
+[compare_v0.3.1_and_v0.3.2]: https://github.com/gonzedge/rambling-trie/compare/v0.3.1...v0.3.2
+[compare_v0.3.2_and_v0.3.3]: https://github.com/gonzedge/rambling-trie/compare/v0.3.2...v0.3.3
+[compare_v0.3.3_and_v0.3.4]: https://github.com/gonzedge/rambling-trie/compare/v0.3.3...v0.3.4
+[compare_v0.3.4_and_v0.4.0]: https://github.com/gonzedge/rambling-trie/compare/v0.3.4...v0.4.0
+[compare_v0.4.0_and_v0.4.1]: https://github.com/gonzedge/rambling-trie/compare/v0.4.0...v0.4.1
+[compare_v0.4.1_and_v0.4.2]: https://github.com/gonzedge/rambling-trie/compare/v0.4.1...v0.4.2
+[compare_v0.4.2_and_v0.5.0]: https://github.com/gonzedge/rambling-trie/compare/v0.4.2...v0.5.0
+[compare_v0.5.0_and_v0.5.1]: https://github.com/gonzedge/rambling-trie/compare/v0.5.0...v0.5.1
+[compare_v0.5.1_and_v0.5.2]: https://github.com/gonzedge/rambling-trie/compare/v0.5.1...v0.5.2
+[compare_v0.5.2_and_v0.6.0]: https://github.com/gonzedge/rambling-trie/compare/v0.5.2...v0.6.0
+[compare_v0.6.0_and_v0.6.1]: https://github.com/gonzedge/rambling-trie/compare/v0.6.0...v0.6.1
+[compare_v0.6.1_and_v0.7.0]: https://github.com/gonzedge/rambling-trie/compare/v0.6.1...v0.7.0
+[compare_v0.7.0_and_v0.7.0]: https://github.com/gonzedge/rambling-trie/compare/v0.7.0...v0.7.0
+[compare_v0.7.0_and_v0.8.0]: https://github.com/gonzedge/rambling-trie/compare/v0.7.0...v0.8.0
+[compare_v0.8.0_and_v0.8.1]: https://github.com/gonzedge/rambling-trie/compare/v0.8.0...v0.8.1
+[compare_v0.8.1_and_v0.9.0]: https://github.com/gonzedge/rambling-trie/compare/v0.8.1...v0.9.0
+[compare_v0.9.0_and_v0.9.1]: https://github.com/gonzedge/rambling-trie/compare/v0.9.0...v0.9.1
+[compare_v0.9.1_and_v0.9.2]: https://github.com/gonzedge/rambling-trie/compare/v0.9.1...v0.9.2
+[compare_v0.9.2_and_v0.9.3]: https://github.com/gonzedge/rambling-trie/compare/v0.9.2...v0.9.3
+[compare_v0.9.3_and_master]: https://github.com/gonzedge/rambling-trie/compare/v0.9.3...master
+[design_patterns_null_object]: http://wiki.c2.com/?NullObject
+[github_commit_current_key_less_memory]: https://github.com/gonzedge/rambling-trie/commit/218fac218a77e70ba04a3672ff5abfddf6544f57
+[github_commit_reduced_memory_footprint]: https://github.com/gonzedge/rambling-trie/commit/aa8c0262f888e88df6a2f1e1351d8f14b21e43c4
+[github_issue_02]: https://github.com/gonzedge/rambling-trie/issues/2
+[github_issue_03]: https://github.com/gonzedge/rambling-trie/issues/3
+[github_issue_04]: https://github.com/gonzedge/rambling-trie/issues/4
+[github_issue_05]: https://github.com/gonzedge/rambling-trie/issues/5
+[github_issue_06]: https://github.com/gonzedge/rambling-trie/issues/6
+[github_issue_07]: https://github.com/gonzedge/rambling-trie/issues/7
+[github_issue_08]: https://github.com/gonzedge/rambling-trie/issues/8
+[github_issue_10]: https://github.com/gonzedge/rambling-trie/issues/10
+[github_issue_11]: https://github.com/gonzedge/rambling-trie/issues/11
+[github_user_gonzedge]: https://github.com/gonzedge
+[github_user_lilibethdlc]: https://github.com/lilibethdlc
+[ruby_bug_13111]: https://bugs.ruby-lang.org/issues/13111
