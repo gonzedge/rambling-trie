@@ -505,11 +505,11 @@
 
 #### Major
 
-- Fix bug when adding terminal word that exists as non-terminal node by
+- Fix bug when adding terminal word that exists as non-terminal node
+  [#2][github-issue-02] by [@gonzedge][github-user-gonzedge]
+- Fix `#has_branch_for?` for compressed trie [#2][github-issue-02] by
   [@gonzedge][github-user-gonzedge]
-- Fix `#has_branch_for?` for compressed trie by
-  [@gonzedge][github-user-gonzedge]
-- Fix `#is_word?` method for compressed trie by
+- Fix `#is_word?` method for compressed trie [#2][github-issue-02] by
   [@gonzedge][github-user-gonzedge]
 
 #### Minor
@@ -660,6 +660,7 @@
 [design-patterns-null-object]: http://wiki.c2.com/?NullObject
 [github-commit-current-key-less-memory]: https://github.com/gonzedge/rambling-trie/commit/218fac218a77e70ba04a3672ff5abfddf6544f57
 [github-commit-reduced-memory-footprint]: https://github.com/gonzedge/rambling-trie/commit/aa8c0262f888e88df6a2f1e1351d8f14b21e43c4
+[github-issue-02]: https://github.com/gonzedge/rambling-trie/issues/2
 [github-issue-03]: https://github.com/gonzedge/rambling-trie/issues/3
 [github-issue-04]: https://github.com/gonzedge/rambling-trie/issues/4
 [github-issue-05]: https://github.com/gonzedge/rambling-trie/issues/5
