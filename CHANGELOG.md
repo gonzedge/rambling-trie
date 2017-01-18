@@ -553,11 +553,81 @@
 
 ## 0.2.0 [compare][compare-v0.1.0-and-v0.2.0]
 
+### Breaking Changes
+
+- Return self after compression by [@gonzedge][github-user-gonzedge]
+- Change `#letter` from string to symbol by [@gonzedge][github-user-gonzedge]
+- Use symbols instead of strings for letters and hash keys by [@gonzedge][github-user-gonzedge]
+
+### Enhancements
+
+#### Major
+
+- Do not compress terminal nodes by [@gonzedge][github-user-gonzedge]
+- Add `#parent` attribute by [@gonzedge][github-user-gonzedge]
+- Add `#terminal?` by [@gonzedge][github-user-gonzedge]
+- Add `#compress!` by [@gonzedge][github-user-gonzedge]
+- Add `#compressed?` by [@gonzedge][github-user-gonzedge]
+- Read file line by line instead of loading it all into memory by
+  [@gonzedge][github-user-gonzedge]
+- Add `ChildrenHashDeferer` and `TrieCompressor` modules by
+  [@gonzedge][github-user-gonzedge]
+    Results of refactoring compression and hash methods
+- Remove `#word` caching for memory gains by [@gonzedge][github-user-gonzedge]
+
+#### Minor
+
+- Added `#transfer_ownership` method by [@gonzedge][github-user-gonzedge]
+
 ## 0.1.0 [compare][compare-v0.0.2-and-v0.1.0]
+
+### Breaking Changes
+
+- Rename `#has_branch_tree?` to `#has_branch_for?` by [@gonzedge][github-user-gonzedge]
+
+### Enhancements
+
+#### Major
+
+- Added project README by [@gonzedge][github-user-gonzedge]
+
+#### Minor
+
+- Set minimum RSpec version to 2.0.0 by [@gonzedge][github-user-gonzedge]
 
 ## 0.0.2 [compare][compare-v0.0.1-and-v0.0.2]
 
+### Breaking Changes
+
+- Make `#get_parent_letter_string` protected by [@gonzedge][github-user-gonzedge]
+
+### Enhancements
+
+#### Major
+
+- Fix empty and nil letter edge case and tests by [@gonzedge][github-user-gonzedge]
+- Add the word caching for terminal nodes by [@gonzedge][github-user-gonzedge]
+- Add `#as_word` by [@gonzedge][github-user-gonzedge]
+- Add `InvalidTrieOperation` by [@gonzedge][github-user-gonzedge]
+
 ## 0.0.1 [compare][compare-v0.0.0-and-v0.0.1]
+
+### Enhancements
+
+#### Major
+
+- Add the `Rambling` module for namespacing by [@gonzedge][github-user-gonzedge]
+- Add `TrieNode` by [@gonzedge][github-user-gonzedge]
+- Add `#is_word?` method by [@gonzedge][github-user-gonzedge]
+- Add `#has_branch_tree?` by [@lilibethdlc][github-user-lilibethdlc]
+- Add methods `#[]` and `#has_key?` to trie node by
+  [@gonzedge][github-user-gonzedge]
+- Add gemspec info draft by [@gonzedge][github-user-gonzedge]
+- Adding correct bundle install source by [@lilibethdlc][github-user-lilibethdlc]
+
+#### Minor
+
+- Revising add branch recursion by [@lilibethdlc][github-user-lilibethdlc]
 
 [compare-v0.0.0-and-v0.0.1]: https://github.com/gonzedge/rambling-trie/compare/v0.0.0...v0.0.1
 [compare-v0.0.1-and-v0.0.2]: https://github.com/gonzedge/rambling-trie/compare/v0.0.1...v0.0.2
