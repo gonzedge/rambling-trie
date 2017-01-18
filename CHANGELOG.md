@@ -456,13 +456,100 @@
 
 ## 0.3.4 [compare][compare-v0.3.3-and-v0.3.4]
 
+### Enhancements
+
+#### Major
+
+- Fix issue with `Rambling::Trie` class definition by
+  [@gonzedge][github-user-gonzedge]
+- Performance improvement on `#has_branch_for?` by
+  [@gonzedge][github-user-gonzedge]
+
+#### Minor
+
+- Add guard to Gemfile by [@gonzedge][github-user-gonzedge]
+- Add simplecov for code coverage by [@gonzedge][github-user-gonzedge]
+- Refactor rambling-trie requires by [@gonzedge][github-user-gonzedge]
+- Remov unnecessary internal `#trie_node` by [@gonzedge][github-user-gonzedge]
+- Refactor specs to "The RSpec Way" by [@gonzedge][github-user-gonzedge]
+- Add new benchmarking report info by [@gonzedge][github-user-gonzedge]
+- Update RubyDoc.info link and compression info by [@gonzedge][github-user-gonzedge]
+
 ## 0.3.3 [compare][compare-v0.3.2-and-v0.3.3]
+
+### Enhancements
+
+#### Major
+
+- Performance improvements for compressed and uncompressed tries by
+  [@gonzedge][github-user-gonzedge]
+- Add API documentation link (rubydoc.info - yard) by
+  [@gonzedge][github-user-gonzedge]
+- Add yard and redcarpet to development dependencies by
+  [@gonzedge][github-user-gonzedge]
+- Add inline documentation for rambling-trie by
+  [@gonzedge][github-user-gonzedge]
+
+#### Minor
+
+- Minor refactoring by [@gonzedge][github-user-gonzedge]
+- Improve `#has_branch_for?` for compressed trie by
+  [@gonzedge][github-user-gonzedge]
+- Update README info for `has_branch_for?` method by [@gonzedge][github-user-gonzedge]
 
 ## 0.3.2 [compare][compare-v0.3.1-and-v0.3.2]
 
+### Enhancements
+
+#### Major
+
+- Fix bug when adding terminal word that exists as non-terminal node by
+  [@gonzedge][github-user-gonzedge]
+- Fix `#has_branch_for?` for compressed trie by
+  [@gonzedge][github-user-gonzedge]
+- Fix `#is_word?` method for compressed trie by
+  [@gonzedge][github-user-gonzedge]
+
+#### Minor
+
+- Refactor branch methods and improve performance a bit by
+  [@gonzedge][github-user-gonzedge]
+- Add performance report file by [@gonzedge][github-user-gonzedge]
+- Add performance report file appending by [@gonzedge][github-user-gonzedge]
+
 ## 0.3.1 [compare][compare-v0.3.0-and-v0.3.1]
 
+### Enhancements
+
+#### Major
+
+- Include version on gemspec from version file by
+  [@gonzedge][github-user-gonzedge]
+- Restrict `#compress!` to `Root` by [@gonzedge][github-user-gonzedge]
+- Move branches logic to own `Branches` module by
+  [@gonzedge][github-user-gonzedge]
+
+#### Minor
+
+- Add first rake tasks and version file by [@gonzedge][github-user-gonzedge]
+- Add performance report tasks by [@gonzedge][github-user-gonzedge]
+
 ## 0.3.0 [compare][compare-v0.2.0-and-v0.3.0]
+
+### Enhancements
+
+#### Major
+
+- Add LICENSE by [@gonzedge][github-user-gonzedge]
+- Handle empty string edge case by [@gonzedge][github-user-gonzedge]
+- Performance gain replacing `block.call` with `Object.send` by
+  [@gonzedge][github-user-gonzedge]
+
+#### Minor
+
+- Refactor `Compressor` by [@gonzedge][github-user-gonzedge]
+- Remove `Gemfile.lock` to avoid hard dependencies by
+  [@gonzedge][github-user-gonzedge]
 
 ## 0.2.0 [compare][compare-v0.1.0-and-v0.2.0]
 
