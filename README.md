@@ -2,7 +2,7 @@
 
 [![Gem Version][badge_fury_badge]][badge_fury_link] [![Dependency Status][gemnasium_badge]][gemnasium_link] [![Build Status][travis_ci_badge]][travis_ci_link] [![Code Climate][code_climate_badge]][code_climage_link] [![Coverage Status][coveralls_badge]][coveralls_link] [![Documentation Status][inch_ci_badge]][inch_ci_link]
 
-The Rambling Trie is a Ruby implementation of the [trie data structure][trie-wiki], which includes compression abilities and is designed to be very fast to traverse.
+The Rambling Trie is a Ruby implementation of the [trie data structure][trie_wiki], which includes compression abilities and is designed to be very fast to traverse.
 
 ## Installing the Rambling Trie
 
@@ -64,7 +64,7 @@ the
 trie
 ```
 
-If you want to use a custom file format, you will need to provide a custom file reader that defines an `#each_word` method that yields each word contained in the file. Look at the [`PlainText` reader][plain-text-reader] class for an example, and at the [Configuration section][configuration] to see how to add your own custom file readers.
+If you want to use a custom file format, you will need to provide a custom file reader that defines an `#each_word` method that yields each word contained in the file. Look at the [`PlainText` reader][rambling_trie_plain_text_reader] class for an example, and at the [Configuration section][rambling_trie_configuration] to see how to add your own custom file readers.
 
 ### Operations
 
@@ -203,8 +203,7 @@ The Rambling Trie has been tested with the following Ruby versions:
 
 ## Contributing to Rambling Trie
 
-If you want to contribute to this project, you will need RSpec to run the tests.
-Also, be sure to add tests for any feature you may develop or bug you may fix.
+Take a look at the [contributing guide][rambling_trie_contributing_guide] to get started, or fire a question to [@gonzedge][github_user_gonzedge]
 
 ## License and copyright
 
@@ -223,20 +222,22 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 [chruby]: https://github.com/postmodern/chruby
 [code_climage_link]: https://codeclimate.com/github/gonzedge/rambling-trie
 [code_climate_badge]: https://codeclimate.com/github/gonzedge/rambling-trie/badges/gpa.svg
-[configuration]: https://github.com/gonzedge/rambling-trie#configuration
 [coveralls_badge]: https://img.shields.io/coveralls/gonzedge/rambling-trie.svg
 [coveralls_link]: https://coveralls.io/r/gonzedge/rambling-trie
 [gemnasium_badge]: https://gemnasium.com/gonzedge/rambling-trie.svg
 [gemnasium_link]: https://gemnasium.com/gonzedge/rambling-trie
+[github_user_gonzedge]: https://github.com/gonzedge
 [inch_ci_badge]: https://inch-ci.org/github/gonzedge/rambling-trie.svg?branch=master
 [inch_ci_link]: https://inch-ci.org/github/gonzedge/rambling-trie
 [marshal]: https://ruby-doc.org/core-2.4.0/Marshal.html
+[rambling_trie_configuration]: https://github.com/gonzedge/rambling-trie#configuration
+[rambling_trie_contributing_guide]: https://github.com/gonzedge/rambling-trie/blob/master/CONTRIBUTING.md
+[rambling_trie_plain_text_reader]: https://github.com/gonzedge/rambling-trie/blob/master/lib/rambling/trie/readers/plain_text.rb
 [rbenv]: https://github.com/sstephenson/rbenv
 [rubydoc]: http://rubydoc.info/gems/rambling-trie
 [rubydoc_github]: http://rubydoc.info/github/gonzedge/rambling-trie
 [rvm]: https://rvm.io
 [travis_ci_badge]: https://travis-ci.org/gonzedge/rambling-trie.svg
 [travis_ci_link]: https://travis-ci.org/gonzedge/rambling-trie
-[trie-wiki]: https://en.wikipedia.org/wiki/Trie
+[trie_wiki]: https://en.wikipedia.org/wiki/Trie
 [yaml]: https://ruby-doc.org/stdlib-2.4.0/libdoc/yaml/rdoc/YAML.html
-[plain-text-reader]: https://github.com/gonzedge/rambling-trie/blob/master/lib/rambling/trie/readers/plain_text.rb
