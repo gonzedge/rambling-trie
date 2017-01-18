@@ -322,9 +322,72 @@
 
 ## 0.5.2 [compare][compare-v0.5.1-and-v0.5.2]
 
+### Enhancements
+
+#### Major
+
+- Add `#to_s` method for node by [@gonzedge][github-user-gonzedge]
+
+#### Minor
+
+- Safer `#letter=` implementation by [@gonzedge][github-user-gonzedge]
+- Refactor `#as_word` to use `#to_s` by [@gonzedge][github-user-gonzedge]
+- Change spec format and remove rails matchers on guard by
+  [@lilibethdlc][github-user-lilibethdlc]
+- Default rspec output to documentation and syntax to `expect` by
+  [@gonzedge][github-user-gonzedge]
+- Require `bundler/gem_tasks` instead of calling `install_tasks` directly by
+  [@lilibethdlc][github-user-lilibethdlc]
+
 ## 0.5.1 [compare][compare-v0.5.0-and-v0.5.1]
 
+### Enhancements
+
+#### Major
+
+- Extract file reading logic into own `PlainTextReader` object by
+  [@gonzedge][github-user-gonzedge]
+- Replace instance variables with attr accessors/writers by
+  [@gonzedge][github-user-gonzedge]
+      Including `#letter`, `#children`, `#terminal`
+
+#### Minor
+
+- Added `#inspect` documentation by [@gonzedge][github-user-gonzedge]
+- Refactor `nil` check by [@gonzedge][github-user-gonzedge]
+- Updated benchmark reports by [@gonzedge][github-user-gonzedge]
+
 ## 0.5.0 [compare][compare-v0.4.2-and-v0.5.0]
+
+### Breaking Changes
+
+- Removed deprecated `Rambling::Trie.new` entry point by
+  [@gonzedge][github-user-gonzedge]
+- Removed deprecated methods by [@gonzedge][github-user-gonzedge]
+    Includes `#has_branch_for?`, `#is_word?` and `#add_branch_from`
+
+### Enhancements
+
+#### Major
+
+- Yield created trie on `Rambling::Trie.create` by
+  [@gonzedge][github-user-gonzedge]
+- Add `Inspector` module for pretty printing by
+  [@lilibethdlc][github-user-lilibethdlc]
+- Rename `#has_branch?` to `#branch?` by [@gonzedge][github-user-gonzedge]
+- Rename `#add_branch` to `#add` by [@gonzedge][github-user-gonzedge]
+- Use faster string concatenation with `#<<` instead of `#+` by
+  [@lilibethdlc][github-user-lilibethdlc]
+- Add missing `InvalidOperation` exception messages by
+  [@gonzedge][github-user-gonzedge]
+
+#### Minor
+
+- Configure specs to be run in random order by [@gonzedge][github-user-gonzedge]
+- Default `word` to `nil` on `Node` initialization by [@gonzedge][github-user-gonzedge]
+- Change required files list from array to `%w{}` by [@gonzedge][github-user-gonzedge]
+- Change expectation syntax from `should` to `expect().to` by [@gonzedge][github-user-gonzedge]
+- Upgrade development dependencies by [@gonzedge][github-user-gonzedge]
 
 ## 0.4.2 [compare][compare-v0.4.1-and-v0.4.2]
 
