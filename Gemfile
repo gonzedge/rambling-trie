@@ -3,6 +3,8 @@ source 'https://rubygems.org'
 
 gemspec
 
+gem 'rubyzip'
+
 group :development do
   gem 'ruby-prof'
   gem 'memory_profiler'

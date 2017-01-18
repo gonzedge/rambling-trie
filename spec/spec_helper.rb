@@ -28,3 +28,4 @@ RSpec.configure do |config|
 end
 
 require 'support/config'
+require 'support/shared_examples/a_serializer'

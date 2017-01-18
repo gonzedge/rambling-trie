@@ -52,11 +52,13 @@ module Rambling
         def reset_serializers
           marshal_serializer = Rambling::Trie::Serializers::Marshal.new
           yaml_serializer = Rambling::Trie::Serializers::Yaml.new
+          zip_serializer = Rambling::Trie::Serializers::Zip.new self
 
           self.serializers = Rambling::Trie::Configuration::ProviderCollection.new 'serializer',
             marshal: marshal_serializer,
             yml: yaml_serializer,
-            yaml: yaml_serializer
+            yaml: yaml_serializer,
+            zip: zip_serializer
         end
       end
     end

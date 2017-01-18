@@ -124,8 +124,30 @@ describe Rambling::Trie do
     context 'when serialized with YAML' do
       it_behaves_like 'a serializable trie' do
         let(:trie_filepath) { "#{trie_filename}.yml" }
-        let(:serializer) { Rambling::Trie::Serializers::Yaml.new }
-        let(:loaded_trie) { Rambling::Trie.load trie_filepath, serializer }
+        let(:loaded_trie) { Rambling::Trie.load trie_filepath }
+        let(:serializer) { nil }
+      end
+    end
+
+    context 'when serialized with zipped Ruby marshal format' do
+      before do
+        require 'zip'
+        @original_on_exists_proc = ::Zip.on_exists_proc
+        @original_continue_on_exists_proc = ::Zip.continue_on_exists_proc
+        ::Zip.on_exists_proc = true
+        ::Zip.continue_on_exists_proc = true
+      end
+
+      after do
+        require 'zip'
+        ::Zip.on_exists_proc = @original_on_exists_proc
+        ::Zip.continue_on_exists_proc = @original_continue_on_exists_proc
+      end
+
+      it_behaves_like 'a serializable trie' do
+        let(:trie_filepath) { "#{trie_filename}.marshal.zip" }
+        let(:loaded_trie) { Rambling::Trie.load trie_filepath }
+        let(:serializer) { nil }
       end
     end
   end

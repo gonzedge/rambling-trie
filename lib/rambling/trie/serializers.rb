@@ -1,4 +1,4 @@
-%w{file marshal yaml}.each do |file|
+%w{file marshal yaml zip}.each do |file|
   require File.join('rambling', 'trie', 'serializers', file)
 end
 
