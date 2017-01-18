@@ -83,7 +83,6 @@ describe Rambling::Trie do
   shared_examples_for 'a serializable trie' do
     context 'and the trie is not compressed' do
       before do
-        # FileUtils.rm_f trie_filepath
         Rambling::Trie.dump trie_to_serialize, trie_filepath, serializer
       end
 
