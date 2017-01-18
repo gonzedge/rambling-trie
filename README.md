@@ -203,7 +203,7 @@ The Rambling Trie has been tested with the following Ruby versions:
 
 ## Contributing to Rambling Trie
 
-Take a look at the [contributing guide][rambling_trie_contributing_guide] to get started, or fire a question to [@gonzedge][github_user_gonzedge]
+Take a look at the [contributing guide][rambling_trie_contributing_guide] to get started, or fire a question to [@gonzedge][github_user_gonzedge].
 
 ## License and copyright
 
