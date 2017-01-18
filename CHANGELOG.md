@@ -353,17 +353,17 @@
 
 #### Minor
 
-- Added `#inspect` documentation by [@gonzedge][github-user-gonzedge]
+- Add `#inspect` documentation by [@gonzedge][github-user-gonzedge]
 - Refactor `nil` check by [@gonzedge][github-user-gonzedge]
-- Updated benchmark reports by [@gonzedge][github-user-gonzedge]
+- Update benchmark reports by [@gonzedge][github-user-gonzedge]
 
 ## 0.5.0 [compare][compare-v0.4.2-and-v0.5.0]
 
 ### Breaking Changes
 
-- Removed deprecated `Rambling::Trie.new` entry point by
+- Remove deprecated `Rambling::Trie.new` entry point by
   [@gonzedge][github-user-gonzedge]
-- Removed deprecated methods by [@gonzedge][github-user-gonzedge]
+- Remove deprecated methods by [@gonzedge][github-user-gonzedge]
     Includes `#has_branch_for?`, `#is_word?` and `#add_branch_from`
 
 ### Enhancements
@@ -397,7 +397,7 @@
 
 - Fix variable mutation on `Root#add_branch_for` [#6][github-issue-06] by
   [@gonzedge][github-user-gonzedge]
-    - Defined `#<<` instead of alias for overriding purposes
+    - Define `#<<` instead of alias for overriding purposes
 - Add `Enumerable` capabilities [#5][github-issue-05] by
   [@gonzedge][github-user-gonzedge]
 - Restructure file/directory tree again by [@gonzedge][github-user-gonzedge]
@@ -428,7 +428,7 @@
 
 #### Minor
 
-- Lowered complexity of `has_branch_for?` implementation for compressed by
+- Lower complexity of `has_branch_for?` implementation for compressed by
   [@gonzedge][github-user-gonzedge]
 - Minor performance improvements for compressed trie by
   [@gonzedge][github-user-gonzedge]
@@ -437,11 +437,13 @@
 
 ## 0.4.0 [compare][compare-v0.3.4-and-v0.4.0]
 
+### Enhancements
+
 #### Major
 
 - Create new `Rambling::Trie.create` API entry point by
   [@gonzedge][github-user-gonzedge]
-- Changed gem name and directory structure to match standard by
+- Change gem name and directory structure to match standard by
   [@gonzedge][github-user-gonzedge]
 
 #### Minor
@@ -449,10 +451,10 @@
 - Update documentation for new entry point by [@gonzedge][github-user-gonzedge]
 - Chang some `describe`s to `context` by [@gonzedge][github-user-gonzedge]
 - Add bundler rake tasks by [@gonzedge][github-user-gonzedge]
-- Updated gemspec to match standard style by [@gonzedge][github-user-gonzedge]
-- Added perftools.rb to the mix (cpu profiling) by
+- Update gemspec to match standard style by [@gonzedge][github-user-gonzedge]
+- Add perftools.rb to the mix (cpu profiling) by
   [@gonzedge][github-user-gonzedge]
-- Removed unused variable by [@gonzedge][github-user-gonzedge]
+- Remove unused variable by [@gonzedge][github-user-gonzedge]
 
 ## 0.3.4 [compare][compare-v0.3.3-and-v0.3.4]
 
