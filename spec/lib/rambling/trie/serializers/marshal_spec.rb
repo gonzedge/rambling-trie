@@ -5,10 +5,10 @@ describe Rambling::Trie::Serializers::Marshal do
 
   let(:words) { %w(a few words to validate that load and dump are working) }
   let(:trie) { Rambling::Trie.create { |t| words.each { |w| t << w } } }
-  let(:filepath) { File.join ::SPEC_ROOT, 'tmp', 'trie-root.marshal' }
 
-  it 'loads the object as it was dumped' do
-    serializer.dump trie.root, filepath
-    expect(serializer.load filepath).to eq trie.root
+  it_behaves_like 'a serializer' do
+    let(:filepath) { File.join ::SPEC_ROOT, 'tmp', 'trie-root.marshal' }
+    let(:content) { trie.root }
+    let(:formatted_content) { Marshal.dump content }
   end
 end
