@@ -26,7 +26,7 @@ module Rambling
       end
 
       def terminal_inspect
-        "terminal: #{terminal?.inspect}"
+        "terminal: #{terminal.inspect}"
       end
 
       def children_inspect
