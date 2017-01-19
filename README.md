@@ -150,7 +150,32 @@ Currently, these formats are supported to store tries on disk:
 - Ruby's [binary (Marshal)][marshal] format
 - [YAML][yaml]
 
-When dumping into or loading from disk, the format is determined automatically based on the file extension.
+> When dumping into or loading from disk, the format is determined
+> automatically based on the file extension, so `.yml` or `.yaml` files will be
+> handled through `YAML` and `.marshal` files through `Marshal`.
+
+Optionally, you can use a `.zip` version of the supported formats. In order to do so, you'll have to install the [`rubyzip`][rubyzip] gem:
+
+``` bash
+gem install rubyzip
+```
+
+Or, include it in your `Gemfile` and bundle it:
+
+``` ruby
+gem 'rubyzip'
+```
+
+Then, you can load contents form a `.zip` file like this:
+
+``` ruby
+require 'zip'
+trie = Rambling::Trie.load trie, '/path/to/file.zip'
+```
+
+> For `.zip` files, the format is also determined automatically based on the
+> file extension, so `.yml.zip` or `.yaml.zip` files will be handled through
+> `YAML` after decompression and `.marshal.zip` files through `Marshal`.
 
 ### Configuration
 
@@ -236,6 +261,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 [rbenv]: https://github.com/sstephenson/rbenv
 [rubydoc]: http://rubydoc.info/gems/rambling-trie
 [rubydoc_github]: http://rubydoc.info/github/gonzedge/rambling-trie
+[rubyzip]: https://github.com/rubyzip/rubyzip
 [rvm]: https://rvm.io
 [travis_ci_badge]: https://travis-ci.org/gonzedge/rambling-trie.svg
 [travis_ci_link]: https://travis-ci.org/gonzedge/rambling-trie
