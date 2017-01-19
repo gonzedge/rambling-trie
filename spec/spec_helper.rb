@@ -28,4 +28,7 @@ RSpec.configure do |config|
 end
 
 require 'support/config'
+require 'support/shared_examples/a_compressable_trie'
+require 'support/shared_examples/a_serializable_trie'
 require 'support/shared_examples/a_serializer'
+require 'support/shared_examples/a_trie_data_structure'
