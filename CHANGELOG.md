@@ -15,6 +15,11 @@
 - Add `Serializers` to dump trie into/load trie from disk
   [#10][github_issue_10] by [@gonzedge][github_user_gonzedge]
 
+    - Supported formats include Ruby's `Marshal` (`.marshal`) and `YAML`
+      (`.yaml` or `.yml`)
+    - The format to use is determined by the filepath extension and
+      `Marshal` is used when a format isn't recognized.
+
     ``` ruby
     # Save `your_trie` into a file
     Rambling::Trie.dump your_trie, 'a filename'
@@ -22,6 +27,12 @@
     # Load a trie from a file into memory
     trie = Rambling::Trie.load 'a filename'
     ```
+
+- Add `Serializers::Zip` to handle zip files by
+  [@gonzedge][github_user_gonzedge]
+
+    Automatically detects `.marshal` and `.yaml` files, as well as any
+    configured `Serializer` based on filepath extension
 
 - Add ability to configure `rambling-trie` [#11][github_issue_11]
   by [@gonzedge][github_user_gonzedge]
@@ -44,6 +55,8 @@
     Contained in `Rambling::Trie::Comparable` module. Two nodes are equal to
     each other if they have the same letter, they are both either terminal or
     non-terminal and their children tree is the same
+- Add changelog by [@gonzedge][github_user_gonzedge]
+- Add contributing guide by [@gonzedge][github_user_gonzedge]
 
 #### Minor
 
@@ -349,7 +362,8 @@
   [@gonzedge][github_user_gonzedge]
 - Replace instance variables with attr accessors/writers by
   [@gonzedge][github_user_gonzedge]
-      Including `#letter`, `#children`, `#terminal`
+
+    Including `#letter`, `#children`, `#terminal`
 
 #### Minor
 
@@ -364,6 +378,7 @@
 - Remove deprecated `Rambling::Trie.new` entry point by
   [@gonzedge][github_user_gonzedge]
 - Remove deprecated methods by [@gonzedge][github_user_gonzedge]
+
     Includes `#has_branch_for?`, `#is_word?` and `#add_branch_from`
 
 ### Enhancements
@@ -401,6 +416,7 @@
 - Add `Enumerable` capabilities [#5][github_issue_05] by
   [@gonzedge][github_user_gonzedge]
 - Restructure file/directory tree again by [@gonzedge][github_user_gonzedge]
+
     Files now live under `lib/rambling/trie` instead of `lib/rambling-trie`
 
 #### Minor
