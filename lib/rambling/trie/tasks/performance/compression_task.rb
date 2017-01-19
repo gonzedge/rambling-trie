@@ -13,6 +13,8 @@ module Performance
     end
 
     def execute reporter_class
+      require 'rambling-trie'
+
       reporter = reporter_class.new name
 
       tries = []
