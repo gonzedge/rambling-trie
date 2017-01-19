@@ -9,6 +9,8 @@ module Performance
     end
 
     def execute reporter_class, trie
+      require 'rambling-trie'
+
       reporter = reporter_class.new filename trie
       reporter.report iterations, params do |word|
         trie.partial_word? word
