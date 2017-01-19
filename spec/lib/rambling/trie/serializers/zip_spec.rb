@@ -25,6 +25,6 @@ describe Rambling::Trie::Serializers::Zip do
       io.write content
     end
     io.rewind
-    io.sysread
+    io.read
   end
 end
