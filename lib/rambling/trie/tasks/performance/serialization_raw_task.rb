@@ -13,8 +13,6 @@ module Performance
     end
 
     def execute reporter_class
-      require 'rambling-trie'
-
       reporter = reporter_class.new filename
       reporter.report iterations, params do
         Rambling::Trie.load raw_trie_path; nil
