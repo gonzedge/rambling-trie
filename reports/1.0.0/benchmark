@@ -19,7 +19,7 @@ Benchmarks for rambling-trie version 1.0.0
                                 2.440000   0.060000   2.500000 (  2.505485)
 
 ==> Lookups - `word?`
---- Uncompressed
+--- Raw
 200000 iterations - hi                  true
                                 0.230000   0.000000   0.230000 (  0.238253)
 200000 iterations - help                true
@@ -43,7 +43,7 @@ Benchmarks for rambling-trie version 1.0.0
                                 1.240000   0.000000   1.240000 (  1.244606)
 
 ==> Lookups - `partial_word?`
---- Uncompressed
+--- Raw
 200000 iterations - hi                  true
                                 0.290000   0.000000   0.290000 (  0.294087)
 200000 iterations - help                true
@@ -67,7 +67,7 @@ Benchmarks for rambling-trie version 1.0.0
                                 4.250000   0.010000   4.260000 (  4.293205)
 
 ==> Lookups - `scan`
---- Uncompressed
+--- Raw
 1000 iterations - hi                    495
                                 1.860000   0.010000   1.870000 (  1.874963)
 100000 iterations - help                20
@@ -89,3 +89,15 @@ Benchmarks for rambling-trie version 1.0.0
                                 5.350000   0.010000   5.360000 (  5.403594)
 200000 iterations - anthropological     2
                                 5.430000   0.020000   5.450000 (  5.461206)
+
+==> Lookups - `words_within`
+--- Raw
+100000 iterations - ifdxawesome45someword319
+                                7.640000   0.070000   7.710000 (  7.833935)
+100000 iterations - ifdx45someword3awesome19
+                                7.460000   0.060000   7.520000 (  7.618171)
+--- Compressed
+100000 iterations - ifdxawesome45someword38
+                               13.000000   0.060000  13.060000 ( 13.146209)
+100000 iterations - ifdx45someword3awesome12
+                               13.240000   0.090000  13.330000 ( 13.465154)

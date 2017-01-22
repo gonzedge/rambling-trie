@@ -6,6 +6,7 @@ require_relative 'creation_task'
 require_relative 'lookups_partial_word_task'
 require_relative 'lookups_scan_task'
 require_relative 'lookups_word_task'
+require_relative 'lookups_words_within_task'
 require_relative 'serialization_compressed_task'
 require_relative 'serialization_raw_task'
 
@@ -97,6 +98,16 @@ module Performance
             task.execute Performance::Benchmark, trie
           end
         end,
+        'lookups:words_within' => lambda do |output|
+          output.puts
+          output.puts '==> Lookups - `words_within`'
+
+          task = Performance::LookupsWordsWithinTask.new
+          tries.each do |trie|
+            output.puts "--- #{trie.compressed? ? 'Compressed' : 'Raw'}"
+            task.execute Performance::Benchmark, trie
+          end
+        end,
         'lookups:scan' => lambda do |output|
           output.puts
           output.puts '==> Lookups - `scan`'
@@ -136,6 +147,12 @@ module Performance
         end,
         'lookups:partial_word' => lambda do |output|
           task = Performance::LookupsPartialWordTask.new
+          tries.each do |trie|
+            task.execute Performance::CallTreeProfile, trie
+          end
+        end,
+        'lookups:words_within' => lambda do |output|
+          task = Performance::LookupsWordsWithinTask.new
           tries.each do |trie|
             task.execute Performance::CallTreeProfile, trie
           end
@@ -182,6 +199,12 @@ module Performance
             task.execute Performance::MemoryProfile, trie
           end
         end,
+        'lookups:words_within' => lambda do |output|
+          task = Performance::LookupsWordsWithinTask.new 10
+          tries.each do |trie|
+            task.execute Performance::MemoryProfile, trie
+          end
+        end,
         'lookups:scan' => lambda do |output|
           task = Performance::LookupsScanTask.new(
             hi: 1,
@@ -224,6 +247,12 @@ module Performance
         end,
         'lookups:partial_word' => lambda do |output|
           task = Performance::LookupsPartialWordTask.new 1
+          tries.each do |trie|
+            task.execute Performance::FlamegraphProfile, trie
+          end
+        end,
+        'lookups:words_within' => lambda do |output|
+          task = Performance::LookupsWordsWithinTask.new 1
           tries.each do |trie|
             task.execute Performance::FlamegraphProfile, trie
           end
