@@ -68,42 +68,42 @@ If you want to use a custom file format, you will need to provide a custom file 
 
 ### Operations
 
-To add new words to the trie, use `add` or its alias `<<`:
+To add new words to the trie, use `#add` or its alias `#<<`:
 
 ``` ruby
 trie.add 'word'
 trie << 'word'
 ```
 
-And to find out if a word already exists in the trie, use `word?` or its alias `include?`:
+And to find out if a word already exists in the trie, use `#word?` or its alias `#include?`:
 
 ``` ruby
 trie.word? 'word'
 trie.include? 'word'
 ```
 
-If you wish to find if part of a word exists in the trie instance, you should call `partial_word?` or its alias `match?`:
+If you wish to find if part of a word exists in the trie instance, you should call `#partial_word?` or its alias `#match?`:
 
 ``` ruby
 trie.partial_word? 'partial_word'
 trie.match? 'partial_word'
 ```
 
-To get all the words that start with a particular string, you can use `scan` or its alias `words`:
+To get all the words that start with a particular string, you can use `#scan` or its alias `#words`:
 
 ``` ruby
 trie.scan 'hi' # => ['hi', 'high', 'highlight', ...]
 trie.words 'hi' # => ['hi', 'high', 'highlight', ...]
 ```
 
-To get all the words within a given string, you can use `words_within`:
+To get all the words within a given string, you can use `#words_within`:
 
 ``` ruby
 trie.words_within 'ifdxawesome45someword3' # => ['if', 'aw', 'awe', ...]
 trie.words_within 'tktktktk' # => []
 ```
 
-Or, if you're just interested in knowing whether a given string contains any valid words or not, you can use `words_within?`:
+Or, if you're just interested in knowing whether a given string contains any valid words or not, you can use `#words_within?`:
 
 ``` ruby
 trie.words_within? 'ifdxawesome45someword3' # => true
@@ -112,7 +112,7 @@ trie.words_within? 'tktktktk' # => false
 
 ### Compression
 
-By default, the Rambling Trie works as a standard trie. Starting from version 0.1.0, you can obtain a compressed trie from the standard one, by using the compression feature. Just call the `compress!` method on the trie instance:
+By default, the Rambling Trie works as a standard trie. Starting from version 0.1.0, you can obtain a compressed trie from the standard one, by using the compression feature. Just call the `#compress!` method on the trie instance:
 
 ``` ruby
 trie.compress!
@@ -120,11 +120,11 @@ trie.compress!
 
 This will reduce the size of the trie by using redundant node elimination (redundant nodes are the only-child non-terminal nodes).
 
-> _**Note**: The `compress!` method acts over the trie instance it belongs to
+> _**Note**: The `#compress!` method acts over the trie instance it belongs to
 > and is destructive. Also, adding words after compression (with `#add` or
 > `#<<`) is not supported._
 
-You can find out if a trie instance is compressed by calling the `compressed?` method:
+You can find out if a trie instance is compressed by calling the `#compressed?` method:
 
 ``` ruby
 trie.compressed?
