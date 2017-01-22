@@ -69,7 +69,7 @@ module Rambling
       # Checks if a whole word exists in the trie.
       # @param [String] word the word to look for in the trie.
       # @return [Boolean] `true` only if the word is found and the last
-      #   character corresponds to a terminal node.
+      #   character corresponds to a terminal node, `false` otherwise.
       # @see RawNode#word?
       # @see CompressedNode#word?
       def word? word = ''
@@ -86,10 +86,22 @@ module Rambling
         root.scan(word.chars).to_a
       end
 
+      # Returns all words within a string that match a word contained in the
+      # trie.
+      # @param [String] phrase the string to look for matching words in.
+      # @return [Enumerator<String>] all the words in the given string that
+      #   match a word in the trie.
+      # @yield [String] each word found in phrase.
+      # @see Node#words_within
       def words_within phrase
         words_within_root(phrase).to_a
       end
 
+      # Checks if there are any valid words in a given string.
+      # @param [String] phrase the string to look for matching words in.
+      # @return [Boolean] `true` if any word within phrase is contained in the
+      #   trie, `false` otherwise.
+      # @see Container#words_within
       def words_within? phrase
         words_within_root(phrase).any?
       end

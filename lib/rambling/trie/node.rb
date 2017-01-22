@@ -75,6 +75,11 @@ module Rambling
         end
       end
 
+      # Returns all words that match a prefix of any length within chars.
+      # @param [String] chars the chars to base the prefix on.
+      # @return [Enumerator<String>] all the words that match a prefix given by
+      #   chars.
+      # @yield [String] each word found.
       def match_prefix chars
         return enum_for :match_prefix, chars unless block_given?
 
