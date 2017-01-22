@@ -50,6 +50,11 @@
     end
     ```
 
+- Add `#words_within` and `#words_within?` to get all words matched within a
+    given string [#9][github_issue_09] by [@gonzedge][github_user_gonzedge]
+
+    - `#words_within` returns all the matched words
+    - `#words_within?` returns `true` as soon as it finds one matching word
 - Add `#==` to compare nodes by [@gonzedge][github_user_gonzedge]
 
     Contained in `Rambling::Trie::Comparable` module. Two nodes are equal to
@@ -67,6 +72,8 @@
     - Rename `Compression` to `Compressable`
     - Rename `Inspector` to `Inspectable`
 - Add `#terminal?` value to inspect output by [@gonzedge][github_user_gonzedge]
+- Display value of `#terminal` instead of `#terminal?` when `Node` is inspected
+  by [@gonzedge][github_user_gonzedge]
 - Freeze `Rambling::Trie::VERSION` by [@gonzedge][github_user_gonzedge]
 - Refactor performance instrumentation tasks by
   [@gonzedge][github_user_gonzedge]
@@ -683,6 +690,7 @@
 [github_issue_06]: https://github.com/gonzedge/rambling-trie/issues/6
 [github_issue_07]: https://github.com/gonzedge/rambling-trie/issues/7
 [github_issue_08]: https://github.com/gonzedge/rambling-trie/issues/8
+[github_issue_09]: https://github.com/gonzedge/rambling-trie/issues/9
 [github_issue_10]: https://github.com/gonzedge/rambling-trie/issues/10
 [github_issue_11]: https://github.com/gonzedge/rambling-trie/issues/11
 [github_user_gonzedge]: https://github.com/gonzedge
