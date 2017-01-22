@@ -1,5 +1,9 @@
+require_relative 'path'
+
 module Helpers
   module Trie
+    include Helpers::Path
+
     def tries
       require 'rambling-trie'
 
