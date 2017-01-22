@@ -444,12 +444,9 @@ describe Rambling::Trie::Container do
   describe '#scan' do
     context 'words that match are not contained' do
       before do
-        container.add 'hi'
-        container.add 'hello'
-        container.add 'high'
-        container.add 'hell'
-        container.add 'highlight'
-        container.add 'histerical'
+        %w(hi hello high hell highlight histerical).each do |word|
+          container.add word
+        end
       end
 
       it 'returns an array with the words that match' do
@@ -504,6 +501,101 @@ describe Rambling::Trie::Container do
         it 'returns an empty array' do
           expect(container.scan 'hi').to eq []
         end
+      end
+    end
+  end
+
+  describe '#words_within' do
+    before do
+      %w(one word and other words).each do |word|
+        container.add word
+      end
+    end
+
+    context 'phrase does not contain any words' do
+      it 'returns an empty array' do
+        expect(container.words_within 'xyz').to match_array []
+      end
+
+      context 'and the node is compressed' do
+        before do
+          container.compress!
+        end
+
+        it 'returns an empty array' do
+          expect(container.words_within 'xyz').to match_array []
+        end
+      end
+    end
+
+    context 'phrase contains one word at the start of the phrase' do
+      it 'returns an array with the word found in the phrase' do
+        expect(container.words_within 'word').to match_array %w(word)
+        expect(container.words_within 'wordxyz').to match_array %w(word)
+      end
+
+      context 'and the node is compressed' do
+        before do
+          container.compress!
+        end
+
+        it 'returns an array with the word found in the phrase' do
+          expect(container.words_within 'word').to match_array %w(word)
+          expect(container.words_within 'wordxyz').to match_array %w(word)
+        end
+      end
+    end
+
+    context 'phrase contains one word at the end of the phrase' do
+      it 'returns an array with the word found in the phrase' do
+        expect(container.words_within 'xyz word').to match_array %w(word)
+      end
+
+      context 'and the node is compressed' do
+        before do
+          container.compress!
+        end
+
+        it 'returns an array with the word found in the phrase' do
+          expect(container.words_within 'xyz word').to match_array %w(word)
+        end
+      end
+    end
+
+    context 'phrase contains a few words' do
+      it 'returns an array with all words found in the phrase' do
+        expect(container.words_within 'xyzword otherzxyone').to match_array %w(word other one)
+      end
+
+      context 'and the node is compressed' do
+        before do
+          container.compress!
+        end
+
+        it 'returns an array with all words found in the phrase' do
+          expect(container.words_within 'xyzword otherzxyone').to match_array %w(word other one)
+        end
+      end
+    end
+  end
+
+  describe '#words_within?' do
+    before do
+      %w(one word and other words).each do |word|
+        container.add word
+      end
+    end
+
+    context 'phrase does not contain any words' do
+      it 'returns false' do
+        expect(container.words_within? 'xyz').to be false
+      end
+    end
+
+    context 'phrase contains any word' do
+      it 'returns true' do
+        expect(container.words_within? 'xyz words').to be true
+        expect(container.words_within? 'xyzone word').to be true
       end
     end
   end

@@ -75,6 +75,15 @@ module Rambling
         end
       end
 
+      def match_prefix chars
+        return enum_for :match_prefix, chars unless block_given?
+
+        yield as_word if terminal?
+        children_match_prefix chars do |word|
+          yield word
+        end
+      end
+
       private
 
       attr_accessor :terminal
