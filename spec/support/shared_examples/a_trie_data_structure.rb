@@ -1,5 +1,5 @@
 shared_examples_for 'a trie data structure' do
-  it 'contains all the words from the file' do
+  it 'contains all the words previously provided' do
     words.each do |word|
       expect(trie).to include word
       expect(trie.word? word).to be true
@@ -12,6 +12,14 @@ shared_examples_for 'a trie data structure' do
       expect(trie.match? word[0..-2]).to be true
       expect(trie.partial_word? word).to be true
       expect(trie.partial_word? word[0..-2]).to be true
+    end
+  end
+
+  it 'identifies words within larger strings' do
+    words.each do |word|
+      phrase = "x#{word}y"
+      expect(trie.words_within phrase).to include word
+      expect(trie.words_within? phrase).to be true
     end
   end
 

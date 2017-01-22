@@ -77,6 +77,20 @@ module Rambling
 
         child ? child.scan(chars) : Rambling::Trie::MissingNode.new
       end
+
+      def children_match_prefix chars
+        return enum_for :children_match_prefix, chars unless block_given?
+
+        if !chars.empty?
+          letter = chars.slice!(0).to_sym
+          child = children_tree[letter]
+          if child
+            child.match_prefix chars do |word|
+              yield word
+            end
+          end
+        end
+      end
     end
   end
 end

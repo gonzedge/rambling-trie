@@ -346,4 +346,44 @@ describe Rambling::Trie::RawNode do
       end
     end
   end
+
+  describe '#match_prefix' do
+    before do
+      node.letter = :i
+      node.add 'gnite'
+      node.add 'mport'
+      node.add 'mportant'
+      node.add 'mportantly'
+    end
+
+    context 'when the node is terminal' do
+      before do
+        node.terminal!
+      end
+
+      it 'adds itself to the words' do
+        expect(node.match_prefix %w(g n i t e)).to include 'i'
+      end
+    end
+
+    context 'when the node is not terminal' do
+      it 'does not add itself to the words' do
+        expect(node.match_prefix %w(g n i t e)).not_to include 'i'
+      end
+    end
+
+    context 'when the first few chars match a terminal node' do
+      it 'adds those terminal nodes to the words' do
+        words = node.match_prefix(%w(m p o r t a n t l y)).to_a
+        expect(words).to include 'import', 'important', 'importantly'
+      end
+    end
+
+    context 'when the first few chars do not match a terminal node' do
+      it 'does not add any other words found' do
+        words = node.match_prefix(%w(m p m p o r t a n t l y)).to_a
+        expect(words).not_to include 'import', 'important', 'importantly'
+      end
+    end
+  end
 end

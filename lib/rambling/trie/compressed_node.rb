@@ -67,6 +67,28 @@ module Rambling
         recursive_get(:scan, chars) || Rambling::Trie::MissingNode.new
       end
 
+      def children_match_prefix chars
+        return enum_for :children_match_prefix, chars unless block_given?
+
+        current_key = nil
+
+        while !chars.empty?
+          if current_key
+            current_key << chars.slice!(0)
+          else
+            current_key = chars.slice!(0)
+          end
+
+          child = children_tree[current_key.to_sym]
+
+          if child
+            child.match_prefix chars do |word|
+              yield word
+            end
+          end
+        end
+      end
+
       def recursive_get method, chars
         current_length = 0
         current_key = current_key chars.slice!(0)

@@ -86,6 +86,14 @@ module Rambling
         root.scan(word.chars).to_a
       end
 
+      def words_within phrase
+        words_within_root(phrase).to_a
+      end
+
+      def words_within? phrase
+        words_within_root(phrase).any?
+      end
+
       # Compares two trie data structures.
       # @param [Container] other the trie to compare against.
       # @return [Boolean] `true` if the tries are equal, `false` otherwise.
@@ -102,6 +110,18 @@ module Rambling
 
       attr_reader :compressor
       attr_writer :root
+
+      def words_within_root phrase
+        return enum_for :words_within_root, phrase unless block_given?
+
+        chars = phrase.chars
+        0.upto(chars.length - 1).each do |starting_index|
+          new_phrase = chars.slice starting_index..(chars.length - 1)
+          root.match_prefix new_phrase do |word|
+            yield word
+          end
+        end
+      end
     end
   end
 end
