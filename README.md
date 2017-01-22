@@ -96,6 +96,20 @@ trie.scan 'hi' # => ['hi', 'high', 'highlight', ...]
 trie.words 'hi' # => ['hi', 'high', 'highlight', ...]
 ```
 
+To get all the words within a given string, you can use `words_within`:
+
+``` ruby
+trie.words_within 'ifdxawesome45someword3' # => ['if', 'aw', 'awe', ...]
+trie.words_within 'tktktktk' # => []
+```
+
+Or, if you're just interested in knowing whether a given string contains any valid words or not, you can use `words_within?`:
+
+``` ruby
+trie.words_within? 'ifdxawesome45someword3' # => true
+trie.words_within? 'tktktktk' # => false
+```
+
 ### Compression
 
 By default, the Rambling Trie works as a standard trie. Starting from version 0.1.0, you can obtain a compressed trie from the standard one, by using the compression feature. Just call the `compress!` method on the trie instance:
