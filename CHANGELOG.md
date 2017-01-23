@@ -1,8 +1,8 @@
 # Changelog
 
-## 1.0.1 [compare][compare_v1.0.0_and_master]
+## 1.0.1 [compare][compare_v1_0_0_and_master]
 
-## 1.0.0 [compare][compare_v0.9.3_and_v1.0.0]
+## 1.0.0 [compare][compare_v0_9_3_and_v1_0_0]
 
 ### Breaking Changes
 
@@ -90,7 +90,7 @@
   [@gonzedge][github_user_gonzedge]
 - Update license year by [@gonzedge][github_user_gonzedge]
 
-## 0.9.3 [compare][compare_v0.9.2_and_v0.9.3]
+## 0.9.3 [compare][compare_v0_9_2_and_v0_9_3]
 
 ### Enhancements
 
@@ -129,7 +129,7 @@
 - Move rspec config from .rspec to spec_helper by
   [@gonzedge][github_user_gonzedge]
 
-## 0.9.2 [compare][compare_v0.9.1_and_v0.9.2]
+## 0.9.2 [compare][compare_v0_9_1_and_v0_9_2]
 
 ### Enhancements
 
@@ -152,7 +152,7 @@
 - Unify `#scan` implementation between `Raw` and `Compressed` node by
   [@gonzedge][github_user_gonzedge]
 
-## 0.9.1 [compare][compare_v0.9.0_and_v0.9.1]
+## 0.9.1 [compare][compare_v0_9_0_and_v0_9_1]
 
 ### Enhancements
 
@@ -183,7 +183,7 @@
   [@gonzedge][github_user_gonzedge]
 - Split out benchmark reports per version by [@gonzedge][github_user_gonzedge]
 
-## 0.9.0 [compare][compare_v0.8.1_and_v0.9.0]
+## 0.9.0 [compare][compare_v0_8_1_and_v0_9_0]
 
 ### Breaking Changes
 
@@ -245,7 +245,7 @@
     Include memory profiles, call tree profiles and benchmark measurements for
     `#scan` method
 
-## 0.8.1 [compare][compare_v0.8.0_and_v0.8.1]
+## 0.8.1 [compare][compare_v0_8_0_and_v0_8_1]
 
 ### Enhancements
 
@@ -256,7 +256,7 @@
 - Add Ruby 2.2.5, 2.2.6, 2.3.1, 2.3.2 and 2.3.3 to supported versions by
   [@gonzedge][github_user_gonzedge]
 
-## 0.8.0 [compare][compare_v0.7.0_and_v0.8.0]
+## 0.8.0 [compare][compare_v0_7_0_and_v0_8_0]
 
 ### Breaking Changes
 
@@ -278,7 +278,7 @@
 
 - Update license date by [@gonzedge][github_user_gonzedge]
 
-## 0.7.0 [compare][compare_v0.6.1_and_v0.7.0]
+## 0.7.0 [compare][compare_v0_6_1_and_v0_7_0]
 
 ### Breaking Changes
 
@@ -308,7 +308,7 @@
     This avoids having to call `.alias_method` again for
     `#add` method overloads.
 
-## 0.6.1 [compare][compare_v0.6.0_and_v0.6.1]
+## 0.6.1 [compare][compare_v0_6_0_and_v0_6_1]
 
 ### Enhancements
 
@@ -317,7 +317,7 @@
 - Performance improvements on uncompressed `#word?` and `#partial_word?` by
   [@gonzedge][github_user_gonzedge]
 
-## 0.6.0 [compare][compare_v0.5.2_and_v0.6.0]
+## 0.6.0 [compare][compare_v0_5_2_and_v0_6_0]
 
 ### Breaking Changes
 
@@ -343,7 +343,7 @@
 - Specify 'MIT License' in the license file by [@gonzedge][github_user_gonzedge]
 - Update license year by [@gonzedge][github_user_gonzedge]
 
-## 0.5.2 [compare][compare_v0.5.1_and_v0.5.2]
+## 0.5.2 [compare][compare_v0_5_1_and_v0_5_2]
 
 ### Enhancements
 
@@ -362,7 +362,7 @@
 - Require `bundler/gem_tasks` instead of calling `install_tasks` directly by
   [@lilibethdlc][github_user_lilibethdlc]
 
-## 0.5.1 [compare][compare_v0.5.0_and_v0.5.1]
+## 0.5.1 [compare][compare_v0_5_0_and_v0_5_1]
 
 ### Enhancements
 
@@ -381,7 +381,7 @@
 - Refactor `nil` check by [@gonzedge][github_user_gonzedge]
 - Update benchmark reports by [@gonzedge][github_user_gonzedge]
 
-## 0.5.0 [compare][compare_v0.4.2_and_v0.5.0]
+## 0.5.0 [compare][compare_v0_4_2_and_v0_5_0]
 
 ### Breaking Changes
 
@@ -414,7 +414,7 @@
 - Change expectation syntax from `should` to `expect().to` by [@gonzedge][github_user_gonzedge]
 - Upgrade development dependencies by [@gonzedge][github_user_gonzedge]
 
-## 0.4.2 [compare][compare_v0.4.1_and_v0.4.2]
+## 0.4.2 [compare][compare_v0_4_1_and_v0_4_2]
 
 ### Enhancements
 
@@ -434,7 +434,7 @@
 - Fix param name for `#create` and `#new` by [@gonzedge][github_user_gonzedge]
 - Adding Travis CI configuration by [@gonzedge][github_user_gonzedge]
 
-## 0.4.1 [compare][compare_v0.4.0_and_v0.4.1]
+## 0.4.1 [compare][compare_v0_4_0_and_v0_4_1]
 
 ### Breaking Changes
 
@@ -461,7 +461,7 @@
 - Use new `#<<` method in place of `#add_branch_from` by
   [@gonzedge][github_user_gonzedge]
 
-## 0.4.0 [compare][compare_v0.3.4_and_v0.4.0]
+## 0.4.0 [compare][compare_v0_3_4_and_v0_4_0]
 
 ### Enhancements
 
@@ -482,7 +482,7 @@
   [@gonzedge][github_user_gonzedge]
 - Remove unused variable by [@gonzedge][github_user_gonzedge]
 
-## 0.3.4 [compare][compare_v0.3.3_and_v0.3.4]
+## 0.3.4 [compare][compare_v0_3_3_and_v0_3_4]
 
 ### Enhancements
 
@@ -503,7 +503,7 @@
 - Add new benchmarking report info by [@gonzedge][github_user_gonzedge]
 - Update RubyDoc.info link and compression info by [@gonzedge][github_user_gonzedge]
 
-## 0.3.3 [compare][compare_v0.3.2_and_v0.3.3]
+## 0.3.3 [compare][compare_v0_3_2_and_v0_3_3]
 
 ### Enhancements
 
@@ -525,7 +525,7 @@
   [@gonzedge][github_user_gonzedge]
 - Update README info for `has_branch_for?` method by [@gonzedge][github_user_gonzedge]
 
-## 0.3.2 [compare][compare_v0.3.1_and_v0.3.2]
+## 0.3.2 [compare][compare_v0_3_1_and_v0_3_2]
 
 ### Enhancements
 
@@ -545,7 +545,7 @@
 - Add performance report file by [@gonzedge][github_user_gonzedge]
 - Add performance report file appending by [@gonzedge][github_user_gonzedge]
 
-## 0.3.1 [compare][compare_v0.3.0_and_v0.3.1]
+## 0.3.1 [compare][compare_v0_3_0_and_v0_3_1]
 
 ### Enhancements
 
@@ -562,7 +562,7 @@
 - Add first rake tasks and version file by [@gonzedge][github_user_gonzedge]
 - Add performance report tasks by [@gonzedge][github_user_gonzedge]
 
-## 0.3.0 [compare][compare_v0.2.0_and_v0.3.0]
+## 0.3.0 [compare][compare_v0_2_0_and_v0_3_0]
 
 ### Enhancements
 
@@ -579,7 +579,7 @@
 - Remove `Gemfile.lock` to avoid hard dependencies by
   [@gonzedge][github_user_gonzedge]
 
-## 0.2.0 [compare][compare_v0.1.0_and_v0.2.0]
+## 0.2.0 [compare][compare_v0_1_0_and_v0_2_0]
 
 ### Breaking Changes
 
@@ -607,7 +607,7 @@
 
 - Added `#transfer_ownership` method by [@gonzedge][github_user_gonzedge]
 
-## 0.1.0 [compare][compare_v0.0.2_and_v0.1.0]
+## 0.1.0 [compare][compare_v0_0_2_and_v0_1_0]
 
 ### Breaking Changes
 
@@ -623,7 +623,7 @@
 
 - Set minimum RSpec version to 2.0.0 by [@gonzedge][github_user_gonzedge]
 
-## 0.0.2 [compare][compare_v0.0.1_and_v0.0.2]
+## 0.0.2 [compare][compare_v0_0_1_and_v0_0_2]
 
 ### Breaking Changes
 
@@ -638,7 +638,7 @@
 - Add `#as_word` by [@gonzedge][github_user_gonzedge]
 - Add `InvalidTrieOperation` by [@gonzedge][github_user_gonzedge]
 
-## 0.0.1 [compare][compare_v0.0.0_and_v0.0.1]
+## 0.0.1 [compare][compare_v0_0_0_and_v0_0_1]
 
 ### Enhancements
 
@@ -657,33 +657,33 @@
 
 - Revising add branch recursion by [@lilibethdlc][github_user_lilibethdlc]
 
-[compare_v0.0.0_and_v0.0.1]: https://github.com/gonzedge/rambling-trie/compare/v0.0.0...v0.0.1
-[compare_v0.0.1_and_v0.0.2]: https://github.com/gonzedge/rambling-trie/compare/v0.0.1...v0.0.2
-[compare_v0.0.2_and_v0.1.0]: https://github.com/gonzedge/rambling-trie/compare/v0.0.2...v0.1.0
-[compare_v0.1.0_and_v0.2.0]: https://github.com/gonzedge/rambling-trie/compare/v0.1.0...v0.2.0
-[compare_v0.2.0_and_v0.3.0]: https://github.com/gonzedge/rambling-trie/compare/v0.2.0...v0.3.0
-[compare_v0.3.0_and_v0.3.1]: https://github.com/gonzedge/rambling-trie/compare/v0.3.0...v0.3.1
-[compare_v0.3.1_and_v0.3.2]: https://github.com/gonzedge/rambling-trie/compare/v0.3.1...v0.3.2
-[compare_v0.3.2_and_v0.3.3]: https://github.com/gonzedge/rambling-trie/compare/v0.3.2...v0.3.3
-[compare_v0.3.3_and_v0.3.4]: https://github.com/gonzedge/rambling-trie/compare/v0.3.3...v0.3.4
-[compare_v0.3.4_and_v0.4.0]: https://github.com/gonzedge/rambling-trie/compare/v0.3.4...v0.4.0
-[compare_v0.4.0_and_v0.4.1]: https://github.com/gonzedge/rambling-trie/compare/v0.4.0...v0.4.1
-[compare_v0.4.1_and_v0.4.2]: https://github.com/gonzedge/rambling-trie/compare/v0.4.1...v0.4.2
-[compare_v0.4.2_and_v0.5.0]: https://github.com/gonzedge/rambling-trie/compare/v0.4.2...v0.5.0
-[compare_v0.5.0_and_v0.5.1]: https://github.com/gonzedge/rambling-trie/compare/v0.5.0...v0.5.1
-[compare_v0.5.1_and_v0.5.2]: https://github.com/gonzedge/rambling-trie/compare/v0.5.1...v0.5.2
-[compare_v0.5.2_and_v0.6.0]: https://github.com/gonzedge/rambling-trie/compare/v0.5.2...v0.6.0
-[compare_v0.6.0_and_v0.6.1]: https://github.com/gonzedge/rambling-trie/compare/v0.6.0...v0.6.1
-[compare_v0.6.1_and_v0.7.0]: https://github.com/gonzedge/rambling-trie/compare/v0.6.1...v0.7.0
-[compare_v0.7.0_and_v0.7.0]: https://github.com/gonzedge/rambling-trie/compare/v0.7.0...v0.7.0
-[compare_v0.7.0_and_v0.8.0]: https://github.com/gonzedge/rambling-trie/compare/v0.7.0...v0.8.0
-[compare_v0.8.0_and_v0.8.1]: https://github.com/gonzedge/rambling-trie/compare/v0.8.0...v0.8.1
-[compare_v0.8.1_and_v0.9.0]: https://github.com/gonzedge/rambling-trie/compare/v0.8.1...v0.9.0
-[compare_v0.9.0_and_v0.9.1]: https://github.com/gonzedge/rambling-trie/compare/v0.9.0...v0.9.1
-[compare_v0.9.1_and_v0.9.2]: https://github.com/gonzedge/rambling-trie/compare/v0.9.1...v0.9.2
-[compare_v0.9.2_and_v0.9.3]: https://github.com/gonzedge/rambling-trie/compare/v0.9.2...v0.9.3
-[compare_v0.9.3_and_v1.0.0]: https://github.com/gonzedge/rambling-trie/compare/v0.9.3...v1.0.0
-[compare_v1.0.0_and_master]: https://github.com/gonzedge/rambling-trie/compare/v1.0.0...master
+[compare_v0_0_0_and_v0_0_1]: https://github.com/gonzedge/rambling-trie/compare/v0.0.0...v0.0.1
+[compare_v0_0_1_and_v0_0_2]: https://github.com/gonzedge/rambling-trie/compare/v0.0.1...v0.0.2
+[compare_v0_0_2_and_v0_1_0]: https://github.com/gonzedge/rambling-trie/compare/v0.0.2...v0.1.0
+[compare_v0_1_0_and_v0_2_0]: https://github.com/gonzedge/rambling-trie/compare/v0.1.0...v0.2.0
+[compare_v0_2_0_and_v0_3_0]: https://github.com/gonzedge/rambling-trie/compare/v0.2.0...v0.3.0
+[compare_v0_3_0_and_v0_3_1]: https://github.com/gonzedge/rambling-trie/compare/v0.3.0...v0.3.1
+[compare_v0_3_1_and_v0_3_2]: https://github.com/gonzedge/rambling-trie/compare/v0.3.1...v0.3.2
+[compare_v0_3_2_and_v0_3_3]: https://github.com/gonzedge/rambling-trie/compare/v0.3.2...v0.3.3
+[compare_v0_3_3_and_v0_3_4]: https://github.com/gonzedge/rambling-trie/compare/v0.3.3...v0.3.4
+[compare_v0_3_4_and_v0_4_0]: https://github.com/gonzedge/rambling-trie/compare/v0.3.4...v0.4.0
+[compare_v0_4_0_and_v0_4_1]: https://github.com/gonzedge/rambling-trie/compare/v0.4.0...v0.4.1
+[compare_v0_4_1_and_v0_4_2]: https://github.com/gonzedge/rambling-trie/compare/v0.4.1...v0.4.2
+[compare_v0_4_2_and_v0_5_0]: https://github.com/gonzedge/rambling-trie/compare/v0.4.2...v0.5.0
+[compare_v0_5_0_and_v0_5_1]: https://github.com/gonzedge/rambling-trie/compare/v0.5.0...v0.5.1
+[compare_v0_5_1_and_v0_5_2]: https://github.com/gonzedge/rambling-trie/compare/v0.5.1...v0.5.2
+[compare_v0_5_2_and_v0_6_0]: https://github.com/gonzedge/rambling-trie/compare/v0.5.2...v0.6.0
+[compare_v0_6_0_and_v0_6_1]: https://github.com/gonzedge/rambling-trie/compare/v0.6.0...v0.6.1
+[compare_v0_6_1_and_v0_7_0]: https://github.com/gonzedge/rambling-trie/compare/v0.6.1...v0.7.0
+[compare_v0_7_0_and_v0_7_0]: https://github.com/gonzedge/rambling-trie/compare/v0.7.0...v0.7.0
+[compare_v0_7_0_and_v0_8_0]: https://github.com/gonzedge/rambling-trie/compare/v0.7.0...v0.8.0
+[compare_v0_8_0_and_v0_8_1]: https://github.com/gonzedge/rambling-trie/compare/v0.8.0...v0.8.1
+[compare_v0_8_1_and_v0_9_0]: https://github.com/gonzedge/rambling-trie/compare/v0.8.1...v0.9.0
+[compare_v0_9_0_and_v0_9_1]: https://github.com/gonzedge/rambling-trie/compare/v0.9.0...v0.9.1
+[compare_v0_9_1_and_v0_9_2]: https://github.com/gonzedge/rambling-trie/compare/v0.9.1...v0.9.2
+[compare_v0_9_2_and_v0_9_3]: https://github.com/gonzedge/rambling-trie/compare/v0.9.2...v0.9.3
+[compare_v0_9_3_and_v1_0_0]: https://github.com/gonzedge/rambling-trie/compare/v0.9.3...v1.0.0
+[compare_v1_0_0_and_master]: https://github.com/gonzedge/rambling-trie/compare/v1.0.0...master
 [design_patterns_null_object]: http://wiki.c2.com/?NullObject
 [github_commit_current_key_less_memory]: https://github.com/gonzedge/rambling-trie/commit/218fac218a77e70ba04a3672ff5abfddf6544f57
 [github_commit_reduced_memory_footprint]: https://github.com/gonzedge/rambling-trie/commit/aa8c0262f888e88df6a2f1e1351d8f14b21e43c4
