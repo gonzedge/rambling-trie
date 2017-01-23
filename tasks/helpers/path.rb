@@ -19,7 +19,7 @@ module Helpers
     private
 
     def full_path *filename
-      full_path = File.join File.dirname(__FILE__), '..', '..', '..', '..', '..', *filename
+      full_path = File.join File.dirname(__FILE__), '..', '..', *filename
     end
   end
 end
