@@ -1,6 +1,6 @@
 # Changelog
 
-## 1.0.1 [compare][compare_v1_0_0_and_master]
+## 1.0.1 (unreleased) [compare][compare_v1_0_0_and_master]
 
 ## 1.0.0 [compare][compare_v0_9_3_and_v1_0_0]
 
