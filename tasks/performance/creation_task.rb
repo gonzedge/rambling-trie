@@ -1,13 +1,7 @@
-require_relative '../helpers/path'
+require_relative 'initialization_task'
 
 module Performance
-  class CreationTask
-    include Helpers::Path
-
-    def initialize iterations = 5
-      @iterations = iterations
-    end
-
+  class CreationTask < Performance::InitializationTask
     def name
       'creation'
     end
@@ -18,9 +12,5 @@ module Performance
         Rambling::Trie.create dictionary; nil
       end
     end
-
-    private
-
-    attr_reader :iterations, :params
   end
 end
