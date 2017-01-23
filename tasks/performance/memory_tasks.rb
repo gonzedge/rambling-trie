@@ -29,78 +29,62 @@ module Performance
 
     private
 
-    def memory_lookups_scan_task
+    def memory_task task
       lambda do |output|
-        task = Performance::LookupsScanTask.new(
-          hi: 1,
-          help: 100,
-          beautiful: 100,
-          impressionism: 200,
-          anthropological: 200,
-        )
-
-        tries.each do |trie|
-          task.execute Performance::MemoryProfile, trie
-        end
-      end
-    end
-
-    def memory_lookups_words_within_task
-      lambda do |output|
-        task = Performance::LookupsWordsWithinTask.new 10
-        tries.each do |trie|
-          task.execute Performance::MemoryProfile, trie
-        end
-      end
-    end
-
-    def memory_lookups_partial_word_task
-      lambda do |output|
-        task = Performance::LookupsPartialWordTask.new 10
-        tries.each do |trie|
-          task.execute Performance::MemoryProfile, trie
-        end
-      end
-    end
-
-    def memory_lookups_word_task
-      lambda do |output|
-        task = Performance::LookupsWordTask.new 10
-        tries.each do |trie|
-          task.execute Performance::MemoryProfile, trie
-        end
-      end
-    end
-
-    def memory_serialization_compressed_task
-      lambda do |output|
-        task = Performance::SerializationCompressedTask.new 1
         task.execute Performance::MemoryProfile
+        yield if block_given?
       end
     end
 
-    def memory_serialization_raw_task
+    def memory_multiple_tries_task task
       lambda do |output|
-        task = Performance::SerializationRawTask.new 1
-        task.execute Performance::MemoryProfile
+        tries.each do |trie|
+          task.execute Performance::MemoryProfile, trie
+        end
       end
+    end
+
+    def memory_creation_task
+      memory_task Performance::CreationTask.new 1
     end
 
     def memory_compression_task
-      lambda do |output|
-        task = Performance::CompressionTask.new 1
-        task.execute Performance::MemoryProfile
+      compression_task = Performance::CompressionTask.new 1
+      memory_task compression_task do
         with_gc_stats 'garbage collection' do
           GC.start
         end
       end
     end
 
-    def memory_creation_task
-      lambda do |output|
-        task = Performance::CreationTask.new 1
-        task.execute Performance::MemoryProfile
-      end
+    def memory_serialization_raw_task
+      memory_task Performance::SerializationRawTask.new 1
+    end
+
+    def memory_serialization_compressed_task
+      memory_task Performance::SerializationCompressedTask.new 1
+    end
+
+    def memory_lookups_word_task
+      memory_multiple_tries_task Performance::LookupsWordTask.new 10
+    end
+
+    def memory_lookups_partial_word_task
+      memory_multiple_tries_task Performance::LookupsPartialWordTask.new 10
+    end
+
+    def memory_lookups_scan_task
+      memory_multiple_tries_task Performance::LookupsScanTask.new(
+        hi: 1,
+        help: 100,
+        beautiful: 100,
+        impressionism: 200,
+        anthropological: 200,
+      )
+    end
+
+    def memory_lookups_words_within_task
+      memory_multiple_tries_task Performance::LookupsWordsWithinTask.new 10
     end
   end
 end

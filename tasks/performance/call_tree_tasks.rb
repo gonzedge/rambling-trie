@@ -27,68 +27,50 @@ module Performance
 
     private
 
-    def call_tree_lookups_scan_task
+    def call_tree_task task
       lambda do |output|
-        task = Performance::LookupsScanTask.new
-        tries.each do |trie|
-          task.execute Performance::CallTreeProfile, trie
-        end
-      end
-    end
-
-    def call_tree_lookups_words_within_task
-      lambda do |output|
-        task = Performance::LookupsWordsWithinTask.new
-        tries.each do |trie|
-          task.execute Performance::CallTreeProfile, trie
-        end
-      end
-    end
-
-    def call_tree_lookups_partial_word_task
-      lambda do |output|
-        task = Performance::LookupsPartialWordTask.new
-        tries.each do |trie|
-          task.execute Performance::CallTreeProfile, trie
-        end
-      end
-    end
-
-    def call_tree_lookups_word_task
-      lambda do |output|
-        task = Performance::LookupsWordTask.new
-        tries.each do |trie|
-          task.execute Performance::CallTreeProfile, trie
-        end
-      end
-    end
-
-    def call_tree_serialization_compressed_task
-      lambda do |output|
-        task = Performance::SerializationCompressedTask.new
         task.execute Performance::CallTreeProfile
       end
     end
 
-    def call_tree_serialization_raw_task
+    def call_tree_multiple_tries_task task
       lambda do |output|
-        task = Performance::SerializationRawTask.new
-        task.execute Performance::CallTreeProfile
-      end
-    end
-
-    def call_tree_compression_task
-      lambda do |output|
-        task = Performance::CompressionTask.new
-        task.execute Performance::CallTreeProfile
+        tries.each do |trie|
+          task.execute Performance::CallTreeProfile, trie
+        end
       end
     end
 
     def call_tree_creation_task
-      lambda do |output|
-        task = Performance::CreationTask.new
-        task.execute Performance::CallTreeProfile
-      end
+      call_tree_task Performance::CreationTask.new
+    end
+
+    def call_tree_compression_task
+      call_tree_task Performance::CompressionTask.new
+    end
+
+    def call_tree_serialization_raw_task
+      call_tree_task Performance::SerializationRawTask.new
+    end
+
+    def call_tree_serialization_compressed_task
+      call_tree_task Performance::SerializationCompressedTask.new
+    end
+
+    def call_tree_lookups_word_task
+      call_tree_multiple_tries_task Performance::LookupsWordTask.new
+    end
+
+    def call_tree_lookups_partial_word_task
+      call_tree_multiple_tries_task Performance::LookupsPartialWordTask.new
+    end
+
+    def call_tree_lookups_scan_task
+      call_tree_multiple_tries_task Performance::LookupsScanTask.new
+    end
+
+    def call_tree_lookups_words_within_task
+      call_tree_multiple_tries_task Performance::LookupsWordsWithinTask.new
     end
   end
 end
