@@ -1,2 +1,2 @@
-excluded_paths:
+exclude_paths:
   - 'tasks/'
