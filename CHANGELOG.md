@@ -15,8 +15,9 @@
 - Add `Serializers` to dump trie into/load trie from disk
   [#10][github_issue_10] by [@gonzedge][github_user_gonzedge]
 
-    - Supported formats include Ruby's `Marshal` (`.marshal`) and `YAML`
-      (`.yaml` or `.yml`)
+    - Supported formats include Ruby's `Marshal` (`.marshal`) with
+      `Serializers::Marshal` and `YAML` (`.yaml` or `.yml`) with
+      `Serializers::Yaml`
     - The format to use is determined by the filepath extension and
       `Marshal` is used when a format isn't recognized.
 
