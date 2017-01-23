@@ -1,7 +1,9 @@
+require_relative 'lookups_task'
+
 module Performance
-  class LookupsWordsWithinTask
+  class LookupsWordsWithinTask < Performance::LookupsTask
     def initialize iterations = 100_000
-      @iterations = iterations
+      super iterations
     end
 
     def name
@@ -16,8 +18,6 @@ module Performance
     end
 
     private
-
-    attr_reader :iterations
 
     def params
       %w(ifdxawesome45someword3 ifdx45someword3awesome)

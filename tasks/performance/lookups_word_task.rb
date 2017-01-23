@@ -1,9 +1,7 @@
-module Performance
-  class LookupsWordTask
-    def initialize iterations = 200_000
-      @iterations = iterations
-    end
+require_relative 'lookups_task'
 
+module Performance
+  class LookupsWordTask < Performance::LookupsTask
     def name
       'lookups:word'
     end
@@ -16,8 +14,6 @@ module Performance
     end
 
     private
-
-    attr_reader :iterations
 
     def params
       %w(hi help beautiful impressionism anthropological)

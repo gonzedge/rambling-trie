@@ -1,13 +1,7 @@
-require_relative '../helpers/path'
+require_relative 'initialization_task'
 
 module Performance
-  class SerializationRawTask
-    include Helpers::Path
-
-    def initialize iterations = 5
-      @iterations = iterations
-    end
-
+  class SerializationRawTask < Performance::InitializationTask
     def name
       'serialization:raw'
     end
@@ -20,8 +14,6 @@ module Performance
     end
 
     private
-
-    attr_reader :iterations, :params
 
     def filename
       'serialization-raw'

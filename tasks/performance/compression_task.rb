@@ -1,13 +1,7 @@
-require_relative '../helpers/path'
+require_relative 'initialization_task'
 
 module Performance
-  class CompressionTask
-    include Helpers::Path
-
-    def initialize iterations = 5
-      @iterations = iterations
-    end
-
+  class CompressionTask < Performance::InitializationTask
     def name
       'compression'
     end
@@ -27,9 +21,5 @@ module Performance
 
       yield if block_given?
     end
-
-    private
-
-    attr_reader :iterations
   end
 end
