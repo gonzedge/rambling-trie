@@ -27,96 +27,84 @@ module Performance
 
     private
 
+    def banner output, title
+      output.puts
+      output.puts "==> #{title}"
+    end
+
+    def task title, task_class
+      lambda do |output|
+        banner output, title
+        task = task_class.new
+        task.execute Performance::Benchmark
+      end
+    end
+
+    def multiple_tries_task title, task_class
+      lambda do |output|
+        banner output, title
+        task = task_class.new
+        tries.each do |trie|
+          output.puts "--- #{trie.compressed? ? 'Compressed' : 'Raw'}"
+          task.execute Performance::Benchmark, trie
+        end
+      end
+    end
+
     def benchmark_creation_task
-      lambda do |output|
-        output.puts
-        output.puts '==> Creation - `Rambling::Trie.create`'
-
-        task = Performance::CreationTask.new
-        task.execute Performance::Benchmark
-      end
-    end
-
-    def benchmark_lookups_scan_task
-      lambda do |output|
-        output.puts
-        output.puts '==> Lookups - `scan`'
-
-        task = Performance::LookupsScanTask.new
-        tries.each do |trie|
-          output.puts "--- #{trie.compressed? ? 'Compressed' : 'Raw'}"
-          task.execute Performance::Benchmark, trie
-        end
-      end
-    end
-
-    def benchmark_lookups_words_within_task
-      lambda do |output|
-        output.puts
-        output.puts '==> Lookups - `words_within`'
-
-        task = Performance::LookupsWordsWithinTask.new
-        tries.each do |trie|
-          output.puts "--- #{trie.compressed? ? 'Compressed' : 'Raw'}"
-          task.execute Performance::Benchmark, trie
-        end
-      end
-    end
-
-    def benchmark_lookups_partial_word_task
-      lambda do |output|
-        output.puts
-        output.puts '==> Lookups - `partial_word?`'
-
-        task = Performance::LookupsPartialWordTask.new
-        tries.each do |trie|
-          output.puts "--- #{trie.compressed? ? 'Compressed' : 'Raw'}"
-          task.execute Performance::Benchmark, trie
-        end
-      end
-    end
-
-    def benchmark_lookups_word_task
-      lambda do |output|
-        output.puts
-        output.puts '==> Lookups - `word?`'
-
-        task = Performance::LookupsWordTask.new
-        tries.each do |trie|
-          output.puts "--- #{trie.compressed? ? 'Compressed' : 'Raw'}"
-          task.execute Performance::Benchmark, trie
-        end
-      end
-    end
-
-    def benchmark_serialization_compressed_task
-      lambda do |output|
-        output.puts
-        output.puts '==> Serialization (compressed trie) - `Rambling::Trie.load`'
-
-        task = Performance::SerializationCompressedTask.new
-        task.execute Performance::Benchmark
-      end
-    end
-
-    def benchmark_serialization_raw_task
-      lambda do |output|
-        output.puts
-        output.puts '==> Serialization (raw trie) - `Rambling::Trie.load`'
-
-        task = Performance::SerializationRawTask.new
-        task.execute Performance::Benchmark
-      end
+      task(
+        'Creation - `Rambling::Trie.create`',
+        Performance::CreationTask,
+      )
     end
 
     def benchmark_compression_task
-      lambda do |output|
-        output.puts
-        output.puts '==> Compression - `compress!`'
+      task(
+        'Compression - `compress!`',
+        Performance::CompressionTask,
+      )
+    end
 
-        task = Performance::CompressionTask.new
-        task.execute Performance::Benchmark
-      end
+    def benchmark_serialization_raw_task
+      task(
+        'Serialization (raw trie) - `Rambling::Trie.load`',
+        Performance::SerializationRawTask,
+      )
+    end
+
+    def benchmark_serialization_compressed_task
+      task(
+        'Serialization (compressed trie) - `Rambling::Trie.load`',
+        Performance::SerializationCompressedTask,
+      )
+    end
+
+    def benchmark_lookups_word_task
+      multiple_tries_task(
+        'Lookups - `word?`',
+        Performance::LookupsWordTask,
+      )
+    end
+
+    def benchmark_lookups_partial_word_task
+      multiple_tries_task(
+        'Lookups - `partial_word?`',
+        Performance::LookupsPartialWordTask,
+      )
+    end
+
+    def benchmark_lookups_scan_task
+      multiple_tries_task(
+        'Lookups - `scan`',
+        Performance::LookupsScanTask,
+      )
+    end
+
+    def benchmark_lookups_words_within_task
+      multiple_tries_task(
+        'Lookups - `words_within`',
+        Performance::LookupsWordsWithinTask,
+      )
     end
   end
 end
