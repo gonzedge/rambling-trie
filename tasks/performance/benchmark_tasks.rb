@@ -32,18 +32,16 @@ module Performance
       output.puts "==> #{title}"
     end
 
-    def task title, task_class
+    def benchmark_task title, task
       lambda do |output|
         banner output, title
-        task = task_class.new
         task.execute Performance::Benchmark
       end
     end
 
-    def multiple_tries_task title, task_class
+    def benchmark_multiple_tries_task title, task
       lambda do |output|
         banner output, title
-        task = task_class.new
         tries.each do |trie|
           output.puts "--- #{trie.compressed? ? 'Compressed' : 'Raw'}"
           task.execute Performance::Benchmark, trie
@@ -52,58 +50,58 @@ module Performance
     end
 
     def benchmark_creation_task
-      task(
+      benchmark_task(
         'Creation - `Rambling::Trie.create`',
-        Performance::CreationTask,
+        Performance::CreationTask.new,
       )
     end
 
     def benchmark_compression_task
-      task(
+      benchmark_task(
         'Compression - `compress!`',
-        Performance::CompressionTask,
+        Performance::CompressionTask.new,
       )
     end
 
     def benchmark_serialization_raw_task
-      task(
+      benchmark_task(
         'Serialization (raw trie) - `Rambling::Trie.load`',
-        Performance::SerializationRawTask,
+        Performance::SerializationRawTask.new,
       )
     end
 
     def benchmark_serialization_compressed_task
-      task(
+      benchmark_task(
         'Serialization (compressed trie) - `Rambling::Trie.load`',
-        Performance::SerializationCompressedTask,
+        Performance::SerializationCompressedTask.new,
       )
     end
 
     def benchmark_lookups_word_task
-      multiple_tries_task(
+      benchmark_multiple_tries_task(
         'Lookups - `word?`',
-        Performance::LookupsWordTask,
+        Performance::LookupsWordTask.new,
       )
     end
 
     def benchmark_lookups_partial_word_task
-      multiple_tries_task(
+      benchmark_multiple_tries_task(
         'Lookups - `partial_word?`',
-        Performance::LookupsPartialWordTask,
+        Performance::LookupsPartialWordTask.new,
       )
     end
 
     def benchmark_lookups_scan_task
-      multiple_tries_task(
+      benchmark_multiple_tries_task(
         'Lookups - `scan`',
-        Performance::LookupsScanTask,
+        Performance::LookupsScanTask.new,
       )
     end
 
     def benchmark_lookups_words_within_task
-      multiple_tries_task(
+      benchmark_multiple_tries_task(
         'Lookups - `words_within`',
-        Performance::LookupsWordsWithinTask,
+        Performance::LookupsWordsWithinTask.new,
       )
     end
   end
