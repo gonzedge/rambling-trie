@@ -191,18 +191,16 @@
   [@gonzedge][github_user_gonzedge]
 
     `Container` exposes these API entry points:
-
-    - `#partial_word?` and its alias `#match?`
-    - `#word?` and its alias `#include?`
-    - `#add` and its alias `#<<`
-    - yield the constructed `Container` on `#initialize`
+      - `#partial_word?` and its alias `#match?`
+      - `#word?` and its alias `#include?`
+      - `#add` and its alias `#<<`
+      - yield the constructed `Container` on `#initialize`
 
     `Rambling::Trie::Node` and its subclasses no longer expose:
-
-    - `#match?`
-    - `#include?`
-    - `#<<`
-    - yield on `#initialize`
+      - `#match?`
+      - `#include?`
+      - `#<<`
+      - yield on `#initialize`
 
 - Remove `Branches` module, all of its behavior is now contained in `RawNode`
   and `CompressedNode` by [@gonzedge][github_user_gonzedge]
