@@ -191,12 +191,14 @@
   [@gonzedge][github_user_gonzedge]
 
     `Container` exposes these API entry points:
+
       - `#partial_word?` and its alias `#match?`
       - `#word?` and its alias `#include?`
       - `#add` and its alias `#<<`
       - yield the constructed `Container` on `#initialize`
 
     `Rambling::Trie::Node` and its subclasses no longer expose:
+
       - `#match?`
       - `#include?`
       - `#<<`
