@@ -17,73 +17,79 @@
 - Add `Serializers` to dump trie into/load trie from disk
   [#10][github_issue_10] by [@gonzedge][github_user_gonzedge]
 
-    - Supported formats include Ruby's `Marshal` (`.marshal`) with
-      `Serializers::Marshal` and `YAML` (`.yaml` or `.yml`) with
-      `Serializers::Yaml`
-    - The format to use is determined by the filepath extension and
-      `Marshal` is used when a format isn't recognized.
+  - Supported formats include Ruby's `Marshal` (`.marshal`) with
+    `Serializers::Marshal` and `YAML` (`.yaml` or `.yml`) with
+    `Serializers::Yaml`
+  - The format to use is determined by the filepath extension and
+    `Marshal` is used when a format isn't recognized.
 
-    ``` ruby
-    # Save `your_trie` into a file
-    Rambling::Trie.dump your_trie, 'a filename'
+  ``` ruby
+  # Save `your_trie` into a file
+  Rambling::Trie.dump your_trie, 'a filename'
 
-    # Load a trie from a file into memory
-    trie = Rambling::Trie.load 'a filename'
-    ```
+  # Load a trie from a file into memory
+  trie = Rambling::Trie.load 'a filename'
+  ```
 
 - Add `Serializers::Zip` to handle zip files by
   [@gonzedge][github_user_gonzedge]
 
-    Automatically detects `.marshal` and `.yaml` files, as well as any
-    configured `Serializer` based on filepath extension
+  Automatically detects `.marshal` and `.yaml` files, as well as any
+  configured `Serializer` based on filepath extension
 
 - Add ability to configure `rambling-trie` [#11][github_issue_11]
   by [@gonzedge][github_user_gonzedge]
 
-    ``` ruby
-    Rambling::Trie.config do |config|
-      config.compressor = MyCompressor.new
-      config.root_builder = lambda { MyNode.new }
+  ``` ruby
+  Rambling::Trie.config do |config|
+    config.compressor = MyCompressor.new
+    config.root_builder = lambda { MyNode.new }
 
-      config.readers.add :html, MyHtmlReader.new
-      config.readers.default = config.readers[:html]
+    config.readers.add :html, MyHtmlReader.new
+    config.readers.default = config.readers[:html]
 
-      config.serializers.add :json, MyJsonSerializer.new
-      config.serializers.default = config.serializers[:yml]
-    end
-    ```
+    config.serializers.add :json, MyJsonSerializer.new
+    config.serializers.default = config.serializers[:yml]
+  end
+  ```
 
 - Add `#words_within` and `#words_within?` to get all words matched within a
-    given string [#9][github_issue_09] by [@gonzedge][github_user_gonzedge]
+  given string [#9][github_issue_09] by [@gonzedge][github_user_gonzedge]
 
-    - `#words_within` returns all the matched words
-    - `#words_within?` returns `true` as soon as it finds one matching word
+  - `#words_within` returns all the matched words
+  - `#words_within?` returns `true` as soon as it finds one matching word
+
 - Add `#==` to compare nodes by [@gonzedge][github_user_gonzedge]
 
-    Contained in `Rambling::Trie::Comparable` module. Two nodes are equal to
-    each other if they have the same letter, they are both either terminal or
-    non-terminal and their children tree is the same
+  Contained in `Rambling::Trie::Comparable` module. Two nodes are equal to
+  each other if they have the same letter, they are both either terminal or
+  non-terminal and their children tree is the same
+
 - Add changelog by [@gonzedge][github_user_gonzedge]
 - Add contributing guide by [@gonzedge][github_user_gonzedge]
 
 #### Minor
 
 - Extract modules for peripheral node functionality by [@gonzedge][github_user_gonzedge]
-    - Move `#to_s` to `Stringifyable` module
-    - Move `#as_word` to `Stringifyable` module by
-    - Move `#==` to `Comparable` module
-    - Rename `Compression` to `Compressable`
-    - Rename `Inspector` to `Inspectable`
+
+  - Move `#to_s` to `Stringifyable` module
+  - Move `#as_word` to `Stringifyable` module by
+  - Move `#==` to `Comparable` module
+  - Rename `Compression` to `Compressable`
+  - Rename `Inspector` to `Inspectable`
+
 - Add `#terminal?` value to inspect output by [@gonzedge][github_user_gonzedge]
 - Display value of `#terminal` instead of `#terminal?` when `Node` is inspected
   by [@gonzedge][github_user_gonzedge]
 - Freeze `Rambling::Trie::VERSION` by [@gonzedge][github_user_gonzedge]
 - Refactor performance instrumentation tasks by
   [@gonzedge][github_user_gonzedge]
-    - Add `Performance` module
-    - Add `Performance::Reporter` & `Performance::Directory` classes
-    - Move task execution into individual classes
-    - Unify all tasks into single entry point `rake performance[type,method]`
+
+  - Add `Performance` module
+  - Add `Performance::Reporter` & `Performance::Directory` classes
+  - Move task execution into individual classes
+  - Unify all tasks into single entry point `rake performance[type,method]`
+
 - Change benchmark report format by [@gonzedge][github_user_gonzedge]
 - Correct supported versions by [@gonzedge][github_user_gonzedge]
 - Only create new `Reader` instance when filepath is given on initialization by
@@ -99,21 +105,21 @@
 - Add Ruby 2.4 to supported versions by [@gonzedge][github_user_gonzedge]
 - Drastically reduce size of gem by [@gonzedge][github_user_gonzedge]
 
-    By excluding unnecessary `assets/` and `reports/` when building the gem.
-    **Size reduction**: from ~472KB to ~21KB.
+  By excluding unnecessary `assets/` and `reports/` when building the gem.
+  **Size reduction**: from ~472KB to ~21KB.
 
 - Make root node accessible via container by [@gonzedge][github_user_gonzedge]
 
-    So that anyone using rambling-trie can develop their custom algorithms
+  So that anyone using rambling-trie can develop their custom algorithms
 
 - Expose root node's `#to_a` method through `Container` by
   [@gonzedge][github_user_gonzedge]
 - Add own `Forwardable#delegate` because of [Ruby 2.4 performance
   degradation][ruby_bug_13111] by [@gonzedge][github_user_gonzedge]
 
-    Was able to take Creation and Compression benchmarks (~8.8s and ~1.5s
-    respectively) back down to the Ruby 2.3.3 levels by adding own definition of
-    `Forwardable#delegate`.
+  Was able to take Creation and Compression benchmarks (~8.8s and ~1.5s
+  respectively) back down to the Ruby 2.3.3 levels by adding own definition of
+  `Forwardable#delegate`.
 
 #### Minor
 
@@ -139,13 +145,14 @@
   `#scan` by [@gonzedge][github_user_gonzedge]
 - Expose all usable `Node` methods in `Container` through delegation by
   [@gonzedge][github_user_gonzedge]
-    - Expose `#as_word`
-    - Expose `#children`
-    - Expose `#children_tree`
-    - Expose `#has_key?`
-    - Expose `#parent`
-    - Expose `#size`
-    - Expose `#to_s`
+
+  - Expose `#as_word`
+  - Expose `#children`
+  - Expose `#children_tree`
+  - Expose `#has_key?`
+  - Expose `#parent`
+  - Expose `#size`
+  - Expose `#to_s`
 
 #### Minor
 
@@ -163,11 +170,11 @@
 - Reduce memory footprint without affecting performance for compressed node
   operations by [@gonzedge][github_user_gonzedge]
 
-    Including `#word?`, `#partial_word?` and `#closest_node`. See these commits
-    for more info:
+  Including `#word?`, `#partial_word?` and `#closest_node`. See these commits
+  for more info:
 
-    - [aa8c0262f888e88df6a2f1e1351d8f14b21e43c4][github_commit_reduced_memory_footprint]
-    - [218fac218a77e70ba04a3672ff5abfddf6544f57][github_commit_current_key_less_memory]
+  - [aa8c0262f888e88df6a2f1e1351d8f14b21e43c4][github_commit_reduced_memory_footprint]
+  - [218fac218a77e70ba04a3672ff5abfddf6544f57][github_commit_current_key_less_memory]
 
 #### Minor
 
@@ -190,19 +197,19 @@
 - `Rambling::Trie.create` now returns a `Container` instead of a `Root` by
   [@gonzedge][github_user_gonzedge]
 
-    `Container` exposes these API entry points:
+  `Container` exposes these API entry points:
 
-      - `#partial_word?` and its alias `#match?`
-      - `#word?` and its alias `#include?`
-      - `#add` and its alias `#<<`
-      - yield the constructed `Container` on `#initialize`
+    - `#partial_word?` and its alias `#match?`
+    - `#word?` and its alias `#include?`
+    - `#add` and its alias `#<<`
+    - yield the constructed `Container` on `#initialize`
 
-    `Rambling::Trie::Node` and its subclasses no longer expose:
+  `Rambling::Trie::Node` and its subclasses no longer expose:
 
-      - `#match?`
-      - `#include?`
-      - `#<<`
-      - yield on `#initialize`
+    - `#match?`
+    - `#include?`
+    - `#<<`
+    - yield on `#initialize`
 
 - Remove `Branches` module, all of its behavior is now contained in `RawNode`
   and `CompressedNode` by [@gonzedge][github_user_gonzedge]
@@ -216,10 +223,11 @@
 
 - Separate uncompressed trie vs compressed trie logic into separate objects by
   [@gonzedge][github_user_gonzedge]
-    - Create separate `RawNode` and `CompressedNode` classes
-    - Add `Compressor` for `#compress!` implementation that maps from a
-      `RawNode` to a `CompressedNode`
-    -
+
+  - Create separate `RawNode` and `CompressedNode` classes
+  - Add `Compressor` for `#compress!` implementation that maps from a
+    `RawNode` to a `CompressedNode`
+
 - Add `#terminal!` to `Node` to force node to be terminal by
   [@gonzedge][github_user_gonzedge]
 - Move `#root?` into `Node` by [@gonzedge][github_user_gonzedge]
@@ -242,8 +250,8 @@
   [@gonzedge][github_user_gonzedge]
 - Expand performance instrumentation by [@gonzedge][github_user_gonzedge]
 
-    Include memory profiles, call tree profiles and benchmark measurements for
-    `#scan` method
+  Include memory profiles, call tree profiles and benchmark measurements for
+  `#scan` method
 
 ## 0.8.1 [compare][compare_v0_8_0_and_v0_8_1]
 
@@ -268,9 +276,11 @@
 
 - Add `#scan` method and its alias `#words` to find all words that match a
   given partial word [#7][github_issue_07] by [@gonzedge][github_user_gonzedge]
-    - Return matching `Node`
-    - Use [Null Object pattern][design_patterns_null_object] to return empty
-      array with `Rambling::Trie::MissingNode`
+
+  - Return matching `Node`
+  - Use [Null Object pattern][design_patterns_null_object] to return empty
+    array with `Rambling::Trie::MissingNode`
+
 - Add Ruby 2.1.6, 2.1.7, 2.1.8, 2.2.1, 2.2.2, 2.2.3, 2.2.4, and 2.3.0 to
   supported versions by [@gonzedge][github_user_gonzedge]
 
@@ -294,10 +304,12 @@
 - Add Ruby 2.1.0, 2.1.1, 2.1.2, 2.1.3, 2.1.4, 2.1.5 to supported versions by
   [@gonzedge][github_user_gonzedge]
 - Upgrade to RSpec 3 [@gonzedge][github_user_gonzedge]
-    - Update gem dependencies and be more restrictive about gem dependecy
-      versions
-    - Update other dev dependencies
-    - Use RSpec's new syntax for message expectations
+
+  - Update gem dependencies and be more restrictive about gem dependency
+    versions
+  - Update other dev dependencies
+  - Use RSpec's new syntax for message expectations
+
 - Add LICENSE to gemspec by [@gonzedge][github_user_gonzedge]
 
 #### Minor
@@ -305,8 +317,8 @@
 - Update license by [@gonzedge][github_user_gonzedge]
 - Explicitly define `#<<` alias for `#add` by [@gonzedge][github_user_gonzedge]
 
-    This avoids having to call `.alias_method` again for
-    `#add` method overloads.
+  This avoids having to call `.alias_method` again for
+  `#add` method overloads.
 
 ## 0.6.1 [compare][compare_v0_6_0_and_v0_6_1]
 
@@ -323,8 +335,8 @@
 
 - Change return value of `#children` by [@gonzedge][github_user_gonzedge]
 
-     Returns the array of child nodes instead of the `Hash` representing the tree
-     of children
+   Returns the array of child nodes instead of the `Hash` representing the tree
+   of children
 
 - Rename `#branch?` method to `#partial_word?` by [@gonzedge][github_user_gonzedge]
 - Rename old `#children` method to `#children_tree` by [@gonzedge][github_user_gonzedge]
@@ -373,7 +385,7 @@
 - Replace instance variables with attr accessors/writers by
   [@gonzedge][github_user_gonzedge]
 
-    Including `#letter`, `#children`, `#terminal`
+  Including `#letter`, `#children`, `#terminal`
 
 #### Minor
 
@@ -389,7 +401,7 @@
   [@gonzedge][github_user_gonzedge]
 - Remove deprecated methods by [@gonzedge][github_user_gonzedge]
 
-    Includes `#has_branch_for?`, `#is_word?` and `#add_branch_from`
+  Includes `#has_branch_for?`, `#is_word?` and `#add_branch_from`
 
 ### Enhancements
 
@@ -422,12 +434,14 @@
 
 - Fix variable mutation on `Root#add_branch_for` [#6][github_issue_06] by
   [@gonzedge][github_user_gonzedge]
-    - Define `#<<` instead of alias for overriding purposes
+
+  - Define `#<<` instead of alias for overriding purposes
+
 - Add `Enumerable` capabilities [#5][github_issue_05] by
   [@gonzedge][github_user_gonzedge]
 - Restructure file/directory tree again by [@gonzedge][github_user_gonzedge]
 
-    Files now live under `lib/rambling/trie` instead of `lib/rambling-trie`
+  Files now live under `lib/rambling/trie` instead of `lib/rambling-trie`
 
 #### Minor
 
@@ -600,7 +614,9 @@
   [@gonzedge][github_user_gonzedge]
 - Add `ChildrenHashDeferer` and `TrieCompressor` modules by
   [@gonzedge][github_user_gonzedge]
-    Results of refactoring compression and hash methods
+
+  Results of refactoring compression and hash methods
+
 - Remove `#word` caching for memory gains by [@gonzedge][github_user_gonzedge]
 
 #### Minor
