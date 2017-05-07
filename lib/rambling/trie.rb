@@ -13,7 +13,7 @@ module Rambling
   # Entry point for rambling-trie API.
   module Trie
     class << self
-      extend Rambling::Trie::Forwardable
+      extend ::Forwardable
 
       delegate [
         :readers,
