@@ -2,6 +2,7 @@
 
 ## 1.0.1 (unreleased) [compare][compare_v1_0_0_and_master]
 
+- Remove CodeClimate test reporter by [@gonzedge][github_user_gonzedge]
 - Add Ruby 2.4.1 to supported versions by [@gonzedge][github_user_gonzedge]
 
 ## 1.0.0 [compare][compare_v0_9_3_and_v1_0_0]
