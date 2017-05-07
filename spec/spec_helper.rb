@@ -1,12 +1,10 @@
 require 'simplecov'
-require 'codeclimate-test-reporter'
 require 'coveralls'
 
 Coveralls.wear!
 
 SimpleCov.formatters = [
   SimpleCov::Formatter::HTMLFormatter,
-  CodeClimate::TestReporter::Formatter,
   Coveralls::SimpleCov::Formatter
 ]
 
