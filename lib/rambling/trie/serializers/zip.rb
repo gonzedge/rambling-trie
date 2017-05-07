@@ -4,7 +4,7 @@ module Rambling
       # Zip file serializer. Dumps/loads contents from zip files. Automatically
       # detects if zip file contains `.marshal` or `.yml` file
       class Zip
-        extend Rambling::Trie::Forwardable
+        extend ::Forwardable
 
         # Creates a new Zip serializer.
         # @param [Properties] properties the configuration properties set up so

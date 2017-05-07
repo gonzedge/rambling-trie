@@ -3,7 +3,7 @@ module Rambling
     module Configuration
       # Collection of configurable providers.
       class ProviderCollection
-        extend Rambling::Trie::Forwardable
+        extend ::Forwardable
 
         # The name of this provider collection.
         # @return [String] the name of this provider collection.
