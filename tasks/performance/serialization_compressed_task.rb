@@ -7,7 +7,7 @@ module Performance
     end
 
     def execute reporter_class
-      reporter = reporter_class.new name
+      reporter = reporter_class.new filename
       reporter.report iterations, params do
         Rambling::Trie.load compressed_trie_path; nil
       end
