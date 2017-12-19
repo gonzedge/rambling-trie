@@ -2,6 +2,7 @@
 
 ## 1.0.2 [compare][compare_v1_0_1_and_master]
 
+- Add Ruby 2.4.{2,3}, 2.3.{5,6} 2.2.{8,9} to supported versions by [@gonzedge][github_user_gonzedge]
 - Add Ruby 2.3.4 and 2.2.7 to supported versions by [@gonzedge][github_user_gonzedge]
 
 ## 1.0.1 [compare][compare_v1_0_0_and_v1_0_1]
