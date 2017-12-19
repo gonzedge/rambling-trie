@@ -232,10 +232,10 @@ The Rambling Trie has been tested with the following Ruby versions:
 * 2.4.x
 * 2.3.x
 * 2.2.x
-* 2.1.x
 
 **No longer supported**:
 
+* 2.1.x (might still work, but is not officially supported)
 * 2.0.x (might still work, but is not officially supported)
 * 1.9.x
 * 1.8.x
