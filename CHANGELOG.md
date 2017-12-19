@@ -1,6 +1,8 @@
 # Changelog
 
-## 1.0.2 [compare][compare_v1_0_1_and_master]
+## 1.0.3 [compare][compare_v1_0_2_and_master]
+
+## 1.0.2 [compare][compare_v1_0_1_and_v1_0_2]
 
 - Drop Ruby 2.1.x support by [@gonzedge][github_user_gonzedge]
 - Add Ruby 2.4.{2,3}, 2.3.{5,6} 2.2.{8,9} to supported versions by [@gonzedge][github_user_gonzedge]
@@ -710,7 +712,8 @@
 [compare_v0_9_2_and_v0_9_3]: https://github.com/gonzedge/rambling-trie/compare/v0.9.2...v0.9.3
 [compare_v0_9_3_and_v1_0_0]: https://github.com/gonzedge/rambling-trie/compare/v0.9.3...v1.0.0
 [compare_v1_0_0_and_v1_0_1]: https://github.com/gonzedge/rambling-trie/compare/v1.0.0...v1.0.1
-[compare_v1_0_1_and_master]: https://github.com/gonzedge/rambling-trie/compare/v1.0.1...master
+[compare_v1_0_1_and_v1_0_2]: https://github.com/gonzedge/rambling-trie/compare/v1.0.1...v1.0.2
+[compare_v1_0_2_and_master]: https://github.com/gonzedge/rambling-trie/compare/v1.0.1...master
 [design_patterns_null_object]: http://wiki.c2.com/?NullObject
 [github_commit_current_key_less_memory]: https://github.com/gonzedge/rambling-trie/commit/218fac218a77e70ba04a3672ff5abfddf6544f57
 [github_commit_reduced_memory_footprint]: https://github.com/gonzedge/rambling-trie/commit/aa8c0262f888e88df6a2f1e1351d8f14b21e43c4
