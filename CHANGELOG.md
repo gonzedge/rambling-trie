@@ -2,6 +2,7 @@
 
 ## 1.0.3 [compare][compare_v1_0_2_and_master]
 
+- Slightly reduce memeory for `Properties` and `ProviderCollection` classes [@gonzedge][github_user_gonzedge]
 - Use `#children_tree` instead of `#children` when possible [@gonzedge][github_user_gonzedge]
 - Remove unnecessary assignment in `#letter=` [@gonzedge][github_user_gonzedge]
 - Use `#each_value` instead of `#values`.`#each` in `Enumerable#each` [@gonzedge][github_user_gonzedge]

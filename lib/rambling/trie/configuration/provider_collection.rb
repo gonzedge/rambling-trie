@@ -52,7 +52,7 @@ module Rambling
         end
 
         def default= provider
-          if provider_not_in_list? provider
+          unless contains? provider
             raise ArgumentError, "default #{name} should be part of configured #{name}s"
           end
 
@@ -91,9 +91,9 @@ module Rambling
           format.to_sym
         end
 
-        def provider_not_in_list? provider
-          (provider && providers.values.empty?) ||
-            (providers.values.any? && !providers.values.include?(provider))
+        def contains? provider
+          provider.nil? ||
+            (providers.any? && providers.values.include?(provider))
         end
       end
     end

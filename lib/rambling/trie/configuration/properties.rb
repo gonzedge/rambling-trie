@@ -46,7 +46,7 @@ module Rambling
         def reset_readers
           plain_text_reader = Rambling::Trie::Readers::PlainText.new
 
-          self.readers = Rambling::Trie::Configuration::ProviderCollection.new 'reader', txt: plain_text_reader
+          self.readers = Rambling::Trie::Configuration::ProviderCollection.new :reader, txt: plain_text_reader
         end
 
         def reset_serializers
@@ -54,7 +54,7 @@ module Rambling
           yaml_serializer = Rambling::Trie::Serializers::Yaml.new
           zip_serializer = Rambling::Trie::Serializers::Zip.new self
 
-          self.serializers = Rambling::Trie::Configuration::ProviderCollection.new 'serializer',
+          self.serializers = Rambling::Trie::Configuration::ProviderCollection.new :serializer,
             marshal: marshal_serializer,
             yml: yaml_serializer,
             yaml: yaml_serializer,

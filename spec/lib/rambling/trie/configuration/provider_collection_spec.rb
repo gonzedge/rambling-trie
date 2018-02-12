@@ -11,7 +11,7 @@ describe Rambling::Trie::Configuration::ProviderCollection do
 
   let(:provider_collection) do
     Rambling::Trie::Configuration::ProviderCollection.new(
-      'provider',
+      :provider,
       configured_providers,
       configured_default
     )
@@ -19,7 +19,7 @@ describe Rambling::Trie::Configuration::ProviderCollection do
 
   describe '.new' do
     it 'has a name' do
-      expect(provider_collection.name).to eq 'provider'
+      expect(provider_collection.name).to eq :provider
     end
 
     it 'has the given providers' do
