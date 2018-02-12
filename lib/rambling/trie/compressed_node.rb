@@ -105,10 +105,10 @@ module Rambling
       def current_key letter
         current_key = nil
 
-        children_tree.keys.each do |key|
-          key_string = key.to_s
-          if key_string.start_with? letter
-            current_key = key_string
+        children_tree.each_key do |letters|
+          letters_string = letters.to_s
+          if letters_string.start_with? letter
+            current_key = letters_string
             break
           end
         end

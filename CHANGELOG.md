@@ -2,6 +2,7 @@
 
 ## 1.0.3 [compare][compare_v1_0_2_and_master]
 
+- Use `#each_key` instead of `#keys`.`#each` in `CompressedNode#current_key` [@gonzedge][github_user_gonzedge]
 - Use `File.foreach` to read file on `Readers::PlainText` [@gonzedge][github_user_gonzedge]
 - Preemptively convert the word added to array of symbols [@gonzedge][github_user_gonzedge]
 - Pull gem require up to the Rakefile to avoid issues with `.load` method [@gonzedge][github_user_gonzedge]
