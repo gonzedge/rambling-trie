@@ -10,8 +10,6 @@ module Performance
     include Helpers::Time
 
     def report iterations = 1, params = nil
-      require 'rambling-trie'
-
       params = Array params
       params << nil unless params.any?
 
