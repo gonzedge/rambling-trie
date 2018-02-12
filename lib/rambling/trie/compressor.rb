@@ -16,7 +16,7 @@ module Rambling
       private
 
       def merge_with_child_and_compress node
-        child = node.children.first
+        child = node.first_child
 
         letter = node.letter.to_s << child.letter.to_s
         new_node = new_compressed_node node, letter, child.terminal?
@@ -28,7 +28,7 @@ module Rambling
       def copy_node_and_compress_children node
         new_node = new_compressed_node node, node.letter, node.terminal?
 
-        node.children.each do |child|
+        node.children_tree.each_value do |child|
           compressed_child = compress child
 
           compressed_child.parent = new_node

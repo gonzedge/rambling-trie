@@ -68,7 +68,7 @@ describe Rambling::Trie::RawNode do
         end
 
         it 'includes a child with the expected letter' do
-          expect(node.children.first.letter).to eq :a
+          expect(node.first_child.letter).to eq :a
         end
 
         it 'has the expected letter as a key' do

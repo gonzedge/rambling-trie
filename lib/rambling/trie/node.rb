@@ -48,6 +48,16 @@ module Rambling
         children_tree.values
       end
 
+      # First child node.
+      # @return [Node, nil] the first child contained in the current node.
+      def first_child
+        return if children_tree.empty?
+
+        children_tree.each_value do |child|
+          return child
+        end
+      end
+
       # Indicates if the current node is the root node.
       # @return [Boolean] `true` if the node does not have a parent, `false`
       #   otherwise.
