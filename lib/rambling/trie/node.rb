@@ -69,10 +69,7 @@ module Rambling
       end
 
       def letter= letter
-        if letter
-          @letter = letter.to_sym
-          parent[letter] = self if parent
-        end
+        @letter = letter.to_sym if letter
       end
 
       # Returns all words that match a prefix of any length within chars.
