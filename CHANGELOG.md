@@ -2,6 +2,8 @@
 
 ## 1.0.3 [compare][compare_v1_0_2_and_master]
 
+- Add Ruby 2.5.0 support by [@gonzedge][github_user_gonzedge]
+
 ## 1.0.2 [compare][compare_v1_0_1_and_v1_0_2]
 
 - Drop Ruby 2.1.x support by [@gonzedge][github_user_gonzedge]
