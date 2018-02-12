@@ -2,6 +2,7 @@
 
 ## 1.0.3 [compare][compare_v1_0_2_and_master]
 
+- Pull `#scan` up to `Node` [@gonzedge][github_user_gonzedge]
 - Slightly reduce memeory for `Properties` and `ProviderCollection` classes [@gonzedge][github_user_gonzedge]
 - Use `#children_tree` instead of `#children` when possible [@gonzedge][github_user_gonzedge]
 - Remove unnecessary assignment in `#letter=` [@gonzedge][github_user_gonzedge]

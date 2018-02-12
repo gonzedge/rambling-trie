@@ -82,6 +82,16 @@ module Rambling
         @letter = letter.to_sym if letter
       end
 
+      # Returns the node that starts with the specified characters.
+      # @param [Array<String>] chars the characters to look for in the trie.
+      # @return [Node] the node that matches the specified characters.
+      #   {MissingNode MissingNode} when not found.
+      def scan chars
+        return self if chars.empty?
+
+        closest_node chars
+      end
+
       # Returns all words that match a prefix of any length within chars.
       # @param [String] chars the chars to base the prefix on.
       # @return [Enumerator<String>] all the words that match a prefix given by

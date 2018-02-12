@@ -19,13 +19,11 @@ module Rambling
       # @return [Boolean] `true` if the characters are found, `false`
       #   otherwise.
       def partial_word? chars = []
-        if chars.empty?
-          true
-        else
-          letter = chars.slice!(0).to_sym
-          child = children_tree[letter]
-          !!child && child.partial_word?(chars)
-        end
+        return true if chars.empty?
+
+        letter = chars.slice!(0).to_sym
+        child = children_tree[letter]
+        !!child && child.partial_word?(chars)
       end
 
       # Checks if a path for set of characters represents a word in the trie.
@@ -33,21 +31,11 @@ module Rambling
       # @return [Boolean] `true` if the characters are found and form a word,
       #   `false` otherwise.
       def word? chars = []
-        if chars.empty?
-          terminal?
-        else
-          letter = chars.slice!(0).to_sym
-          child = children_tree[letter]
-          !!child && child.word?(chars)
-        end
-      end
+        return terminal? if chars.empty?
 
-      # Returns the node that starts with the specified characters.
-      # @param [Array<String>] chars the characters to look for in the trie.
-      # @return [Node] the node that matches the specified characters.
-      #   {MissingNode MissingNode} when not found.
-      def scan chars
-        chars.empty? ? self : closest_node(chars)
+        letter = chars.slice!(0).to_sym
+        child = children_tree[letter]
+        !!child && child.word?(chars)
       end
 
       # Always return `false` for a raw (uncompressed) node.
@@ -75,20 +63,23 @@ module Rambling
         letter = chars.slice!(0).to_sym
         child = children_tree[letter]
 
-        child ? child.scan(chars) : Rambling::Trie::MissingNode.new
+        return Rambling::Trie::MissingNode.new unless child
+
+        child.scan chars
       end
 
       def children_match_prefix chars
         return enum_for :children_match_prefix, chars unless block_given?
 
-        if !chars.empty?
-          letter = chars.slice!(0).to_sym
-          child = children_tree[letter]
-          if child
-            child.match_prefix chars do |word|
-              yield word
-            end
-          end
+        return if chars.empty?
+
+        letter = chars.slice!(0).to_sym
+        child = children_tree[letter]
+
+        return unless child
+
+        child.match_prefix chars do |word|
+          yield word
         end
       end
     end

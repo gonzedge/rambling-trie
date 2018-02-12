@@ -26,14 +26,6 @@ module Rambling
         chars.empty? ? terminal? : has_word?(chars)
       end
 
-      # Returns the node that starts with the specified characters.
-      # @param [Array<String>] chars the characters to look for in the trie.
-      # @return [Node] the node that matches the specified characters.
-      #   {MissingNode MissingNode} when not found.
-      def scan chars
-        chars.empty? ? self : closest_node(chars)
-      end
-
       # Always return `true` for a compressed node.
       # @return [Boolean] always `true` for a compressed node.
       def compressed?
@@ -81,10 +73,10 @@ module Rambling
 
           child = children_tree[current_key.to_sym]
 
-          if child
-            child.match_prefix chars do |word|
-              yield word
-            end
+          next unless child
+
+          child.match_prefix chars do |word|
+            yield word
           end
         end
       end
@@ -107,6 +99,7 @@ module Rambling
 
         children_tree.each_key do |letters|
           letters_string = letters.to_s
+
           if letters_string.start_with? letter
             current_key = letters_string
             break
