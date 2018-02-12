@@ -10,7 +10,7 @@ The Rambling Trie is a Ruby implementation of the [trie data structure][trie_wik
 
 You will need:
 
-* Ruby 2.1.0 or up
+* Ruby 2.2.0 or up
 * RubyGems
 
 See [RVM][rvm], [rbenv][rbenv] or [chruby][chruby] for more information on how to manage Ruby versions.
