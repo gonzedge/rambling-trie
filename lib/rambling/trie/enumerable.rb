@@ -16,7 +16,7 @@ module Rambling
 
         yield as_word if terminal?
 
-        children.each do |child|
+        children_tree.each_value do |child|
           child.each do |word|
             yield word
           end
