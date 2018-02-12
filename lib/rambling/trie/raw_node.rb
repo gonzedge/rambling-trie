@@ -59,7 +59,7 @@ module Rambling
       private
 
       def add_to_children_tree word
-        letter = word.slice!(0).to_sym
+        letter = word.slice!(0)
         child = children_tree[letter] || new_node(letter)
         child.add word
         child

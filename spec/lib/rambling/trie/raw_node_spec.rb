@@ -37,7 +37,7 @@ describe Rambling::Trie::RawNode do
       context 'with empty string' do
         before do
           node.letter = :a
-          node.add ''
+          node.add %i()
         end
 
         it 'makes it the node letter' do
@@ -56,7 +56,7 @@ describe Rambling::Trie::RawNode do
       context 'with one letter' do
         before do
           node.letter = :b
-          node.add 'a'
+          node.add %i(a)
         end
 
         it 'takes the first as the node letter' do
@@ -91,7 +91,7 @@ describe Rambling::Trie::RawNode do
       context 'with a large word' do
         before do
           node.letter = :s
-          node.add 'paghetti'
+          node.add %i(p a g h e t t i)
         end
 
         it 'marks the last letter as terminal node' do
@@ -112,7 +112,7 @@ describe Rambling::Trie::RawNode do
       context 'with no parent' do
         before do
           node.letter = :a
-          node.add ''
+          node.add []
         end
 
         it 'makes it the node letter' do
@@ -165,7 +165,7 @@ describe Rambling::Trie::RawNode do
   describe '#add' do
     context 'when the node has no branches' do
       before do
-        node.add 'abc'
+        node.add %i(a b c)
       end
 
       it 'adds only one child' do
@@ -188,11 +188,11 @@ describe Rambling::Trie::RawNode do
 
     context 'when the word being added already exists in the node' do
       before do
-        node.add 'ack'
+        node.add %i(a c k)
       end
 
       it 'does not increment any child count in the tree' do
-        node.add 'ack'
+        node.add %i(a c k)
 
         expect(node.children.size).to eq 1
         expect(node[:a].children.size).to eq 1
@@ -201,7 +201,7 @@ describe Rambling::Trie::RawNode do
       end
 
       it 'does not mark any child as terminal in the tree' do
-        node.add 'ack'
+        node.add %i(a c k)
 
         expect(node).not_to be_terminal
         expect(node[:a]).not_to be_terminal
@@ -210,22 +210,22 @@ describe Rambling::Trie::RawNode do
       end
 
       it 'returns the added node' do
-        expect(node.add('ack').letter).to eq :a
+        expect(node.add(%i(a c k)).letter).to eq :a
       end
     end
 
     context 'when the word does not exist in the tree but the letters do' do
       before do
-        node.add 'ack'
+        node.add %i(a c k)
       end
 
       it 'does not add another branch' do
-        node.add 'a'
+        node.add %i(a)
         expect(node.children.size).to eq 1
       end
 
       it 'marks the corresponding node as terminal' do
-        node.add 'a'
+        node.add %i(a)
 
         expect(node).not_to be_terminal
         expect(node[:a]).to be_terminal
@@ -234,7 +234,7 @@ describe Rambling::Trie::RawNode do
       end
 
       it 'returns the added node' do
-        expect(node.add('a').letter).to eq :a
+        expect(node.add(%i(a)).letter).to eq :a
       end
     end
   end
@@ -249,7 +249,7 @@ describe Rambling::Trie::RawNode do
     context 'when the chars array is not empty' do
       context 'when the node has a tree that matches the characters' do
         before do
-          node.add 'abc'
+          node.add %i(a b c)
         end
 
         it 'returns true' do
@@ -261,7 +261,7 @@ describe Rambling::Trie::RawNode do
 
       context 'when the node has a tree that does not match the characters' do
         before do
-          node.add 'cba'
+          node.add %i(c b a)
         end
 
         it 'returns false' do
@@ -295,7 +295,7 @@ describe Rambling::Trie::RawNode do
     context 'when the chars array is not empty' do
       context 'when the node has a tree that matches all the characters' do
         before do
-          node.add 'abc'
+          node.add %i(a b c)
         end
 
         it 'returns true' do
@@ -305,7 +305,7 @@ describe Rambling::Trie::RawNode do
 
       context 'when the node has a tree that does not match all the characters' do
         before do
-          node.add 'abc'
+          node.add %i(a b c)
         end
 
         it 'returns false' do
@@ -325,7 +325,7 @@ describe Rambling::Trie::RawNode do
 
     context 'when the chars array is not empty' do
       before do
-        node.add 'cba'
+        node.add %i(c b a)
       end
 
       context 'when the chars are found' do
@@ -350,10 +350,10 @@ describe Rambling::Trie::RawNode do
   describe '#match_prefix' do
     before do
       node.letter = :i
-      node.add 'gnite'
-      node.add 'mport'
-      node.add 'mportant'
-      node.add 'mportantly'
+      node.add %i(g n i t e)
+      node.add %i(m p o r t)
+      node.add %i(m p o r t a n t)
+      node.add %i(m p o r t a n t l y)
     end
 
     context 'when the node is terminal' do

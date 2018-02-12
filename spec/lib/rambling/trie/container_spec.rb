@@ -25,15 +25,14 @@ describe Rambling::Trie::Container do
 
   describe '#add' do
     let(:clone) { double :clone }
-    let(:word) { double :word, clone: clone }
 
     before do
       allow(root).to receive(:add)
     end
 
     it 'clones the original word' do
-      container.add word
-      expect(root).to have_received(:add).with clone
+      container.add 'hello'
+      expect(root).to have_received(:add).with [:h, :e, :l, :l, :o]
     end
   end
 
@@ -168,7 +167,7 @@ describe Rambling::Trie::Container do
 
     it 'aliases `#<<` to `#add`' do
       container << 'words'
-      expect(root).to have_received(:add).with 'words'
+      expect(root).to have_received(:add).with [:w, :o, :r, :d, :s]
     end
 
     it 'delegates `#[]` to the root node' do

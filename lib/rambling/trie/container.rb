@@ -44,7 +44,7 @@ module Rambling
       # @see CompressedNode#add
       # @note Avoids altering the contents of the word variable.
       def add word
-        root.add word.clone
+        root.add char_symbols word
       end
 
       # Compresses the existing tree using redundant node elimination. Marks
@@ -133,6 +133,12 @@ module Rambling
             yield word
           end
         end
+      end
+
+      def char_symbols word
+        symbols = []
+        word.each_char { |c| symbols << c.to_sym }
+        symbols
       end
     end
   end

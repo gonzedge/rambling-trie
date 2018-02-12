@@ -29,7 +29,7 @@ describe Rambling::Trie::CompressedNode do
 
   describe '#add' do
     it 'raises an error' do
-      expect { node.add 'restaurant' }.to raise_error Rambling::Trie::InvalidOperation
+      expect { node.add %i(r e s t a u r a n t) }.to raise_error Rambling::Trie::InvalidOperation
     end
   end
 
@@ -47,7 +47,7 @@ describe Rambling::Trie::CompressedNode do
     context 'when the chars array is not empty' do
       context 'when the node has a tree that matches the characters' do
         before do
-          raw_node.add 'abc'
+          raw_node.add %i(a b c)
         end
 
         it 'returns true' do
@@ -59,7 +59,7 @@ describe Rambling::Trie::CompressedNode do
 
       context 'when the node has a tree that does not match the characters' do
         before do
-          raw_node.add 'cba'
+          raw_node.add %i(c b a)
         end
 
         it 'returns false' do
@@ -97,7 +97,7 @@ describe Rambling::Trie::CompressedNode do
     context 'when the chars array is not empty' do
       context 'when the node has a tree that matches all the characters' do
         before do
-          raw_node.add 'abc'
+          raw_node.add %i(a b c)
         end
 
         it 'returns true' do
@@ -107,7 +107,7 @@ describe Rambling::Trie::CompressedNode do
 
       context 'when the node has a tree that does not match all the characters' do
         before do
-          raw_node.add 'abc'
+          raw_node.add %i(a b c)
         end
 
         it 'returns false' do
@@ -131,7 +131,7 @@ describe Rambling::Trie::CompressedNode do
 
     context 'when the chars array is not empty' do
       before do
-        raw_node.add 'cba'
+        raw_node.add %i(c b a)
       end
 
       context 'when the chars are found' do
@@ -160,10 +160,10 @@ describe Rambling::Trie::CompressedNode do
 
     before do
       raw_node.letter = :i
-      raw_node.add 'gnite'
-      raw_node.add 'mport'
-      raw_node.add 'mportant'
-      raw_node.add 'mportantly'
+      raw_node.add %i(g n i t e)
+      raw_node.add %i(m p o r t)
+      raw_node.add %i(m p o r t a n t)
+      raw_node.add %i(m p o r t a n t l y)
     end
 
     context 'when the node is terminal' do
