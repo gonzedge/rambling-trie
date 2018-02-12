@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Rambling::Trie::Container do
   let(:container) { Rambling::Trie::Container.new root, compressor }
   let(:compressor) { Rambling::Trie::Compressor.new }
-  let(:root) { Rambling::Trie::RawNode.new }
+  let(:root) { Rambling::Trie::Nodes::Raw.new }
 
   describe '.new' do
     it 'uses the provided node as root' do
@@ -233,7 +233,7 @@ describe Rambling::Trie::Container do
 
   describe '#compress!' do
     let(:compressor) { Rambling::Trie::Compressor.new }
-    let(:root) { Rambling::Trie::RawNode.new }
+    let(:root) { Rambling::Trie::Nodes::Raw.new }
 
     context 'with at least one word' do
       it 'keeps the root letter nil' do
@@ -338,7 +338,7 @@ describe Rambling::Trie::Container do
 
   describe '#word?' do
     let(:compressor) { Rambling::Trie::Compressor.new }
-    let(:root) { Rambling::Trie::RawNode.new }
+    let(:root) { Rambling::Trie::Nodes::Raw.new }
 
     context 'word is contained' do
       before do
@@ -609,7 +609,7 @@ describe Rambling::Trie::Container do
     end
 
     context 'when the root nodes are not the same' do
-      let(:other_root) { Rambling::Trie::RawNode.new }
+      let(:other_root) { Rambling::Trie::Nodes::Raw.new }
       let(:other_container) do
         Rambling::Trie::Container.new other_root, compressor do |c|
           c << 'hola'

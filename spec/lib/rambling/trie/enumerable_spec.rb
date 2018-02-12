@@ -3,7 +3,7 @@ require 'spec_helper'
 module Rambling
   module Trie
     describe Enumerable do
-      let(:root) { Rambling::Trie::RawNode.new }
+      let(:root) { Rambling::Trie::Nodes::Raw.new }
       let(:words) { %w(add some words and another word) }
 
       before do

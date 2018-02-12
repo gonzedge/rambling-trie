@@ -1,7 +1,7 @@
 require 'spec_helper'
 
-describe Rambling::Trie::Node do
-  let(:node) { Rambling::Trie::Node.new }
+describe Rambling::Trie::Nodes::Node do
+  let(:node) { Rambling::Trie::Nodes::Node.new }
 
   describe '#root?' do
     context 'when the node has a parent' do
@@ -26,7 +26,7 @@ describe Rambling::Trie::Node do
   end
 
   describe '.new' do
-    let(:node) { Rambling::Trie::Node.new }
+    let(:node) { Rambling::Trie::Nodes::Node.new }
 
     it 'does not have any letter' do
       expect(node.letter).to be_nil

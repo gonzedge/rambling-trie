@@ -26,7 +26,7 @@ describe Rambling::Trie::Configuration::Properties do
     end
 
     it 'configures the root_builder' do
-      expect(properties.root_builder.call).to be_instance_of Rambling::Trie::RawNode
+      expect(properties.root_builder.call).to be_instance_of Rambling::Trie::Nodes::Raw
     end
   end
 

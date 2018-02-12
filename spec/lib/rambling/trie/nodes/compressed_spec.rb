@@ -1,7 +1,7 @@
 require 'spec_helper'
 
-describe Rambling::Trie::CompressedNode do
-  let(:node) { Rambling::Trie::CompressedNode.new }
+describe Rambling::Trie::Nodes::Compressed do
+  let(:node) { Rambling::Trie::Nodes::Compressed.new }
 
   describe '#compressed?' do
     it 'returns true' do
@@ -11,7 +11,7 @@ describe Rambling::Trie::CompressedNode do
 
   describe '.new' do
     context 'with no parent' do
-      let(:node) { Rambling::Trie::CompressedNode.new }
+      let(:node) { Rambling::Trie::Nodes::Compressed.new }
 
       it 'is marked as root' do
         expect(node).to be_root
@@ -19,7 +19,7 @@ describe Rambling::Trie::CompressedNode do
     end
 
     context 'with a specified' do
-      let(:node) { Rambling::Trie::CompressedNode.new double(:root) }
+      let(:node) { Rambling::Trie::Nodes::Compressed.new double(:root) }
 
       it 'is not marked as root' do
         expect(node).not_to be_root
@@ -34,7 +34,7 @@ describe Rambling::Trie::CompressedNode do
   end
 
   describe '#partial_word?' do
-    let(:raw_node) { Rambling::Trie::RawNode.new }
+    let(:raw_node) { Rambling::Trie::Nodes::Raw.new }
     let(:compressor) { Rambling::Trie::Compressor.new }
     let(:node) { compressor.compress raw_node }
 
@@ -72,7 +72,7 @@ describe Rambling::Trie::CompressedNode do
   end
 
   describe '#word?' do
-    let(:raw_node) { Rambling::Trie::RawNode.new }
+    let(:raw_node) { Rambling::Trie::Nodes::Raw.new }
     let(:compressor) { Rambling::Trie::Compressor.new }
     let(:node) { compressor.compress raw_node }
 
@@ -119,7 +119,7 @@ describe Rambling::Trie::CompressedNode do
   end
 
   describe '#scan' do
-    let(:raw_node) { Rambling::Trie::RawNode.new }
+    let(:raw_node) { Rambling::Trie::Nodes::Raw.new }
     let(:compressor) { Rambling::Trie::Compressor.new }
     let(:node) { compressor.compress raw_node }
 
@@ -143,18 +143,18 @@ describe Rambling::Trie::CompressedNode do
       end
 
       context 'when the chars are not found' do
-        it 'returns a MissingNode' do
-          expect(node.scan %w(a)).to be_a Rambling::Trie::MissingNode
-          expect(node.scan %w(a b)).to be_a Rambling::Trie::MissingNode
-          expect(node.scan %w(a b c)).to be_a Rambling::Trie::MissingNode
-          expect(node.scan %w(c b a d)).to be_a Rambling::Trie::MissingNode
+        it 'returns a Nodes::Missing' do
+          expect(node.scan %w(a)).to be_a Rambling::Trie::Nodes::Missing
+          expect(node.scan %w(a b)).to be_a Rambling::Trie::Nodes::Missing
+          expect(node.scan %w(a b c)).to be_a Rambling::Trie::Nodes::Missing
+          expect(node.scan %w(c b a d)).to be_a Rambling::Trie::Nodes::Missing
         end
       end
     end
   end
 
   describe '#match_prefix' do
-    let(:raw_node) { Rambling::Trie::RawNode.new }
+    let(:raw_node) { Rambling::Trie::Nodes::Raw.new }
     let(:compressor) { Rambling::Trie::Compressor.new }
     let(:node) { compressor.compress raw_node }
 

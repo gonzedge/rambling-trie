@@ -6,7 +6,7 @@ describe Rambling::Trie::Compressor do
   describe '#compress' do
     let(:words) { %w(a few words hello hell) }
     let(:root) do
-      Rambling::Trie::RawNode.new
+      Rambling::Trie::Nodes::Raw.new
     end
 
     before do

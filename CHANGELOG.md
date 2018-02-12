@@ -2,6 +2,7 @@
 
 ## 1.0.3 [compare][compare_v1_0_2_and_master]
 
+- Move all `Node`s into 'nodes/' directory [@gonzedge][github_user_gonzedge]
 - Pull `#scan` up to `Node` [@gonzedge][github_user_gonzedge]
 - Slightly reduce memeory for `Properties` and `ProviderCollection` classes [@gonzedge][github_user_gonzedge]
 - Use `#children_tree` instead of `#children` when possible [@gonzedge][github_user_gonzedge]

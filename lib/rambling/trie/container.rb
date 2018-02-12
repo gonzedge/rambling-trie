@@ -22,11 +22,11 @@ module Rambling
       ] => :root
 
       # The root node of this trie.
-      # @return [Node] the root node of this trie.
+      # @return [Nodes::Node] the root node of this trie.
       attr_reader :root
 
       # Creates a new trie.
-      # @param [Node] root the root node for the trie
+      # @param [Nodes::Node] root the root node for the trie
       # @param [Compressor] compressor responsible for compressing the trie
       # @yield [Container] the trie just created.
       def initialize root, compressor
@@ -38,10 +38,10 @@ module Rambling
 
       # Adds a word to the trie, without altering the passed word.
       # @param [String] word the word to add the branch from.
-      # @return [Node] the just added branch's root node.
+      # @return [Nodes::Node] the just added branch's root node.
       # @raise [InvalidOperation] if the trie is already compressed.
-      # @see RawNode#add
-      # @see CompressedNode#add
+      # @see Nodes::Raw#add
+      # @see Nodes::Compressed#add
       # @note Avoids altering the contents of the word variable.
       def add word
         root.add char_symbols word
@@ -60,8 +60,8 @@ module Rambling
       # @param [String] word the word or partial word to look for in the trie.
       # @return [Boolean] `true` if the word or partial word is found, `false`
       #   otherwise.
-      # @see RawNode#partial_word?
-      # @see CompressedNode#partial_word?
+      # @see Nodes::Raw#partial_word?
+      # @see Nodes::Compressed#partial_word?
       def partial_word? word = ''
         root.partial_word? word.chars
       end
@@ -70,8 +70,8 @@ module Rambling
       # @param [String] word the word to look for in the trie.
       # @return [Boolean] `true` only if the word is found and the last
       #   character corresponds to a terminal node, `false` otherwise.
-      # @see RawNode#word?
-      # @see CompressedNode#word?
+      # @see Nodes::Raw#word?
+      # @see Nodes::Compressed#word?
       def word? word = ''
         root.word? word.chars
       end
@@ -80,8 +80,8 @@ module Rambling
       # @param [String] word the word to look for in the trie.
       # @return [Array<String>] all the words contained in the trie that start
       #   with the specified characters.
-      # @see RawNode#scan
-      # @see CompressedNode#scan
+      # @see Nodes::Raw#scan
+      # @see Nodes::Compressed#scan
       def scan word = ''
         root.scan(word.chars).to_a
       end
@@ -92,7 +92,7 @@ module Rambling
       # @return [Enumerator<String>] all the words in the given string that
       #   match a word in the trie.
       # @yield [String] each word found in phrase.
-      # @see Node#words_within
+      # @see Nodes::Node#words_within
       def words_within phrase
         words_within_root(phrase).to_a
       end

@@ -3,9 +3,9 @@ module Rambling
     # Provides the comparable behavior for the trie data structure.
     module Comparable
       # Compares two nodes.
-      # @param [Node] other the node to compare against.
-      # @return [Boolean] `true` if the nodes' {Node#letter #letter} and
-      #   {Node#children_tree #children_tree} are equal, `false` otherwise.
+      # @param [Nodes::Node] other the node to compare against.
+      # @return [Boolean] `true` if the nodes' {Nodes::Node#letter #letter} and
+      #   {Nodes::Node#children_tree #children_tree} are equal, `false` otherwise.
       def == other
         letter == other.letter &&
           terminal? == other.terminal? &&

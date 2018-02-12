@@ -11,17 +11,17 @@ module Rambling
         end
 
         # Loads marshaled object from contents in filepath and deserializes it
-        # into a {Node Node}.
+        # into a {Nodes::Node Node}.
         # @param [String] filepath the full path of the file to load the
         #   marshaled object from.
-        # @return [Node] The deserialized {Node Node}.
+        # @return [Nodes::Node] The deserialized {Node Node}.
         def load filepath
           ::Marshal.load serializer.load filepath
         end
 
-        # Serializes a {Node Node} and dumps it as a marshaled object into
+        # Serializes a {Nodes::Node Node} and dumps it as a marshaled object into
         # filepath.
-        # @param [Node] node the node to serialize
+        # @param [Nodes::Node] node the node to serialize
         # @param [String] filepath the full path of the file to dump the
         #   marshaled object into.
         # @return [Numeric] number of bytes written to disk.

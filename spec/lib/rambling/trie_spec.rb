@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Rambling::Trie do
   describe '.create' do
-    let(:root) { Rambling::Trie::RawNode.new }
+    let(:root) { Rambling::Trie::Nodes::Raw.new }
     let(:compressor) { Rambling::Trie::Compressor.new }
     let!(:container) { Rambling::Trie::Container.new root, compressor }
 
@@ -65,7 +65,7 @@ describe Rambling::Trie do
   end
 
   describe '.load' do
-    let(:root) { Rambling::Trie::RawNode.new }
+    let(:root) { Rambling::Trie::Nodes::Raw.new }
     let(:compressor) { Rambling::Trie::Compressor.new }
     let(:container) { Rambling::Trie::Container.new root, compressor }
     let(:serializer) { double :serializer, load: root }

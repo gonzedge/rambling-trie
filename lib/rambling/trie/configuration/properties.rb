@@ -17,9 +17,9 @@ module Rambling
         # @return [Compressor] the configured compressor.
         attr_accessor :compressor
 
-        # The configured root_builder, which should return a {Node Node} when
+        # The configured root_builder, which should return a {Nodes::Node Node} when
         # called.
-        # @return [Proc<Node>] the configured root_builder.
+        # @return [Proc<Nodes::Node>] the configured root_builder.
         attr_accessor :root_builder
 
         attr_accessor :tmp_path
@@ -35,7 +35,7 @@ module Rambling
           reset_serializers
 
           self.compressor = Rambling::Trie::Compressor.new
-          self.root_builder = lambda { Rambling::Trie::RawNode.new }
+          self.root_builder = lambda { Rambling::Trie::Nodes::Raw.new }
           self.tmp_path = '/tmp'
         end
 

@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Rambling::Trie::Stringifyable do
   describe '#as_word' do
-    let(:node) { Rambling::Trie::RawNode.new }
+    let(:node) { Rambling::Trie::Nodes::Raw.new }
 
     context 'for an empty node' do
       before do
@@ -52,7 +52,7 @@ describe Rambling::Trie::Stringifyable do
     end
 
     context 'for a node with nil letter' do
-      let(:node) { Rambling::Trie::RawNode.new nil }
+      let(:node) { Rambling::Trie::Nodes::Raw.new nil }
 
       it 'returns nil' do
         expect(node.as_word).to be_empty

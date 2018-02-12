@@ -2,8 +2,8 @@ require 'spec_helper'
 
 describe Rambling::Trie::Comparable do
   describe '#==' do
-    let(:node_1) { Rambling::Trie::RawNode.new }
-    let(:node_2) { Rambling::Trie::RawNode.new }
+    let(:node_1) { Rambling::Trie::Nodes::Raw.new }
+    let(:node_2) { Rambling::Trie::Nodes::Raw.new }
 
     context 'when the nodes do not have the same letter' do
       before do

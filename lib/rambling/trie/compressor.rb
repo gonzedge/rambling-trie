@@ -2,9 +2,9 @@ module Rambling
   module Trie
     # Responsible for the compression process of a trie data structure.
     class Compressor
-      # Compresses a {Node Node} from a trie data structure.
-      # @param [RawNode] node the node to compress.
-      # @return [CompressedNode] node the compressed version of the node.
+      # Compresses a {Nodes::Node Node} from a trie data structure.
+      # @param [Nodes::Raw] node the node to compress.
+      # @return [Nodes::Compressed] node the compressed version of the node.
       def compress node
         if node.compressable?
           merge_with_child_and_compress node
@@ -39,7 +39,7 @@ module Rambling
       end
 
       def new_compressed_node node, letter, terminal
-        new_node = Rambling::Trie::CompressedNode.new node.parent
+        new_node = Rambling::Trie::Nodes::Compressed.new node.parent
         new_node.letter = letter
         new_node.terminal! if terminal
         new_node

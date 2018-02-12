@@ -1,7 +1,7 @@
 require 'spec_helper'
 
-describe Rambling::Trie::RawNode do
-  let(:node) { Rambling::Trie::RawNode.new }
+describe Rambling::Trie::Nodes::Raw do
+  let(:node) { Rambling::Trie::Nodes::Raw.new }
 
   describe '#compressed?' do
     it 'returns false' do
@@ -11,7 +11,7 @@ describe Rambling::Trie::RawNode do
 
   describe '.new' do
     context 'with no word' do
-      let(:node) { Rambling::Trie::RawNode.new }
+      let(:node) { Rambling::Trie::Nodes::Raw.new }
 
       it 'does not have any letter' do
         expect(node.letter).to be_nil
@@ -31,8 +31,8 @@ describe Rambling::Trie::RawNode do
     end
 
     describe '#letter=' do
-      let(:parent) { Rambling::Trie::RawNode.new }
-      let(:node) { Rambling::Trie::RawNode.new parent }
+      let(:parent) { Rambling::Trie::Nodes::Raw.new }
+      let(:node) { Rambling::Trie::Nodes::Raw.new parent }
 
       context 'with empty string' do
         before do
@@ -130,7 +130,7 @@ describe Rambling::Trie::RawNode do
     end
 
     context 'with no parent' do
-      let(:node) { Rambling::Trie::RawNode.new }
+      let(:node) { Rambling::Trie::Nodes::Raw.new }
 
       it 'is marked as root' do
         expect(node).to be_root
@@ -138,7 +138,7 @@ describe Rambling::Trie::RawNode do
     end
 
     context 'with a specified parent' do
-      let(:node) { Rambling::Trie::RawNode.new double(:root) }
+      let(:node) { Rambling::Trie::Nodes::Raw.new double(:root) }
 
       it 'is not marked as root' do
         expect(node).not_to be_root
@@ -337,11 +337,11 @@ describe Rambling::Trie::RawNode do
       end
 
       context 'when the chars are not found' do
-        it 'returns a MissingNode' do
-          expect(node.scan %w(a)).to be_a Rambling::Trie::MissingNode
-          expect(node.scan %w(a b)).to be_a Rambling::Trie::MissingNode
-          expect(node.scan %w(a b c)).to be_a Rambling::Trie::MissingNode
-          expect(node.scan %w(c b a d)).to be_a Rambling::Trie::MissingNode
+        it 'returns a Nodes::Missing' do
+          expect(node.scan %w(a)).to be_a Rambling::Trie::Nodes::Missing
+          expect(node.scan %w(a b)).to be_a Rambling::Trie::Nodes::Missing
+          expect(node.scan %w(a b c)).to be_a Rambling::Trie::Nodes::Missing
+          expect(node.scan %w(c b a d)).to be_a Rambling::Trie::Nodes::Missing
         end
       end
     end

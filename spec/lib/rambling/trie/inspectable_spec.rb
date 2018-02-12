@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe Rambling::Trie::Inspectable do
-  let(:root) { Rambling::Trie::RawNode.new }
+  let(:root) { Rambling::Trie::Nodes::Raw.new }
 
   before do
     [
@@ -16,9 +16,9 @@ describe Rambling::Trie::Inspectable do
     let(:terminal_node) { root[:o][:n][:l][:y] }
 
     it 'returns a pretty printed version of the node' do
-      expect(root.inspect).to eq "#<Rambling::Trie::RawNode letter: nil, terminal: nil, children: [:o, :t, :w]>"
-      expect(node.inspect).to eq "#<Rambling::Trie::RawNode letter: :o, terminal: nil, children: [:n]>"
-      expect(terminal_node.inspect).to eq "#<Rambling::Trie::RawNode letter: :y, terminal: true, children: []>"
+      expect(root.inspect).to eq "#<Rambling::Trie::Nodes::Raw letter: nil, terminal: nil, children: [:o, :t, :w]>"
+      expect(node.inspect).to eq "#<Rambling::Trie::Nodes::Raw letter: :o, terminal: nil, children: [:n]>"
+      expect(terminal_node.inspect).to eq "#<Rambling::Trie::Nodes::Raw letter: :y, terminal: true, children: []>"
     end
 
     context 'for a compressed node' do
@@ -27,8 +27,8 @@ describe Rambling::Trie::Inspectable do
       let(:compressed_node) { compressed_root[:only] }
 
       it 'returns a pretty printed version of the compressed node' do
-        expect(compressed_root.inspect).to eq "#<Rambling::Trie::CompressedNode letter: nil, terminal: nil, children: [:only, :three, :words]>"
-        expect(compressed_node.inspect).to eq "#<Rambling::Trie::CompressedNode letter: :only, terminal: true, children: []>"
+        expect(compressed_root.inspect).to eq "#<Rambling::Trie::Nodes::Compressed letter: nil, terminal: nil, children: [:only, :three, :words]>"
+        expect(compressed_node.inspect).to eq "#<Rambling::Trie::Nodes::Compressed letter: :only, terminal: true, children: []>"
       end
     end
   end
