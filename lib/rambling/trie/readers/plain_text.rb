@@ -8,17 +8,7 @@ module Rambling
         #   from.
         # @yield [String] Each line read from the file.
         def each_word filepath
-          each_line(filepath) { |line| yield line.chomp! }
-        end
-
-        private
-
-        def each_line filepath
-          open(filepath) { |file| file.each_line { |line| yield line } }
-        end
-
-        def open filepath
-          File.open(filepath) { |file| yield file }
+          File.foreach(filepath) { |line| yield line.chomp! }
         end
       end
     end
