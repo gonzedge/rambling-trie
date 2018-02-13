@@ -4,28 +4,111 @@ describe Rambling::Trie::Compressor do
   let(:compressor) { Rambling::Trie::Compressor.new }
 
   describe '#compress' do
-    let(:words) { %w(a few words hello hell) }
-    let(:root) do
-      Rambling::Trie::Nodes::Raw.new
+    let(:root) { Rambling::Trie::Nodes::Raw.new }
+
+    it 'compresses the new root' do
+      words = %w(a few words hello hell)
+      words.each { |word| root.add word.chars.map(&:to_sym) }
+      compressed_root = compressor.compress root
+
+      expect(compressed_root.children_tree.keys).to eq %i(a few words hell)
     end
 
-    before do
-      words.each { |w| root.add w.clone }
-    end
+    context 'with at least one word' do
+      before do
+        root.add %i(a l l)
+      end
 
-    it 'generates a new root with the words from the passed root' do
-      new_root = compressor.compress root
+      it 'keeps the root letter nil' do
+        compressed_root = compressor.compress root
 
-      expect(words).not_to be_empty
-      words.each do |word|
-        expect(new_root).to include word
+        expect(compressed_root.letter).to be_nil
       end
     end
 
-    it 'compresses the new root' do
-      new_root = compressor.compress root
+    context 'with a single word' do
+      before do
+        root.add %i(a l l)
+      end
 
-      expect(new_root.children_tree.keys).to eq %i(a few words hell)
+      it 'compresses into a single node without children' do
+        compressed_root = compressor.compress root
+
+        expect(compressed_root[:all].letter).to eq :all
+        expect(compressed_root[:all].children.size).to eq 0
+        expect(compressed_root[:all]).to be_terminal
+        expect(compressed_root[:all]).to be_compressed
+      end
+    end
+
+    context 'with two words' do
+      before do
+        root.add %i(a l l)
+        root.add %i(a s k)
+      end
+
+      it 'compresses into corresponding three nodes' do
+        compressed_root = compressor.compress root
+
+        expect(compressed_root[:a].letter).to eq :a
+        expect(compressed_root[:a].children.size).to eq 2
+
+        expect(compressed_root[:a][:ll].letter).to eq :ll
+        expect(compressed_root[:a][:sk].letter).to eq :sk
+
+        expect(compressed_root[:a][:ll].children.size).to eq 0
+        expect(compressed_root[:a][:sk].children.size).to eq 0
+
+        expect(compressed_root[:a][:ll]).to be_terminal
+        expect(compressed_root[:a][:sk]).to be_terminal
+
+        expect(compressed_root[:a][:ll]).to be_compressed
+        expect(compressed_root[:a][:sk]).to be_compressed
+      end
+    end
+
+    it 'reassigns the parent nodes correctly' do
+      root.add %i(r e p a y)
+      root.add %i(r e s t)
+      root.add %i(r e p a i n t)
+
+      compressed_root = compressor.compress root
+
+      expect(compressed_root[:re].letter).to eq :re
+      expect(compressed_root[:re].parent).to eq compressed_root
+      expect(compressed_root[:re].children.size).to eq 2
+
+      expect(compressed_root[:re][:pa].letter).to eq :pa
+      expect(compressed_root[:re][:pa].parent).to eq compressed_root[:re]
+      expect(compressed_root[:re][:pa].children.size).to eq 2
+
+      expect(compressed_root[:re][:st].letter).to eq :st
+      expect(compressed_root[:re][:st].parent).to eq compressed_root[:re]
+      expect(compressed_root[:re][:st].children.size).to eq 0
+
+      expect(compressed_root[:re][:pa][:y].letter).to eq :y
+      expect(compressed_root[:re][:pa][:y].parent).to eq compressed_root[:re][:pa]
+      expect(compressed_root[:re][:pa][:y].children.size).to eq 0
+
+      expect(compressed_root[:re][:pa][:int].letter).to eq :int
+      expect(compressed_root[:re][:pa][:int].parent).to eq compressed_root[:re][:pa]
+      expect(compressed_root[:re][:pa][:int].children.size).to eq 0
+    end
+
+    it 'does not compress terminal nodes' do
+      root.add %i(y o u)
+      root.add %i(y o u r)
+      root.add %i(y o u r s)
+
+      compressed_root = compressor.compress root
+
+      expect(compressed_root[:you].letter).to eq :you
+
+      expect(compressed_root[:you][:r].letter).to eq :r
+      expect(compressed_root[:you][:r]).to be_compressed
+
+      expect(compressed_root[:you][:r][:s].letter).to eq :s
+      expect(compressed_root[:you][:r][:s]).to be_compressed
     end
   end
 end

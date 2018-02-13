@@ -7,41 +7,55 @@ module Rambling
       # @return [Nodes::Compressed] node the compressed version of the node.
       def compress node
         if node.compressable?
-          merge_with_child_and_compress node
+          compress_child_and_merge node
         else
-          copy_node_and_compress_children node
+          compress_children_and_copy node
         end
       end
 
       private
 
-      def merge_with_child_and_compress node
-        child = node.first_child
-
-        letter = node.letter.to_s << child.letter.to_s
-        new_node = new_compressed_node node, letter, child.terminal?
-        new_node.children_tree = child.children_tree
-
-        compress new_node
+      def compress_child_and_merge node
+        merge node, compress(node.first_child)
       end
 
-      def copy_node_and_compress_children node
-        new_node = new_compressed_node node, node.letter, node.terminal?
+      def merge node, other
+        letter = node.letter.to_s << other.letter.to_s
 
-        node.children_tree.each_value do |child|
+        new_compressed_node(
+          letter.to_sym,
+          node.parent,
+          other.children_tree,
+          other.terminal?
+        )
+      end
+
+      def compress_children_and_copy node
+        new_compressed_node(
+          node.letter,
+          node.parent,
+          compress_children(node.children_tree),
+          node.terminal?
+        )
+      end
+
+      def compress_children children_tree
+        new_children_tree = {}
+
+        children_tree.each_value do |child|
           compressed_child = compress child
-
-          compressed_child.parent = new_node
-          new_node[compressed_child.letter] = compressed_child
+          new_children_tree[compressed_child.letter] = compressed_child
         end
 
-        new_node
+        new_children_tree
       end
 
-      def new_compressed_node node, letter, terminal
-        new_node = Rambling::Trie::Nodes::Compressed.new letter, node.parent
-        new_node.terminal! if terminal
-        new_node
+      def new_compressed_node letter, parent, children_tree, terminal
+        node = Rambling::Trie::Nodes::Compressed.new letter, parent, children_tree
+        node.terminal! if terminal
+
+        children_tree.each_value { |child| child.parent = node }
+        node
       end
     end
   end

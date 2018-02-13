@@ -2,6 +2,7 @@
 
 ## 1.0.3 [compare][compare_v1_0_2_and_master]
 
+- Refactor `Compressor` and improve memory footprint and performance by [@gonzedge][github_user_gonzedge]
 - Add letter to `Node`'s constructor [@gonzedge][github_user_gonzedge]
 - Move all `Node`s into 'nodes/' directory [@gonzedge][github_user_gonzedge]
 - Pull `#scan` up to `Node` [@gonzedge][github_user_gonzedge]

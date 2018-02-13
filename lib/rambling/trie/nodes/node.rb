@@ -38,10 +38,10 @@ module Rambling
         # Creates a new node.
         # @param [Symbol, nil] letter the Node's letter value
         # @param [Nodes::Node, nil] parent the parent of the current node.
-        def initialize letter = nil, parent = nil
-          self.letter = letter
-          self.parent = parent
-          self.children_tree = {}
+        def initialize letter = nil, parent = nil, children_tree = {}
+          @letter = letter
+          @parent = parent
+          @children_tree = children_tree
         end
 
         # Children nodes.

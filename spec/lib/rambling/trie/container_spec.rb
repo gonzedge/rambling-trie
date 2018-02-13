@@ -235,93 +235,17 @@ describe Rambling::Trie::Container do
     let(:compressor) { Rambling::Trie::Compressor.new }
     let(:root) { Rambling::Trie::Nodes::Raw.new }
 
-    context 'with at least one word' do
-      it 'keeps the root letter nil' do
-        container.add 'all'
-        container.compress!
-
-        expect(container.letter).to be_nil
-      end
+    it 'gets a new root from the compressor' do
+      container.compress!
+      expect(container.root).to be_compressed
     end
 
-    context 'with a single word' do
-      before do
-        container.add 'all'
-        container.compress!
-      end
-
-      it 'compresses into a single node without children' do
-        expect(container[:all].letter).to eq :all
-        expect(container[:all].children.size).to eq 0
-        expect(container[:all]).to be_terminal
-        expect(container[:all]).to be_compressed
-      end
-    end
-
-    context 'with two words' do
-      before do
-        container.add 'all'
-        container.add 'ask'
-        container.compress!
-      end
-
-      it 'compresses into corresponding three nodes' do
-        expect(container[:a].letter).to eq :a
-        expect(container[:a].children.size).to eq 2
-
-        expect(container[:a][:ll].letter).to eq :ll
-        expect(container[:a][:sk].letter).to eq :sk
-
-        expect(container[:a][:ll].children.size).to eq 0
-        expect(container[:a][:sk].children.size).to eq 0
-
-        expect(container[:a][:ll]).to be_terminal
-        expect(container[:a][:sk]).to be_terminal
-
-        expect(container[:a][:ll]).to be_compressed
-        expect(container[:a][:sk]).to be_compressed
-      end
-    end
-
-    it 'reassigns the parent nodes correctly' do
-      container.add 'repay'
-      container.add 'rest'
-      container.add 'repaint'
+    it 'generates a new root with the words from the passed root' do
+      words = %w(a few words hello hell)
+      words.each { |word| container.add word }
       container.compress!
 
-      expect(container[:re].letter).to eq :re
-      expect(container[:re].children.size).to eq 2
-
-      expect(container[:re][:pa].letter).to eq :pa
-      expect(container[:re][:st].letter).to eq :st
-
-      expect(container[:re][:pa].children.size).to eq 2
-      expect(container[:re][:st].children.size).to eq 0
-
-      expect(container[:re][:pa][:y].letter).to eq :y
-      expect(container[:re][:pa][:int].letter).to eq :int
-
-      expect(container[:re][:pa][:y].children.size).to eq 0
-      expect(container[:re][:pa][:int].children.size).to eq 0
-
-      expect(container[:re][:pa][:y].parent).to eq container[:re][:pa]
-      expect(container[:re][:pa][:int].parent).to eq container[:re][:pa]
-    end
-
-    it 'does not compress terminal nodes' do
-      container.add 'you'
-      container.add 'your'
-      container.add 'yours'
-
-      container.compress!
-
-      expect(container[:you].letter).to eq :you
-
-      expect(container[:you][:r].letter).to eq :r
-      expect(container[:you][:r]).to be_compressed
-
-      expect(container[:you][:r][:s].letter).to eq :s
-      expect(container[:you][:r][:s]).to be_compressed
+      words.each { |word| expect(container).to include word }
     end
 
     describe 'and trying to add a word' do
