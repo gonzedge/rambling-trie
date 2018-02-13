@@ -55,9 +55,9 @@ module Rambling
         end
 
         def new_node letter
-          node = Rambling::Trie::Nodes::Raw.new self
-          node.letter = letter
+          node = Rambling::Trie::Nodes::Raw.new letter, self
           children_tree[letter] = node
+          node
         end
 
         def closest_node chars

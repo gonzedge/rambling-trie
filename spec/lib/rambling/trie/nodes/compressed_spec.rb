@@ -19,7 +19,7 @@ describe Rambling::Trie::Nodes::Compressed do
     end
 
     context 'with a specified' do
-      let(:node) { Rambling::Trie::Nodes::Compressed.new double(:root) }
+      let(:node) { Rambling::Trie::Nodes::Compressed.new :a, double(:root) }
 
       it 'is not marked as root' do
         expect(node).not_to be_root
@@ -154,12 +154,11 @@ describe Rambling::Trie::Nodes::Compressed do
   end
 
   describe '#match_prefix' do
-    let(:raw_node) { Rambling::Trie::Nodes::Raw.new }
+    let(:raw_node) { Rambling::Trie::Nodes::Raw.new :i }
     let(:compressor) { Rambling::Trie::Compressor.new }
     let(:node) { compressor.compress raw_node }
 
     before do
-      raw_node.letter = :i
       raw_node.add %i(g n i t e)
       raw_node.add %i(m p o r t)
       raw_node.add %i(m p o r t a n t)

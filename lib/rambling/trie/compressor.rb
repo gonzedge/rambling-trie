@@ -39,8 +39,7 @@ module Rambling
       end
 
       def new_compressed_node node, letter, terminal
-        new_node = Rambling::Trie::Nodes::Compressed.new node.parent
-        new_node.letter = letter
+        new_node = Rambling::Trie::Nodes::Compressed.new letter, node.parent
         new_node.terminal! if terminal
         new_node
       end

@@ -32,11 +32,10 @@ describe Rambling::Trie::Nodes::Raw do
 
     describe '#letter=' do
       let(:parent) { Rambling::Trie::Nodes::Raw.new }
-      let(:node) { Rambling::Trie::Nodes::Raw.new parent }
+      let(:node) { Rambling::Trie::Nodes::Raw.new :a, parent }
 
       context 'with empty string' do
         before do
-          node.letter = :a
           node.add %i()
         end
 
@@ -55,12 +54,11 @@ describe Rambling::Trie::Nodes::Raw do
 
       context 'with one letter' do
         before do
-          node.letter = :b
-          node.add %i(a)
+          node.add %i(b)
         end
 
         it 'takes the first as the node letter' do
-          expect(node.letter).to eq :b
+          expect(node.letter).to eq :a
         end
 
         it 'includes one child' do
@@ -68,15 +66,15 @@ describe Rambling::Trie::Nodes::Raw do
         end
 
         it 'includes a child with the expected letter' do
-          expect(node.first_child.letter).to eq :a
+          expect(node.first_child.letter).to eq :b
         end
 
         it 'has the expected letter as a key' do
-          expect(node).to have_key(:a)
+          expect(node).to have_key(:b)
         end
 
         it 'returns the child corresponding to the key' do
-          expect(node[:a]).to eq node.children_tree[:a]
+          expect(node[:b]).to eq node.children_tree[:b]
         end
 
         it 'does not mark itself as a terminal node' do
@@ -84,35 +82,33 @@ describe Rambling::Trie::Nodes::Raw do
         end
 
         it 'marks the first child as a terminal node' do
-          expect(node[:a]).to be_terminal
+          expect(node[:b]).to be_terminal
         end
       end
 
       context 'with a large word' do
         before do
-          node.letter = :s
-          node.add %i(p a g h e t t i)
+          node.add %i(m p l i f i e d)
         end
 
         it 'marks the last letter as terminal node' do
-          expect(node[:p][:a][:g][:h][:e][:t][:t][:i]).to be_terminal
+          expect(node[:m][:p][:l][:i][:f][:i][:e][:d]).to be_terminal
         end
 
         it 'does not mark any other letter as terminal node' do
-          expect(node[:p][:a][:g][:h][:e][:t][:t]).not_to be_terminal
-          expect(node[:p][:a][:g][:h][:e][:t]).not_to be_terminal
-          expect(node[:p][:a][:g][:h][:e]).not_to be_terminal
-          expect(node[:p][:a][:g][:h]).not_to be_terminal
-          expect(node[:p][:a][:g]).not_to be_terminal
-          expect(node[:p][:a]).not_to be_terminal
-          expect(node[:p]).not_to be_terminal
+          expect(node[:m][:p][:l][:i][:f][:i][:e]).not_to be_terminal
+          expect(node[:m][:p][:l][:i][:f][:i]).not_to be_terminal
+          expect(node[:m][:p][:l][:i][:f]).not_to be_terminal
+          expect(node[:m][:p][:l][:i]).not_to be_terminal
+          expect(node[:m][:p][:l]).not_to be_terminal
+          expect(node[:m][:p]).not_to be_terminal
+          expect(node[:m]).not_to be_terminal
         end
       end
 
       context 'with no parent' do
         before do
-          node.letter = :a
-          node.add []
+          node.add %i()
         end
 
         it 'makes it the node letter' do
@@ -130,7 +126,7 @@ describe Rambling::Trie::Nodes::Raw do
     end
 
     context 'with no parent' do
-      let(:node) { Rambling::Trie::Nodes::Raw.new }
+      let(:node) { Rambling::Trie::Nodes::Raw.new :a }
 
       it 'is marked as root' do
         expect(node).to be_root
@@ -138,7 +134,7 @@ describe Rambling::Trie::Nodes::Raw do
     end
 
     context 'with a specified parent' do
-      let(:node) { Rambling::Trie::Nodes::Raw.new double(:root) }
+      let(:node) { Rambling::Trie::Nodes::Raw.new :a, double(:root) }
 
       it 'is not marked as root' do
         expect(node).not_to be_root

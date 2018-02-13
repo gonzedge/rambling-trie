@@ -23,7 +23,7 @@ module Rambling
         #   Sets the letter(s) corresponding to the current node. Ensures the
         #   {Nodes::Node#letter #letter} in the {Node#parent #parent}'s
         #   {Nodes::Node#children_tree #children_tree} is updated.
-        #   @param [String, Symbol, nil] letter the new letter value.
+        #   @param [String, Symbol, nil] letter the letter value.
         # @return [Symbol, nil] the corresponding letter(s).
         attr_reader :letter
 
@@ -36,8 +36,10 @@ module Rambling
         attr_accessor :parent
 
         # Creates a new node.
+        # @param [Symbol, nil] letter the Node's letter value
         # @param [Nodes::Node, nil] parent the parent of the current node.
-        def initialize parent = nil
+        def initialize letter = nil, parent = nil
+          self.letter = letter
           self.parent = parent
           self.children_tree = {}
         end
