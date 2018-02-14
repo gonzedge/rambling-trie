@@ -2,14 +2,14 @@ require 'spec_helper'
 
 describe Rambling::Trie do
   describe 'with words provided directly' do
-    it_behaves_like 'a compressable trie' do
+    it_behaves_like 'a compressible trie' do
       let(:words) { %w[a couple of words for our full trie integration test] }
       let(:trie) { Rambling::Trie.create { |t| words.each { |w| t << w } } }
     end
   end
 
   describe 'with words from a file' do
-    it_behaves_like 'a compressable trie' do
+    it_behaves_like 'a compressible trie' do
       let(:filepath) { File.join ::SPEC_ROOT, 'assets', 'test_words.en_US.txt' }
       let(:words) { File.readlines(filepath).map &:chomp! }
       let(:trie) { Rambling::Trie.create filepath }
@@ -17,14 +17,14 @@ describe Rambling::Trie do
   end
 
   describe 'with words with unicode characters' do
-    it_behaves_like 'a compressable trie' do
+    it_behaves_like 'a compressible trie' do
       let(:words) { %w[poquísimas palabras para nuestra prueba de integración completa] }
       let(:trie) { Rambling::Trie.create { |t| words.each { |w| t << w } } }
     end
   end
 
   describe 'with words with unicode characters from a file' do
-    it_behaves_like 'a compressable trie' do
+    it_behaves_like 'a compressible trie' do
       let(:filepath) { File.join ::SPEC_ROOT, 'assets', 'test_words.en_US.txt' }
       let(:words) { File.readlines(filepath).map &:chomp! }
       let(:trie) { Rambling::Trie.create filepath }

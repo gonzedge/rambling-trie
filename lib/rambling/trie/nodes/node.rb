@@ -4,7 +4,7 @@ module Rambling
       # A representation of a node in the trie data structure.
       class Node
         extend ::Forwardable
-        include Rambling::Trie::Compressable
+        include Rambling::Trie::Compressible
         include Rambling::Trie::Enumerable
         include Rambling::Trie::Comparable
         include Rambling::Trie::Stringifyable

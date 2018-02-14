@@ -6,7 +6,7 @@ module Rambling
       # @param [Nodes::Raw] node the node to compress.
       # @return [Nodes::Compressed] node the compressed version of the node.
       def compress node
-        if node.compressable?
+        if node.compressible?
           compress_child_and_merge node
         else
           compress_children_and_copy node

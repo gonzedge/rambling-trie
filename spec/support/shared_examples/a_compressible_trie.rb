@@ -1,4 +1,4 @@
-shared_examples_for 'a compressable trie' do
+shared_examples_for 'a compressible trie' do
   context 'and the trie is not compressed' do
     it_behaves_like 'a trie data structure'
 

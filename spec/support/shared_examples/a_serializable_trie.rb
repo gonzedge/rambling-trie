@@ -4,7 +4,7 @@ shared_examples_for 'a serializable trie' do
       Rambling::Trie.dump trie_to_serialize, trie_filepath, serializer
     end
 
-    it_behaves_like 'a compressable trie' do
+    it_behaves_like 'a compressible trie' do
       let(:trie) { loaded_trie }
     end
   end
