@@ -1,13 +1,15 @@
 require_relative 'lookups_task'
 
 module Performance
-  class LookupsWordTask < Performance::LookupsTask
+  class LookupsWordCompressedTask < Performance::LookupsTask
     def name
-      'lookups:word'
+      'lookups:word:compressed'
     end
 
-    def execute reporter_class, trie
-      reporter = reporter_class.new filename trie
+    def execute reporter_class
+      trie = compressed_trie
+      reporter = reporter_class.new filename
+
       reporter.report iterations, params do |word|
         trie.word? word
       end
@@ -19,8 +21,8 @@ module Performance
       %w(hi help beautiful impressionism anthropological)
     end
 
-    def filename trie
-      "#{trie.compressed? ? 'compressed' : 'raw'}-lookups-word"
+    def filename
+      'lookups-word-compressed'
     end
   end
 end

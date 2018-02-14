@@ -1,17 +1,19 @@
 require_relative 'lookups_task'
 
 module Performance
-  class LookupsWordsWithinTask < Performance::LookupsTask
+  class LookupsWordsWithinRawTask < Performance::LookupsTask
     def initialize iterations = 100_000
       super iterations
     end
 
     def name
-      'lookups:words_within'
+      'lookups:words_within:raw'
     end
 
-    def execute reporter_class, trie
-      reporter = reporter_class.new filename trie
+    def execute reporter_class
+      trie = raw_trie
+      reporter = reporter_class.new filename
+
       reporter.report iterations, params do |word|
         trie.words_within(word).size
       end
@@ -23,8 +25,8 @@ module Performance
       %w(ifdxawesome45someword3 ifdx45someword3awesome)
     end
 
-    def filename trie
-      "#{trie.compressed? ? 'compressed' : 'raw'}-lookups-words-within"
+    def filename
+      'lookups-words-within-raw'
     end
   end
 end

@@ -1,15 +1,21 @@
+require_relative '../helpers/trie'
+
 module Performance
-  class LookupsScanTask
+  class LookupsScanCompressedTask
+    include Helpers::Trie
+
     def initialize params_to_iterations = default_params
       @params_to_iterations = params_to_iterations
     end
 
     def name
-      'lookups:scan'
+      'lookups:scan:compressed'
     end
 
-    def execute reporter_class, trie
-      reporter = reporter_class.new filename trie
+    def execute reporter_class
+      trie = compressed_trie
+      reporter = reporter_class.new filename
+
       params_to_iterations.each do |word, iterations|
         reporter.report iterations, word.to_s do |word|
           trie.scan(word).size
@@ -31,8 +37,8 @@ module Performance
       }
     end
 
-    def filename trie
-      "#{trie.compressed? ? 'compressed' : 'raw'}-lookups-scan"
+    def filename
+      'lookups-scan-compressed'
     end
   end
 end

@@ -6,9 +6,17 @@ module Helpers
 
     def tries
       [
-        Rambling::Trie.load(raw_trie_path),
-        Rambling::Trie.load(compressed_trie_path)
+        raw_trie,
+        compressed_trie
       ]
+    end
+
+    def raw_trie
+      Rambling::Trie.load raw_trie_path
+    end
+
+    def compressed_trie
+      Rambling::Trie.load compressed_trie_path
     end
   end
 end
