@@ -27,10 +27,6 @@ module Performance
           def params
             %w(hi help beautiful impressionism anthropological)
           end
-
-          def filename
-            'lookups-partial-word-raw'
-          end
         end
       end
     end

@@ -18,12 +18,6 @@ module Performance
             Rambling::Trie.load compressed_trie_path; nil
           end
         end
-
-        private
-
-        def filename
-          'serialization-compressed'
-        end
       end
     end
   end

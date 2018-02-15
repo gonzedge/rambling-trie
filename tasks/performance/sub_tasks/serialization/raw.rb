@@ -18,12 +18,6 @@ module Performance
             Rambling::Trie.load raw_trie_path; nil
           end
         end
-
-        private
-
-        def filename
-          'serialization-raw'
-        end
       end
     end
   end

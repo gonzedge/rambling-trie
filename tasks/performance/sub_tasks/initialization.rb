@@ -2,7 +2,7 @@ require_relative '../../helpers/path'
 
 module Performance
   module SubTasks
-    class Initialization
+    class Initialization < Performance::SubTasks::SubTask
       include Helpers::Path
 
       def initialize iterations = 5

@@ -43,10 +43,6 @@ module Performance
               anthropological: 200_000,
             }
           end
-
-          def filename
-            'lookups-scan-compressed'
-          end
         end
       end
     end

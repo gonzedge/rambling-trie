@@ -31,10 +31,6 @@ module Performance
           def params
             %w(ifdxawesome45someword3 ifdx45someword3awesome)
           end
-
-          def filename
-            'lookups-words-within-compressed'
-          end
         end
       end
     end
