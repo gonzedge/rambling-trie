@@ -8,7 +8,7 @@ describe Rambling::Trie::Compressor do
 
     it 'compresses the new root' do
       words = %w(a few words hello hell)
-      words.each { |word| root.add word.chars.map(&:to_sym) }
+      words.each { |word| root.add word.chars.reverse.map(&:to_sym) }
       compressed_root = compressor.compress root
 
       expect(compressed_root.children_tree.keys).to eq %i(a few words hell)
@@ -16,7 +16,9 @@ describe Rambling::Trie::Compressor do
 
     context 'with at least one word' do
       before do
-        root.add %i(a l l)
+        %w(all).each do |word|
+          root.add word.chars.reverse.map(&:to_sym)
+        end
       end
 
       it 'keeps the root letter nil' do
@@ -28,7 +30,9 @@ describe Rambling::Trie::Compressor do
 
     context 'with a single word' do
       before do
-        root.add %i(a l l)
+        %w(all).each do |word|
+          root.add word.chars.reverse.map(&:to_sym)
+        end
       end
 
       it 'compresses into a single node without children' do
@@ -43,8 +47,9 @@ describe Rambling::Trie::Compressor do
 
     context 'with two words' do
       before do
-        root.add %i(a l l)
-        root.add %i(a s k)
+        %w(all ask).each do |word|
+          root.add word.chars.reverse.map(&:to_sym)
+        end
       end
 
       it 'compresses into corresponding three nodes' do
@@ -68,9 +73,9 @@ describe Rambling::Trie::Compressor do
     end
 
     it 'reassigns the parent nodes correctly' do
-      root.add %i(r e p a y)
-      root.add %i(r e s t)
-      root.add %i(r e p a i n t)
+      %w(repay rest repaint).each do |word|
+        root.add word.chars.reverse.map(&:to_sym)
+      end
 
       compressed_root = compressor.compress root
 
@@ -96,9 +101,9 @@ describe Rambling::Trie::Compressor do
     end
 
     it 'does not compress terminal nodes' do
-      root.add %i(y o u)
-      root.add %i(y o u r)
-      root.add %i(y o u r s)
+      %w(you your yours).each do |word|
+        root.add word.chars.reverse.map(&:to_sym)
+      end
 
       compressed_root = compressor.compress root
 

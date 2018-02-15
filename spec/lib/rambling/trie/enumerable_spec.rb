@@ -7,7 +7,7 @@ module Rambling
       let(:words) { %w(add some words and another word) }
 
       before do
-        words.each { |word| root.add word.clone }
+        words.each { |word| root.add word.chars.reverse.map(&:to_sym) }
       end
 
       describe '#each' do

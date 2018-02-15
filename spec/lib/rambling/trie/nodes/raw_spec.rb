@@ -88,7 +88,9 @@ describe Rambling::Trie::Nodes::Raw do
 
       context 'with a large word' do
         before do
-          node.add %i(m p l i f i e d)
+          %w(mplified).each do |word|
+            node.add word.chars.reverse.map(&:to_sym)
+          end
         end
 
         it 'marks the last letter as terminal node' do
@@ -161,7 +163,9 @@ describe Rambling::Trie::Nodes::Raw do
   describe '#add' do
     context 'when the node has no branches' do
       before do
-        node.add %i(a b c)
+        %w(abc).each do |word|
+          node.add word.chars.reverse.map(&:to_sym)
+        end
       end
 
       it 'adds only one child' do
@@ -184,11 +188,15 @@ describe Rambling::Trie::Nodes::Raw do
 
     context 'when the word being added already exists in the node' do
       before do
-        node.add %i(a c k)
+        %w(ack).each do |word|
+          node.add word.chars.reverse.map(&:to_sym)
+        end
       end
 
       it 'does not increment any child count in the tree' do
-        node.add %i(a c k)
+        %w(ack).each do |word|
+          node.add word.chars.reverse.map(&:to_sym)
+        end
 
         expect(node.children.size).to eq 1
         expect(node[:a].children.size).to eq 1
@@ -197,7 +205,9 @@ describe Rambling::Trie::Nodes::Raw do
       end
 
       it 'does not mark any child as terminal in the tree' do
-        node.add %i(a c k)
+        %w(ack).each do |word|
+          node.add word.chars.reverse.map(&:to_sym)
+        end
 
         expect(node).not_to be_terminal
         expect(node[:a]).not_to be_terminal
@@ -206,13 +216,16 @@ describe Rambling::Trie::Nodes::Raw do
       end
 
       it 'returns the added node' do
-        expect(node.add(%i(a c k)).letter).to eq :a
+        word = %(ack).chars.reverse.map(&:to_sym)
+        expect(node.add(word).letter).to eq :a
       end
     end
 
     context 'when the word does not exist in the tree but the letters do' do
       before do
-        node.add %i(a c k)
+        %w(ack).each do |word|
+          node.add word.chars.reverse.map(&:to_sym)
+        end
       end
 
       it 'does not add another branch' do
@@ -245,7 +258,9 @@ describe Rambling::Trie::Nodes::Raw do
     context 'when the chars array is not empty' do
       context 'when the node has a tree that matches the characters' do
         before do
-          node.add %i(a b c)
+          %w(abc).each do |word|
+            node.add word.chars.reverse.map(&:to_sym)
+          end
         end
 
         it 'returns true' do
@@ -257,7 +272,9 @@ describe Rambling::Trie::Nodes::Raw do
 
       context 'when the node has a tree that does not match the characters' do
         before do
-          node.add %i(c b a)
+          %w(cba).each do |word|
+            node.add word.chars.reverse.map(&:to_sym)
+          end
         end
 
         it 'returns false' do
@@ -291,7 +308,9 @@ describe Rambling::Trie::Nodes::Raw do
     context 'when the chars array is not empty' do
       context 'when the node has a tree that matches all the characters' do
         before do
-          node.add %i(a b c)
+          %w(abc).each do |word|
+            node.add word.chars.reverse.map(&:to_sym)
+          end
         end
 
         it 'returns true' do
@@ -301,7 +320,9 @@ describe Rambling::Trie::Nodes::Raw do
 
       context 'when the node has a tree that does not match all the characters' do
         before do
-          node.add %i(a b c)
+          %w(abc).each do |word|
+            node.add word.chars.reverse.map(&:to_sym)
+          end
         end
 
         it 'returns false' do
@@ -321,7 +342,9 @@ describe Rambling::Trie::Nodes::Raw do
 
     context 'when the chars array is not empty' do
       before do
-        node.add %i(c b a)
+        %w(cba).each do |word|
+          node.add word.chars.reverse.map(&:to_sym)
+        end
       end
 
       context 'when the chars are found' do
@@ -346,10 +369,9 @@ describe Rambling::Trie::Nodes::Raw do
   describe '#match_prefix' do
     before do
       node.letter = :i
-      node.add %i(g n i t e)
-      node.add %i(m p o r t)
-      node.add %i(m p o r t a n t)
-      node.add %i(m p o r t a n t l y)
+      %w(gnite mport mportant mportantly).each do |word|
+        node.add word.chars.reverse.map(&:to_sym)
+      end
     end
 
     context 'when the node is terminal' do

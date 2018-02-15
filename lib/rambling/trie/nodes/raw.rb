@@ -7,11 +7,11 @@ module Rambling
         # @param [String] word the word to add to the trie.
         # @return [Raw] the added/modified node based on the word added.
         # @note This method clears the contents of the word variable.
-        def add word
-          if word.empty?
+        def add chars
+          if chars.empty?
             terminal!
           else
-            add_to_children_tree word
+            add_to_children_tree chars
           end
         end
 
@@ -47,10 +47,10 @@ module Rambling
 
         private
 
-        def add_to_children_tree word
-          letter = word.slice!(0)
+        def add_to_children_tree chars
+          letter = chars.pop
           child = children_tree[letter] || new_node(letter)
-          child.add word
+          child.add chars
           child
         end
 

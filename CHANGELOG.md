@@ -2,6 +2,7 @@
 
 ## 1.0.3 [compare][compare_v1_0_2_and_master]
 
+- Reverse char array and use `#pop` instead of slice when adding a word by [@gonzedge][github_user_gonzedge]
 - Derive filename from task's name by [@gonzedge][github_user_gonzedge]
 - Complete overhaul of performance task directory structure by [@gonzedge][github_user_gonzedge]
 - Rename `Compressable` to more widely used `Compressible` by [@gonzedge][github_user_gonzedge]

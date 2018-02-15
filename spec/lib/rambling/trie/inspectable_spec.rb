@@ -4,11 +4,9 @@ describe Rambling::Trie::Inspectable do
   let(:root) { Rambling::Trie::Nodes::Raw.new }
 
   before do
-    [
-      %i(o n l y),
-      %i(t h r e e),
-      %i(w o r d s)
-    ].each { |word| root.add word }
+    %w(only three words).each do |word|
+      root.add word.chars.reverse.map(&:to_sym)
+    end
   end
 
   describe '#inspect' do

@@ -137,7 +137,7 @@ module Rambling
 
       def char_symbols word
         symbols = []
-        word.each_char { |c| symbols << c.to_sym }
+        word.reverse.each_char { |c| symbols << c.to_sym }
         symbols
       end
     end
