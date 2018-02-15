@@ -14,7 +14,7 @@ module Rambling
         # into a {Nodes::Node Node}.
         # @param [String] filepath the full path of the file to load the
         #   marshaled object from.
-        # @return [Nodes::Node] The deserialized {Node Node}.
+        # @return [Nodes::Node] The deserialized {Nodes::Node Node}.
         def load filepath
           ::Marshal.load serializer.load filepath
         end

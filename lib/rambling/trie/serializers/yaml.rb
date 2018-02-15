@@ -14,7 +14,7 @@ module Rambling
         # it into a {Nodes::Node Node}.
         # @param [String] filepath the full path of the file to load the
         #   serialized YAML object from.
-        # @return [Nodes::Node] The deserialized {Node Node}.
+        # @return [Nodes::Node] The deserialized {Nodes::Node Node}.
         def load filepath
           require 'yaml'
           ::YAML.load serializer.load filepath

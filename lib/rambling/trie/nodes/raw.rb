@@ -4,7 +4,7 @@ module Rambling
       # A representation of a node in an uncompressed trie data structure.
       class Raw < Rambling::Trie::Nodes::Node
         # Adds a word to the current raw (uncompressed) trie node.
-        # @param [String] word the word to add to the trie.
+        # @param [Array<Symbol>] chars the char array to add to the trie.
         # @return [Raw] the added/modified node based on the word added.
         # @note This method clears the contents of the word variable.
         def add chars

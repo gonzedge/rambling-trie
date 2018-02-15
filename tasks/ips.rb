@@ -123,16 +123,71 @@ namespace :ips do
   end
 
   task :delegate_vs_direct do
+    class TestDelegate
+      require 'forwardable'
+      extend ::Forwardable
+
+      delegate [:[]] => :hash
+
+      attr_reader :hash
+
+      def initialize hash
+        @hash = hash
+      end
+    end
+
+    class TestMyForwardable
+      module Forwardable
+        def delegate methods_to_target
+          methods_to_target.each do |methods, target|
+            methods.each do |method|
+              define_method method do |*args|
+                send(target).send method, *args
+              end
+            end
+          end
+        end
+      end
+
+      extend TestMyForwardable::Forwardable
+
+      delegate [:[]] => :hash
+
+      attr_reader :hash
+
+      def initialize hash
+        @hash = hash
+      end
+    end
+
+    class TestDirect
+      attr_reader :hash
+
+      def initialize hash
+        @hash = hash
+      end
+
+      def [] key
+        hash[key]
+      end
+    end
+
     Benchmark.ips do |bm|
-      t = Rambling::Trie.create
-      t.add 'hello'
+      hash = { h: 'hello' }
+      delegate = TestDelegate.new hash
+      custom = TestMyForwardable.new hash
+      direct = TestDirect.new hash
 
       bm.report 'delegate access' do
-        t[:h]
+        delegate[:h]
+      end
+
+      bm.report 'custom delegate access' do
+        custom[:h]
       end
 
       bm.report 'direct access' do
-        t.children_tree[:h]
+        direct[:h]
       end
 
       bm.compare!
