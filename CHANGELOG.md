@@ -2,6 +2,7 @@
 
 ## 1.0.3 [compare][compare_v1_0_2_and_master]
 
+- Complete overhaul of performance task directory structure by [@gonzedge][github_user_gonzedge]
 - Rename `Compressable` to more widely used `Compressible` by [@gonzedge][github_user_gonzedge]
 - Refactor `Compressor` and improve memory footprint and performance by [@gonzedge][github_user_gonzedge]
 - Add letter to `Node`'s constructor by [@gonzedge][github_user_gonzedge]

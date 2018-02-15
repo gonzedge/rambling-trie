@@ -1,0 +1,38 @@
+require_relative '../lookup'
+
+module Performance
+  module SubTasks
+    module Lookups
+      module Word
+        class Raw < Performance::SubTasks::Lookups::Lookup
+          def name
+            'lookups:word:raw'
+          end
+
+          def description
+            'Lookups (raw trie) - `word?`'
+          end
+
+          def execute reporter_class
+            trie = raw_trie
+            reporter = reporter_class.new filename
+
+            reporter.report iterations, params do |word|
+              trie.word? word
+            end
+          end
+
+          private
+
+          def params
+            %w(hi help beautiful impressionism anthropological)
+          end
+
+          def filename
+            'lookups-word-raw'
+          end
+        end
+      end
+    end
+  end
+end
