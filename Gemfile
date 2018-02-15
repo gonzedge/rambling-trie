@@ -11,6 +11,7 @@ group :development do
   gem 'benchmark-ips'
   gem 'flamegraph'
   gem 'stackprof'
+  gem 'pry'
 end
 
 group :test do
