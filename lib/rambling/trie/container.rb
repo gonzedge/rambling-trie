@@ -205,6 +205,7 @@ module Rambling
       alias_method :match?, :partial_word?
       alias_method :words, :scan
       alias_method :<<, :add
+      alias_method :has_letter?, :has_key?
 
       private
 

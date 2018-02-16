@@ -200,6 +200,11 @@ describe Rambling::Trie::Container do
       expect(root).to have_received(:has_key?).with :yup
     end
 
+    it 'aliases `#has_letter?` to `#has_key?`' do
+      container.has_letter? :yup
+      expect(root).to have_received(:has_key?).with :yup
+    end
+
     it 'delegates `#inspect` to the root node' do
       container.inspect
       expect(root).to have_received :inspect
