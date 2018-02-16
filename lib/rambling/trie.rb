@@ -1,5 +1,3 @@
-require 'forwardable'
-
 %w{
   comparable compressible compressor configuration container enumerable
   inspectable invalid_operation readers serializers stringifyable nodes
@@ -13,15 +11,6 @@ module Rambling
   # Entry point for rambling-trie API.
   module Trie
     class << self
-      extend ::Forwardable
-
-      delegate [
-        :readers,
-        :serializers,
-        :compressor,
-        :root_builder
-      ] => :properties
-
       # Creates a new Rambling::Trie. Entry point for the Rambling::Trie API.
       # @param [String, nil] filepath the file to load the words from.
       # @param [Reader, nil] reader the file parser to get each word. See
@@ -78,6 +67,22 @@ module Rambling
 
       def properties
         @properties ||= Rambling::Trie::Configuration::Properties.new
+      end
+
+      def readers
+        properties.readers
+      end
+
+      def serializers
+        properties.serializers
+      end
+
+      def compressor
+        properties.compressor
+      end
+
+      def root_builder
+        properties.root_builder
       end
     end
   end

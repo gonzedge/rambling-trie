@@ -3,19 +3,11 @@ module Rambling
     module Nodes
       # A representation of a node in the trie data structure.
       class Node
-        extend ::Forwardable
         include Rambling::Trie::Compressible
         include Rambling::Trie::Enumerable
         include Rambling::Trie::Comparable
         include Rambling::Trie::Stringifyable
         include Rambling::Trie::Inspectable
-
-        delegate [
-          :[],
-          :[]=,
-          :delete,
-          :has_key?
-        ] => :children_tree
 
         # @overload letter
         #   Letter(s) corresponding to the current node.
@@ -107,6 +99,22 @@ module Rambling
           children_match_prefix chars do |word|
             yield word
           end
+        end
+
+        def [] key
+          children_tree[key]
+        end
+
+        def []= key, value
+          children_tree[key] = value
+        end
+
+        def delete key
+          children_tree.delete key
+        end
+
+        def has_key? key
+          children_tree.has_key? key
         end
 
         private

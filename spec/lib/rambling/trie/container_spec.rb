@@ -171,8 +171,8 @@ describe Rambling::Trie::Container do
     end
 
     it 'delegates `#[]` to the root node' do
-      container.[]
-      expect(root).to have_received :[]
+      container[:yep]
+      expect(root).to have_received(:[]).with :yep
     end
 
     it 'delegates `#as_word` to the root node' do
@@ -195,14 +195,9 @@ describe Rambling::Trie::Container do
       expect(root).to have_received :compressed?
     end
 
-    it 'delegates `#each` to the root node' do
-      container.each
-      expect(root).to have_received :each
-    end
-
     it 'delegates `#has_key?` to the root node' do
-      container.has_key?
-      expect(root).to have_received :has_key?
+      container.has_key? :yup
+      expect(root).to have_received(:has_key?).with :yup
     end
 
     it 'delegates `#inspect` to the root node' do
@@ -543,6 +538,34 @@ describe Rambling::Trie::Container do
       it 'returns false' do
         expect(container).not_to eq other_container
       end
+    end
+  end
+
+  describe '#each' do
+    before do
+      allow(root).to receive :each
+    end
+
+    it 'returns an enumerator when no block is given' do
+      expect(container.each).to be_instance_of Enumerator
+      expect(root).not_to have_received :each
+    end
+
+    it 'delegates `#each` to the root node when a block is given' do
+      container.each { |_| }
+      expect(root).to have_received :each
+    end
+  end
+
+  describe '#inspect' do
+    before do
+      %w(a few words hello hell).each do |word|
+        container.add word
+      end
+    end
+
+    it 'returns the container class name plus the root inspection' do
+      expect(container.inspect).to eq '#<Rambling::Trie::Container root: #<Rambling::Trie::Nodes::Raw letter: nil, terminal: nil, children: [:a, :f, :w, :h]>>'
     end
   end
 end

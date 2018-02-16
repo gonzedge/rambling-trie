@@ -4,8 +4,6 @@ module Rambling
       # Zip file serializer. Dumps/loads contents from zip files. Automatically
       # detects if zip file contains `.marshal` or `.yml` file
       class Zip
-        extend ::Forwardable
-
         # Creates a new Zip serializer.
         # @param [Properties] properties the configuration properties set up so
         #   far.
@@ -52,10 +50,13 @@ module Rambling
 
         attr_reader :properties
 
-        delegate [
-          :serializers,
-          :tmp_path
-        ] => :properties
+        def serializers
+          properties.serializers
+        end
+
+        def tmp_path
+          properties.tmp_path
+        end
 
         def path filename
           require 'securerandom'

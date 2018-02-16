@@ -3,8 +3,6 @@ module Rambling
     module Configuration
       # Collection of configurable providers.
       class ProviderCollection
-        extend ::Forwardable
-
         # The name of this provider collection.
         # @return [String] the name of this provider collection.
         attr_reader :name
@@ -22,13 +20,6 @@ module Rambling
         # @return [Object, nil] the default provider to use when a provider
         #   cannot be resolved in {ProviderCollection#resolve #resolve}.
         attr_reader :default
-
-        delegate [
-          :[],
-          :[]=,
-          :keys,
-          :values,
-        ] => :providers
 
         # Creates a new provider collection.
         # @param [String] name the name for this provider collection.
@@ -81,6 +72,22 @@ module Rambling
           self.default = configured_default
         end
 
+        def [] key
+          providers[key]
+        end
+
+        def []= key, value
+          providers[key] = value
+        end
+
+        def keys
+          providers.keys
+        end
+
+        def values
+          providers.values
+        end
+
         private
 
         attr_reader :configured_providers, :configured_default
@@ -93,7 +100,7 @@ module Rambling
 
         def contains? provider
           provider.nil? ||
-            (providers.any? && providers.values.include?(provider))
+            (providers.any? && values.include?(provider))
         end
       end
     end

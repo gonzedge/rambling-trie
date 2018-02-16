@@ -2,24 +2,7 @@ module Rambling
   module Trie
     # Wrapper on top of trie data structure.
     class Container
-      extend ::Forwardable
       include ::Enumerable
-
-      delegate [
-        :[],
-        :as_word,
-        :children,
-        :children_tree,
-        :compressed?,
-        :each,
-        :to_a,
-        :has_key?,
-        :inspect,
-        :letter,
-        :parent,
-        :size,
-        :to_s
-      ] => :root
 
       # The root node of this trie.
       # @return [Nodes::Node] the root node of this trie.
@@ -117,6 +100,62 @@ module Rambling
       alias_method :match?, :partial_word?
       alias_method :words, :scan
       alias_method :<<, :add
+
+      def [] key
+        root[key]
+      end
+
+      def as_word
+        root.as_word
+      end
+
+      def children
+        root.children
+      end
+
+      def children_tree
+        root.children_tree
+      end
+
+      def compressed?
+        root.compressed?
+      end
+
+      def each
+        return enum_for :each unless block_given?
+
+        root.each do |word|
+          yield word
+        end
+      end
+
+      def to_a
+        root.to_a
+      end
+
+      def has_key? key
+        root.has_key? key
+      end
+
+      def inspect
+        "#<#{self.class.name} root: #{root.inspect}>"
+      end
+
+      def letter
+        root.letter
+      end
+
+      def parent
+        root.parent
+      end
+
+      def size
+        root.size
+      end
+
+      def to_s
+        root.to_s
+      end
 
       private
 
