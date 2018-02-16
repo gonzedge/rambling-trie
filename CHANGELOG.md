@@ -2,9 +2,14 @@
 
 ## 1.0.3 [compare][compare_v1_0_2_and_master]
 
+- Remove unnecessary aliases and move necessary ones to private by [@gonzedge][github_user_gonzedge]
+- Add `#has_letter?` alias for `#has_key?` by [@gonzedge][github_user_gonzedge]
 - Add deprecation warnings for `Container`'s methods by [@gonzedge][github_user_gonzedge]
 - Add documentation for delegate methods and fix Node specs by [@gonzedge][github_user_gonzedge]
 - Define delegate methods explicitly and remove dependency on `Forwardable` by [@gonzedge][github_user_gonzedge]
+- Fix wrong documentation links by [@gonzedge][github_user_gonzedge]
+- Add ips rake task namespace for benchmark-ips results by [@gonzedge][github_user_gonzedge]
+- Add Pry to development dependencies for debugging purposes by [@gonzedge][github_user_gonzedge]
 - Reverse char array and use `#pop` instead of slice when adding a word by [@gonzedge][github_user_gonzedge]
 - Derive filename from task's name by [@gonzedge][github_user_gonzedge]
 - Complete overhaul of performance task directory structure by [@gonzedge][github_user_gonzedge]
