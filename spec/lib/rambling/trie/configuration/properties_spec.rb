@@ -6,7 +6,7 @@ describe Rambling::Trie::Configuration::Properties do
   describe '.new' do
     it 'configures the serializers' do
       serializers = properties.serializers
-      expect(serializers.keys).to match_array %i(marshal yaml yml zip)
+      expect(serializers.formats).to match_array %i(marshal yaml yml zip)
 
       expect(serializers[:marshal]).to be_instance_of Rambling::Trie::Serializers::Marshal
       expect(serializers[:yaml]).to be_instance_of Rambling::Trie::Serializers::Yaml
@@ -16,7 +16,7 @@ describe Rambling::Trie::Configuration::Properties do
 
     it 'configures the readers' do
       readers = properties.readers
-      expect(readers.keys).to match_array %i(txt)
+      expect(readers.formats).to match_array %i(txt)
 
       expect(readers[:txt]).to be_instance_of Rambling::Trie::Readers::PlainText
     end
@@ -37,13 +37,13 @@ describe Rambling::Trie::Configuration::Properties do
     end
 
     it 'resets the serializers and readers to initial values' do
-      expect(properties.serializers.keys).to include :test
-      expect(properties.readers.keys).to include :test
+      expect(properties.serializers.formats).to include :test
+      expect(properties.readers.formats).to include :test
 
       properties.reset
 
-      expect(properties.serializers.keys).not_to include :test
-      expect(properties.readers.keys).not_to include :test
+      expect(properties.serializers.formats).not_to include :test
+      expect(properties.readers.formats).not_to include :test
     end
   end
 end

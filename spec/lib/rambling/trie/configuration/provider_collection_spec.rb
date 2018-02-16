@@ -45,31 +45,24 @@ describe Rambling::Trie::Configuration::ProviderCollection do
 
     before do
       allow(providers) .to receive_messages(
-        :[] => nil,
-        :[]= => nil,
-        keys: nil,
-        values: nil,
+        :[] => 'value',
+        keys: %i(a b),
       )
     end
 
-    it 'delegates #[] to providers' do
-      provider_collection[:key]
+    it 'delegates `#[]` to providers' do
+      expect(provider_collection[:key]).to eq 'value'
       expect(providers).to have_received(:[]).with :key
     end
 
-    it 'delegates #[]= to providers' do
-      provider_collection[:key] = 'hello'
-      expect(providers).to have_received(:[]=).with :key, 'hello'
-    end
-
-    it 'delegates #keys to providers' do
-      provider_collection.keys
+    it 'delegates `#keys` to providers' do
+      expect(provider_collection.keys).to eq %i(a b)
       expect(providers).to have_received :keys
     end
 
-    it 'delegates #values to providers' do
-      provider_collection.values
-      expect(providers).to have_received :values
+    it 'aliases `#formats` to `providers#keys`' do
+      expect(provider_collection.formats).to eq %i(a b)
+      expect(providers).to have_received :keys
     end
   end
 

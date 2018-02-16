@@ -62,37 +62,39 @@ module Rambling
         # @return [Object] the provider corresponding to the file extension in
         #   this provider collection. {#default} if not found.
         def resolve filepath
-          providers[format filepath] || default
+          providers[file_format filepath] || default
         end
 
         # Resets the provider collection to the initial values.
         def reset
           providers.clear
-          configured_providers.each { |k, v| providers[k] = v }
+          configured_providers.each { |k, v| self[k] = v }
           self.default = configured_default
-        end
-
-        def [] key
-          providers[key]
-        end
-
-        def []= key, value
-          providers[key] = value
         end
 
         def keys
           providers.keys
         end
 
-        def values
-          providers.values
+        def [] format
+          providers[format]
         end
+
+        alias_method :formats, :keys
 
         private
 
         attr_reader :configured_providers, :configured_default
 
-        def format filepath
+        def []= format, instance
+          providers[format] = instance
+        end
+
+        def values
+          providers.values
+        end
+
+        def file_format filepath
           format = File.extname filepath
           format.slice! 0
           format.to_sym
@@ -100,8 +102,10 @@ module Rambling
 
         def contains? provider
           provider.nil? ||
-            (providers.any? && values.include?(provider))
+            (providers.any? && provider_instances.include?(provider))
         end
+
+        alias_method :provider_instances, :values
       end
     end
   end
