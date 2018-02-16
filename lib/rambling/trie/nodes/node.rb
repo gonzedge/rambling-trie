@@ -13,38 +13,38 @@ module Rambling
         #   Letter(s) corresponding to the current node.
         # @overload letter=(letter)
         #   Sets the letter(s) corresponding to the current node. Ensures the
-        #   {Nodes::Node#letter #letter} in the {Node#parent #parent}'s
-        #   {Nodes::Node#children_tree #children_tree} is updated.
+        #   {Node#letter #letter} in the {Node#parent #parent}'s
+        #   {Node#children_tree #children_tree} is updated.
         #   @param [String, Symbol, nil] letter the letter value.
         # @return [Symbol, nil] the corresponding letter(s).
         attr_reader :letter
 
-        # Children nodes tree.
+        # Child nodes tree.
         # @return [Hash] the children_tree hash, consisting of `:letter => node`.
         attr_accessor :children_tree
 
         # Parent node.
-        # @return [Nodes::Node, nil] the parent of the current node.
+        # @return [Node, nil] the parent of the current node.
         attr_accessor :parent
 
         # Creates a new node.
         # @param [Symbol, nil] letter the Node's letter value
-        # @param [Nodes::Node, nil] parent the parent of the current node.
+        # @param [Node, nil] parent the parent of the current node.
         def initialize letter = nil, parent = nil, children_tree = {}
           @letter = letter
           @parent = parent
           @children_tree = children_tree
         end
 
-        # Children nodes.
-        # @return [Array<Nodes::Node>] the array of children nodes contained in the
-        #   current node.
+        # Child nodes.
+        # @return [Array<Node>] the array of children nodes contained
+        #   in the current node.
         def children
           children_tree.values
         end
 
         # First child node.
-        # @return [Nodes::Node, nil] the first child contained in the current node.
+        # @return [Node, nil] the first child contained in the current node.
         def first_child
           return if children_tree.empty?
 
@@ -60,14 +60,14 @@ module Rambling
           !parent
         end
 
-        # Indicates if a {Nodes::Node Node} is terminal or not.
+        # Indicates if a {Node Node} is terminal or not.
         # @return [Boolean] `true` for terminal nodes, `false` otherwise.
         def terminal?
           !!terminal
         end
 
-        # Mark {Nodes::Node Node} as terminal.
-        # @return [Nodes::Node] the modified node.
+        # Mark {Node Node} as terminal.
+        # @return [Node] the modified node.
         def terminal!
           self.terminal = true
           self
@@ -79,8 +79,8 @@ module Rambling
 
         # Returns the node that starts with the specified characters.
         # @param [Array<String>] chars the characters to look for in the trie.
-        # @return [Nodes::Node] the node that matches the specified characters.
-        #   {Nodes::Missing Missing} when not found.
+        # @return [Node] the node that matches the specified characters.
+        #   {Missing Missing} when not found.
         def scan chars
           return self if chars.empty?
 
@@ -101,20 +101,45 @@ module Rambling
           end
         end
 
-        def [] key
-          children_tree[key]
+        # Get {Node Node} corresponding to a given letter.
+        # @param [Symbol] letter the letter to search for in the node.
+        # @return [Node] the node corresponding to that letter.
+        # @see https://ruby-doc.org/core-2.5.0/Hash.html#method-i-5B-5D
+        #   Hash#[]
+        def [] letter
+          children_tree[letter]
         end
 
-        def []= key, value
-          children_tree[key] = value
+        # Set the {Node Node} that corresponds to a given letter.
+        # @param [Symbol] letter the letter to insert or update in the node's
+        # @param [Node] node the {Node Node} to assign to that letter.
+        # @return [Node] the node corresponding to the inserted or
+        #   updated letter.
+        # @see https://ruby-doc.org/core-2.5.0/Hash.html#method-i-5B-5D
+        #   Hash#[]
+        def []= letter, node
+          children_tree[letter] = node
         end
 
-        def delete key
-          children_tree.delete key
+        # Check if a {Node Node}'s children tree contains a given
+        #   letter.
+        # @param [Symbol] letter the letter to search for in the node.
+        # @return [Boolean] `true` if the letter is present, `false` otherwise
+        # @see https://ruby-doc.org/core-2.5.0/Hash.html#method-i-has_key-3F
+        #   Hash#has_key?
+        def has_key? letter
+          children_tree.has_key? letter
         end
 
-        def has_key? key
-          children_tree.has_key? key
+        # Delete a given letter and its corresponding {Node Node} from
+        #   this {Node Node}'s children tree.
+        # @param [Symbol] letter the letter to delete from the node's children
+        #   tree.
+        # @return [Node] the node corresponding to the deleted letter.
+        # @see https://ruby-doc.org/core-2.5.0/Hash.html#method-i-delete
+        #   Hash#delete
+        def delete letter
+          children_tree.delete letter
         end
 
         private

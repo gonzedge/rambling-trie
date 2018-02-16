@@ -4,9 +4,9 @@ module Rambling
     module Enumerable
       include ::Enumerable
 
-      # Returns number of words contained in the trie. See
-      # {https://ruby-doc.org/core-2.4.0/Enumerable.html#method-i-count
-      # Enumerable}
+      # Returns number of words contained in the trie
+      # @see https://ruby-doc.org/core-2.5.0/Enumerable.html#method-i-count
+      #   Enumerable#count
       alias_method :size, :count
 
       # Iterates over the words contained in the trie.

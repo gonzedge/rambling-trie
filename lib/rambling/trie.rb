@@ -13,10 +13,10 @@ module Rambling
     class << self
       # Creates a new Rambling::Trie. Entry point for the Rambling::Trie API.
       # @param [String, nil] filepath the file to load the words from.
-      # @param [Reader, nil] reader the file parser to get each word. See
-      #   {Rambling::Trie::Readers Readers}.
+      # @param [Reader, nil] reader the file parser to get each word.
       # @return [Container] the trie just created.
       # @yield [Container] the trie just created.
+      # @see Rambling::Trie::Readers Readers.
       def create filepath = nil, reader = nil
         Rambling::Trie::Container.new root_builder.call, compressor do |container|
           if filepath
@@ -33,9 +33,10 @@ module Rambling
       # Loads an existing trie from disk into memory.
       # @param [String] filepath the file to load the words from.
       # @param [Serializer, nil] serializer the object responsible of loading the trie
-      #   from disk. See {Rambling::Trie::Serializers Serializers}.
+      #   from disk
       # @return [Container] the trie just loaded.
       # @yield [Container] the trie just loaded.
+      # @see Rambling::Trie::Serializers Serializers.
       def load filepath, serializer = nil
         serializer ||= serializers.resolve filepath
         root = serializer.load filepath
@@ -48,16 +49,16 @@ module Rambling
       # @param [Container] trie the trie to dump into disk.
       # @param [String] filepath the file to dump to serialized trie into.
       # @param [Serializer, nil] serializer the object responsible of
-      #   serializing and dumping the trie into disk. See
-      #   {Rambling::Trie::Serializers Serializers}.
+      #   serializing and dumping the trie into disk.
+      # @see Rambling::Trie::Serializers Serializers.
       def dump trie, filepath, serializer = nil
         serializer ||= serializers.resolve filepath
         serializer.dump trie.root, filepath
       end
 
       # Provides configuration properties for the Rambling::Trie gem.
-      # @return [Properties] the configured properties of the gem.
-      # @yield [Properties] the configured properties of the gem.
+      # @return [Configuration::Properties] the configured properties of the gem.
+      # @yield [Configuration::Properties] the configured properties of the gem.
       def config
         yield properties if block_given?
         properties

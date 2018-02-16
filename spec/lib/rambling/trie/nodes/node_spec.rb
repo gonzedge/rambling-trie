@@ -59,27 +59,45 @@ describe Rambling::Trie::Nodes::Node do
   end
 
   describe 'delegates and aliases' do
+    let(:children_tree) do
+      double :children_tree, {
+        :[] => 'value',
+        :[]= => nil,
+        has_key?: false,
+        delete: true,
+      }
+    end
+
+    before do
+      node.children_tree = children_tree
+    end
+
     it 'delegates `#[]` to its children tree' do
-      expect(node.children_tree).to receive(:[]).with(:key).and_return('value')
       expect(node[:key]).to eq 'value'
+      expect(children_tree).to have_received(:[]).with :key
     end
 
     it 'delegates `#[]=` to its children tree' do
-      expect(node.children_tree).to receive(:[]=).with(:key, 'value')
       node[:key] = 'value'
+      expect(children_tree).to have_received(:[]=).with(:key, 'value')
     end
 
     it 'delegates `#has_key?` to its children tree' do
-      expect(node.children_tree).to receive(:has_key?).with(:present_key).and_return(true)
-      expect(node).to have_key(:present_key)
+      allow(children_tree).to receive(:has_key?).with(:present_key).and_return true
 
-      expect(node.children_tree).to receive(:has_key?).with(:absent_key).and_return(false)
+      expect(node).to have_key(:present_key)
       expect(node).not_to have_key(:absent_key)
+    end
+
+    it 'delegates `#delete` to its children tree' do
+      expect(node.delete :key).to be true
+      expect(children_tree).to have_received(:delete).with :key
     end
 
     it 'delegates `#children` to its children tree values' do
       children = [double(:child_1), double(:child_2)]
-      expect(node.children_tree).to receive(:values).and_return(children)
+      allow(children_tree).to receive(:values).and_return children
+
       expect(node.children).to eq children
     end
   end

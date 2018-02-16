@@ -2,6 +2,7 @@
 
 ## 1.0.3 [compare][compare_v1_0_2_and_master]
 
+- Add documentation for delegate methods and fix Node specs by [@gonzedge][github_user_gonzedge]
 - Define delegate methods explicitly and remove dependency on `Forwardable` by [@gonzedge][github_user_gonzedge]
 - Reverse char array and use `#pop` instead of slice when adding a word by [@gonzedge][github_user_gonzedge]
 - Derive filename from task's name by [@gonzedge][github_user_gonzedge]

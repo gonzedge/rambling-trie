@@ -96,31 +96,8 @@ module Rambling
         root == other.root
       end
 
-      alias_method :include?, :word?
-      alias_method :match?, :partial_word?
-      alias_method :words, :scan
-      alias_method :<<, :add
-
-      def [] key
-        root[key]
-      end
-
-      def as_word
-        root.as_word
-      end
-
-      def children
-        root.children
-      end
-
-      def children_tree
-        root.children_tree
-      end
-
-      def compressed?
-        root.compressed?
-      end
-
+      # Iterates over the words contained in the trie.
+      # @yield [String] the words contained in this trie node.
       def each
         return enum_for :each unless block_given?
 
@@ -129,33 +106,97 @@ module Rambling
         end
       end
 
-      def to_a
-        root.to_a
-      end
-
-      def has_key? key
-        root.has_key? key
-      end
-
+      # @return [String] a string representation of the container.
       def inspect
         "#<#{self.class.name} root: #{root.inspect}>"
       end
 
-      def letter
-        root.letter
+      # Get {Nodes::Node Node} corresponding to a given letter.
+      # @param [Symbol] letter the letter to search for in the root node.
+      # @return [Nodes::Node] the node corresponding to that letter.
+      # @see Nodes::Node#[]
+      def [] letter
+        root[letter]
       end
 
-      def parent
-        root.parent
+      # Root node's child nodes.
+      # @return [Array<Nodes::Node>] the array of children nodes contained in
+      #   the root node.
+      # @see Nodes::Node#children
+      def children
+        root.children
       end
 
+      # Root node's children tree.
+      # @return [Array<Nodes::Node>] the array of children nodes contained in
+      #   the root node.
+      # @see Nodes::Node#children_tree
+      def children_tree
+        root.children_tree
+      end
+
+      # Indicates if the root {Nodes::Node Node} can be
+      # compressed or not.
+      # @return [Boolean] `true` for non-{Nodes::Node#terminal? terminal}
+      #    nodes with one child, `false` otherwise.
+      def compressed?
+        root.compressed?
+      end
+
+      # Array of words contained in the root {Nodes::Node Node}.
+      # @return [Array<String>] all words contained in this trie.
+      # @see https://ruby-doc.org/core-2.5.0/Enumerable.html#method-i-to_a
+      #   Enumerable#to_a
+      def to_a
+        root.to_a
+      end
+
+      # Check if a letter is part of the root {Nodes::Node}'s children tree.
+      # @param [Symbol] letter the letter to search for in the root node.
+      # @return [Boolean] whether the letter is contained or not.
+      # @see Nodes::Node#has_key?
+      def has_key? letter
+        root.has_key? letter
+      end
+
+      # Size of the Root {Nodes::Node Node}'s children tree.
+      # @return [Integer] the number of letters in the root node.
       def size
         root.size
       end
 
+      # String representation of the current node, if it is a terminal node.
+      # @return [String] the string representation of the current node.
+      # @raise [InvalidOperation] if node is not terminal or is root.
+      def as_word
+        root.as_word
+      end
+
+      # Root {Nodes::Node Node}'s letter.
+      # @return [Symbol] the root node's letter
+      # @see Nodes::Node#letter
+      def letter
+        root.letter
+      end
+
+      # Root {Nodes::Node Node}'s parent.
+      # @return [Symbol] the root node's parent
+      # @see Nodes::Node#parent
+      def parent
+        root.parent
+      end
+
+      # String representation of root {Nodes::Node Node}.
+      # @return [String] the root node's string representation.
+      # @see Stringifyable#to_s
       def to_s
         root.to_s
       end
+
+      alias_method :include?, :word?
+      alias_method :match?, :partial_word?
+      alias_method :words, :scan
+      alias_method :<<, :add
 
       private
 

@@ -5,8 +5,8 @@ module Rambling
       # detects if zip file contains `.marshal` or `.yml` file
       class Zip
         # Creates a new Zip serializer.
-        # @param [Properties] properties the configuration properties set up so
-        #   far.
+        # @param [Configuration::Properties] properties the configuration
+        #   properties set up so far.
         def initialize properties
           @properties = properties
         end
