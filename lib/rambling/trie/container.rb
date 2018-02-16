@@ -168,28 +168,36 @@ module Rambling
       # String representation of the current node, if it is a terminal node.
       # @return [String] the string representation of the current node.
       # @raise [InvalidOperation] if node is not terminal or is root.
+      # @deprecated This will always raise an {InvalidOperation} exception.
       def as_word
+        warn '[DEPRECATION WARNING] `#as_word` is deprecated. Please use `#root#as_word` instead.'
         root.as_word
       end
 
       # Root {Nodes::Node Node}'s letter.
       # @return [Symbol] the root node's letter
       # @see Nodes::Node#letter
+      # @deprecated This will always return `nil`.
       def letter
+        warn '[DEPRECATION WARNING] `#letter` is deprecated. Please use `#root#letter` instead.'
         root.letter
       end
 
       # Root {Nodes::Node Node}'s parent.
       # @return [Symbol] the root node's parent
       # @see Nodes::Node#parent
+      # @deprecated This will always return `nil`.
       def parent
+        warn '[DEPRECATION WARNING] `#parent` is deprecated. Please use `#root#parent` instead.'
         root.parent
       end
 
       # String representation of root {Nodes::Node Node}.
       # @return [String] the root node's string representation.
       # @see Stringifyable#to_s
+      # @deprecated This will always return an empty string (`''`).
       def to_s
+        warn '[DEPRECATION WARNING] `#to_s` is deprecated. Please use `#root#to_s` instead.'
         root.to_s
       end
 
