@@ -2,6 +2,7 @@
 
 ## 1.0.3 [compare][compare_v1_0_2_and_master]
 
+- Use real node for `Container#each` test by [@gonzedge][github_user_gonzedge]
 - Define `ProviderCollection#format` method instead of alias for `#keys` by [@gonzedge][github_user_gonzedge]
 - Add documentation for `ProviderCollection`'s `#keys` and `#[]` by [@gonzedge][github_user_gonzedge]
 - Upgrade to coveralls 0.8.21 by [@gonzedge][github_user_gonzedge]

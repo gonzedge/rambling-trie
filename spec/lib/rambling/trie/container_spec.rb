@@ -548,17 +548,15 @@ describe Rambling::Trie::Container do
 
   describe '#each' do
     before do
-      allow(root).to receive :each
+      root.add %i(s e y)
     end
 
     it 'returns an enumerator when no block is given' do
       expect(container.each).to be_instance_of Enumerator
-      expect(root).not_to have_received :each
     end
 
     it 'delegates `#each` to the root node when a block is given' do
-      container.each { |_| }
-      expect(root).to have_received :each
+      expect(container.each.to_a).to eq %w(yes)
     end
   end
 
