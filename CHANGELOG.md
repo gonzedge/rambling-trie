@@ -2,6 +2,7 @@
 
 ## 1.0.3 [compare][compare_v1_0_2_and_master]
 
+- Add missing documentation in `Configuration::Properties` by [@gonzedge][github_user_gonzedge]
 - Update documentation to reflect actual side effects (or lack thereof) by [@gonzedge][github_user_gonzedge]
 - Add `#concat` method to public facing API by [@gonzedge][github_user_gonzedge]
 - Rename a few tests to maintain consistent wording by [@gonzedge][github_user_gonzedge]
