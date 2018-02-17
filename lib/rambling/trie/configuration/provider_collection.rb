@@ -72,10 +72,19 @@ module Rambling
           self.default = configured_default
         end
 
+        # Get provider corresponding to a given format.
+        # @return [Array<Symbol>] the provider corresponding to that format.
+        # @see https://ruby-doc.org/core-2.5.0/Hash.html#method-i-5B-5D
+        #   Hash#keys
         def keys
           providers.keys
         end
 
+        # Get provider corresponding to a given format.
+        # @param [Symbol] format the format to search for in the collection.
+        # @return [Object] the provider corresponding to that format.
+        # @see https://ruby-doc.org/core-2.5.0/Hash.html#method-i-5B-5D
+        #   Hash#[]
         def [] format
           providers[format]
         end
