@@ -76,7 +76,7 @@ module Rambling
         # @return [Array<Symbol>] the provider corresponding to that format.
         # @see https://ruby-doc.org/core-2.5.0/Hash.html#method-i-5B-5D
         #   Hash#keys
-        def keys
+        def formats
           providers.keys
         end
 
@@ -88,8 +88,6 @@ module Rambling
         def [] format
           providers[format]
         end
-
-        alias_method :formats, :keys
 
         private
 

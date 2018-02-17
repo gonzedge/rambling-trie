@@ -55,11 +55,6 @@ describe Rambling::Trie::Configuration::ProviderCollection do
       expect(providers).to have_received(:[]).with :key
     end
 
-    it 'delegates `#keys` to providers' do
-      expect(provider_collection.keys).to eq %i(a b)
-      expect(providers).to have_received :keys
-    end
-
     it 'aliases `#formats` to `providers#keys`' do
       expect(provider_collection.formats).to eq %i(a b)
       expect(providers).to have_received :keys
