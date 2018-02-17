@@ -24,15 +24,27 @@ describe Rambling::Trie::Container do
   end
 
   describe '#add' do
-    let(:clone) { double :clone }
+    it 'adds the word to the root node' do
+      add_word container, 'hello'
 
-    before do
-      allow(root).to receive(:add)
+      expect(root.children.size).to eq 1
+      expect(root.to_a).to eq %w(hello)
+    end
+  end
+
+  describe '#concat' do
+    it 'adds all the words to the root node' do
+      container.concat %w(other words)
+
+      expect(root.children.size).to eq 2
+      expect(root.to_a).to eq %w(other words)
     end
 
-    it 'clones the original word' do
-      add_word container, 'hello'
-      expect(root).to have_received(:add).with %i(o l l e h)
+    it 'returns all the corresponding nodes' do
+      nodes = container.concat %w(other words)
+
+      expect(nodes.first.letter).to eq :o
+      expect(nodes.last.letter).to eq :w
     end
   end
 

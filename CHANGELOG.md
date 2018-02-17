@@ -2,6 +2,7 @@
 
 ## 1.0.3 [compare][compare_v1_0_2_and_master]
 
+- Add `#concat` method to public facing API by [@gonzedge][github_user_gonzedge]
 - Rename a few tests to maintain consistent wording by [@gonzedge][github_user_gonzedge]
 - Add `#add_word` and `#add_words` helpers to avoid shotgun surgery in tests by [@gonzedge][github_user_gonzedge]
 - Use real node for `Container#each` test by [@gonzedge][github_user_gonzedge]

@@ -4,7 +4,8 @@ describe Rambling::Trie do
   describe 'with words provided directly' do
     it_behaves_like 'a compressible trie' do
       let(:words) { %w[a couple of words for our full trie integration test] }
-      let(:trie) { Rambling::Trie.create { |t| words.each { |w| t << w } } }
+      let(:trie) { Rambling::Trie.create }
+      before { trie.concat words }
     end
   end
 

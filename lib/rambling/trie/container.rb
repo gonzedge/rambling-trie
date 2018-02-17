@@ -30,6 +30,16 @@ module Rambling
         root.add char_symbols word
       end
 
+      # Adds all provided words to the trie.
+      # @param [Array<String>] words the words to add the branch from.
+      # @return [Array<Nodes::Node>] the collection of nodes added.
+      # @raise [InvalidOperation] if the trie is already compressed.
+      # @see Nodes::Raw#add
+      # @see Nodes::Compressed#add
+      def concat words
+        words.map { |word| add word }
+      end
+
       # Compresses the existing tree using redundant node elimination. Marks
       # the trie as compressed.
       # @return [Container] self

@@ -75,6 +75,12 @@ trie.add 'word'
 trie << 'word'
 ```
 
+Or if you have multiple words to add, you can use `#concat`:
+
+``` ruby
+trie.concat %w(a collection of words)
+```
+
 And to find out if a word already exists in the trie, use `#word?` or its alias `#include?`:
 
 ``` ruby
