@@ -19,13 +19,12 @@ module Rambling
         yield self if block_given?
       end
 
-      # Adds a word to the trie, without altering the passed word.
+      # Adds a word to the trie.
       # @param [String] word the word to add the branch from.
       # @return [Nodes::Node] the just added branch's root node.
       # @raise [InvalidOperation] if the trie is already compressed.
       # @see Nodes::Raw#add
       # @see Nodes::Compressed#add
-      # @note Avoids altering the contents of the word variable.
       def add word
         root.add char_symbols word
       end
