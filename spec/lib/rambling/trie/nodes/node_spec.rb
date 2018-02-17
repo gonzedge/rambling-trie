@@ -32,11 +32,11 @@ describe Rambling::Trie::Nodes::Node do
       expect(node.letter).to be_nil
     end
 
-    it 'includes no children' do
+    it 'has no children' do
       expect(node.children.size).to eq 0
     end
 
-    it 'is not a terminal node' do
+    it 'is not terminal' do
       expect(node).not_to be_terminal
     end
 

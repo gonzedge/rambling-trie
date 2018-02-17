@@ -9,19 +9,20 @@ describe Rambling::Trie::Nodes::Compressed do
     end
   end
 
-  describe '.new' do
+  describe '#root?' do
     context 'with no parent' do
       let(:node) { Rambling::Trie::Nodes::Compressed.new }
 
-      it 'is marked as root' do
+      it 'returns true' do
         expect(node).to be_root
       end
     end
 
-    context 'with a specified' do
-      let(:node) { Rambling::Trie::Nodes::Compressed.new :a, double(:root) }
+    context 'with a parent' do
+      let(:parent) { Rambling::Trie::Nodes::Compressed.new }
+      let(:node) { Rambling::Trie::Nodes::Compressed.new :a, parent }
 
-      it 'is not marked as root' do
+      it 'returns false' do
         expect(node).not_to be_root
       end
     end
