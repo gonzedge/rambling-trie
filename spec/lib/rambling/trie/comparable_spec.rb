@@ -79,7 +79,6 @@ describe Rambling::Trie::Comparable do
 
       it 'returns true' do
         expect(node_1).to eq node_2
-        expect(node_1[:h][:e][:s][:e]).to eq node_2[:h][:e][:s][:e]
       end
     end
 
@@ -98,7 +97,6 @@ describe Rambling::Trie::Comparable do
 
       it 'returns false' do
         expect(node_1).not_to eq node_2
-        expect(node_1[:h][:e][:s][:e]).to eq node_2[:h][:e][:s][:e]
       end
     end
   end
