@@ -2,6 +2,7 @@
 
 ## 1.0.3 [compare][compare_v1_0_2_and_master]
 
+- Upgrade to coveralls 0.8.21 by [@gonzedge][github_user_gonzedge]
 - Remove unnecessary aliases and move necessary ones to private by [@gonzedge][github_user_gonzedge]
 - Add `#has_letter?` alias for `#has_key?` by [@gonzedge][github_user_gonzedge]
 - Add deprecation warnings for `Container`'s methods by [@gonzedge][github_user_gonzedge]

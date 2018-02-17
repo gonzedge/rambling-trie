@@ -16,7 +16,7 @@ end
 
 group :test do
   gem 'simplecov', require: false
-  gem 'coveralls', require: false
+  gem 'coveralls', '~>0.8.21', require: false
 end
 
 group :local do
