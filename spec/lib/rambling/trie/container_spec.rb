@@ -31,7 +31,7 @@ describe Rambling::Trie::Container do
     end
 
     it 'clones the original word' do
-      container.add 'hello'
+      add_word container, 'hello'
       expect(root).to have_received(:add).with %i(o l l e h)
     end
   end
@@ -47,13 +47,12 @@ describe Rambling::Trie::Container do
     it 'compresses the trie using the compressor' do
       container.compress!
 
-      expect(compressor).to have_received(:compress)
-        .with root
+      expect(compressor).to have_received(:compress).with root
     end
 
     it 'changes to the root returned by the compressor' do
       container.compress!
-      container.add 'word'
+      add_word container, 'word'
 
       expect(root).not_to have_received :add
       expect(node).to have_received :add
@@ -73,12 +72,14 @@ describe Rambling::Trie::Container do
   end
 
   describe '#word?' do
+    let(:root) do
+      double :root,
+        compressed?: compressed,
+        word?: nil
+    end
+
     context 'for an uncompressed root' do
-      let(:root) do
-        double :root,
-          compressed?: false,
-          word?: nil
-      end
+      let(:compressed) { true }
 
       it 'calls the root with the word characters' do
         container.word? 'words'
@@ -87,11 +88,7 @@ describe Rambling::Trie::Container do
     end
 
     context 'for a compressed root' do
-      let(:root) do
-        double :root,
-          compressed?: true,
-          word?: nil
-      end
+      let(:compressed) { false }
 
       it 'calls the root with the full word' do
         container.word? 'words'
@@ -101,12 +98,14 @@ describe Rambling::Trie::Container do
   end
 
   describe '#partial_word?' do
+    let(:root) do
+      double :root,
+        compressed?: compressed,
+        partial_word?: nil
+    end
+
     context 'for an uncompressed root' do
-      let(:root) do
-        double :root,
-          compressed?: false,
-          partial_word?: nil
-      end
+      let(:compressed) { true }
 
       it 'calls the root with the word characters' do
         container.partial_word? 'words'
@@ -115,11 +114,7 @@ describe Rambling::Trie::Container do
     end
 
     context 'for a compressed root' do
-      let(:root) do
-        double :root,
-          compressed?: true,
-          partial_word?: nil
-      end
+      let(:compressed) { false }
 
       it 'calls the root with the word characters' do
         container.partial_word? 'words'
@@ -232,42 +227,41 @@ describe Rambling::Trie::Container do
   end
 
   describe '#compress!' do
-    let(:compressor) { Rambling::Trie::Compressor.new }
-    let(:root) { Rambling::Trie::Nodes::Raw.new }
-
     it 'gets a new root from the compressor' do
       container.compress!
+
+      expect(container.root).not_to be root
       expect(container.root).to be_compressed
+      expect(root).not_to be_compressed
     end
 
     it 'generates a new root with the words from the passed root' do
       words = %w(a few words hello hell)
-      words.each { |word| container.add word }
+
+      add_words container, words
       container.compress!
 
-      words.each { |word| expect(container).to include word }
+      words.each do |word|
+        expect(container).to include word
+      end
     end
 
     describe 'and trying to add a word' do
       it 'raises an error' do
-        container.add 'repay'
-        container.add 'rest'
-        container.add 'repaint'
+        add_words container, %w(repay rest repaint)
         container.compress!
 
-        expect { container.add 'restaurant' }.to raise_error Rambling::Trie::InvalidOperation
+        expect do
+          add_word container, 'restaurant'
+        end.to raise_error Rambling::Trie::InvalidOperation
       end
     end
   end
 
   describe '#word?' do
-    let(:compressor) { Rambling::Trie::Compressor.new }
-    let(:root) { Rambling::Trie::Nodes::Raw.new }
-
     context 'word is contained' do
       before do
-        container.add 'hello'
-        container.add 'high'
+        add_words container, %w(hello high)
       end
 
       it 'matches the whole word' do
@@ -289,7 +283,7 @@ describe Rambling::Trie::Container do
 
     context 'word is not contained' do
       before do
-        container.add 'hello'
+        add_word container, 'hello'
       end
 
       it 'does not match the whole word' do
@@ -313,8 +307,7 @@ describe Rambling::Trie::Container do
   describe '#partial_word?' do
     context 'word is contained' do
       before do
-        container.add 'hello'
-        container.add 'high'
+        add_words container, %w(hello high)
       end
 
       it 'matches part of the word' do
@@ -339,27 +332,25 @@ describe Rambling::Trie::Container do
       end
     end
 
+    shared_examples_for 'a non matching tree' do
+      it 'does not match any part of the word' do
+        %w(ha hal al).each do |word|
+          expect(container.partial_word? word).to be false
+        end
+      end
+    end
+
     context 'word is not contained' do
       before do
-        container.add 'hello'
+        add_word container, 'hello'
       end
 
-      it 'does not match any part of the word' do
-        expect(container.partial_word? 'ha').to be false
-        expect(container.partial_word? 'hal').to be false
-        expect(container.partial_word? 'al').to be false
+      context 'and the root is uncompressed' do
+        it_behaves_like 'a non matching tree'
       end
 
       context 'and the root has been compressed' do
-        before do
-          container.compress!
-        end
-
-        it 'does not match any part of the word' do
-          expect(container.partial_word? 'ha').to be false
-          expect(container.partial_word? 'hal').to be false
-          expect(container.partial_word? 'al').to be false
-        end
+        it_behaves_like 'a non matching tree'
       end
     end
   end
@@ -367,9 +358,7 @@ describe Rambling::Trie::Container do
   describe '#scan' do
     context 'words that match are not contained' do
       before do
-        %w(hi hello high hell highlight histerical).each do |word|
-          container.add word
-        end
+        add_words container, %w(hi hello high hell highlight histerical)
       end
 
       it 'returns an array with the words that match' do
@@ -409,7 +398,7 @@ describe Rambling::Trie::Container do
 
     context 'words that match are not contained' do
       before do
-        container.add 'hello'
+        add_word container, 'hello'
       end
 
       it 'returns an empty array' do
@@ -430,9 +419,7 @@ describe Rambling::Trie::Container do
 
   describe '#words_within' do
     before do
-      %w(one word and other words).each do |word|
-        container.add word
-      end
+      add_words container, %w(one word and other words)
     end
 
     context 'phrase does not contain any words' do
@@ -504,9 +491,7 @@ describe Rambling::Trie::Container do
 
   describe '#words_within?' do
     before do
-      %w(one word and other words).each do |word|
-        container.add word
-      end
+      add_words container, %w(one word and other words)
     end
 
     context 'phrase does not contain any words' do
@@ -525,7 +510,9 @@ describe Rambling::Trie::Container do
 
   describe '#==' do
     context 'when the root nodes are the same' do
-      let(:other_container) { Rambling::Trie::Container.new container.root, compressor }
+      let(:other_container) do
+        Rambling::Trie::Container.new container.root, compressor
+      end
 
       it 'returns true' do
         expect(container).to eq other_container
@@ -535,9 +522,11 @@ describe Rambling::Trie::Container do
     context 'when the root nodes are not the same' do
       let(:other_root) { Rambling::Trie::Nodes::Raw.new }
       let(:other_container) do
-        Rambling::Trie::Container.new other_root, compressor do |c|
-          c << 'hola'
-        end
+        Rambling::Trie::Container.new other_root, compressor
+      end
+
+      before do
+        add_word other_container, 'hola'
       end
 
       it 'returns false' do
@@ -548,23 +537,21 @@ describe Rambling::Trie::Container do
 
   describe '#each' do
     before do
-      root.add %i(s e y)
+      add_words container, %w(yes no why)
     end
 
     it 'returns an enumerator when no block is given' do
       expect(container.each).to be_instance_of Enumerator
     end
 
-    it 'delegates `#each` to the root node when a block is given' do
-      expect(container.each.to_a).to eq %w(yes)
+    it 'iterates through all words contained' do
+      expect(container.each.to_a).to eq %w(yes no why)
     end
   end
 
   describe '#inspect' do
     before do
-      %w(a few words hello hell).each do |word|
-        container.add word
-      end
+      add_words container, %w(a few words hello hell)
     end
 
     it 'returns the container class name plus the root inspection' do

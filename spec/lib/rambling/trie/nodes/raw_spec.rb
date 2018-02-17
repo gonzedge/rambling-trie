@@ -3,146 +3,7 @@ require 'spec_helper'
 describe Rambling::Trie::Nodes::Raw do
   let(:node) { Rambling::Trie::Nodes::Raw.new }
 
-  describe '#compressed?' do
-    it 'returns false' do
-      expect(node).not_to be_compressed
-    end
-  end
-
   describe '.new' do
-    context 'with no word' do
-      let(:node) { Rambling::Trie::Nodes::Raw.new }
-
-      it 'does not have any letter' do
-        expect(node.letter).to be_nil
-      end
-
-      it 'includes no children' do
-        expect(node.children.size).to eq 0
-      end
-
-      it 'is not a terminal node' do
-        expect(node).not_to be_terminal
-      end
-
-      it 'returns empty string as its word' do
-        expect(node.as_word).to be_empty
-      end
-    end
-
-    describe '#letter=' do
-      let(:parent) { Rambling::Trie::Nodes::Raw.new }
-      let(:node) { Rambling::Trie::Nodes::Raw.new :a, parent }
-
-      context 'with empty string' do
-        before do
-          node.add %i()
-        end
-
-        it 'makes it the node letter' do
-          expect(node.letter).to eq :a
-        end
-
-        it 'includes no children' do
-          expect(node.children.size).to eq 0
-        end
-
-        it 'is a terminal node' do
-          expect(node).to be_terminal
-        end
-      end
-
-      context 'with one letter' do
-        before do
-          node.add %i(b)
-        end
-
-        it 'takes the first as the node letter' do
-          expect(node.letter).to eq :a
-        end
-
-        it 'includes one child' do
-          expect(node.children.size).to eq 1
-        end
-
-        it 'includes a child with the expected letter' do
-          expect(node.first_child.letter).to eq :b
-        end
-
-        it 'has the expected letter as a key' do
-          expect(node).to have_key(:b)
-        end
-
-        it 'returns the child corresponding to the key' do
-          expect(node[:b]).to eq node.children_tree[:b]
-        end
-
-        it 'does not mark itself as a terminal node' do
-          expect(node).not_to be_terminal
-        end
-
-        it 'marks the first child as a terminal node' do
-          expect(node[:b]).to be_terminal
-        end
-      end
-
-      context 'with a large word' do
-        before do
-          %w(mplified).each do |word|
-            node.add word.chars.reverse.map(&:to_sym)
-          end
-        end
-
-        it 'marks the last letter as terminal node' do
-          expect(node[:m][:p][:l][:i][:f][:i][:e][:d]).to be_terminal
-        end
-
-        it 'does not mark any other letter as terminal node' do
-          expect(node[:m][:p][:l][:i][:f][:i][:e]).not_to be_terminal
-          expect(node[:m][:p][:l][:i][:f][:i]).not_to be_terminal
-          expect(node[:m][:p][:l][:i][:f]).not_to be_terminal
-          expect(node[:m][:p][:l][:i]).not_to be_terminal
-          expect(node[:m][:p][:l]).not_to be_terminal
-          expect(node[:m][:p]).not_to be_terminal
-          expect(node[:m]).not_to be_terminal
-        end
-      end
-
-      context 'with no parent' do
-        before do
-          node.add %i()
-        end
-
-        it 'makes it the node letter' do
-          expect(node.letter).to eq :a
-        end
-
-        it 'includes no children' do
-          expect(node.children.size).to eq 0
-        end
-
-        it 'is a terminal node' do
-          expect(node).to be_terminal
-        end
-      end
-    end
-
-    context 'with no parent' do
-      let(:node) { Rambling::Trie::Nodes::Raw.new :a }
-
-      it 'is marked as root' do
-        expect(node).to be_root
-      end
-    end
-
-    context 'with a specified parent' do
-      let(:node) { Rambling::Trie::Nodes::Raw.new :a, double(:root) }
-
-      it 'is not marked as root' do
-        expect(node).not_to be_root
-      end
-    end
-
     it 'has no children' do
       expect(node.children.size).to eq 0
     end
@@ -151,21 +12,65 @@ describe Rambling::Trie::Nodes::Raw do
       expect(node.letter).to be_nil
     end
 
-    it 'is not a terminal node' do
+    it 'is not terminal' do
       expect(node).not_to be_terminal
     end
 
     it 'is not a word' do
       expect(node).not_to be_word
     end
+
+    it 'returns empty string as its word' do
+      expect(node.as_word).to be_empty
+    end
+
+    context 'with a letter and a parent' do
+      let(:parent) { Rambling::Trie::Nodes::Raw.new }
+      let(:node) { Rambling::Trie::Nodes::Raw.new :a, parent }
+
+      it 'does not have any letter' do
+        expect(node.letter).to eq :a
+      end
+
+      it 'has no children' do
+        expect(node.children.size).to eq 0
+      end
+
+      it 'is not terminal' do
+        expect(node).not_to be_terminal
+      end
+    end
+  end
+
+  describe '#root?' do
+    context 'with no parent' do
+      let(:node) { Rambling::Trie::Nodes::Raw.new :a }
+
+      it 'returns true' do
+        expect(node).to be_root
+      end
+    end
+
+    context 'with a parent' do
+      let(:parent) { Rambling::Trie::Nodes::Compressed.new }
+      let(:node) { Rambling::Trie::Nodes::Raw.new :a, parent }
+
+      it 'returns false' do
+        expect(node).not_to be_root
+      end
+    end
+  end
+
+  describe '#compressed?' do
+    it 'returns false' do
+      expect(node).not_to be_compressed
+    end
   end
 
   describe '#add' do
     context 'when the node has no branches' do
       before do
-        %w(abc).each do |word|
-          node.add word.chars.reverse.map(&:to_sym)
-        end
+        add_word node, 'abc'
       end
 
       it 'adds only one child' do
@@ -186,64 +91,126 @@ describe Rambling::Trie::Nodes::Raw do
       end
     end
 
-    context 'when the word being added already exists in the node' do
+    context 'when a word is added more than once' do
       before do
-        %w(ack).each do |word|
-          node.add word.chars.reverse.map(&:to_sym)
-        end
+        add_word node, 'ack'
+        add_word node, 'ack'
       end
 
-      it 'does not increment any child count in the tree' do
-        %w(ack).each do |word|
-          node.add word.chars.reverse.map(&:to_sym)
-        end
-
+      it 'only counts it once' do
         expect(node.children.size).to eq 1
         expect(node[:a].children.size).to eq 1
         expect(node[:a][:c].children.size).to eq 1
         expect(node[:a][:c][:k].children.size).to eq 0
       end
 
-      it 'does not mark any child as terminal in the tree' do
-        %w(ack).each do |word|
-          node.add word.chars.reverse.map(&:to_sym)
-        end
-
+      it 'does not change the terminal nodes in the tree' do
         expect(node).not_to be_terminal
         expect(node[:a]).not_to be_terminal
         expect(node[:a][:c]).not_to be_terminal
         expect(node[:a][:c][:k]).to be_terminal
       end
 
-      it 'returns the added node' do
-        word = %(ack).chars.reverse.map(&:to_sym)
-        expect(node.add(word).letter).to eq :a
+      it 'still returns the "added" node' do
+        child = add_word node, 'ack'
+        expect(child.letter).to eq :a
       end
     end
 
     context 'when the word does not exist in the tree but the letters do' do
       before do
-        %w(ack).each do |word|
-          node.add word.chars.reverse.map(&:to_sym)
-        end
+        add_words node, %w(ack a)
       end
 
       it 'does not add another branch' do
-        node.add %i(a)
         expect(node.children.size).to eq 1
       end
 
       it 'marks the corresponding node as terminal' do
-        node.add %i(a)
+        expect(node[:a]).to be_terminal
 
         expect(node).not_to be_terminal
-        expect(node[:a]).to be_terminal
         expect(node[:a][:c]).not_to be_terminal
         expect(node[:a][:c][:k]).to be_terminal
       end
 
       it 'returns the added node' do
-        expect(node.add(%i(a)).letter).to eq :a
+        child = add_word node, 'a'
+        expect(child.letter).to eq :a
+      end
+    end
+
+    context 'when the node has a letter and a parent' do
+      let(:parent) { Rambling::Trie::Nodes::Raw.new }
+      let(:node) { Rambling::Trie::Nodes::Raw.new :a, parent }
+
+      context 'adding an empty string' do
+        before do
+          add_word node, ''
+        end
+
+        it 'does not alter the node letter' do
+          expect(node.letter).to eq :a
+        end
+
+        it 'does not change the node children' do
+          expect(node.children.size).to eq 0
+        end
+
+        it 'changes the node to terminal' do
+          expect(node).to be_terminal
+        end
+      end
+
+      context 'adding a one letter word' do
+        before do
+          add_word node, 'b'
+        end
+
+        it 'does not alter the node letter' do
+          expect(node.letter).to eq :a
+        end
+
+        it 'adds a child with the expected letter' do
+          expect(node.children.size).to eq 1
+          expect(node.children.first.letter).to eq :b
+        end
+
+        it 'reports it has the expected letter a key' do
+          expect(node).to have_key(:b)
+        end
+
+        it 'returns the child corresponding to the key' do
+          expect(node[:b]).to eq node.children_tree[:b]
+        end
+
+        it 'does not mark itself as terminal' do
+          expect(node).not_to be_terminal
+        end
+
+        it 'marks the first child as terminal' do
+          expect(node[:b]).to be_terminal
+        end
+      end
+
+      context 'adding a large word' do
+        before do
+          add_word node, 'mplified'
+        end
+
+        it 'marks the last letter as terminal' do
+          expect(node[:m][:p][:l][:i][:f][:i][:e][:d]).to be_terminal
+        end
+
+        it 'does not mark any other letter as terminal' do
+          expect(node[:m][:p][:l][:i][:f][:i][:e]).not_to be_terminal
+          expect(node[:m][:p][:l][:i][:f][:i]).not_to be_terminal
+          expect(node[:m][:p][:l][:i][:f]).not_to be_terminal
+          expect(node[:m][:p][:l][:i]).not_to be_terminal
+          expect(node[:m][:p][:l]).not_to be_terminal
+          expect(node[:m][:p]).not_to be_terminal
+          expect(node[:m]).not_to be_terminal
+        end
       end
     end
   end
@@ -258,9 +225,7 @@ describe Rambling::Trie::Nodes::Raw do
     context 'when the chars array is not empty' do
       context 'when the node has a tree that matches the characters' do
         before do
-          %w(abc).each do |word|
-            node.add word.chars.reverse.map(&:to_sym)
-          end
+          add_word node, 'abc'
         end
 
         it 'returns true' do
@@ -272,9 +237,7 @@ describe Rambling::Trie::Nodes::Raw do
 
       context 'when the node has a tree that does not match the characters' do
         before do
-          %w(cba).each do |word|
-            node.add word.chars.reverse.map(&:to_sym)
-          end
+          add_word node, 'cba'
         end
 
         it 'returns false' do
@@ -308,9 +271,7 @@ describe Rambling::Trie::Nodes::Raw do
     context 'when the chars array is not empty' do
       context 'when the node has a tree that matches all the characters' do
         before do
-          %w(abc).each do |word|
-            node.add word.chars.reverse.map(&:to_sym)
-          end
+          add_word node, 'abc'
         end
 
         it 'returns true' do
@@ -320,9 +281,7 @@ describe Rambling::Trie::Nodes::Raw do
 
       context 'when the node has a tree that does not match all the characters' do
         before do
-          %w(abc).each do |word|
-            node.add word.chars.reverse.map(&:to_sym)
-          end
+          add_word node, 'abc'
         end
 
         it 'returns false' do
@@ -342,9 +301,7 @@ describe Rambling::Trie::Nodes::Raw do
 
     context 'when the chars array is not empty' do
       before do
-        %w(cba).each do |word|
-          node.add word.chars.reverse.map(&:to_sym)
-        end
+        add_word node, 'cba'
       end
 
       context 'when the chars are found' do
@@ -369,9 +326,7 @@ describe Rambling::Trie::Nodes::Raw do
   describe '#match_prefix' do
     before do
       node.letter = :i
-      %w(gnite mport mportant mportantly).each do |word|
-        node.add word.chars.reverse.map(&:to_sym)
-      end
+      add_words node, %w(gnite mport mportant mportantly)
     end
 
     context 'when the node is terminal' do

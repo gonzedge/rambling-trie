@@ -30,9 +30,7 @@ describe Rambling::Trie::Nodes::Compressed do
   describe '#add' do
     it 'raises an error' do
       expect do
-        %w(restaurant).each do |word|
-          node.add word.chars.reverse.map(&:to_sym)
-        end
+        add_word node, 'restaurant'
       end.to raise_error Rambling::Trie::InvalidOperation
     end
   end
@@ -51,9 +49,7 @@ describe Rambling::Trie::Nodes::Compressed do
     context 'when the chars array is not empty' do
       context 'when the node has a tree that matches the characters' do
         before do
-          %w(abc).each do |word|
-            raw_node.add word.chars.reverse.map(&:to_sym)
-          end
+          add_word raw_node, 'abc'
         end
 
         it 'returns true' do
@@ -65,9 +61,7 @@ describe Rambling::Trie::Nodes::Compressed do
 
       context 'when the node has a tree that does not match the characters' do
         before do
-          %w(cba).each do |word|
-            raw_node.add word.chars.reverse.map(&:to_sym)
-          end
+          add_word raw_node, 'cba'
         end
 
         it 'returns false' do
@@ -105,9 +99,7 @@ describe Rambling::Trie::Nodes::Compressed do
     context 'when the chars array is not empty' do
       context 'when the node has a tree that matches all the characters' do
         before do
-          %w(abc).each do |word|
-            raw_node.add word.chars.reverse.map(&:to_sym)
-          end
+          add_word raw_node, 'abc'
         end
 
         it 'returns true' do
@@ -117,9 +109,7 @@ describe Rambling::Trie::Nodes::Compressed do
 
       context 'when the node has a tree that does not match all the characters' do
         before do
-          %w(abc).each do |word|
-            raw_node.add word.chars.reverse.map(&:to_sym)
-          end
+          add_word raw_node, 'abc'
         end
 
         it 'returns false' do
@@ -143,9 +133,7 @@ describe Rambling::Trie::Nodes::Compressed do
 
     context 'when the chars array is not empty' do
       before do
-        %w(cba).each do |word|
-          raw_node.add word.chars.reverse.map(&:to_sym)
-        end
+        add_word raw_node, 'cba'
       end
 
       context 'when the chars are found' do
@@ -174,7 +162,7 @@ describe Rambling::Trie::Nodes::Compressed do
 
     before do
       %w(gnite mport mportant mportantly).each do |word|
-        raw_node.add word.chars.reverse.map(&:to_sym)
+        add_word raw_node, word
       end
     end
 

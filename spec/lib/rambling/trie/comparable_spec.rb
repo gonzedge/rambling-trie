@@ -67,14 +67,10 @@ describe Rambling::Trie::Comparable do
     context 'when the nodes have the same letter and the same children' do
       before do
         node_1.letter = :t
-        %w(hese hree hings).each do |word|
-          node_1.add word.chars.reverse.map(&:to_sym)
-        end
+        add_words node_1, %w(hese hree hings)
 
         node_2.letter = :t
-        %w(hese hree hings).each do |word|
-          node_2.add word.chars.reverse.map(&:to_sym)
-        end
+        add_words node_2, %w(hese hree hings)
       end
 
       it 'returns true' do
@@ -85,14 +81,10 @@ describe Rambling::Trie::Comparable do
     context 'when the nodes have the same letter but different children' do
       before do
         node_1.letter = :t
-        %w(hese wo).each do |word|
-          node_1.add word.chars.reverse.map(&:to_sym)
-        end
+        add_words node_1, %w(hese wo)
 
         node_2.letter = :t
-        %w(hese hree hings).each do |word|
-          node_2.add word.chars.reverse.map(&:to_sym)
-        end
+        add_words node_2, %w(hese hree hings)
       end
 
       it 'returns false' do

@@ -4,7 +4,7 @@ shared_examples_for 'a compressible trie' do
 
     it 'does not alter the input' do
       word = 'string'
-      trie.add word
+      add_word trie, word
 
       expect(word).to eq 'string'
     end

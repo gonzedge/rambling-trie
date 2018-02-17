@@ -2,6 +2,7 @@
 
 ## 1.0.3 [compare][compare_v1_0_2_and_master]
 
+- Add `#add_word` and `#add_words` helpers to avoid shotgun surgery in tests by [@gonzedge][github_user_gonzedge]
 - Use real node for `Container#each` test by [@gonzedge][github_user_gonzedge]
 - Define `ProviderCollection#format` method instead of alias for `#keys` by [@gonzedge][github_user_gonzedge]
 - Add documentation for `ProviderCollection`'s `#keys` and `#[]` by [@gonzedge][github_user_gonzedge]

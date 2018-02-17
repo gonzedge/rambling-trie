@@ -6,7 +6,7 @@ describe Rambling::Trie::Stringifyable do
 
     context 'for an empty node' do
       before do
-        node.add %i()
+        add_word node, ''
       end
 
       it 'returns nil' do
@@ -17,7 +17,7 @@ describe Rambling::Trie::Stringifyable do
     context 'for one letter' do
       before do
         node.letter = :a
-        node.add %i()
+        add_word node, ''
       end
 
       it 'returns the expected one letter word' do
@@ -28,7 +28,7 @@ describe Rambling::Trie::Stringifyable do
     context 'for a small word' do
       before do
         node.letter = :a
-        %w(ll).each { |word| node.add word.chars.reverse.map(&:to_sym) }
+        add_word node, 'll'
       end
 
       it 'returns the expected small word' do
@@ -43,7 +43,7 @@ describe Rambling::Trie::Stringifyable do
     context 'for a long word' do
       before do
         node.letter = :b
-        %w(eautiful).each { |word| node.add word.chars.reverse.map(&:to_sym) }
+        add_word node, 'eautiful'
       end
 
       it 'returns the expected long word' do
@@ -65,7 +65,7 @@ describe Rambling::Trie::Stringifyable do
 
       before do
         node.letter = :a
-        %w(m dd).each { |word| node.add word.chars.reverse.map(&:to_sym) }
+        add_words node, %w(m dd)
       end
 
       it 'returns the words for the terminal nodes' do
