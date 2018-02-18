@@ -1,20 +1,22 @@
 shared_examples_for 'a serializable trie' do
+  let(:tmp_path) { File.join ::SPEC_ROOT, 'tmp' }
+  let(:filepath) { File.join tmp_path, "trie-root.#{format}" }
+
   context 'and the trie is not compressed' do
     before do
-      Rambling::Trie.dump trie_to_serialize, trie_filepath, serializer
+      Rambling::Trie.dump trie_to_serialize, filepath
     end
 
     it_behaves_like 'a compressible trie' do
-      let(:trie) { loaded_trie }
+      let(:trie) { Rambling::Trie.load filepath }
     end
   end
 
   context 'and the trie is compressed' do
-    let(:trie) { loaded_trie }
+    let(:trie) { Rambling::Trie.load filepath }
 
     before do
-      FileUtils.rm_f trie_filepath
-      Rambling::Trie.dump trie_to_serialize.compress!, trie_filepath, serializer
+      Rambling::Trie.dump trie_to_serialize.compress!, filepath
     end
 
     it_behaves_like 'a trie data structure'

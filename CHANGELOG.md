@@ -2,6 +2,7 @@
 
 ## 1.0.3 [compare][compare_v1_0_2_and_master]
 
+- Refactor trie integration tests by [@gonzedge][github_user_gonzedge]
 - Refactor serializer tests by [@gonzedge][github_user_gonzedge]
 - Extract shared examples for trie node implementations by [@gonzedge][github_user_gonzedge]
 - Add missing documentation in `Configuration::Properties` by [@gonzedge][github_user_gonzedge]
