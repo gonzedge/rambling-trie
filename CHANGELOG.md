@@ -2,6 +2,7 @@
 
 ## 1.0.3 [compare][compare_v1_0_2_and_master]
 
+- Refactor serializer tests by [@gonzedge][github_user_gonzedge]
 - Extract shared examples for trie node implementations by [@gonzedge][github_user_gonzedge]
 - Add missing documentation in `Configuration::Properties` by [@gonzedge][github_user_gonzedge]
 - Update documentation to reflect actual side effects (or lack thereof) by [@gonzedge][github_user_gonzedge]

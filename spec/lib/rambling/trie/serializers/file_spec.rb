@@ -1,11 +1,11 @@
 require 'spec_helper'
 
 describe Rambling::Trie::Serializers::File do
-  let(:serializer) { Rambling::Trie::Serializers::File.new }
-
   it_behaves_like 'a serializer' do
-    let(:filepath) { File.join ::SPEC_ROOT, 'tmp', 'trie-root.file' }
-    let(:content) { 'a few words to validate that load and dump are working' }
+    let(:serializer) { Rambling::Trie::Serializers::File.new }
+    let(:format) { :file }
+
+    let(:content) { trie.to_a.join ' ' }
     let(:formatted_content) { content }
   end
 end
