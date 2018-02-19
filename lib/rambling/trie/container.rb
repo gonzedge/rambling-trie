@@ -39,13 +39,25 @@ module Rambling
         words.map { |word| add word }
       end
 
-      # Compresses the existing tree using redundant node elimination. Marks
-      # the trie as compressed.
+      # Compresses the existing trie using redundant node elimination. Marks
+      # the trie as compressed. Does nothing if the trie has already been
+      # compressed.
       # @return [Container] self
-      # @note Only compresses tries that have not already been compressed.
+      # @note This method replaces the root {Nodes::Raw Raw} node with a
+      #   {Nodes::Compressed Compressed} version of it.
       def compress!
-        self.root = compressor.compress root unless root.compressed?
+        self.root = compress_root unless root.compressed?
         self
+      end
+
+      # Compresses the existing trie using redundant node elimination. Returns
+      # a new trie with the compressed root.
+      # @return [Container] A new {Container} with the {Nodes::Compressed
+      #   Compressed} root node or self if the trie has already been
+      #   compressed.
+      def compress
+        return self if root.compressed?
+        Rambling::Trie::Container.new compress_root, compressor
       end
 
       # Checks if a path for a word or partial word exists in the trie.
@@ -231,6 +243,10 @@ module Rambling
             yield word
           end
         end
+      end
+
+      def compress_root
+        compressor.compress root
       end
 
       def char_symbols word

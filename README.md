@@ -127,13 +127,20 @@ trie.compress!
 This will reduce the size of the trie by using redundant node elimination (redundant nodes are the only-child non-terminal nodes).
 
 > _**Note**: The `#compress!` method acts over the trie instance it belongs to
-> and is destructive. Also, adding words after compression (with `#add` or
+> and replaces the root `Node`. Also, adding words after compression (with `#add` or
 > `#<<`) is not supported._
 
-You can find out if a trie instance is compressed by calling the `#compressed?` method:
+If you want, you can also create a new compressed trie and leave the existing one intact. Just use `#compress` instead:
 
 ``` ruby
-trie.compressed?
+compressed_trie = trie.compress
+```
+
+You can find out if a trie instance is compressed by calling the `#compressed?` method. From the `#compress` example:
+
+``` ruby
+trie.compressed? # => false
+compressed_trie.compressed? # => true
 ```
 
 ### Enumeration

@@ -49,11 +49,13 @@ describe Rambling::Trie::Container do
   end
 
   describe '#compress!' do
-    let(:node) { double :node, add: nil, compressed?: false }
+    let(:node) { Rambling::Trie::Nodes::Compressed.new }
 
     before do
       allow(compressor).to receive(:compress).and_return node
-      allow(root).to receive(:add)
+
+      add_word root, 'yes'
+      node[:yes] = Rambling::Trie::Nodes::Compressed.new
     end
 
     it 'compresses the trie using the compressor' do
@@ -64,10 +66,9 @@ describe Rambling::Trie::Container do
 
     it 'changes to the root returned by the compressor' do
       container.compress!
-      add_word container, 'word'
 
-      expect(root).not_to have_received :add
-      expect(node).to have_received :add
+      expect(container.root).not_to eq root
+      expect(container.root).to eq node
     end
 
     it 'returns itself' do
@@ -79,6 +80,48 @@ describe Rambling::Trie::Container do
       allow(node).to receive(:compressed?).and_return(true)
 
       container.compress!
+      expect(compressor).to have_received(:compress).once
+    end
+  end
+
+  describe '#compress' do
+    let(:node) { Rambling::Trie::Nodes::Compressed.new }
+
+    before do
+      allow(compressor).to receive(:compress).and_return node
+
+      add_word root, 'yes'
+      node[:yes] = Rambling::Trie::Nodes::Compressed.new
+    end
+
+    it 'compresses the trie using the compressor' do
+      container.compress
+
+      expect(compressor).to have_received(:compress).with root
+    end
+
+    it 'returns a container with the new root' do
+      new_container = container.compress
+
+      expect(new_container.root).not_to eq root
+      expect(new_container.root).to eq node
+    end
+
+    it 'returns a new container' do
+      expect(container.compress).not_to eq container
+    end
+
+    it 'can compress multiple times' do
+      container.compress
+      container.compress
+
+      expect(compressor).to have_received(:compress).twice
+    end
+
+    it 'cannot compress the result' do
+      new_container = container.compress
+      new_container.compress
+
       expect(compressor).to have_received(:compress).once
     end
   end
