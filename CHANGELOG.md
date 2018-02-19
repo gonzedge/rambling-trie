@@ -2,6 +2,7 @@
 
 ## 1.0.3 [compare][compare_v1_0_2_and_master]
 
+- Require profiling libraries only when they are strictly necessary by [@gonzedge][github_user_gonzedge]
 - Add `#compress` method to public API by [@gonzedge][github_user_gonzedge]
 - Refactor trie integration tests by [@gonzedge][github_user_gonzedge]
 - Refactor serializer tests by [@gonzedge][github_user_gonzedge]

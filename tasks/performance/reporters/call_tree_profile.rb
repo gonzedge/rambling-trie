@@ -10,6 +10,7 @@ module Performance
       def do_report iterations, params
         FileUtils.mkdir_p dirpath
 
+        require 'ruby-prof'
         result = RubyProf.profile merge_fibers: true do
           params.each do |param|
             iterations.times do

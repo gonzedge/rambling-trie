@@ -25,6 +25,7 @@ module Performance
       def measure iterations, param
         result = nil
 
+        require 'benchmark'
         measure = ::Benchmark.measure do
           iterations.times do
             result = yield param

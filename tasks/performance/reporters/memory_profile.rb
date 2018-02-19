@@ -10,6 +10,7 @@ module Performance
       def do_report iterations, params
         FileUtils.mkdir_p dirpath
 
+        require 'memory_profiler'
         result = MemoryProfiler.report allow_files: 'lib/rambling/trie', ignore_files: 'lib/rambling/trie/tasks' do
           with_gc_stats "performing #{filename}" do
             params.each do |param|

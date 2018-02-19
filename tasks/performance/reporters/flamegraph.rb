@@ -10,6 +10,7 @@ module Performance
       def do_report iterations, params
         FileUtils.mkdir_p dirpath
 
+        require 'flamegraph'
         result = ::Flamegraph.generate filepath do
           params.each do |param|
             iterations.times do

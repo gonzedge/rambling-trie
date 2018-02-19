@@ -1,9 +1,4 @@
 require 'fileutils'
-require 'benchmark'
-require 'ruby-prof'
-require 'memory_profiler'
-require 'benchmark/ips'
-require 'flamegraph'
 
 %w{
   configuration directory report task
@@ -12,6 +7,8 @@ require 'flamegraph'
 end
 
 task :performance, [:type, :method] => 'performance:directory' do |t, args|
+  require 'benchmark/ips'
+
   configuration = Performance::Configuration.new
   task = Performance::Task.new configuration
   task.run args
