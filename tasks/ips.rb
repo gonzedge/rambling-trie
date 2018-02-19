@@ -68,54 +68,40 @@ namespace :ips do
   end
 
   task :attr_accessor_vs_def_method do
-    class TestClassOne
-      attr_accessor :uno, :dos
+    class TestClassAttrAccessor
+      attr_accessor :value
 
-      def initialize uno, dos
-        @uno = uno
-        @dos = dos
+      def initialize value
+        @value = value
       end
     end
 
-    class TestClassTwo
-      def initialize uno, dos
-        @uno = uno
-        @dos = dos
+    class TestClassDefMethod
+      def initialize value
+        @value = value
       end
 
-      def uno
-        @uno
+      def value
+        @value
       end
 
-      def uno= uno
-        @uno = uno
-      end
-
-      def dos
-        @dos
-      end
-
-      def dos= dos
-        @dos = dos
+      def value= value
+        @value = value
       end
     end
 
     Benchmark.ips do |bm|
-      t1 = TestClassOne.new 1, 2
-      t2 = TestClassTwo.new 1, 2
+      with_attr = TestClassAttrAccessor.new 1
+      with_method = TestClassDefMethod.new 1
 
-      bm.report 'attr_x' do
-        t1.uno = 1
-        t1.dos = 2
-        t1.uno
-        t1.dos
+      bm.report 'attr_accessor' do
+        with_attr.value = 1
+        with_attr.value
       end
 
       bm.report 'def method' do
-        t2.uno = 1
-        t2.dos = 2
-        t2.uno
-        t2.dos
+        with_method.value = 1
+        with_method.value
       end
 
       bm.compare!
