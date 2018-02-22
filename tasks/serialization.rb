@@ -3,52 +3,50 @@
 require_relative 'helpers/path'
 
 namespace :serialization do
-  def dump trie, path
-    File.delete path if File.exist?(path)
-    Rambling::Trie.dump trie, path
-  end
-
   desc 'Regenerate serialized tries in assets/'
   task :regenerate do
     include Helpers::Path
 
-    dictionaries = [
-      'espanol',
-      'words_with_friends',
-    ]
+    dictionaries = %w(espanol words_with_friends)
+    formats = %w(marshal marshal.zip)
 
-    formats = [
-      'marshal',
-      'marshal.zip',
-    ]
-
-    types = {
-      false => 'raw',
-      true => 'compressed',
-    }
-
-    dictionaries.each do |name|
-      in_path = path 'assets', 'dictionaries', "#{name}.txt"
-      puts "Regenerating serialized dictionary '#{name}'... "
-
-      tries = [
-        Rambling::Trie.create(in_path),
-        Rambling::Trie.create(in_path).compress!,
-      ]
-
-      tries.each do |trie|
-        formats.each do |format|
-          filename = "#{name}_#{types[trie.compressed?]}.#{format}"
-          path = path 'assets', 'tries', filename
-
-          puts "Serializing to '#{filename}'... "
-
-          dump trie, path
-        end
-      end
-
-      puts 'DONE'
-      puts
-    end
+    dump_dictionaries dictionaries, formats
   end
+end
+
+def dump_dictionaries dictionaries, formats
+  dictionaries.each do |name|
+    tries(name).each do |trie|
+      formats.each do |format|
+        dump_trie trie, name, format
+      end
+    end
+
+    puts 'DONE'
+    puts
+  end
+end
+
+def tries name
+  input_path = path 'assets', 'dictionaries', "#{name}.txt"
+  puts "Regenerating serialized dictionary '#{name}'... "
+
+  [
+    Rambling::Trie.create(input_path),
+    Rambling::Trie.create(input_path).compress!,
+  ]
+end
+
+def dump_trie trie, name, format
+  filename = "#{name}_#{trie.compressed? ? 'compressed' : 'raw'}.#{format}"
+
+  puts "Serializing to '#{filename}'... "
+
+  path = path 'assets', 'tries', filename
+  dump trie, path
+end
+
+def dump trie, path
+  File.delete path if File.exist?(path)
+  Rambling::Trie.dump trie, path
 end
