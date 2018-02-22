@@ -129,9 +129,9 @@ module Rambling
         # @param [Symbol] letter the letter to search for in the node.
         # @return [Boolean] `true` if the letter is present, `false` otherwise
         # @see https://ruby-doc.org/core-2.5.0/Hash.html#method-i-has_key-3F
-        #   Hash#has_key?
-        def has_key? letter
-          children_tree.has_key? letter
+        #   Hash#key?
+        def key? letter
+          children_tree.key? letter
         end
 
         # Delete a given letter and its corresponding {Node Node} from
@@ -144,6 +144,8 @@ module Rambling
         def delete letter
           children_tree.delete letter
         end
+
+        alias_method :has_key?, :key?
 
         private
 

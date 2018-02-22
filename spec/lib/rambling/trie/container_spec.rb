@@ -190,7 +190,7 @@ describe Rambling::Trie::Container do
         children_tree: nil,
         compressed?: nil,
         each: nil,
-        has_key?: nil,
+        key?: nil,
         inspect: nil,
         letter: nil,
         parent: nil,
@@ -247,14 +247,19 @@ describe Rambling::Trie::Container do
       expect(root).to have_received :compressed?
     end
 
-    it 'delegates `#has_key?` to the root node' do
+    it 'delegates `#key?` to the root node' do
+      container.key? :yup
+      expect(root).to have_received(:key?).with :yup
+    end
+
+    it 'aliases `#has_key?` to `#key?`' do
       container.has_key? :yup
-      expect(root).to have_received(:has_key?).with :yup
+      expect(root).to have_received(:key?).with :yup
     end
 
     it 'aliases `#has_letter?` to `#has_key?`' do
       container.has_letter? :yup
-      expect(root).to have_received(:has_key?).with :yup
+      expect(root).to have_received(:key?).with :yup
     end
 
     it 'delegates `#inspect` to the root node' do

@@ -98,8 +98,10 @@ shared_examples_for 'a trie node' do
       expect(children_tree).to have_received(:[]=).with(:key, 'value')
     end
 
-    it 'delegates `#has_key?` to its children tree' do
-      allow(children_tree).to receive(:has_key?).with(:present_key).and_return true
+    it 'delegates `#key?` to its children tree' do
+      allow(children_tree).to receive(:key?)
+        .with(:present_key)
+        .and_return true
 
       expect(node).to have_key(:present_key)
       expect(node).not_to have_key(:absent_key)
@@ -115,6 +117,11 @@ shared_examples_for 'a trie node' do
       allow(children_tree).to receive(:values).and_return children
 
       expect(node.children).to eq children
+    end
+
+    it 'aliases `#has_key?` to `#key?`' do
+      node.has_key? :nope
+      expect(children_tree).to have_received(:key?).with :nope
     end
   end
 end

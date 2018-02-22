@@ -20,7 +20,7 @@ module Rambling
         # @return [Boolean] `true` if the characters are found, `false`
         #   otherwise.
         def partial_word? chars
-          chars.empty? || has_partial_word?(chars)
+          chars.empty? || partial_word_chars?(chars)
         end
 
         # Checks if a path for set of characters represents a word in the trie.
@@ -28,7 +28,7 @@ module Rambling
         # @return [Boolean] `true` if the characters are found and form a word,
         #   `false` otherwise.
         def word? chars
-          chars.empty? ? terminal? : has_word?(chars)
+          chars.empty? ? terminal? : word_chars?(chars)
         end
 
         # Always return `true` for a compressed node.
@@ -39,11 +39,11 @@ module Rambling
 
         private
 
-        def has_partial_word? chars
+        def partial_word_chars? chars
           recursive_get(:partial_word?, chars) || false
         end
 
-        def has_word? chars
+        def word_chars? chars
           current_key = nil
 
           until chars.empty?

@@ -177,9 +177,9 @@ module Rambling
       # Check if a letter is part of the root {Nodes::Node}'s children tree.
       # @param [Symbol] letter the letter to search for in the root node.
       # @return [Boolean] whether the letter is contained or not.
-      # @see Nodes::Node#has_key?
-      def has_key? letter
-        root.has_key? letter
+      # @see Nodes::Node#key?
+      def key? letter
+        root.key? letter
       end
 
       # Size of the Root {Nodes::Node Node}'s children tree.
@@ -228,7 +228,8 @@ module Rambling
       alias_method :match?, :partial_word?
       alias_method :words, :scan
       alias_method :<<, :add
-      alias_method :has_letter?, :has_key?
+      alias_method :has_key?, :key?
+      alias_method :has_letter?, :key?
 
       private
 
