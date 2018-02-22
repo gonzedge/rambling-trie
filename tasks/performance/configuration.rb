@@ -24,7 +24,7 @@ module Performance
 
     def get_all_types method
       lambda do |output|
-        tasks.keys.each do |type|
+        tasks.each_key do |type|
           output.puts
           output.puts "Running #{type} tasks..."
           get(type, method).call output
@@ -34,7 +34,7 @@ module Performance
 
     def get_all_methods type
       lambda do |output|
-        tasks[type].each do |method, task|
+        tasks[type].each_value do |task|
           task.call output
         end
       end
