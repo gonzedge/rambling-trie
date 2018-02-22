@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'reporter'
 
 module Performance
@@ -11,7 +13,7 @@ module Performance
         FileUtils.mkdir_p dirpath
 
         require 'flamegraph'
-        result = ::Flamegraph.generate filepath do
+        ::Flamegraph.generate filepath do
           params.each do |param|
             iterations.times do
               yield param

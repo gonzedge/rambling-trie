@@ -858,7 +858,6 @@ Style/FrozenStringLiteralComment:
     # exist in a file.
     - never
   Exclude:
-    - 'lib/rambling/trie/nodes/compressed.rb'
     - 'spec/support/shared_examples/a_trie_node_implementation.rb'
 
 # Built-in global variables are allowed by default.

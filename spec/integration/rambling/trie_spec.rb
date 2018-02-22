@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 require 'zip'
 
@@ -6,8 +8,8 @@ describe Rambling::Trie do
 
   context 'when providing words directly' do
     it_behaves_like 'a compressible trie' do
-      let(:words) { %w(a couple of words for our full trie integration test) }
       let(:trie) { Rambling::Trie.create }
+      let(:words) { %w(a couple of words for our full trie integration test) }
 
       before do
         trie.concat words
@@ -17,8 +19,10 @@ describe Rambling::Trie do
 
   context 'when provided with words with unicode characters' do
     it_behaves_like 'a compressible trie' do
-      let(:words) { %w(poquísimas palabras para nuestra prueba de integración completa 🙃) }
       let(:trie) { Rambling::Trie.create }
+      let(:words) do
+        %w(poquísimas palabras para nuestra prueba de integración completa 🙃)
+      end
 
       before do
         trie.concat words
@@ -27,8 +31,8 @@ describe Rambling::Trie do
   end
 
   context 'when provided with a filepath' do
-    let(:words) { File.readlines(filepath).map &:chomp! }
     let(:trie) { Rambling::Trie.create filepath }
+    let(:words) { File.readlines(filepath).map(&:chomp) }
 
     context 'with english words' do
       it_behaves_like 'a compressible trie' do
@@ -45,7 +49,7 @@ describe Rambling::Trie do
 
   describe 'dump and load' do
     let(:words_filepath) { File.join assets_path, 'test_words.en_US.txt' }
-    let(:words) { File.readlines(words_filepath).map &:chomp }
+    let(:words) { File.readlines(words_filepath).map(&:chomp) }
 
     context 'when serialized with Ruby marshal format (default)' do
       it_behaves_like 'a serializable trie' do

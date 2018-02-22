@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Rambling
   module Trie
     # Responsible for the compression process of a trie data structure.
@@ -26,7 +28,7 @@ module Rambling
           letter.to_sym,
           node.parent,
           other.children_tree,
-          other.terminal?
+          other.terminal?,
         )
       end
 
@@ -35,26 +37,26 @@ module Rambling
           node.letter,
           node.parent,
           compress_children(node.children_tree),
-          node.terminal?
+          node.terminal?,
         )
       end
 
-      def compress_children children_tree
-        new_children_tree = {}
+      def compress_children tree
+        new_tree = {}
 
-        children_tree.each_value do |child|
+        tree.each_value do |child|
           compressed_child = compress child
-          new_children_tree[compressed_child.letter] = compressed_child
+          new_tree[compressed_child.letter] = compressed_child
         end
 
-        new_children_tree
+        new_tree
       end
 
-      def new_compressed_node letter, parent, children_tree, terminal
-        node = Rambling::Trie::Nodes::Compressed.new letter, parent, children_tree
+      def new_compressed_node letter, parent, tree, terminal
+        node = Rambling::Trie::Nodes::Compressed.new letter, parent, tree
         node.terminal! if terminal
 
-        children_tree.each_value { |child| child.parent = node }
+        tree.each_value { |child| child.parent = node }
         node
       end
     end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Rambling
   module Trie
     # Provides pretty printing behavior for the trie data structure.

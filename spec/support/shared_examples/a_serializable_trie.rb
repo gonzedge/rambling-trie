@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 shared_examples_for 'a serializable trie' do
   let(:tmp_path) { File.join ::SPEC_ROOT, 'tmp' }
   let(:filepath) { File.join tmp_path, "trie-root.#{format}" }

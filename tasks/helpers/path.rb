@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 module Helpers
   module Path
     def path *filename
-      Pathname.new(full_path *filename).cleanpath
+      Pathname.new(full_path(*filename)).cleanpath
     end
 
     def dictionary
@@ -19,7 +21,7 @@ module Helpers
     private
 
     def full_path *filename
-      full_path = File.join File.dirname(__FILE__), '..', '..', *filename
+      File.join File.dirname(__FILE__), '..', '..', *filename
     end
   end
 end

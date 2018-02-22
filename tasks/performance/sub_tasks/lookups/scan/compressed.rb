@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative '../lookup'
 
 module Performance
@@ -23,8 +25,8 @@ module Performance
             trie = compressed_trie
             reporter = reporter_class.new filename
 
-            params_to_iterations.each do |word, iterations|
-              reporter.report iterations, word.to_s do |word|
+            params_to_iterations.each do |word_symbol, iterations|
+              reporter.report iterations, word_symbol.to_s do |word|
                 trie.scan(word).size
               end
             end

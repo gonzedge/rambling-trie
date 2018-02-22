@@ -1,18 +1,20 @@
+# frozen_string_literal: true
+
 require 'benchmark'
 require_relative 'reporter'
 
 module Performance
   module Reporters
     class Benchmark < Performance::Reporters::Reporter
-      def initialize filename = nil, output = $stdout.dup
+      def initialize _ = nil, output = $stdout.dup
         @output = output
       end
 
       def do_report iterations, params
         params.each do |param|
-          output.print "#{iterations} iterations - #{param.to_s}".ljust 40
+          output.print "#{iterations} iterations - #{param}".ljust 40
 
-          measure iterations, param do |param|
+          measure iterations, param do |_|
             yield param
           end
         end
@@ -32,7 +34,7 @@ module Performance
           end
         end
 
-        output.puts "#{result}".ljust 10
+        output.puts result.to_s.ljust 10
         output.print ' ' * 30
         output.puts measure
       end

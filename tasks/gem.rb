@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 namespace :gem do
   desc 'Build the rambling-trie gem'
   task :build do
@@ -14,4 +16,3 @@ namespace :gem do
     puts "rambling-trie #{Rambling::Trie::VERSION}"
   end
 end
-

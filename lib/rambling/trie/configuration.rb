@@ -1,4 +1,6 @@
-%w{properties provider_collection}.each do |file|
+# frozen_string_literal: true
+
+%w(properties provider_collection).each do |file|
   require File.join('rambling', 'trie', 'configuration', file)
 end
 

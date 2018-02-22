@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'reporter'
 
 module Performance
@@ -11,7 +13,10 @@ module Performance
         FileUtils.mkdir_p dirpath
 
         require 'memory_profiler'
-        result = MemoryProfiler.report allow_files: 'lib/rambling/trie', ignore_files: 'lib/rambling/trie/tasks' do
+        result = MemoryProfiler.report(
+          allow_files: 'lib/rambling/trie',
+          ignore_files: 'lib/rambling/trie/tasks',
+        ) do
           with_gc_stats "performing #{filename}" do
             params.each do |param|
               iterations.times do

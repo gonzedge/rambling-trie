@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'path'
 
 module Helpers
@@ -7,7 +9,7 @@ module Helpers
     def tries
       [
         raw_trie,
-        compressed_trie
+        compressed_trie,
       ]
     end
 

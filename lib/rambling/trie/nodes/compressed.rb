@@ -1,20 +1,24 @@
+# frozen_string_literal: true
+
 module Rambling
   module Trie
     module Nodes
-    # A representation of a node in an compressed trie data structure.
+      # A representation of a node in an compressed trie data structure.
       class Compressed < Rambling::Trie::Nodes::Node
         # Always raises {Rambling::Trie::InvalidOperation InvalidOperation} when
         # trying to add a word to the current compressed trie node
-        # @param [String] word the word to add to the trie.
+        # @param [String] _ the word to add to the trie.
         # @raise [InvalidOperation] if the trie is already compressed.
         # @return [nil] this never returns as it always raises an exception.
-        def add word
-          raise Rambling::Trie::InvalidOperation, 'Cannot add word to compressed trie'
+        def add _
+          raise Rambling::Trie::InvalidOperation,
+            'Cannot add word to compressed trie'
         end
 
         # Checks if a path for set a of characters exists in the trie.
         # @param [Array<String>] chars the characters to look for in the trie.
-        # @return [Boolean] `true` if the characters are found, `false` otherwise.
+        # @return [Boolean] `true` if the characters are found, `false`
+        #   otherwise.
         def partial_word? chars
           chars.empty? || has_partial_word?(chars)
         end
@@ -42,7 +46,7 @@ module Rambling
         def has_word? chars
           current_key = nil
 
-          while !chars.empty?
+          until chars.empty?
             if current_key
               current_key << chars.slice!(0)
             else
@@ -65,7 +69,7 @@ module Rambling
 
           current_key = nil
 
-          while !chars.empty?
+          until chars.empty?
             if current_key
               current_key << chars.slice!(0)
             else
@@ -86,13 +90,21 @@ module Rambling
           current_length = 0
           current_key = current_key chars.slice!(0)
 
-          begin
+          loop do
             current_length += 1
+            same_length = current_key && current_key.length == current_length
 
-            if current_key && (current_key.length == current_length || chars.empty?)
+            if current_key && (same_length || chars.empty?)
               return children_tree[current_key.to_sym].send method, chars
             end
-          end while current_key && current_key[current_length] == chars.slice!(0)
+
+            contains_key = nil
+
+            if current_key
+              contains_key = current_key[current_length] == chars.slice!(0)
+            end
+            break unless contains_key
+          end
         end
 
         def current_key letter

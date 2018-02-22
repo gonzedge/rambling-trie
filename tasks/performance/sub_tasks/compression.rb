@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'initialization'
 
 module Performance
@@ -18,7 +20,7 @@ module Performance
         iterations.times { tries << Rambling::Trie.load(raw_trie_path) }
 
         i = 0
-        reporter.report iterations do |trie|
+        reporter.report iterations do |_|
           tries[i].compress!
           i += 1
           nil

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 describe Rambling::Trie::Stringifyable do
@@ -36,7 +38,8 @@ describe Rambling::Trie::Stringifyable do
       end
 
       it 'raises an error for a non terminal node' do
-        expect { node[:l].as_word }.to raise_error Rambling::Trie::InvalidOperation
+        expect { node[:l].as_word }
+          .to raise_error Rambling::Trie::InvalidOperation
       end
     end
 
@@ -74,7 +77,8 @@ describe Rambling::Trie::Stringifyable do
       end
 
       it 'raise an error for non terminal nodes' do
-        expect { compressed_node.as_word }.to raise_error Rambling::Trie::InvalidOperation
+        expect { compressed_node.as_word }
+          .to raise_error Rambling::Trie::InvalidOperation
       end
     end
   end

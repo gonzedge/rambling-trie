@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'initialization'
 
 module Performance
@@ -14,7 +16,8 @@ module Performance
       def execute reporter_class
         reporter = reporter_class.new name
         reporter.report iterations, params do
-          Rambling::Trie.create dictionary; nil
+          Rambling::Trie.create dictionary
+          nil
         end
       end
     end

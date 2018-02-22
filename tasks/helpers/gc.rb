@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Helpers
   module GC
     def with_gc_stats name = nil

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'simplecov'
 require 'coveralls'
 
@@ -5,7 +7,7 @@ Coveralls.wear!
 
 SimpleCov.formatters = [
   SimpleCov::Formatter::HTMLFormatter,
-  Coveralls::SimpleCov::Formatter
+  Coveralls::SimpleCov::Formatter,
 ]
 
 SimpleCov.start do
@@ -26,9 +28,10 @@ RSpec.configure do |config|
 end
 
 require 'support/config'
-require 'support/shared_examples/a_compressible_trie'
-require 'support/shared_examples/a_serializable_trie'
-require 'support/shared_examples/a_serializer'
-require 'support/shared_examples/a_trie_data_structure'
-require 'support/shared_examples/a_trie_node'
-require 'support/shared_examples/a_trie_node_implementation'
+
+%w(
+  a_compressible_trie a_serializable_trie a_serializer a_trie_data_structure
+  a_trie_node a_trie_node_implementation
+).each do |name|
+  require File.join('support', 'shared_examples', name)
+end

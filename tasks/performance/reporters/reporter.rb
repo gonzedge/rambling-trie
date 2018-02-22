@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative '../../helpers/gc'
 require_relative '../../helpers/path'
 require_relative '../../helpers/time'

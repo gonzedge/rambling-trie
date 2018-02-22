@@ -1,8 +1,10 @@
-%w{
+# frozen_string_literal: true
+
+%w(
   comparable compressible compressor configuration container enumerable
   inspectable invalid_operation readers serializers stringifyable nodes
   version
-}.each do |file|
+).each do |file|
   require File.join('rambling', 'trie', file)
 end
 
@@ -18,7 +20,9 @@ module Rambling
       # @yield [Container] the trie just created.
       # @see Rambling::Trie::Readers Readers.
       def create filepath = nil, reader = nil
-        Rambling::Trie::Container.new root_builder.call, compressor do |container|
+        root = root_builder.call
+
+        Rambling::Trie::Container.new root, compressor do |container|
           if filepath
             reader ||= readers.resolve filepath
             reader.each_word filepath do |word|
@@ -32,8 +36,8 @@ module Rambling
 
       # Loads an existing trie from disk into memory.
       # @param [String] filepath the file to load the words from.
-      # @param [Serializer, nil] serializer the object responsible of loading the trie
-      #   from disk
+      # @param [Serializer, nil] serializer the object responsible of loading
+      #   the trie from disk
       # @return [Container] the trie just loaded.
       # @yield [Container] the trie just loaded.
       # @see Rambling::Trie::Serializers Serializers.
@@ -57,8 +61,10 @@ module Rambling
       end
 
       # Provides configuration properties for the Rambling::Trie gem.
-      # @return [Configuration::Properties] the configured properties of the gem.
-      # @yield [Configuration::Properties] the configured properties of the gem.
+      # @return [Configuration::Properties] the configured properties of the
+      #   gem.
+      # @yield [Configuration::Properties] the configured properties of the
+      #   gem.
       def config
         yield properties if block_given?
         properties

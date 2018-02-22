@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 describe Rambling::Trie do
@@ -31,7 +33,10 @@ describe Rambling::Trie do
 
       before do
         receive_and_yield = receive(:each_word)
-        words.inject(receive_and_yield) { |yielder, word| yielder.and_yield word }
+        words.inject(receive_and_yield) do |yielder, word|
+          yielder.and_yield word
+        end
+
         allow(reader).to receive_and_yield
         allow(container).to receive :<<
       end
@@ -40,7 +45,7 @@ describe Rambling::Trie do
         Rambling::Trie.create filepath, reader
 
         words.each do |word|
-          expect(container).to have_received(:<<).with(word)
+          expect(container).to have_received(:<<).with word
         end
       end
     end
@@ -77,7 +82,7 @@ describe Rambling::Trie do
     end
 
     it 'uses the serializer to load the root node from the given filepath' do
-      trie = Rambling::Trie.load filepath, serializer
+      Rambling::Trie.load filepath, serializer
       expect(serializer).to have_received(:load).with filepath
     end
 
@@ -98,16 +103,16 @@ describe Rambling::Trie do
       end
 
       it 'determines the serializer based on the file extension' do
-        trie = Rambling::Trie.load 'test.marshal'
+        Rambling::Trie.load 'test.marshal'
         expect(marshal_serializer).to have_received(:load).with 'test.marshal'
 
-        trie = Rambling::Trie.load 'test.yml'
+        Rambling::Trie.load 'test.yml'
         expect(yaml_serializer).to have_received(:load).with 'test.yml'
 
-        trie = Rambling::Trie.load 'test.yaml'
+        Rambling::Trie.load 'test.yaml'
         expect(yaml_serializer).to have_received(:load).with 'test.yaml'
 
-        trie = Rambling::Trie.load 'test'
+        Rambling::Trie.load 'test'
         expect(default_serializer).to have_received(:load).with 'test'
       end
     end
@@ -153,10 +158,12 @@ describe Rambling::Trie do
     context 'when provided with a format' do
       it 'uses the corresponding serializer' do
         Rambling::Trie.dump trie, "#{filename}.marshal"
-        expect(marshal_serializer).to have_received(:dump).with root, "#{filename}.marshal"
+        expect(marshal_serializer).to have_received(:dump)
+          .with root, "#{filename}.marshal"
 
         Rambling::Trie.dump trie, "#{filename}.yml"
-        expect(yaml_serializer).to have_received(:dump).with root, "#{filename}.yml"
+        expect(yaml_serializer).to have_received(:dump)
+          .with root, "#{filename}.yml"
       end
     end
   end

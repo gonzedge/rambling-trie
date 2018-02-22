@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 source 'https://rubygems.org'
 
 gemspec
@@ -6,17 +7,17 @@ gemspec
 gem 'rubyzip'
 
 group :development do
-  gem 'ruby-prof'
-  gem 'memory_profiler'
   gem 'benchmark-ips'
   gem 'flamegraph'
-  gem 'stackprof'
+  gem 'memory_profiler'
   gem 'pry'
+  gem 'ruby-prof'
+  gem 'stackprof'
 end
 
 group :test do
-  gem 'simplecov', require: false
   gem 'coveralls', '~>0.8.21', require: false
+  gem 'simplecov', require: false
 end
 
 group :local do

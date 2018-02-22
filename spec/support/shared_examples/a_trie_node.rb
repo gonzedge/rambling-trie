@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 shared_examples_for 'a trie node' do
   let(:node_class) { node.class }
 
@@ -73,12 +75,13 @@ shared_examples_for 'a trie node' do
 
   describe 'delegates and aliases' do
     let(:children_tree) do
-      double :children_tree, {
+      double(
+        :children_tree,
         :[] => 'value',
         :[]= => nil,
-        has_key?: false,
+        key?: false,
         delete: true,
-      }
+      )
     end
 
     before do

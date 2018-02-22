@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Rambling
   module Trie
     module Serializers
@@ -19,8 +21,8 @@ module Rambling
           ::Marshal.load serializer.load filepath
         end
 
-        # Serializes a {Nodes::Node Node} and dumps it as a marshaled object into
-        # filepath.
+        # Serializes a {Nodes::Node Node} and dumps it as a marshaled object
+        # into filepath.
         # @param [Nodes::Node] node the node to serialize
         # @param [String] filepath the full path of the file to dump the
         #   marshaled object into.

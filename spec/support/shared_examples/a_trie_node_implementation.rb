@@ -65,7 +65,7 @@ shared_examples_for 'a trie node implementation' do
         end
       end
 
-      context 'when the node has a tree that does not match all the characters' do
+      context 'when the node subtree does not match all the characters' do
         before do
           add_word_to_tree 'abc'
         end

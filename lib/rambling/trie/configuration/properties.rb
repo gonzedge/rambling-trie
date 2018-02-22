@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Rambling
   module Trie
     module Configuration
@@ -17,8 +19,8 @@ module Rambling
         # @return [Compressor] the configured compressor.
         attr_accessor :compressor
 
-        # The configured root_builder, which should return a {Nodes::Node Node} when
-        #   called.
+        # The configured root_builder, which should return a {Nodes::Node Node}
+        #   when called.
         # @return [Proc<Nodes::Node>] the configured root_builder.
         attr_accessor :root_builder
 
@@ -36,9 +38,9 @@ module Rambling
           reset_readers
           reset_serializers
 
-          self.compressor = Rambling::Trie::Compressor.new
-          self.root_builder = lambda { Rambling::Trie::Nodes::Raw.new }
-          self.tmp_path = '/tmp'
+          @compressor = Rambling::Trie::Compressor.new
+          @root_builder = -> { Rambling::Trie::Nodes::Raw.new }
+          @tmp_path = '/tmp'
         end
 
         private
@@ -48,7 +50,10 @@ module Rambling
         def reset_readers
           plain_text_reader = Rambling::Trie::Readers::PlainText.new
 
-          self.readers = Rambling::Trie::Configuration::ProviderCollection.new :reader, txt: plain_text_reader
+          @readers = Rambling::Trie::Configuration::ProviderCollection.new(
+            :reader,
+            txt: plain_text_reader,
+          )
         end
 
         def reset_serializers
@@ -56,11 +61,13 @@ module Rambling
           yaml_serializer = Rambling::Trie::Serializers::Yaml.new
           zip_serializer = Rambling::Trie::Serializers::Zip.new self
 
-          self.serializers = Rambling::Trie::Configuration::ProviderCollection.new :serializer,
+          @serializers = Rambling::Trie::Configuration::ProviderCollection.new(
+            :serializer,
             marshal: marshal_serializer,
             yml: yaml_serializer,
             yaml: yaml_serializer,
-            zip: zip_serializer
+            zip: zip_serializer,
+          )
         end
       end
     end

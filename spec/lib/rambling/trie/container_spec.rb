@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 describe Rambling::Trie::Container do
@@ -14,8 +16,8 @@ describe Rambling::Trie::Container do
       it 'yields the container' do
         yielded = nil
 
-        container = Rambling::Trie::Container.new root, compressor do |container|
-          yielded = container
+        container = Rambling::Trie::Container.new root, compressor do |c|
+          yielded = c
         end
 
         expect(yielded).to be container
@@ -417,17 +419,8 @@ describe Rambling::Trie::Container do
       end
 
       it 'returns an array with the words that match' do
-        expect(container.scan 'hi').to eq [
-          'hi',
-          'high',
-          'highlight',
-          'histerical'
-        ]
-
-        expect(container.scan 'hig').to eq [
-          'high',
-          'highlight'
-        ]
+        expect(container.scan 'hi').to eq %w(hi high highlight histerical)
+        expect(container.scan 'hig').to eq %w(high highlight)
       end
 
       context 'and the root has been compressed' do
@@ -436,17 +429,8 @@ describe Rambling::Trie::Container do
         end
 
         it 'returns an array with the words that match' do
-          expect(container.scan 'hi').to eq [
-            'hi',
-            'high',
-            'highlight',
-            'histerical'
-          ]
-
-          expect(container.scan 'hig').to eq [
-            'high',
-            'highlight'
-          ]
+          expect(container.scan 'hi').to eq %w(hi high highlight histerical)
+          expect(container.scan 'hig').to eq %w(high highlight)
         end
       end
     end
@@ -457,7 +441,7 @@ describe Rambling::Trie::Container do
       end
 
       it 'returns an empty array' do
-        expect(container.scan 'hi').to eq []
+        expect(container.scan 'hi').to eq %w()
       end
 
       context 'and the root has been compressed' do
@@ -529,7 +513,8 @@ describe Rambling::Trie::Container do
 
     context 'phrase contains a few words' do
       it 'returns an array with all words found in the phrase' do
-        expect(container.words_within 'xyzword otherzxyone').to match_array %w(word other one)
+        expect(container.words_within 'xyzword otherzxyone')
+          .to match_array %w(word other one)
       end
 
       context 'and the node is compressed' do
@@ -538,7 +523,8 @@ describe Rambling::Trie::Container do
         end
 
         it 'returns an array with all words found in the phrase' do
-          expect(container.words_within 'xyzword otherzxyone').to match_array %w(word other one)
+          expect(container.words_within 'xyzword otherzxyone')
+            .to match_array %w(word other one)
         end
       end
     end
@@ -610,7 +596,11 @@ describe Rambling::Trie::Container do
     end
 
     it 'returns the container class name plus the root inspection' do
-      expect(container.inspect).to eq '#<Rambling::Trie::Container root: #<Rambling::Trie::Nodes::Raw letter: nil, terminal: nil, children: [:a, :f, :w, :h]>>'
+      expect(container.inspect).to eq one_line <<~CONTAINER
+        #<Rambling::Trie::Container root: #<Rambling::Trie::Nodes::Raw letter: nil,
+        terminal: nil,
+        children: [:a, :f, :w, :h]>>
+      CONTAINER
     end
   end
 end

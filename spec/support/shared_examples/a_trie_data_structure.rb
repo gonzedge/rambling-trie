@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 shared_examples_for 'a trie data structure' do
   it 'contains all the words previously provided' do
     words.each do |word|

@@ -1,12 +1,12 @@
+# frozen_string_literal: true
+
 require 'fileutils'
 
-%w{
-  configuration directory report task
-}.each do |filename|
+%w(configuration directory report task).each do |filename|
   require_relative File.join('performance', filename)
 end
 
-task :performance, [:type, :method] => 'performance:directory' do |t, args|
+task :performance, %i(type method) => 'performance:directory' do |_, args|
   require 'benchmark/ips'
 
   configuration = Performance::Configuration.new

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 describe Rambling::Trie::Serializers::Zip do
@@ -10,17 +12,17 @@ describe Rambling::Trie::Serializers::Zip do
       properties.tmp_path = tmp_path
     end
 
-    let(:filename) { File.basename(filepath).gsub /\.zip/, ''}
+    let(:filename) { File.basename(filepath).gsub %r{\.zip}, '' }
     let(:formatted_content) { zip Marshal.dump content }
 
     def zip content
-      io = Zip::OutputStream.write_buffer do |io|
+      cursor = Zip::OutputStream.write_buffer do |io|
         io.put_next_entry filename
         io.write content
       end
 
-      io.rewind
-      io.read
+      cursor.rewind
+      cursor.read
     end
   end
 end

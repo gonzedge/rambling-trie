@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 shared_examples_for 'a serializer' do
   let(:trie) { Rambling::Trie.create }
   let(:tmp_path) { File.join ::SPEC_ROOT, 'tmp' }

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 describe Rambling::Trie::Configuration::ProviderCollection do
@@ -13,7 +15,7 @@ describe Rambling::Trie::Configuration::ProviderCollection do
     Rambling::Trie::Configuration::ProviderCollection.new(
       :provider,
       configured_providers,
-      configured_default
+      configured_default,
     )
   end
 
@@ -94,16 +96,13 @@ describe Rambling::Trie::Configuration::ProviderCollection do
       end
 
       it 'raises an ArgumentError' do
-        expect do
-          provider_collection.default = other_provider
-        end.to raise_error ArgumentError
+        expect { provider_collection.default = other_provider }
+          .to raise_error ArgumentError
       end
     end
 
     context 'when the providers list is empty' do
-      let(:configured_providers) do
-        {}
-      end
+      let(:configured_providers) { {} }
 
       it 'accepts nil' do
         provider_collection.default = nil

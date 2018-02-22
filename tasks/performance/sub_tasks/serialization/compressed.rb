@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative '../initialization'
 
 module Performance
@@ -15,7 +17,8 @@ module Performance
         def execute reporter_class
           reporter = reporter_class.new filename
           reporter.report iterations, params do
-            Rambling::Trie.load compressed_trie_path; nil
+            Rambling::Trie.load compressed_trie_path
+            nil
           end
         end
       end

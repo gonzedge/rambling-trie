@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Rambling
   module Trie
     module Nodes
@@ -20,7 +22,8 @@ module Rambling
         attr_reader :letter
 
         # Child nodes tree.
-        # @return [Hash] the children_tree hash, consisting of `:letter => node`.
+        # @return [Hash] the children_tree hash, consisting of `:letter =>
+        #   node`.
         attr_accessor :children_tree
 
         # Parent node.
@@ -89,8 +92,8 @@ module Rambling
 
         # Returns all words that match a prefix of any length within chars.
         # @param [String] chars the chars to base the prefix on.
-        # @return [Enumerator<String>] all the words that match a prefix given by
-        #   chars.
+        # @return [Enumerator<String>] all the words that match a prefix given
+        #   by chars.
         # @yield [String] each word found.
         def match_prefix chars
           return enum_for :match_prefix, chars unless block_given?

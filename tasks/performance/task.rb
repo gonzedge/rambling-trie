@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Performance
   class Task
     attr_reader :configuration, :output
@@ -11,7 +13,7 @@ module Performance
       task = configuration.get type, method
 
       output.puts
-      output.puts "#{name type} for rambling-trie version #{Rambling::Trie::VERSION}"
+      output.puts "#{name type} for rambling-trie version #{version}"
       output.puts
 
       if task
@@ -31,8 +33,14 @@ module Performance
         'benchmark' => 'Benchmarks',
         'call_tree' => 'Call Tree profile',
         'memory' => 'Memory profile',
-        'flamegraph' => 'Flamegraphs'
+        'flamegraph' => 'Flamegraphs',
       }
+    end
+
+    private
+
+    def version
+      Rambling::Trie::VERSION
     end
   end
 end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Rambling
   module Trie
     # Provides enumerable behavior to the trie data structure.

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Rambling
   module Trie
     module Configuration
@@ -44,7 +46,8 @@ module Rambling
 
         def default= provider
           unless contains? provider
-            raise ArgumentError, "default #{name} should be part of configured #{name}s"
+            raise ArgumentError,
+              "default #{name} should be part of configured #{name}s"
           end
 
           @default = provider

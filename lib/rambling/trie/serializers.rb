@@ -1,4 +1,6 @@
-%w{file marshal yaml zip}.each do |file|
+# frozen_string_literal: true
+
+%w(file marshal yaml zip).each do |file|
   require File.join('rambling', 'trie', 'serializers', file)
 end
 

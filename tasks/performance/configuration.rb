@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative '../helpers/trie'
 require_relative '../helpers/gc'
 require_relative 'sub_tasks'
@@ -90,78 +92,78 @@ module Performance
 
     def sub_tasks_creators
       {
-        'creation' => creation_task_creator,
-        'compression' => compression_task_creator,
-        'serialization:raw' => serialization_raw_task_creator,
-        'serialization:compressed' => serialization_compressed_task_creator,
-        'lookups:word:raw' => lookups_word_raw_task_creator,
-        'lookups:word:compressed' => lookups_word_compressed_task_creator,
-        'lookups:partial_word:raw' => lookups_partial_word_raw_task_creator,
-        'lookups:partial_word:compressed' => lookups_partial_word_compressed_task_creator,
-        'lookups:scan:raw' => lookups_scan_raw_task_creator,
-        'lookups:scan:compressed' => lookups_scan_compressed_task_creator,
-        'lookups:words_within:raw' => lookups_words_within_raw_task_creator,
-        'lookups:words_within:compressed' => lookups_words_within_compressed_task_creator,
+        'creation' => creation,
+        'compression' => compression,
+        'serialization:raw' => serialization_raw,
+        'serialization:compressed' => serialization_compressed,
+        'lookups:word:raw' => lookups_word_raw,
+        'lookups:word:compressed' => lookups_word_compressed,
+        'lookups:partial_word:raw' => lookups_partial_word_raw,
+        'lookups:partial_word:compressed' => lookups_partial_word_compressed,
+        'lookups:scan:raw' => lookups_scan_raw,
+        'lookups:scan:compressed' => lookups_scan_compressed,
+        'lookups:words_within:raw' => lookups_words_within_raw,
+        'lookups:words_within:compressed' => lookups_words_within_compressed,
       }
     end
 
-    def creation_task_creator
+    def creation
       lambda do |iterations|
         iterations ||= 5
         Performance::SubTasks::Creation.new iterations
       end
     end
 
-    def compression_task_creator
+    def compression
       lambda do |iterations|
         iterations ||= 5
         Performance::SubTasks::Compression.new iterations
       end
     end
 
-    def serialization_raw_task_creator
+    def serialization_raw
       lambda do |iterations|
         iterations ||= 5
         Performance::SubTasks::Serialization::Raw.new iterations
       end
     end
 
-    def serialization_compressed_task_creator
+    def serialization_compressed
       lambda do |iterations|
         iterations ||= 5
         Performance::SubTasks::Serialization::Compressed.new iterations
       end
     end
 
-    def lookups_word_raw_task_creator
+    def lookups_word_raw
       lambda do |iterations|
         iterations ||= 200_000
         Performance::SubTasks::Lookups::Word::Raw.new iterations
       end
     end
 
-    def lookups_word_compressed_task_creator
+    def lookups_word_compressed
       lambda do |iterations|
         iterations ||= 200_000
         Performance::SubTasks::Lookups::Word::Compressed.new iterations
       end
     end
 
-    def lookups_partial_word_raw_task_creator
+    def lookups_partial_word_raw
       lambda do |iterations|
         iterations ||= 200_000
         Performance::SubTasks::Lookups::PartialWord::Raw.new iterations
       end
     end
 
-    def lookups_partial_word_compressed_task_creator
+    def lookups_partial_word_compressed
       lambda do |iterations|
         iterations ||= 200_000
         Performance::SubTasks::Lookups::PartialWord::Compressed.new iterations
       end
     end
 
-    def lookups_scan_raw_task_creator
+    def lookups_scan_raw
       lambda do |iterations|
         if iterations.nil? || iterations == 200_000
           Performance::SubTasks::Lookups::Scan::Raw.new
@@ -177,7 +179,7 @@ module Performance
       end
     end
 
-    def lookups_scan_compressed_task_creator iterations = 200_000
+    def lookups_scan_compressed _ = nil
       lambda do |iterations|
         if iterations.nil? || iterations == 200_000
           Performance::SubTasks::Lookups::Scan::Compressed.new
@@ -193,14 +195,14 @@ module Performance
       end
     end
 
-    def lookups_words_within_raw_task_creator iterations = 100_000
+    def lookups_words_within_raw _ = nil
       lambda do |iterations|
         iterations ||= 100_000
         Performance::SubTasks::Lookups::WordsWithin::Raw.new iterations
       end
     end
 
-    def lookups_words_within_compressed_task_creator iterations = 100_000
+    def lookups_words_within_compressed _ = nil
       lambda do |iterations|
         iterations ||= 100_000
         Performance::SubTasks::Lookups::WordsWithin::Compressed.new iterations
