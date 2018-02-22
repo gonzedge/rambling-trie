@@ -21,4 +21,5 @@ end
 
 group :local do
   gem 'guard-rspec'
+  gem 'rubocop', require: false
 end
