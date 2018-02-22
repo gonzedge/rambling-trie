@@ -10,4 +10,6 @@ RSpec.configure do |c|
 
   c.include Support::Helpers::AddWord
   c.include Support::Helpers::OneLineHeredoc
+
+  RSpec::Matchers.define_negated_matcher :not_change, :change
 end

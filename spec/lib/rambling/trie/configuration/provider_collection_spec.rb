@@ -86,13 +86,10 @@ describe Rambling::Trie::Configuration::ProviderCollection do
     end
 
     context 'when the given value is not in the providers list' do
-      it 'does not change the default provider' do
-        expect do
-          begin
-            provider_collection.default = other_provider
-          rescue
-          end
-        end.not_to change { provider_collection.default }
+      it 'raises an error and keeps the default provider' do
+        expect { provider_collection.default = other_provider }
+          .to raise_error
+          .and(not_change { provider_collection.default })
       end
 
       it 'raises an ArgumentError' do
