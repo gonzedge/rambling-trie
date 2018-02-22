@@ -23,6 +23,9 @@ namespace :ips do
     compare_delegate_custom_and_direct
   end
 
+  task :alias_vs_alias_method do
+    compare_alias_vs_alias_method
+  end
 end
 
 def compare
@@ -203,3 +206,50 @@ def compare_delegate_custom_and_direct
   end
 end
 
+class TestAlias
+  def initialize hash
+    @hash = hash
+  end
+
+  def [] key
+    hash[key]
+  end
+
+  alias get []
+
+  private
+
+  attr_reader :hash
+end
+
+class TestAliasMethod
+  def initialize hash
+    @hash = hash
+  end
+
+  def [] key
+    hash[key]
+  end
+
+  alias_method :get, :[]
+
+  private
+
+  attr_reader :hash
+end
+
+def compare_alias_vs_alias_method
+  compare do |bm|
+    hash = { key: 'value' }
+
+    alias_test = TestAlias.new hash
+    bm.report 'alias' do
+      alias_test.get :key
+    end
+
+    alias_method_test = TestAliasMethod.new hash
+    bm.report 'alias_method' do
+      alias_method_test.get :key
+    end
+  end
+end
