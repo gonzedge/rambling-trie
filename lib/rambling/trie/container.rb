@@ -193,7 +193,7 @@ module Rambling
       # @raise [InvalidOperation] if node is not terminal or is root.
       # @deprecated This will always raise an {InvalidOperation} exception.
       def as_word
-        warn '[DEPRECATION WARNING] `#as_word` is deprecated. Please use `#root#as_word` instead.'
+        deprecation_warning __method__
         root.as_word
       end
 
@@ -202,7 +202,7 @@ module Rambling
       # @see Nodes::Node#letter
       # @deprecated This will always return `nil`.
       def letter
-        warn '[DEPRECATION WARNING] `#letter` is deprecated. Please use `#root#letter` instead.'
+        deprecation_warning __method__
         root.letter
       end
 
@@ -211,7 +211,7 @@ module Rambling
       # @see Nodes::Node#parent
       # @deprecated This will always return `nil`.
       def parent
-        warn '[DEPRECATION WARNING] `#parent` is deprecated. Please use `#root#parent` instead.'
+        deprecation_warning __method__
         root.parent
       end
 
@@ -220,7 +220,7 @@ module Rambling
       # @see Stringifyable#to_s
       # @deprecated This will always return an empty string (`''`).
       def to_s
-        warn '[DEPRECATION WARNING] `#to_s` is deprecated. Please use `#root#to_s` instead.'
+        deprecation_warning __method__
         root.to_s
       end
 
@@ -256,6 +256,13 @@ module Rambling
         symbols = []
         word.reverse.each_char { |c| symbols << c.to_sym }
         symbols
+      end
+
+      def deprecation_warning method_name
+        warn <<~WARN.strip.tr("\n", ' ')
+          [DEPRECATION WARNING] `##{method_name}` is deprecated.
+          Please use `#root##{method_name}` instead.
+        WARN
       end
     end
   end
