@@ -19,7 +19,16 @@ module Rambling
         # @return [Nodes::Node] The deserialized {Nodes::Node Node}.
         def load filepath
           require 'yaml'
-          ::YAML.load serializer.load filepath
+          ::YAML.safe_load(
+            serializer.load(filepath),
+            [
+              Symbol,
+              Rambling::Trie::Nodes::Raw,
+              Rambling::Trie::Nodes::Compressed,
+            ],
+            [],
+            true,
+          )
         end
 
         # Serializes a {Nodes::Node Node} and dumps it as a YAML object into
