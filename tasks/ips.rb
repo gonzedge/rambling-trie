@@ -26,6 +26,10 @@ namespace :ips do
   task :alias_vs_alias_method do
     compare_alias_vs_alias_method
   end
+
+  task :dup_vs_clone do
+    compare_dup_vs_clone
+  end
 end
 
 def compare
@@ -250,6 +254,24 @@ def compare_alias_vs_alias_method
     alias_method_test = TestAliasMethod.new hash
     bm.report 'alias_method' do
       alias_method_test.get :key
+    end
+  end
+end
+
+def compare_dup_vs_clone
+  compare do |bm|
+    s = 'hello'
+
+    bm.report 'dup' do
+      s.dup
+    end
+
+    bm.report 'clone' do
+      s.clone
+    end
+
+    bm.report 'slice' do
+      s.slice 0, s.size
     end
   end
 end
