@@ -17,6 +17,8 @@ module Rambling
         # @param [String] filepath the full path of the file to load the
         #   serialized YAML object from.
         # @return [Nodes::Node] The deserialized {Nodes::Node Node}.
+        # @see https://ruby-doc.org/stdlib-2.5.0/libdoc/psych/rdoc/Psych.html#method-c-safe_load
+        #   Psych.safe_load
         def load filepath
           require 'yaml'
           ::YAML.safe_load(
@@ -37,6 +39,8 @@ module Rambling
         # @param [String] filepath the full path of the file to dump the YAML
         #   object into.
         # @return [Numeric] number of bytes written to disk.
+        # @see https://ruby-doc.org/stdlib-2.5.0/libdoc/psych/rdoc/Psych.html#method-c-dump
+        #   Psych.dump
         def dump node, filepath
           require 'yaml'
           serializer.dump ::YAML.dump(node), filepath

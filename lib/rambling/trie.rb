@@ -34,13 +34,20 @@ module Rambling
         end
       end
 
-      # Loads an existing trie from disk into memory.
+      # Loads an existing trie from disk into memory. By default, it will
+      # deduce the correct way to deserialize based on the file extension.
+      # Available formats are `yml`, `marshal`, and `zip` versions of all the
+      # previous formats. You can also define your own.
       # @param [String] filepath the file to load the words from.
       # @param [Serializer, nil] serializer the object responsible of loading
       #   the trie from disk
       # @return [Container] the trie just loaded.
       # @yield [Container] the trie just loaded.
       # @see Rambling::Trie::Serializers Serializers.
+      # @note Use of
+      #   {https://ruby-doc.org/core-2.5.0/Marshal.html#method-c-load
+      #   Marshal.load} is generally discouraged. Only use the `.marshal`
+      #   format with trusted input.
       def load filepath, serializer = nil
         serializer ||= serializers.resolve filepath
         root = serializer.load filepath
@@ -49,7 +56,10 @@ module Rambling
         end
       end
 
-      # Dumps an existing trie from memory into disk.
+      # Dumps an existing trie from memory into disk. By default, it will
+      # deduce the correct way to serialize based on the file extension.
+      # Available formats are `yml`, `marshal`, and `zip` versions of all the
+      # previous formats. You can also define your own.
       # @param [Container] trie the trie to dump into disk.
       # @param [String] filepath the file to dump to serialized trie into.
       # @param [Serializer, nil] serializer the object responsible of

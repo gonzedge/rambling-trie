@@ -17,6 +17,8 @@ module Rambling
         # unzipped files.
         # @param [String] filepath the filepath to load contents from.
         # @return [String] all contents of the unzipped loaded file.
+        # @see https://github.com/rubyzip/rubyzip#reading-a-zip-file Zip
+        #   reading a file
         def load filepath
           require 'zip'
 
@@ -34,6 +36,8 @@ module Rambling
         # @param [String] contents the contents to dump.
         # @param [String] filepath the filepath to dump the contents to.
         # @return [Numeric] number of bytes written to disk.
+        # @see https://github.com/rubyzip/rubyzip#basic-zip-archive-creation
+        #   Zip archive creation
         def dump contents, filepath
           require 'zip'
 
