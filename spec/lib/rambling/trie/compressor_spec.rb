@@ -12,7 +12,7 @@ describe Rambling::Trie::Compressor do
       add_words node, %w(a few words hello hell)
       compressed = compressor.compress node
 
-      expect(compressed.children_tree.keys).to eq %i(a few words hell)
+      expect(compressed.children_tree.keys).to eq %i(a f w h)
     end
 
     context 'with at least one word' do
@@ -35,10 +35,10 @@ describe Rambling::Trie::Compressor do
       it 'compresses into a single node without children' do
         compressed = compressor.compress node
 
-        expect(compressed[:all].letter).to eq :all
-        expect(compressed[:all].children.size).to eq 0
-        expect(compressed[:all]).to be_terminal
-        expect(compressed[:all]).to be_compressed
+        expect(compressed[:a].letter).to eq :all
+        expect(compressed[:a].children.size).to eq 0
+        expect(compressed[:a]).to be_terminal
+        expect(compressed[:a]).to be_compressed
       end
     end
 
@@ -53,17 +53,17 @@ describe Rambling::Trie::Compressor do
         expect(compressed[:a].letter).to eq :a
         expect(compressed[:a].children.size).to eq 2
 
-        expect(compressed[:a][:ll].letter).to eq :ll
-        expect(compressed[:a][:sk].letter).to eq :sk
+        expect(compressed[:a][:l].letter).to eq :ll
+        expect(compressed[:a][:s].letter).to eq :sk
 
-        expect(compressed[:a][:ll].children.size).to eq 0
-        expect(compressed[:a][:sk].children.size).to eq 0
+        expect(compressed[:a][:l].children.size).to eq 0
+        expect(compressed[:a][:s].children.size).to eq 0
 
-        expect(compressed[:a][:ll]).to be_terminal
-        expect(compressed[:a][:sk]).to be_terminal
+        expect(compressed[:a][:l]).to be_terminal
+        expect(compressed[:a][:s]).to be_terminal
 
-        expect(compressed[:a][:ll]).to be_compressed
-        expect(compressed[:a][:sk]).to be_compressed
+        expect(compressed[:a][:l]).to be_compressed
+        expect(compressed[:a][:s]).to be_compressed
       end
     end
 
@@ -71,38 +71,38 @@ describe Rambling::Trie::Compressor do
       add_words node, %w(repay rest repaint)
       compressed = compressor.compress node
 
-      expect(compressed[:re].letter).to eq :re
-      expect(compressed[:re].parent).to eq compressed
-      expect(compressed[:re].children.size).to eq 2
+      expect(compressed[:r].letter).to eq :re
+      expect(compressed[:r].parent).to eq compressed
+      expect(compressed[:r].children.size).to eq 2
 
-      expect(compressed[:re][:pa].letter).to eq :pa
-      expect(compressed[:re][:pa].parent).to eq compressed[:re]
-      expect(compressed[:re][:pa].children.size).to eq 2
+      expect(compressed[:r][:p].letter).to eq :pa
+      expect(compressed[:r][:p].parent).to eq compressed[:r]
+      expect(compressed[:r][:p].children.size).to eq 2
 
-      expect(compressed[:re][:st].letter).to eq :st
-      expect(compressed[:re][:st].parent).to eq compressed[:re]
-      expect(compressed[:re][:st].children.size).to eq 0
+      expect(compressed[:r][:s].letter).to eq :st
+      expect(compressed[:r][:s].parent).to eq compressed[:r]
+      expect(compressed[:r][:s].children.size).to eq 0
 
-      expect(compressed[:re][:pa][:y].letter).to eq :y
-      expect(compressed[:re][:pa][:y].parent).to eq compressed[:re][:pa]
-      expect(compressed[:re][:pa][:y].children.size).to eq 0
+      expect(compressed[:r][:p][:y].letter).to eq :y
+      expect(compressed[:r][:p][:y].parent).to eq compressed[:r][:p]
+      expect(compressed[:r][:p][:y].children.size).to eq 0
 
-      expect(compressed[:re][:pa][:int].letter).to eq :int
-      expect(compressed[:re][:pa][:int].parent).to eq compressed[:re][:pa]
-      expect(compressed[:re][:pa][:int].children.size).to eq 0
+      expect(compressed[:r][:p][:i].letter).to eq :int
+      expect(compressed[:r][:p][:i].parent).to eq compressed[:r][:p]
+      expect(compressed[:r][:p][:i].children.size).to eq 0
     end
 
     it 'does not compress terminal nodes' do
       add_words node, %w(you your yours)
       compressed = compressor.compress node
 
-      expect(compressed[:you].letter).to eq :you
+      expect(compressed[:y].letter).to eq :you
 
-      expect(compressed[:you][:r].letter).to eq :r
-      expect(compressed[:you][:r]).to be_compressed
+      expect(compressed[:y][:r].letter).to eq :r
+      expect(compressed[:y][:r]).to be_compressed
 
-      expect(compressed[:you][:r][:s].letter).to eq :s
-      expect(compressed[:you][:r][:s]).to be_compressed
+      expect(compressed[:y][:r][:s].letter).to eq :s
+      expect(compressed[:y][:r][:s]).to be_compressed
     end
   end
 end

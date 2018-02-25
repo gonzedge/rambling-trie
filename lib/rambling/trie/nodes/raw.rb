@@ -66,7 +66,7 @@ module Rambling
           letter = chars.slice!(0).to_sym
           child = children_tree[letter]
 
-          return Rambling::Trie::Nodes::Missing.new unless child
+          return missing unless child
 
           child.scan chars
         end

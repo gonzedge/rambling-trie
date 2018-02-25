@@ -455,7 +455,7 @@ describe Rambling::Trie::Container do
         end
 
         it 'returns an empty array' do
-          expect(container.scan 'hi').to eq []
+          expect(container.scan 'hi').to eq %w()
         end
       end
     end

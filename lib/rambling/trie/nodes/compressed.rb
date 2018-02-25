@@ -15,20 +15,53 @@ module Rambling
             'Cannot add word to compressed trie'
         end
 
-        # Checks if a path for set a of characters exists in the trie.
+        # Checks if a path for a set of characters exists in the trie.
         # @param [Array<String>] chars the characters to look for in the trie.
         # @return [Boolean] `true` if the characters are found, `false`
         #   otherwise.
         def partial_word? chars
-          chars.empty? || partial_word_chars?(chars)
+          return true if chars.empty?
+
+          child = children_tree[chars.first.to_sym]
+          return false unless child
+
+          child_letter = child.letter.to_s
+
+          if chars.size >= child_letter.size
+            letter = chars.slice!(0, child_letter.size).join
+            return child.partial_word? chars if child_letter == letter
+          end
+
+          letter = chars.join
+          child_letter = child_letter.slice 0, letter.size
+
+          return child_letter == letter
         end
 
-        # Checks if a path for set of characters represents a word in the trie.
+        # Checks if a path for a set of characters represents a word in the
+        # trie.
         # @param [Array<String>] chars the characters to look for in the trie.
         # @return [Boolean] `true` if the characters are found and form a word,
         #   `false` otherwise.
         def word? chars
-          chars.empty? ? terminal? : word_chars?(chars)
+          return terminal? if chars.empty?
+
+          letter = chars.slice! 0
+          letter_sym = letter.to_sym
+
+          child = children_tree[letter_sym]
+          return false unless child
+
+          loop do
+            return child.word? chars if letter_sym == child.letter
+
+            break if chars.empty?
+
+            letter << chars.slice!(0)
+            letter_sym = letter.to_sym
+          end
+
+          false
         end
 
         # Always return `true` for a compressed node.
@@ -39,87 +72,40 @@ module Rambling
 
         private
 
-        def partial_word_chars? chars
-          recursive_get(:partial_word?, chars) || false
-        end
+        def closest_node chars
+          child = children_tree[chars.first.to_sym]
+          return missing unless child
 
-        def word_chars? chars
-          current_key = nil
+          child_letter = child.letter.to_s
 
-          until chars.empty?
-            if current_key
-              current_key << chars.slice!(0)
-            else
-              current_key = chars.slice!(0)
-            end
-
-            child = children_tree[current_key.to_sym]
-            return child.word? chars if child
+          if chars.size >= child_letter.size
+            letter = chars.slice!(0, child_letter.size).join
+            return child.scan chars if child_letter == letter
           end
 
-          false
-        end
+          letter = chars.join
+          child_letter = child_letter.slice 0, letter.size
 
-        def closest_node chars
-          recursive_get(:scan, chars) || Rambling::Trie::Nodes::Missing.new
+          return child if child_letter == letter
+          return missing
         end
 
         def children_match_prefix chars
           return enum_for :children_match_prefix, chars unless block_given?
 
-          current_key = nil
+          return if chars.empty?
 
-          until chars.empty?
-            if current_key
-              current_key << chars.slice!(0)
-            else
-              current_key = chars.slice!(0)
-            end
+          child = children_tree[chars.first.to_sym]
+          return unless child
 
-            child = children_tree[current_key.to_sym]
+          child_letter = child.letter.to_s
+          letter = chars.slice!(0, child_letter.size).join
 
-            next unless child
+          return unless child_letter == letter
 
-            child.match_prefix chars do |word|
-              yield word
-            end
+          child.match_prefix chars do |word|
+            yield word
           end
-        end
-
-        def recursive_get method, chars
-          current_length = 0
-          current_key = current_key chars.slice!(0)
-
-          loop do
-            current_length += 1
-            same_length = current_key && current_key.length == current_length
-
-            if current_key && (same_length || chars.empty?)
-              return children_tree[current_key.to_sym].send method, chars
-            end
-
-            contains_key = nil
-
-            if current_key
-              contains_key = current_key[current_length] == chars.slice!(0)
-            end
-            break unless contains_key
-          end
-        end
-
-        def current_key letter
-          current_key = nil
-
-          children_tree.each_key do |letters|
-            letters_string = letters.to_s
-
-            if letters_string.start_with? letter
-              current_key = letters_string
-              break
-            end
-          end
-
-          current_key
         end
       end
     end

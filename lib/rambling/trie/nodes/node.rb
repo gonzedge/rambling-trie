@@ -99,6 +99,7 @@ module Rambling
           return enum_for :match_prefix, chars unless block_given?
 
           yield as_word if terminal?
+
           children_match_prefix chars do |word|
             yield word
           end
@@ -146,6 +147,12 @@ module Rambling
         end
 
         alias_method :has_key?, :key?
+
+        protected
+
+        def missing
+          Rambling::Trie::Nodes::Missing.new
+        end
 
         private
 

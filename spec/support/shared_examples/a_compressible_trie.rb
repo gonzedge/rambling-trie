@@ -18,7 +18,8 @@ shared_examples_for 'a compressible trie' do
 
   context 'and the trie is compressed' do
     let!(:original_root) { trie.root }
-    let!(:original_tree) { original_root.children_tree.keys }
+    let!(:original_keys) { original_root.children_tree.keys }
+    let!(:original_values) { original_root.children_tree.values }
 
     before do
       trie.compress!
@@ -31,8 +32,9 @@ shared_examples_for 'a compressible trie' do
     end
 
     it 'leaves the original root intact' do
-      expect(original_root.children_tree.keys).to eq original_tree
-      expect(trie.children_tree.keys).not_to eq original_tree
+      expect(original_root.children_tree.keys).to eq original_keys
+      expect(trie.children_tree.keys).to eq original_keys
+      expect(trie.children_tree.values).not_to eq original_values
     end
   end
 end

@@ -73,7 +73,7 @@ describe Rambling::Trie::Stringifyable do
 
       it 'returns the words for the terminal nodes' do
         expect(compressed_node[:m].as_word).to eq 'am'
-        expect(compressed_node[:dd].as_word).to eq 'add'
+        expect(compressed_node[:d].as_word).to eq 'add'
       end
 
       it 'raise an error for non terminal nodes' do

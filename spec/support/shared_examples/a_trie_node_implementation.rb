@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 shared_examples_for 'a trie node implementation' do
   it_behaves_like 'a trie node'
 
@@ -61,7 +63,7 @@ shared_examples_for 'a trie node implementation' do
         end
 
         it 'returns true' do
-          expect(node.word? %w(a b c)).to be true
+          expect(node.word? %w(a b c).map(&:dup)).to be true
         end
       end
 
@@ -71,8 +73,8 @@ shared_examples_for 'a trie node implementation' do
         end
 
         it 'returns false' do
-          expect(node.word? %w(a)).to be false
-          expect(node.word? %w(a b)).to be false
+          expect(node.word? %w(a).map(&:dup)).to be false
+          expect(node.word? %w(a b).map(&:dup)).to be false
         end
       end
     end
@@ -87,12 +89,12 @@ shared_examples_for 'a trie node implementation' do
 
     context 'when the chars array is not empty' do
       before do
-        add_word_to_tree 'cba'
+        add_words_to_tree %w(cba ccab)
       end
 
       context 'when the chars are found' do
         it 'returns the found child' do
-          expect(node.scan %w(c)).to match_array %w(cba)
+          expect(node.scan %w(c)).to match_array %w(cba ccab)
           expect(node.scan %w(c b)).to match_array %w(cba)
           expect(node.scan %w(c b a)).to match_array %w(cba)
         end
@@ -103,6 +105,8 @@ shared_examples_for 'a trie node implementation' do
           expect(node.scan %w(a)).to be_a Rambling::Trie::Nodes::Missing
           expect(node.scan %w(a b)).to be_a Rambling::Trie::Nodes::Missing
           expect(node.scan %w(a b c)).to be_a Rambling::Trie::Nodes::Missing
+          expect(node.scan %w(c a)).to be_a Rambling::Trie::Nodes::Missing
+          expect(node.scan %w(c c b)).to be_a Rambling::Trie::Nodes::Missing
           expect(node.scan %w(c b a d)).to be_a Rambling::Trie::Nodes::Missing
         end
       end

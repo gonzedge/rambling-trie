@@ -36,13 +36,13 @@ describe Rambling::Trie::Inspectable do
     context 'for a compressed node' do
       let(:compressor) { Rambling::Trie::Compressor.new }
       let(:compressed) { compressor.compress node }
-      let(:compressed_child) { compressed[:only] }
+      let(:compressed_child) { compressed[:o] }
 
       it 'returns a pretty printed version of the compressed node' do
         expect(compressed.inspect).to eq one_line <<~COMPRESSED
           #<Rambling::Trie::Nodes::Compressed letter: nil,
           terminal: nil,
-          children: [:only, :three, :words]>
+          children: [:o, :t, :w]>
         COMPRESSED
 
         expect(compressed_child.inspect).to eq one_line <<~CHILD

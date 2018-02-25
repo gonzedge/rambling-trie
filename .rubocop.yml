@@ -857,8 +857,6 @@ Style/FrozenStringLiteralComment:
     # `never` will enforce that the frozen string literal comment does not
     # exist in a file.
     - never
-  Exclude:
-    - 'spec/support/shared_examples/a_trie_node_implementation.rb'
 
 # Built-in global variables are allowed by default.
 Style/GlobalVars:
