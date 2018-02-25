@@ -1598,3 +1598,9 @@ Bundler/OrderedGems:
 
 Gemspec/OrderedDependencies:
   TreatCommentsAsGroupSeparators: true
+
+#################### Security ##############################
+
+Security/MarshalLoad:
+  Exclude:
+    - 'lib/rambling/trie/serializers/marshal.rb'
