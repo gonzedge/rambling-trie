@@ -15,13 +15,15 @@ module Rambling
             'Cannot add word to compressed trie'
         end
 
-        # Checks if a path for a set of characters exists in the trie.
-        # @param [Array<String>] chars the characters to look for in the trie.
-        # @return [Boolean] `true` if the characters are found, `false`
-        #   otherwise.
-        def partial_word? chars
-          return true if chars.empty?
+        # Always return `true` for a compressed node.
+        # @return [Boolean] always `true` for a compressed node.
+        def compressed?
+          true
+        end
 
+        private
+
+        def partial_word_chars? chars
           child = children_tree[chars.first.to_sym]
           return false unless child
 
@@ -34,18 +36,10 @@ module Rambling
 
           letter = chars.join
           child_letter = child_letter.slice 0, letter.size
-
-          return child_letter == letter
+          child_letter == letter
         end
 
-        # Checks if a path for a set of characters represents a word in the
-        # trie.
-        # @param [Array<String>] chars the characters to look for in the trie.
-        # @return [Boolean] `true` if the characters are found and form a word,
-        #   `false` otherwise.
-        def word? chars
-          return terminal? if chars.empty?
-
+        def word_chars? chars
           letter = chars.slice! 0
           letter_sym = letter.to_sym
 
@@ -64,14 +58,6 @@ module Rambling
           false
         end
 
-        # Always return `true` for a compressed node.
-        # @return [Boolean] always `true` for a compressed node.
-        def compressed?
-          true
-        end
-
-        private
-
         def closest_node chars
           child = children_tree[chars.first.to_sym]
           return missing unless child
@@ -86,8 +72,7 @@ module Rambling
           letter = chars.join
           child_letter = child_letter.slice 0, letter.size
 
-          return child if child_letter == letter
-          return missing
+          child_letter == letter ? child : missing
         end
 
         def children_match_prefix chars

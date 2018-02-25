@@ -17,30 +17,6 @@ module Rambling
           end
         end
 
-        # Checks if a path for a set of characters exists in the trie.
-        # @param [Array<String>] chars the characters to look for in the trie.
-        # @return [Boolean] `true` if the characters are found, `false`
-        #   otherwise.
-        def partial_word? chars = []
-          return true if chars.empty?
-
-          letter = chars.slice!(0).to_sym
-          child = children_tree[letter]
-          !!child && child.partial_word?(chars)
-        end
-
-        # Checks if a path for set of characters represents a word in the trie.
-        # @param [Array<String>] chars the characters to look for in the trie.
-        # @return [Boolean] `true` if the characters are found and form a word,
-        #   `false` otherwise.
-        def word? chars = []
-          return terminal? if chars.empty?
-
-          letter = chars.slice!(0).to_sym
-          child = children_tree[letter]
-          !!child && child.word?(chars)
-        end
-
         # Always return `false` for a raw (uncompressed) node.
         # @return [Boolean] always `false` for a raw (uncompressed) node.
         def compressed?
@@ -62,10 +38,25 @@ module Rambling
           node
         end
 
+        def partial_word_chars? chars = []
+          letter = chars.slice!(0).to_sym
+          child = children_tree[letter]
+          return false unless child
+
+          child.partial_word? chars
+        end
+
+        def word_chars? chars = []
+          letter = chars.slice!(0).to_sym
+          child = children_tree[letter]
+          return false unless child
+
+          child.word? chars
+        end
+
         def closest_node chars
           letter = chars.slice!(0).to_sym
           child = children_tree[letter]
-
           return missing unless child
 
           child.scan chars

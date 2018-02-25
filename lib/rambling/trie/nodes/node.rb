@@ -80,6 +80,26 @@ module Rambling
           @letter = letter.to_sym if letter
         end
 
+        # Checks if a path for a set of characters exists in the trie.
+        # @param [Array<String>] chars the characters to look for in the trie.
+        # @return [Boolean] `true` if the characters are found, `false`
+        #   otherwise.
+        def partial_word? chars
+          return true if chars.empty?
+
+          partial_word_chars? chars
+        end
+
+        # Checks if a path for set of characters represents a word in the trie.
+        # @param [Array<String>] chars the characters to look for in the trie.
+        # @return [Boolean] `true` if the characters are found and form a word,
+        #   `false` otherwise.
+        def word? chars = []
+          return terminal? if chars.empty?
+
+          word_chars? chars
+        end
+
         # Returns the node that starts with the specified characters.
         # @param [Array<String>] chars the characters to look for in the trie.
         # @return [Node] the node that matches the specified characters.
