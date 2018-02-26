@@ -3,8 +3,8 @@
 require_relative 'helpers/path'
 
 namespace :serialization do
-  desc 'Regenerate serialized tries in assets/'
-  task :regenerate do
+  desc 'Regenerate serialized tries'
+  task regenerate: %i(serialization:directory) do
     include Helpers::Path
 
     dictionaries = %w(espanol words_with_friends)
@@ -12,13 +12,22 @@ namespace :serialization do
 
     dump_dictionaries dictionaries, formats
   end
+
+  desc 'Create serialization directories'
+  task :directory do
+    include Helpers::Path
+
+    FileUtils.mkdir_p tries_path
+  end
 end
 
 def dump_dictionaries dictionaries, formats
   dictionaries.each do |name|
+    puts "Regenerating serialized dictionary '#{name}'... "
+
     tries(name).each do |trie|
       formats.each do |format|
-        dump_trie trie, name, format
+        dump_trie trie, filename(trie, name, format)
       end
     end
 
@@ -28,8 +37,7 @@ def dump_dictionaries dictionaries, formats
 end
 
 def tries name
-  input_path = path 'assets', 'dictionaries', "#{name}.txt"
-  puts "Regenerating serialized dictionary '#{name}'... "
+  input_path = File.join dictionaries_path, "#{name}.txt"
 
   [
     Rambling::Trie.create(input_path),
@@ -37,12 +45,15 @@ def tries name
   ]
 end
 
-def dump_trie trie, name, format
-  filename = "#{name}_#{trie.compressed? ? 'compressed' : 'raw'}.#{format}"
+def filename trie, name, format
+  type = trie.compressed? ? 'compressed' : 'raw'
+  "#{name}_#{type}.#{format}"
+end
 
+def dump_trie trie, filename
   puts "Serializing to '#{filename}'... "
 
-  path = path 'assets', 'tries', filename
+  path = File.join tries_path, filename
   dump trie, path
 end
 

@@ -6,7 +6,10 @@ require 'fileutils'
   require_relative File.join('performance', filename)
 end
 
-task :performance, %i(type method) => 'performance:directory' do |_, args|
+arg_names = %i(type method)
+dependencies = %i(serialization:regenerate performance:directory)
+
+task :performance, arg_names => dependencies do |_, args|
   require 'benchmark/ips'
 
   configuration = Performance::Configuration.new
