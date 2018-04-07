@@ -4,6 +4,13 @@
 
 ### Breaking Changes
 
+- Remove `Container` deprecated methods by [@gonzedge][github_user_gonzedge]
+
+  - `#as_word`
+  - `#letter`
+  - `#parent`
+  - `#to_s`
+
 - Require Ruby 2.3.x or up in gemspec by [@gonzedge][github_user_gonzedge]
 - Drop Ruby 2.2.x support in favor of squiggly heredoc (`<<~`) by [@gonzedge][github_user_gonzedge]
 

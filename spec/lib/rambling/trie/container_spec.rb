@@ -227,11 +227,6 @@ describe Rambling::Trie::Container do
       expect(root).to have_received(:[]).with :yep
     end
 
-    it 'delegates `#as_word` to the root node' do
-      container.as_word
-      expect(root).to have_received :as_word
-    end
-
     it 'delegates `#children` to the root node' do
       container.children
       expect(root).to have_received :children
@@ -267,24 +262,9 @@ describe Rambling::Trie::Container do
       expect(root).to have_received :inspect
     end
 
-    it 'delegates `#letter` to the root node' do
-      container.letter
-      expect(root).to have_received :letter
-    end
-
-    it 'delegates `#parent` to the root node' do
-      container.parent
-      expect(root).to have_received :parent
-    end
-
     it 'delegates `#size` to the root node' do
       container.size
       expect(root).to have_received :size
-    end
-
-    it 'delegates `#to_s` to the root node' do
-      container.to_s
-      expect(root).to have_received :to_s
     end
   end
 

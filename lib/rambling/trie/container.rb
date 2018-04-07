@@ -188,42 +188,6 @@ module Rambling
         root.size
       end
 
-      # String representation of the current node, if it is a terminal node.
-      # @return [String] the string representation of the current node.
-      # @raise [InvalidOperation] if node is not terminal or is root.
-      # @deprecated This will always raise an {InvalidOperation} exception.
-      def as_word
-        deprecation_warning __method__
-        root.as_word
-      end
-
-      # Root {Nodes::Node Node}'s letter.
-      # @return [Symbol] the root node's letter
-      # @see Nodes::Node#letter
-      # @deprecated This will always return `nil`.
-      def letter
-        deprecation_warning __method__
-        root.letter
-      end
-
-      # Root {Nodes::Node Node}'s parent.
-      # @return [Symbol] the root node's parent
-      # @see Nodes::Node#parent
-      # @deprecated This will always return `nil`.
-      def parent
-        deprecation_warning __method__
-        root.parent
-      end
-
-      # String representation of root {Nodes::Node Node}.
-      # @return [String] the root node's string representation.
-      # @see Stringifyable#to_s
-      # @deprecated This will always return an empty string (`''`).
-      def to_s
-        deprecation_warning __method__
-        root.to_s
-      end
-
       alias_method :include?, :word?
       alias_method :match?, :partial_word?
       alias_method :words, :scan
@@ -256,13 +220,6 @@ module Rambling
         symbols = []
         word.reverse.each_char { |c| symbols << c.to_sym }
         symbols
-      end
-
-      def deprecation_warning method_name
-        warn <<~WARN.strip.tr("\n", ' ')
-          [DEPRECATION WARNING] `##{method_name}` is deprecated.
-          Please use `#root##{method_name}` instead.
-        WARN
       end
     end
   end
