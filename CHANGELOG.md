@@ -2,6 +2,7 @@
 
 ## 1.0.3 [compare][compare_v1_0_2_and_master]
 
+- Add Ruby 2.5.1, 2.4.4 and 2.3.7 to supported versions by [@gonzedge][github_user_gonzedge]
 - Remove unnecessary rake task file by [@gonzedge][github_user_gonzedge]
 - Extract serialization tasks into their own classes by [@gonzedge][github_user_gonzedge]
 - Regenerate serialized dictionaries every time by [@gonzedge][github_user_gonzedge]
@@ -11,7 +12,7 @@
 - Improve documentation of `.dump`, `.load` and all `Serializers` by [@gonzedge][github_user_gonzedge]
 - Exclude `Serializers::Marshal` from rubocop inspection by [@gonzedge][github_user_gonzedge]
 - Use `Yaml.safe_load` in yaml serializer by [@gonzedge][github_user_gonzedge]
-- Drop Ruby 2.2.0 support in favor of squiggly heredoc (`<<~`) by [@gonzedge][github_user_gonzedge]
+- Drop Ruby 2.2.x support in favor of squiggly heredoc (`<<~`) by [@gonzedge][github_user_gonzedge]
 - Add ips alias_method vs alias benchmark by [@gonzedge][github_user_gonzedge]
 - Refactor rake tasks by [@gonzedge][github_user_gonzedge]
 - Add `#not_change` matcher to simplify `ProviderCollection` spec by [@gonzedge][github_user_gonzedge]

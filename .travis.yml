@@ -7,11 +7,14 @@ before_install:
 install:
   - bundle install --without local
 rvm:
+  - 2.5.1
   - 2.5.0
+  - 2.4.4
   - 2.4.3
   - 2.4.2
   - 2.4.1
   - 2.4.0
+  - 2.3.7
   - 2.3.6
   - 2.3.5
   - 2.3.4
