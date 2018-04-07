@@ -1,58 +1,61 @@
 # Changelog
 
-## 1.0.3 [compare][compare_v1_0_2_and_master]
+## 2.0.0 [compare][compare_v1_0_3_and_master]
+
+### Breaking Changes
 
 - Require Ruby 2.3.x or up in gemspec by [@gonzedge][github_user_gonzedge]
+- Drop Ruby 2.2.x support in favor of squiggly heredoc (`<<~`) by [@gonzedge][github_user_gonzedge]
+
+### Enhancements
+
+#### Major
+
+Most of these help with the gem's overall performance.
+
 - Add Ruby 2.5.1, 2.4.4 and 2.3.7 to supported versions by [@gonzedge][github_user_gonzedge]
+- Move `#partial_word?` and `#word?` up to `Node` by [@gonzedge][github_user_gonzedge]
+- Use `Yaml.safe_load` in yaml serializer by [@gonzedge][github_user_gonzedge]
+- Use `#each_key` and `#each_value` where appropriate by [@gonzedge][github_user_gonzedge]
+- Extract `#deprecation_warning` method for `Container` by [@gonzedge][github_user_gonzedge]
+- Stop using `#has_x?` method configuration by [@gonzedge][github_user_gonzedge]
+
+#### Minor
+
 - Remove unnecessary rake task file by [@gonzedge][github_user_gonzedge]
 - Extract serialization tasks into their own classes by [@gonzedge][github_user_gonzedge]
 - Regenerate serialized dictionaries every time by [@gonzedge][github_user_gonzedge]
-- Move `#partial_word?` and `#word?` up to `Node` by [@gonzedge][github_user_gonzedge]
 - Change compression strategy and tree structure for `Compressed` nodes by [@gonzedge][github_user_gonzedge]
 - Add ips dup vs clone vs slice benchmark by [@gonzedge][github_user_gonzedge]
 - Improve documentation of `.dump`, `.load` and all `Serializers` by [@gonzedge][github_user_gonzedge]
 - Exclude `Serializers::Marshal` from rubocop inspection by [@gonzedge][github_user_gonzedge]
-- Use `Yaml.safe_load` in yaml serializer by [@gonzedge][github_user_gonzedge]
-- Drop Ruby 2.2.x support in favor of squiggly heredoc (`<<~`) by [@gonzedge][github_user_gonzedge]
 - Add ips alias_method vs alias benchmark by [@gonzedge][github_user_gonzedge]
 - Refactor rake tasks by [@gonzedge][github_user_gonzedge]
 - Add `#not_change` matcher to simplify `ProviderCollection` spec by [@gonzedge][github_user_gonzedge]
-- Use `#each_key` and `#each_value` where appropriate by [@gonzedge][github_user_gonzedge]
-- Extract `#deprecation_warning` method for `Container` by [@gonzedge][github_user_gonzedge]
-- Stop using `#has_x?` method configuration by [@gonzedge][github_user_gonzedge]
 - First big Rubocop sweep by [@gonzedge][github_user_gonzedge]
 - Add rubocop by [@gonzedge][github_user_gonzedge]
-- Better name for classes in ips attr_accessor vs method benchmark task by [@gonzedge][github_user_gonzedge]
-- Fix links in README by [@gonzedge][github_user_gonzedge]
-- Require profiling libraries only when they are strictly necessary by [@gonzedge][github_user_gonzedge]
+
+## 1.0.3 [compare][compare_v1_0_2_and_v1_0_3]
+
+### Breaking Changes
+
+- Rename `Compressable` to more widely used `Compressible` by [@gonzedge][github_user_gonzedge]
+- Add letter to `Node`'s constructor by [@gonzedge][github_user_gonzedge]
+
+### Enhancements
+
+#### Major
+
+Most of these help with the gem's overall performance.
+
 - Add `#compress` method to public API by [@gonzedge][github_user_gonzedge]
-- Refactor trie integration tests by [@gonzedge][github_user_gonzedge]
-- Refactor serializer tests by [@gonzedge][github_user_gonzedge]
-- Extract shared examples for trie node implementations by [@gonzedge][github_user_gonzedge]
-- Add missing documentation in `Configuration::Properties` by [@gonzedge][github_user_gonzedge]
-- Update documentation to reflect actual side effects (or lack thereof) by [@gonzedge][github_user_gonzedge]
 - Add `#concat` method to public facing API by [@gonzedge][github_user_gonzedge]
-- Rename a few tests to maintain consistent wording by [@gonzedge][github_user_gonzedge]
-- Add `#add_word` and `#add_words` helpers to avoid shotgun surgery in tests by [@gonzedge][github_user_gonzedge]
-- Use real node for `Container#each` test by [@gonzedge][github_user_gonzedge]
 - Define `ProviderCollection#format` method instead of alias for `#keys` by [@gonzedge][github_user_gonzedge]
-- Add documentation for `ProviderCollection`'s `#keys` and `#[]` by [@gonzedge][github_user_gonzedge]
-- Upgrade to coveralls 0.8.21 by [@gonzedge][github_user_gonzedge]
 - Remove unnecessary aliases and move necessary ones to private by [@gonzedge][github_user_gonzedge]
 - Add `#has_letter?` alias for `#has_key?` by [@gonzedge][github_user_gonzedge]
 - Add deprecation warnings for `Container`'s methods by [@gonzedge][github_user_gonzedge]
-- Add documentation for delegate methods and fix Node specs by [@gonzedge][github_user_gonzedge]
 - Define delegate methods explicitly and remove dependency on `Forwardable` by [@gonzedge][github_user_gonzedge]
-- Fix wrong documentation links by [@gonzedge][github_user_gonzedge]
-- Add ips rake task namespace for benchmark-ips results by [@gonzedge][github_user_gonzedge]
-- Add Pry to development dependencies for debugging purposes by [@gonzedge][github_user_gonzedge]
 - Reverse char array and use `#pop` instead of slice when adding a word by [@gonzedge][github_user_gonzedge]
-- Derive filename from task's name by [@gonzedge][github_user_gonzedge]
-- Complete overhaul of performance task directory structure by [@gonzedge][github_user_gonzedge]
-- Rename `Compressable` to more widely used `Compressible` by [@gonzedge][github_user_gonzedge]
-- Refactor `Compressor` and improve memory footprint and performance by [@gonzedge][github_user_gonzedge]
-- Add letter to `Node`'s constructor by [@gonzedge][github_user_gonzedge]
-- Move all `Node`s into 'nodes/' directory by [@gonzedge][github_user_gonzedge]
 - Pull `#scan` up to `Node` by [@gonzedge][github_user_gonzedge]
 - Slightly reduce memeory for `Properties` and `ProviderCollection` classes by [@gonzedge][github_user_gonzedge]
 - Use `#children_tree` instead of `#children` when possible by [@gonzedge][github_user_gonzedge]
@@ -63,6 +66,30 @@
 - Preemptively convert the word added to array of symbols by [@gonzedge][github_user_gonzedge]
 - Pull gem require up to the Rakefile to avoid issues with `.load` method by [@gonzedge][github_user_gonzedge]
 - Add Ruby 2.5.0 support by [@gonzedge][github_user_gonzedge]
+
+#### Minor
+
+- Better name for classes in ips attr_accessor vs method benchmark task by [@gonzedge][github_user_gonzedge]
+- Fix links in README by [@gonzedge][github_user_gonzedge]
+- Require profiling libraries only when they are strictly necessary by [@gonzedge][github_user_gonzedge]
+- Refactor trie integration tests by [@gonzedge][github_user_gonzedge]
+- Refactor serializer tests by [@gonzedge][github_user_gonzedge]
+- Extract shared examples for trie node implementations by [@gonzedge][github_user_gonzedge]
+- Add missing documentation in `Configuration::Properties` by [@gonzedge][github_user_gonzedge]
+- Update documentation to reflect actual side effects (or lack thereof) by [@gonzedge][github_user_gonzedge]
+- Rename a few tests to maintain consistent wording by [@gonzedge][github_user_gonzedge]
+- Add `#add_word` and `#add_words` helpers to avoid shotgun surgery in tests by [@gonzedge][github_user_gonzedge]
+- Use real node for `Container#each` test by [@gonzedge][github_user_gonzedge]
+- Add documentation for `ProviderCollection`'s `#keys` and `#[]` by [@gonzedge][github_user_gonzedge]
+- Upgrade to coveralls 0.8.21 by [@gonzedge][github_user_gonzedge]
+- Add documentation for delegate methods and fix Node specs by [@gonzedge][github_user_gonzedge]
+- Fix wrong documentation links by [@gonzedge][github_user_gonzedge]
+- Add ips rake task namespace for benchmark-ips results by [@gonzedge][github_user_gonzedge]
+- Add Pry to development dependencies for debugging purposes by [@gonzedge][github_user_gonzedge]
+- Derive filename from task's name by [@gonzedge][github_user_gonzedge]
+- Complete overhaul of performance task directory structure by [@gonzedge][github_user_gonzedge]
+- Refactor `Compressor` and improve memory footprint and performance by [@gonzedge][github_user_gonzedge]
+- Move all `Node`s into 'nodes/' directory by [@gonzedge][github_user_gonzedge]
 
 ## 1.0.2 [compare][compare_v1_0_1_and_v1_0_2]
 
@@ -775,7 +802,8 @@
 [compare_v0_9_3_and_v1_0_0]: https://github.com/gonzedge/rambling-trie/compare/v0.9.3...v1.0.0
 [compare_v1_0_0_and_v1_0_1]: https://github.com/gonzedge/rambling-trie/compare/v1.0.0...v1.0.1
 [compare_v1_0_1_and_v1_0_2]: https://github.com/gonzedge/rambling-trie/compare/v1.0.1...v1.0.2
-[compare_v1_0_2_and_master]: https://github.com/gonzedge/rambling-trie/compare/v1.0.2...master
+[compare_v1_0_2_and_v1_0_3]: https://github.com/gonzedge/rambling-trie/compare/v1.0.2...v1.0.3
+[compare_v1_0_3_and_master]: https://github.com/gonzedge/rambling-trie/compare/v1.0.3...master
 [design_patterns_null_object]: http://wiki.c2.com/?NullObject
 [github_commit_current_key_less_memory]: https://github.com/gonzedge/rambling-trie/commit/218fac218a77e70ba04a3672ff5abfddf6544f57
 [github_commit_reduced_memory_footprint]: https://github.com/gonzedge/rambling-trie/commit/aa8c0262f888e88df6a2f1e1351d8f14b21e43c4
