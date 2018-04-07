@@ -2,6 +2,7 @@
 
 ## 1.0.3 [compare][compare_v1_0_2_and_master]
 
+- Require Ruby 2.3.x or up in gemspec by [@gonzedge][github_user_gonzedge]
 - Add Ruby 2.5.1, 2.4.4 and 2.3.7 to supported versions by [@gonzedge][github_user_gonzedge]
 - Remove unnecessary rake task file by [@gonzedge][github_user_gonzedge]
 - Extract serialization tasks into their own classes by [@gonzedge][github_user_gonzedge]
