@@ -3,6 +3,6 @@
 module Rambling
   module Trie
     # Current version of the rambling-trie.
-    VERSION = '2.0.0'
+    VERSION = '2.0.1'
   end
 end
