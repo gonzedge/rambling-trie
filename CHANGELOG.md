@@ -2,6 +2,7 @@
 
 ## 2.1.0 [compare][compare_v2_0_0_and_master]
 
+- Add official support for Ruby 2.6 by [@gonzedge][github_user_gonzedge]
 - Add Ruby 2.5.{2,3,4,5} and 2.4{5,6} to supported versions by [@gonzedge][github_user_gonzedge]
 - Require Ruby 2.4.x or up in gemspec by [@gonzedge][github_user_gonzedge]
 - Remove official support for 2.3.x by [@gonzedge][github_user_gonzedge]
