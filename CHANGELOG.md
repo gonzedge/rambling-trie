@@ -1,6 +1,8 @@
 # Changelog
 
-## 2.1.0 [compare][compare_v2_0_0_and_master]
+## 2.1.1 [compare][compare_v2_1_0_and_master]
+
+## 2.1.0 [compare][compare_v2_0_0_and_v2_1_0]
 
 - Add official support for Ruby 2.6 by [@gonzedge][github_user_gonzedge]
 - Add Ruby 2.5.{2,3,4,5} and 2.4{5,6} to supported versions by [@gonzedge][github_user_gonzedge]
@@ -818,7 +820,8 @@ Most of these help with the gem's overall performance.
 [compare_v1_0_1_and_v1_0_2]: https://github.com/gonzedge/rambling-trie/compare/v1.0.1...v1.0.2
 [compare_v1_0_2_and_v1_0_3]: https://github.com/gonzedge/rambling-trie/compare/v1.0.2...v1.0.3
 [compare_v1_0_3_and_v2_0_0]: https://github.com/gonzedge/rambling-trie/compare/v1.0.3...v2.0.0
-[compare_v2_0_0_and_master]: https://github.com/gonzedge/rambling-trie/compare/v2.0.0...master
+[compare_v2_0_0_and_v2_1_0]: https://github.com/gonzedge/rambling-trie/compare/v2.0.0...v2.1.0
+[compare_v2_1_0_and_master]: https://github.com/gonzedge/rambling-trie/compare/v2.1.0...master
 [design_patterns_null_object]: http://wiki.c2.com/?NullObject
 [github_commit_current_key_less_memory]: https://github.com/gonzedge/rambling-trie/commit/218fac218a77e70ba04a3672ff5abfddf6544f57
 [github_commit_reduced_memory_footprint]: https://github.com/gonzedge/rambling-trie/commit/aa8c0262f888e88df6a2f1e1351d8f14b21e43c4
