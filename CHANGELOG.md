@@ -1,6 +1,8 @@
 # Changelog
 
-## 2.0.1 [compare][compare_v2_0_0_and_master]
+## 2.1.0 [compare][compare_v2_0_0_and_master]
+
+- Remove official support for 2.3.x
 
 ## 2.0.0 [compare][compare_v1_0_3_and_v2_0_0]
 

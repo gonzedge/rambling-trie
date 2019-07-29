@@ -14,14 +14,6 @@ rvm:
   - 2.4.2
   - 2.4.1
   - 2.4.0
-  - 2.3.7
-  - 2.3.6
-  - 2.3.5
-  - 2.3.4
-  - 2.3.3
-  - 2.3.2
-  - 2.3.1
-  - 2.3.0
 before_script:
   - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
   - chmod +x ./cc-test-reporter
