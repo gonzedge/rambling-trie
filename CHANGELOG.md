@@ -2,7 +2,8 @@
 
 ## 2.1.0 [compare][compare_v2_0_0_and_master]
 
-- Remove official support for 2.3.x
+- Require Ruby 2.4.x or up in gemspec by [@gonzedge][github_user_gonzedge]
+- Remove official support for 2.3.x by [@gonzedge][github_user_gonzedge]
 
 ## 2.0.0 [compare][compare_v1_0_3_and_v2_0_0]
 
