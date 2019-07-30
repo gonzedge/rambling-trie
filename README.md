@@ -1,6 +1,6 @@
 # Rambling Trie
 
-[![Gem Version][badge_fury_badge]][badge_fury_link] [![Dependency Status][gemnasium_badge]][gemnasium_link] [![Build Status][travis_ci_badge]][travis_ci_link] [![Code Climate][code_climate_badge]][code_climage_link] [![Coverage Status][coveralls_badge]][coveralls_link] [![Documentation Status][inch_ci_badge]][inch_ci_link] [![License][license_badge]][license_link]
+[![Gem Version][badge_fury_badge]][badge_fury_link] [![Build Status][travis_ci_badge]][travis_ci_link] [![Code Climate][code_climate_badge]][code_climage_link] [![Coverage Status][coveralls_badge]][coveralls_link] [![Documentation Status][inch_ci_badge]][inch_ci_link] [![License][license_badge]][license_link]
 
 The Rambling Trie is a Ruby implementation of the [trie data structure][trie_wiki], which includes compression abilities and is designed to be very fast to traverse.
 
