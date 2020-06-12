@@ -21,7 +21,7 @@ shared_examples_for 'a serializer' do
     end
 
     it 'converts the contents to the appropriate format' do
-      expect(File.read(filepath).size).to eq formatted_content.size
+      expect(File.read(filepath).size).to be_within(10).of formatted_content.size
     end
   end
 
