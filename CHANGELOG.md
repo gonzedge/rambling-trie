@@ -1,6 +1,15 @@
 # Changelog
 
-## 2.1.1 [compare][compare_v2_1_0_and_master]
+## 2.1.2 [compare][compare_v2_1_1_and_master]
+
+## 2.1.1 [compare][compare_v2_1_0_and_v2_1_1]
+
+- Change `slice!` to `shift` by [@shinjiikeda][github_user_shinjiikeda]
+- Frozen string issue fix by [@godsent][github_user_godsent]
+- Drop Ruby 2.4.x; add 2.7 and updated 2.6.x/2.5.x support by [@gonzedge][github_user_gonzedge]
+- Be more flexible with file sizes for zip file test by [@gonzedge][github_user_gonzedge]
+- Upgrade development dependencies by [@gonzedge][github_user_gonzedge]
+- Specify `ArgumentError` exception for provider collection spec by [@gonzedge][github_user_gonzedge]
 
 ## 2.1.0 [compare][compare_v2_0_0_and_v2_1_0]
 
@@ -821,7 +830,8 @@ Most of these help with the gem's overall performance.
 [compare_v1_0_2_and_v1_0_3]: https://github.com/gonzedge/rambling-trie/compare/v1.0.2...v1.0.3
 [compare_v1_0_3_and_v2_0_0]: https://github.com/gonzedge/rambling-trie/compare/v1.0.3...v2.0.0
 [compare_v2_0_0_and_v2_1_0]: https://github.com/gonzedge/rambling-trie/compare/v2.0.0...v2.1.0
-[compare_v2_1_0_and_master]: https://github.com/gonzedge/rambling-trie/compare/v2.1.0...master
+[compare_v2_1_0_and_v2_1_1]: https://github.com/gonzedge/rambling-trie/compare/v2.1.0...v2.1.1
+[compare_v2_1_1_and_master]: https://github.com/gonzedge/rambling-trie/compare/v2.1.1...master
 [design_patterns_null_object]: http://wiki.c2.com/?NullObject
 [github_commit_current_key_less_memory]: https://github.com/gonzedge/rambling-trie/commit/218fac218a77e70ba04a3672ff5abfddf6544f57
 [github_commit_reduced_memory_footprint]: https://github.com/gonzedge/rambling-trie/commit/aa8c0262f888e88df6a2f1e1351d8f14b21e43c4
@@ -835,6 +845,8 @@ Most of these help with the gem's overall performance.
 [github_issue_09]: https://github.com/gonzedge/rambling-trie/issues/9
 [github_issue_10]: https://github.com/gonzedge/rambling-trie/issues/10
 [github_issue_11]: https://github.com/gonzedge/rambling-trie/issues/11
+[github_user_godsent]: https://github.com/godsent
 [github_user_gonzedge]: https://github.com/gonzedge
 [github_user_lilibethdlc]: https://github.com/lilibethdlc
+[github_user_shinjiikeda]: https://github.com/shinjiikeda
 [ruby_bug_13111]: https://bugs.ruby-lang.org/issues/13111
