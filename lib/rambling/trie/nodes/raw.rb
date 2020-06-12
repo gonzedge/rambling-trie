@@ -39,7 +39,7 @@ module Rambling
         end
 
         def partial_word_chars? chars = []
-          letter = chars.slice!(0).to_sym
+          letter = chars.shift.to_sym
           child = children_tree[letter]
           return false unless child
 
@@ -47,7 +47,7 @@ module Rambling
         end
 
         def word_chars? chars = []
-          letter = chars.slice!(0).to_sym
+          letter = chars.shift.to_sym
           child = children_tree[letter]
           return false unless child
 
@@ -55,7 +55,7 @@ module Rambling
         end
 
         def closest_node chars
-          letter = chars.slice!(0).to_sym
+          letter = chars.shift.to_sym
           child = children_tree[letter]
           return missing unless child
 
@@ -67,7 +67,7 @@ module Rambling
 
           return if chars.empty?
 
-          letter = chars.slice!(0).to_sym
+          letter = chars.shift.to_sym
           child = children_tree[letter]
 
           return unless child
