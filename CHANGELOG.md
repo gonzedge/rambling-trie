@@ -1,6 +1,8 @@
-# Changelog
+## 2.2.2 [compare][compare_v2_2_1_and_master]
 
-## 2.2.1 [compare][compare_v2_2_0_and_master]
+## 2.2.1 [compare][compare_v2_2_0_and_v2_2_1]
+
+- Add support for Ruby 3.0.x by [@as181920][github_user_as181920]
 
 ## 2.2.0 [compare][compare_v2_1_1_and_v2_2_0]
 
@@ -837,7 +839,8 @@ Most of these help with the gem's overall performance.
 [compare_v2_0_0_and_v2_1_0]: https://github.com/gonzedge/rambling-trie/compare/v2.0.0...v2.1.0
 [compare_v2_1_0_and_v2_1_1]: https://github.com/gonzedge/rambling-trie/compare/v2.1.0...v2.1.1
 [compare_v2_1_1_and_v2_2_0]: https://github.com/gonzedge/rambling-trie/compare/v2.1.1...v2.2.0
-[compare_v2_2_0_and_master]: https://github.com/gonzedge/rambling-trie/compare/v2.1.1...master
+[compare_v2_2_0_and_v2_2_1]: https://github.com/gonzedge/rambling-trie/compare/v2.2.0...v2.2.1
+[compare_v2_2_1_and_master]: https://github.com/gonzedge/rambling-trie/compare/v2.2.1...master
 [design_patterns_null_object]: http://wiki.c2.com/?NullObject
 [github_commit_current_key_less_memory]: https://github.com/gonzedge/rambling-trie/commit/218fac218a77e70ba04a3672ff5abfddf6544f57
 [github_commit_reduced_memory_footprint]: https://github.com/gonzedge/rambling-trie/commit/aa8c0262f888e88df6a2f1e1351d8f14b21e43c4
@@ -851,9 +854,10 @@ Most of these help with the gem's overall performance.
 [github_issue_09]: https://github.com/gonzedge/rambling-trie/issues/9
 [github_issue_10]: https://github.com/gonzedge/rambling-trie/issues/10
 [github_issue_11]: https://github.com/gonzedge/rambling-trie/issues/11
+[github_user_as181920]: https://github.com/as181920
 [github_user_godsent]: https://github.com/godsent
 [github_user_gonzedge]: https://github.com/gonzedge
+[github_user_kitaitimakoto]: https://github.com/KitaitiMakoto
 [github_user_lilibethdlc]: https://github.com/lilibethdlc
 [github_user_shinjiikeda]: https://github.com/shinjiikeda
-[github_user_kitaitimakoto]: https://github.com/KitaitiMakoto
 [ruby_bug_13111]: https://bugs.ruby-lang.org/issues/13111
