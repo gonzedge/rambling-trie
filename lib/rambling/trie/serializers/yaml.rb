@@ -23,13 +23,12 @@ module Rambling
           require 'yaml'
           ::YAML.safe_load(
             serializer.load(filepath),
-            [
+            permitted_classes: [
               Symbol,
               Rambling::Trie::Nodes::Raw,
               Rambling::Trie::Nodes::Compressed,
             ],
-            [],
-            true,
+            aliases: true,
           )
         end
 
