@@ -77,7 +77,7 @@ module Rambling
 
         # Get provider corresponding to a given format.
         # @return [Array<Symbol>] the provider corresponding to that format.
-        # @see https://ruby-doc.org/core-2.5.0/Hash.html#method-i-5B-5D
+        # @see https://ruby-doc.org/core-2.7.0/Hash.html#method-i-5B-5D
         #   Hash#keys
         def formats
           providers.keys
@@ -86,7 +86,7 @@ module Rambling
         # Get provider corresponding to a given format.
         # @param [Symbol] format the format to search for in the collection.
         # @return [Object] the provider corresponding to that format.
-        # @see https://ruby-doc.org/core-2.5.0/Hash.html#method-i-5B-5D
+        # @see https://ruby-doc.org/core-2.7.0/Hash.html#method-i-5B-5D
         #   Hash#[]
         def [] format
           providers[format]

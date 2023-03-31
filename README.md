@@ -10,7 +10,7 @@ The Rambling Trie is a Ruby implementation of the [trie data structure][trie_wik
 
 You will need:
 
-* Ruby 2.5.0 or up
+* Ruby 2.7.0 or up
 * RubyGems
 
 See [RVM][rvm], [rbenv][rbenv] or [chruby][chruby] for more information on how to manage Ruby versions.
@@ -289,7 +289,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 [inch_ci_link]: https://inch-ci.org/github/gonzedge/rambling-trie
 [license_badge]: https://badges.frapsoft.com/os/mit/mit.svg?v=103
 [license_link]: https://opensource.org/licenses/mit-license.php
-[marshal]: https://ruby-doc.org/core-2.5.0/Marshal.html
+[marshal]: https://ruby-doc.org/core-2.7.0/Marshal.html
 [rambling_trie_configuration]: https://github.com/gonzedge/rambling-trie#configuration
 [rambling_trie_contributing_guide]: https://github.com/gonzedge/rambling-trie/blob/master/CONTRIBUTING.md
 [rambling_trie_plain_text_reader]: https://github.com/gonzedge/rambling-trie/blob/master/lib/rambling/trie/readers/plain_text.rb
@@ -301,4 +301,4 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 [travis_ci_badge]: https://travis-ci.com/gonzedge/rambling-trie.svg?branch=master
 [travis_ci_link]: https://travis-ci.com/github/gonzedge/rambling-trie
 [trie_wiki]: https://en.wikipedia.org/wiki/Trie
-[yaml]: https://ruby-doc.org/stdlib-2.5.0/libdoc/yaml/rdoc/YAML.html
+[yaml]: https://ruby-doc.org/stdlib-2.7.0/libdoc/yaml/rdoc/YAML.html

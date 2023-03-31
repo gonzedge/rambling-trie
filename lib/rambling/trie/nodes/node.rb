@@ -128,7 +128,7 @@ module Rambling
         # Get {Node Node} corresponding to a given letter.
         # @param [Symbol] letter the letter to search for in the node.
         # @return [Node] the node corresponding to that letter.
-        # @see https://ruby-doc.org/core-2.5.0/Hash.html#method-i-5B-5D
+        # @see https://ruby-doc.org/core-2.7.0/Hash.html#method-i-5B-5D
         #   Hash#[]
         def [] letter
           children_tree[letter]
@@ -139,7 +139,7 @@ module Rambling
         # @param [Node] node the {Node Node} to assign to that letter.
         # @return [Node] the node corresponding to the inserted or
         #   updated letter.
-        # @see https://ruby-doc.org/core-2.5.0/Hash.html#method-i-5B-5D
+        # @see https://ruby-doc.org/core-2.7.0/Hash.html#method-i-5B-5D
         #   Hash#[]
         def []= letter, node
           children_tree[letter] = node
@@ -149,7 +149,7 @@ module Rambling
         #   letter.
         # @param [Symbol] letter the letter to search for in the node.
         # @return [Boolean] `true` if the letter is present, `false` otherwise
-        # @see https://ruby-doc.org/core-2.5.0/Hash.html#method-i-has_key-3F
+        # @see https://ruby-doc.org/core-2.7.0/Hash.html#method-i-has_key-3F
         #   Hash#key?
         def key? letter
           children_tree.key? letter
@@ -160,7 +160,7 @@ module Rambling
         # @param [Symbol] letter the letter to delete from the node's children
         #   tree.
         # @return [Node] the node corresponding to the deleted letter.
-        # @see https://ruby-doc.org/core-2.5.0/Hash.html#method-i-delete
+        # @see https://ruby-doc.org/core-2.7.0/Hash.html#method-i-delete
         #   Hash#delete
         def delete letter
           children_tree.delete letter

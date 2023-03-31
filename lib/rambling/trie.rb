@@ -45,7 +45,7 @@ module Rambling
       # @yield [Container] the trie just loaded.
       # @see Rambling::Trie::Serializers Serializers.
       # @note Use of
-      #   {https://ruby-doc.org/core-2.5.0/Marshal.html#method-c-load
+      #   {https://ruby-doc.org/core-2.7.0/Marshal.html#method-c-load
       #   Marshal.load} is generally discouraged. Only use the `.marshal`
       #   format with trusted input.
       def load filepath, serializer = nil
