@@ -16,7 +16,7 @@ group :development do
 end
 
 group :test do
-  gem 'coveralls', '~>0.8.21', require: false
+  gem 'coveralls_reborn', '~> 0.27.0', require: false
   gem 'simplecov', require: false
 end
 
