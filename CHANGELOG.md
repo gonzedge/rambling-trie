@@ -1,4 +1,18 @@
-## 2.2.2 [compare][compare_v2_2_1_and_master]
+## 2.3.1 [compare][compare_v2_3_0_and_master]
+
+## 2.3.0 [compare][compare_v2_2_1_and_v2_3_0]
+
+- Don't use `YAML.safe_load`'s legacy API by [@KitaitiMakoto][github_user_kitaitimakoto]
+- Add explicit support for Ruby 3.1.x by [@KitaitiMakoto][github_user_kitaitimakoto]
+- Add block to `Coveralls.wear!` to prevent `SimpleCove.start` being called twice by [@KitaitiMakoto][github_user_kitaitimakoto]
+- Add explicit support for Ruby 3.2.x by [@agate][github_user_agate]
+- Make sure gem also supports all the sub version of 3.2 by [@agate][github_user_agate]
+  - Includes adding support for 2.7.{4,5,6,7}, 3.0.{2,3,4,5}, 3.1.{0,1,2,3} and 3.2.{0,1}
+- Use new `coveralls_reborn` to support new ruby by [@agate][github_user_agate]
+- Update `required_ruby_version` bounds to `>= 2.7, < 4` by [@gonzedge][github_user_gonzedge]
+- Drop support for Ruby 2.5.x and 2.6.x by [@gonzedge][github_user_gonzedge]
+- Add Ruby 2.7.8, 3.0.6, 3.1.4, 3.2.2 to supported versions by [@gonzedge][github_user_gonzedge]
+- Update documentation links to min required ruby version by [@gonzedge][github_user_gonzedge]
 
 ## 2.2.1 [compare][compare_v2_2_0_and_v2_2_1]
 
@@ -840,7 +854,8 @@ Most of these help with the gem's overall performance.
 [compare_v2_1_0_and_v2_1_1]: https://github.com/gonzedge/rambling-trie/compare/v2.1.0...v2.1.1
 [compare_v2_1_1_and_v2_2_0]: https://github.com/gonzedge/rambling-trie/compare/v2.1.1...v2.2.0
 [compare_v2_2_0_and_v2_2_1]: https://github.com/gonzedge/rambling-trie/compare/v2.2.0...v2.2.1
-[compare_v2_2_1_and_master]: https://github.com/gonzedge/rambling-trie/compare/v2.2.1...master
+[compare_v2_2_1_and_v2_3_0]: https://github.com/gonzedge/rambling-trie/compare/v2.2.1...v2.3.0
+[compare_v2_3_0_and_master]: https://github.com/gonzedge/rambling-trie/compare/v2.3.0...master
 [design_patterns_null_object]: http://wiki.c2.com/?NullObject
 [github_commit_current_key_less_memory]: https://github.com/gonzedge/rambling-trie/commit/218fac218a77e70ba04a3672ff5abfddf6544f57
 [github_commit_reduced_memory_footprint]: https://github.com/gonzedge/rambling-trie/commit/aa8c0262f888e88df6a2f1e1351d8f14b21e43c4
@@ -854,6 +869,7 @@ Most of these help with the gem's overall performance.
 [github_issue_09]: https://github.com/gonzedge/rambling-trie/issues/9
 [github_issue_10]: https://github.com/gonzedge/rambling-trie/issues/10
 [github_issue_11]: https://github.com/gonzedge/rambling-trie/issues/11
+[github_user_agate]: https://github.com/agate
 [github_user_as181920]: https://github.com/as181920
 [github_user_godsent]: https://github.com/godsent
 [github_user_gonzedge]: https://github.com/gonzedge
