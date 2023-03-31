@@ -32,6 +32,6 @@ Gem::Specification.new do |gem|
   gem.required_ruby_version = '>= 2.7', '< 4'
 
   gem.add_development_dependency 'rake', '~> 13.0'
-  gem.add_development_dependency 'rspec', '~> 3.10'
-  gem.add_development_dependency 'yard', '~> 0.9.26'
+  gem.add_development_dependency 'rspec', '~> 3.12'
+  gem.add_development_dependency 'yard', '~> 0.9.28'
 end
