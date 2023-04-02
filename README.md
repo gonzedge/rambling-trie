@@ -167,7 +167,7 @@ Rambling::Trie.dump trie, '/path/to/file'
 Then, when you need to use a trie next time, you don't have to create a new one with all the necessary words. Rather, you can retrieve a previously stored one with `.load` like this:
 
 ``` ruby
-trie = Rambling::Trie.load trie, '/path/to/file'
+trie = Rambling::Trie.load '/path/to/file'
 ```
 
 #### Supported formats
@@ -197,7 +197,7 @@ Then, you can load contents form a `.zip` file like this:
 
 ``` ruby
 require 'zip'
-trie = Rambling::Trie.load trie, '/path/to/file.zip'
+trie = Rambling::Trie.load '/path/to/file.zip'
 ```
 
 > For `.zip` files, the format is also determined automatically based on the
