@@ -265,7 +265,7 @@ Take a look at the [contributing guide][rambling_trie_contributing_guide] to get
 
 ## License and copyright
 
-Copyright (c) 2012-2017 Edgar Gonzalez
+Copyright (c) 2012-2023 Edgar González
 
 MIT License
 
