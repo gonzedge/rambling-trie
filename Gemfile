@@ -18,6 +18,7 @@ end
 group :test do
   gem 'coveralls_reborn', '~> 0.27.0', require: false
   gem 'simplecov', require: false
+  gem 'rspec_junit_formatter'
 end
 
 group :local do
