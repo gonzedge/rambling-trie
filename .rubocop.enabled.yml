@@ -2,7 +2,7 @@
 require:
   - rubocop-performance
   - rubocop-rake
-  - rubocop-rspec
+  # - rubocop-rspec
 
 #################### Bundler ###############################
 

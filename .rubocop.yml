@@ -17,7 +17,7 @@ AllCops:
     - 'pkg/**/*'
     - 'reports/**/*'
     - 'tmp/**/*'
-  TargetRubyVersion: 2.5.0
+  TargetRubyVersion: 2.7.0
 
 #################### Layout ###########################
 
