@@ -38,16 +38,6 @@ Layout/MultilineAssignmentLayout:
 #   Description: 'Checks unsafe usage of number conversion methods.'
 #   Enabled: false
 
-# By default, the rails cops are not run. Override in project or home
-# directory .rubocop.yml files, or by giving the -R/--rails option.
-Rails:
-  Enabled: false
-
-Rails/SaveBang:
-  Description: 'Identifies possible cases where Active Record save! or related should be used.'
-  StyleGuide: 'https://github.com/bbatsov/rails-style-guide#save-bang'
-  Enabled: false
-
 Style/AutoResourceCleanup:
   Description: 'Suggests the usage of an auto resource cleanup version of a method (if available).'
   Enabled: false

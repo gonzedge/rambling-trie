@@ -26,7 +26,7 @@ Layout/AccessModifierIndentation:
   EnforcedStyle: indent
 
 # Align the elements of a hash literal if they span more than one line.
-Layout/AlignHash:
+Layout/HashAlignment:
   # Alignment of entries using colon as separator. Valid values are:
   #
   # key - left alignment of keys
@@ -72,7 +72,7 @@ Layout/AlignHash:
   #       b: 2)
   EnforcedLastArgumentHashStyle: ignore_implicit
 
-Layout/AlignParameters:
+Layout/ParameterAlignment:
   # Alignment of parameters in multi-line method calls.
   #
   # The `with_first_parameter` style aligns the following lines along the same
@@ -166,7 +166,7 @@ Layout/FirstParameterIndentation:
   #  # Same as `special_for_inner_method_call` except that the special rule only
   #  # applies if the outer method call encloses its arguments in parentheses.
   #  - special_for_inner_method_call_in_parentheses
-  EnforcedStyle: special_for_inner_method_call_in_parentheses
+  EnforcedStyle: consistent
 
 Layout/IndentationConsistency:
   # The difference between `rails` and `normal` is that the `rails` style
@@ -183,7 +183,7 @@ Layout/IndentationWidth:
   IgnoredPatterns: []
 
 # Checks the indentation of the first element in an array literal.
-Layout/IndentArray:
+Layout/FirstArrayElementIndentation:
   # The value `special_inside_parentheses` means that array literals with
   # brackets that have their opening bracket on the same line as a surrounding
   # opening round parenthesis, shall have their first element indented relative
@@ -205,13 +205,13 @@ Layout/IndentArray:
   IndentationWidth: ~
 
 # Checks the indentation of assignment RHS, when on a different line from LHS
-Layout/IndentAssignment:
+Layout/AssignmentIndentation:
   # By default, the indentation width from `Layout/IndentationWidth` is used
   # But it can be overridden by setting this parameter
   IndentationWidth: ~
 
 # Checks the indentation of the first key in a hash literal.
-Layout/IndentHash:
+Layout/FirstHashElementIndentation:
   # The value `special_inside_parentheses` means that hash literals with braces
   # that have their opening brace on the same line as a surrounding opening
   # round parenthesis, shall have their first key indented relative to the
@@ -232,7 +232,7 @@ Layout/IndentHash:
   # But it can be overridden by setting this parameter
   IndentationWidth: ~
 
-Layout/IndentHeredoc:
+Layout/HeredocIndentation:
   EnforcedStyle: auto_detection
   SupportedStyles:
     - auto_detection
@@ -427,14 +427,14 @@ Layout/ClassStructure:
       - protected_methods
       - private_methods
 
-Layout/Tab:
+Layout/IndentationStyle:
   # By default, the indentation width from Layout/IndentationWidth is used
   # But it can be overridden by setting this parameter
   # It is used during auto-correction to determine how many spaces should
   # replace each tab.
   IndentationWidth: ~
 
-Layout/TrailingBlankLines:
+Layout/TrailingEmptyLines:
   EnforcedStyle: final_newline
   SupportedStyles:
     - final_newline
@@ -504,7 +504,7 @@ Naming/FileName:
     - XSS
 
 Naming/HeredocDelimiterNaming:
-  Blacklist:
+  ForbiddenDelimiters:
     - END
     - !ruby/regexp '/EO[A-Z]{1}/'
 
@@ -527,13 +527,13 @@ Naming/PredicateName:
     - has_
     - have_
   # Predicate name prefixes that should be removed.
-  NamePrefixBlacklist:
+  ForbiddenPrefixes:
     - is_
     - has_
     - have_
   # Predicate names which, despite having a blacklisted prefix, or no `?`,
   # should still be accepted
-  NameWhitelist:
+  AllowedMethods:
     - is_a?
   # Method definition macros for dynamically generated methods.
   MethodDefinitionMacros:
@@ -548,20 +548,16 @@ Naming/PredicateName:
 #   # Parameter names may be equal to or greater than this value
 #   MinNameLength: 1
 #   AllowNamesEndingInNumbers: true
-#   # Whitelisted names that will not register an offense
 #   AllowedNames: []
-#   # Blacklisted names that will register an offense
 #   ForbiddenNames: []
 #
 # Naming/UncommunicativeMethodParamName:
 #   # Parameter names may be equal to or greater than this value
 #   MinNameLength: 3
 #   AllowNamesEndingInNumbers: true
-#   # Whitelisted names that will not register an offense
 #   AllowedNames:
 #     - io
 #     - id
-#   # Blacklisted names that will register an offense
 #   ForbiddenNames: []
 
 Naming/VariableName:
@@ -675,20 +671,6 @@ Style/BlockDelimiters:
     - lambda
     - proc
     - it
-
-Style/BracesAroundHashParameters:
-  EnforcedStyle: context_dependent
-  SupportedStyles:
-    # The `braces` style enforces braces around all method parameters that are
-    # hashes.
-    - braces
-    # The `no_braces` style checks that the last parameter doesn't have braces
-    # around it.
-    - no_braces
-    # The `context_dependent` style checks that the last parameter doesn't have
-    # braces around it, but requires braces if the second to last parameter is
-    # also a hash literal.
-    - context_dependent
 
 Style/ClassAndModuleChildren:
   # Checks the style of children definitions at classes and modules.
@@ -844,19 +826,7 @@ Style/FormatStringToken:
     - unannotated
 
 Style/FrozenStringLiteralComment:
-  EnforcedStyle: when_needed
-  SupportedStyles:
-    # `when_needed` will add the frozen string literal comment to files
-    # only when the `TargetRubyVersion` is set to 2.3+.
-    - when_needed
-    # `always` will always add the frozen string literal comment to a file
-    # regardless of the Ruby version or if `freeze` or `<<` are called on a
-    # string literal. If you run code against multiple versions of Ruby, it is
-    # possible that this will create errors in Ruby 2.3.0+.
-    - always
-    # `never` will enforce that the frozen string literal comment does not
-    # exist in a file.
-    - never
+  EnforcedStyle: always_true
 
 # Built-in global variables are allowed by default.
 Style/GlobalVars:
@@ -1188,7 +1158,18 @@ Style/TrailingCommaInArguments:
   # for all parenthesized method calls with arguments.
   EnforcedStyleForMultiline: comma
 
-Style/TrailingCommaInLiteral:
+Style/TrailingCommaInArrayLiteral:
+#   # SupportedStylesForMultiline:
+#   #   - comma
+#   #   - consistent_comma
+#   #   - no_comma
+#   # If `comma`, the cop requires a comma after the last item in an array,
+#   # but only when each item is on its own line.
+#   # If `consistent_comma`, the cop requires a comma after the last item of all
+#   # non-empty array literals.
+  EnforcedStyleForMultiline: comma
+
+Style/TrailingCommaInHashLiteral:
 #   # SupportedStylesForMultiline:
 #   #   - comma
 #   #   - consistent_comma
@@ -1244,7 +1225,7 @@ Style/TrivialAccessors:
   # Commonly used in DSLs
   AllowDSLWriters: false
   IgnoreClassMethods: false
-  Whitelist:
+  AllowedMethods:
     - to_ary
     - to_a
     - to_c
@@ -1281,19 +1262,14 @@ Style/WordArray:
   WordRegex: !ruby/regexp '/\A[\p{Word}\n\t]+\z/'
 
 Style/YodaCondition:
-  EnforcedStyle: all_comparison_operators
-  SupportedStyles:
-    # check all comparison operators
-    - all_comparison_operators
-    # check only equality operators: `!=` and `==`
-    - equality_operators_only
+  EnforcedStyle: require_for_all_comparison_operators
 
 #################### Metrics ###############################
 
 Metrics/AbcSize:
   # The ABC size is a calculated magnitude, so this number can be an Integer or
   # a Float.
-  Max: 15
+  Max: 20
   Exclude:
     - 'tasks/*.rb'
 
@@ -1320,7 +1296,7 @@ Metrics/ClassLength:
 Metrics/CyclomaticComplexity:
   Max: 6
 
-Metrics/LineLength:
+Layout/LineLength:
   Max: 80
   # To make it possible to copy or click on URIs in the code, we allow lines
   # containing a URI to be longer than Max.
@@ -1359,7 +1335,7 @@ Lint/AssignmentInCondition:
   AllowSafeAssignment: true
 
 # checks whether the end keywords are aligned properly for `do` `end` blocks.
-Lint/BlockAlignment:
+Layout/BlockAlignment:
   # The value `start_of_block` means that the `end` should be aligned with line
   # where the `do` keyword appears.
   # The value `start_of_line` means it should be aligned with the whole
@@ -1367,7 +1343,7 @@ Lint/BlockAlignment:
   # The value `either` means both are allowed.
   EnforcedStyleAlignWith: start_of_line
 
-Lint/DefEndAlignment:
+Layout/DefEndAlignment:
   # The value `def` means that `end` should be aligned with the def keyword.
   # The value `start_of_line` means that `end` should be aligned with method
   # calls like `private`, `public`, etc, if present in front of the `def`
@@ -1377,7 +1353,7 @@ Lint/DefEndAlignment:
   Severity: warning
 
 # Align ends correctly.
-Lint/EndAlignment:
+Layout/EndAlignment:
   # The value `keyword` means that `end` should be aligned with the matching
   # keyword (`if`, `while`, etc.).
   # The value `variable` means that in assignments, `end` should be aligned
@@ -1389,7 +1365,7 @@ Lint/EndAlignment:
   # AutoCorrect: false
   Severity: warning
 
-Lint/HandleExceptions:
+Lint/SuppressedException:
   Exclude:
     - 'spec/**/*'
 
@@ -1411,7 +1387,7 @@ Lint/MissingCopEnableDirective:
   MaximumRangeSize: .inf
 
 Lint/SafeNavigationChain:
-  Whitelist:
+  AllowedMethods:
     - present?
     - blank?
     - presence
@@ -1444,152 +1420,6 @@ Performance/DoubleStartEndWith:
 Performance/RedundantMerge:
   # Max number of key-value pairs to consider an offense
   MaxKeyValuePairs: 2
-
-#################### Rails #################################
-
-Rails/ActionFilter:
-  EnforcedStyle: action
-  SupportedStyles:
-    - action
-    - filter
-  Include:
-    - app/controllers/**/*.rb
-
-Rails/CreateTableWithTimestamps:
-  Include:
-    - db/migrate/*.rb
-
-Rails/Date:
-  # The value `strict` disallows usage of `Date.today`, `Date.current`,
-  # `Date#to_time` etc.
-  # The value `flexible` allows usage of `Date.current`, `Date.yesterday`, etc
-  # (but not `Date.today`) which are overridden by ActiveSupport to handle current
-  # time zone.
-  EnforcedStyle: flexible
-  SupportedStyles:
-    - strict
-    - flexible
-
-Rails/Delegate:
-  # When set to true, using the target object as a prefix of the
-  # method name without using the `delegate` method will be a
-  # violation. When set to false, this case is legal.
-  EnforceForPrefixed: true
-
-Rails/DynamicFindBy:
-  Whitelist:
-    - find_by_sql
-
-Rails/EnumUniqueness:
-  Include:
-    - app/models/**/*.rb
-
-Rails/Exit:
-  Include:
-    - app/**/*.rb
-    - config/**/*.rb
-    - lib/**/*.rb
-  Exclude:
-    - lib/**/*.rake
-
-Rails/FindBy:
-  Include:
-    - app/models/**/*.rb
-
-Rails/FindEach:
-  Include:
-    - app/models/**/*.rb
-
-Rails/HasAndBelongsToMany:
-  Include:
-    - app/models/**/*.rb
-
-Rails/HasManyOrHasOneDependent:
-  Include:
-    - app/models/**/*.rb
-
-Rails/InverseOf:
-  Include:
-    - app/models/**/*.rb
-
-Rails/LexicallyScopedActionFilter:
-  Include:
-    - app/controllers/**/*.rb
-
-Rails/NotNullColumn:
-  Include:
-    - db/migrate/*.rb
-
-Rails/Output:
-  Include:
-    - app/**/*.rb
-    - config/**/*.rb
-    - db/**/*.rb
-    - lib/**/*.rb
-
-Rails/ReadWriteAttribute:
-  Include:
-    - app/models/**/*.rb
-
-Rails/RequestReferer:
-  EnforcedStyle: referer
-  SupportedStyles:
-    - referer
-    - referrer
-
-Rails/ReversibleMigration:
-  Include:
-    - db/migrate/*.rb
-
-Rails/SafeNavigation:
-  # This will convert usages of `try` to use safe navigation as well as `try!`.
-  # `try` and `try!` work slightly differently. `try!` and safe navigation will
-  # both raise a `NoMethodError` if the receiver of the method call does not
-  # implement the intended method. `try` will not raise an exception for this.
-  ConvertTry: false
-
-Rails/ScopeArgs:
-  Include:
-    - app/models/**/*.rb
-
-Rails/TimeZone:
-  # The value `strict` means that `Time` should be used with `zone`.
-  # The value `flexible` allows usage of `in_time_zone` instead of `zone`.
-  EnforcedStyle: flexible
-  SupportedStyles:
-    - strict
-    - flexible
-
-Rails/UniqBeforePluck:
-  EnforcedStyle: conservative
-  SupportedStyles:
-    - conservative
-    - aggressive
-  AutoCorrect: false
-
-Rails/UnknownEnv:
-  Environments:
-    - development
-    - test
-    - production
-
-Rails/SkipsModelValidations:
-  Blacklist:
-    - decrement!
-    - decrement_counter
-    - increment!
-    - increment_counter
-    - toggle!
-    - touch
-    - update_all
-    - update_attribute
-    - update_column
-    - update_columns
-    - update_counters
-
-Rails/Validation:
-  Include:
-    - app/models/**/*.rb
 
 Bundler/OrderedGems:
   TreatCommentsAsGroupSeparators: true
