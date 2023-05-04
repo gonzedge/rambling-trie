@@ -289,7 +289,6 @@ describe Rambling::Trie::Container do
     context 'when word is not contained' do
       before { add_word container, 'hello' }
 
-      # rubocop:disable RSpec/RepeatedExampleGroupBody
       context 'with uncompressed root' do
         it_behaves_like 'a non matching tree'
       end
@@ -299,7 +298,6 @@ describe Rambling::Trie::Container do
 
         it_behaves_like 'a non matching tree'
       end
-      # rubocop:enable RSpec/RepeatedExampleGroupBody
     end
   end
 
