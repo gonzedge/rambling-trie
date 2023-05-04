@@ -3,7 +3,7 @@
 require 'spec_helper'
 
 describe Rambling::Trie::Compressor do
-  let(:compressor) { Rambling::Trie::Compressor.new }
+  let(:compressor) { described_class.new }
 
   describe '#compress' do
     let(:node) { Rambling::Trie::Nodes::Raw.new }
@@ -16,9 +16,7 @@ describe Rambling::Trie::Compressor do
     end
 
     context 'with at least one word' do
-      before do
-        add_words node, %w(all the words)
-      end
+      before { add_words node, %w(all the words) }
 
       it 'keeps the node letter nil' do
         compressed = compressor.compress node
@@ -28,25 +26,25 @@ describe Rambling::Trie::Compressor do
     end
 
     context 'with a single word' do
-      before do
-        add_word node, 'all'
-      end
+      before { add_word node, 'all' }
 
+      # rubocop:disable RSpec/ExampleLength, RSpec/MultipleExpectations
       it 'compresses into a single node without children' do
         compressed = compressor.compress node
+        compressed_node_a = compressed[:a]
 
-        expect(compressed[:a].letter).to eq :all
-        expect(compressed[:a].children.size).to eq 0
-        expect(compressed[:a]).to be_terminal
-        expect(compressed[:a]).to be_compressed
+        expect(compressed_node_a.letter).to eq :all
+        expect(compressed_node_a.children.size).to eq 0
+        expect(compressed_node_a).to be_terminal
+        expect(compressed_node_a).to be_compressed
       end
+      # rubocop:enable RSpec/ExampleLength, RSpec/MultipleExpectations
     end
 
     context 'with two words' do
-      before do
-        add_words node, %w(all ask)
-      end
+      before { add_words node, %w(all ask) }
 
+      # rubocop:disable RSpec/ExampleLength, RSpec/MultipleExpectations
       it 'compresses into corresponding three nodes' do
         compressed = compressor.compress node
 
@@ -65,8 +63,10 @@ describe Rambling::Trie::Compressor do
         expect(compressed[:a][:l]).to be_compressed
         expect(compressed[:a][:s]).to be_compressed
       end
+      # rubocop:enable RSpec/ExampleLength, RSpec/MultipleExpectations
     end
 
+    # rubocop:disable RSpec/ExampleLength, RSpec/MultipleExpectations
     it 'reassigns the parent nodes correctly' do
       add_words node, %w(repay rest repaint)
       compressed = compressor.compress node
@@ -91,7 +91,9 @@ describe Rambling::Trie::Compressor do
       expect(compressed[:r][:p][:i].parent).to eq compressed[:r][:p]
       expect(compressed[:r][:p][:i].children.size).to eq 0
     end
+    # rubocop:enable RSpec/ExampleLength, RSpec/MultipleExpectations
 
+    # rubocop:disable RSpec/ExampleLength, RSpec/MultipleExpectations
     it 'does not compress terminal nodes' do
       add_words node, %w(you your yours)
       compressed = compressor.compress node
@@ -104,5 +106,6 @@ describe Rambling::Trie::Compressor do
       expect(compressed[:y][:r][:s].letter).to eq :s
       expect(compressed[:y][:r][:s]).to be_compressed
     end
+    # rubocop:enable RSpec/ExampleLength, RSpec/MultipleExpectations
   end
 end
