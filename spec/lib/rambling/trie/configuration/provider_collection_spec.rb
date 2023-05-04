@@ -8,11 +8,15 @@ describe Rambling::Trie::Configuration::ProviderCollection do
     { one: first_provider, two: second_provider }
   end
 
-  let(:first_provider) { double :first_provider }
-  let(:second_provider) { double :second_provider }
+  let(:first_provider) do
+    instance_double 'Rambling::Trie::Serializers::Marshal', :first_provider
+  end
+  let(:second_provider) do
+    instance_double 'Rambling::Trie::Serializers::Marshal', :second_provider
+  end
 
   let(:provider_collection) do
-    Rambling::Trie::Configuration::ProviderCollection.new(
+    described_class.new(
       :provider,
       configured_providers,
       configured_default,
@@ -46,25 +50,31 @@ describe Rambling::Trie::Configuration::ProviderCollection do
     let(:providers) { provider_collection.providers }
 
     before do
-      allow(providers) .to receive_messages(
+      allow(providers).to receive_messages(
         :[] => 'value',
         keys: %i(a b),
       )
     end
 
+    # rubocop:disable RSpec/MultipleExpectations
     it 'delegates `#[]` to providers' do
       expect(provider_collection[:key]).to eq 'value'
       expect(providers).to have_received(:[]).with :key
     end
+    # rubocop:enable RSpec/MultipleExpectations
 
+    # rubocop:disable RSpec/MultipleExpectations
     it 'aliases `#formats` to `providers#keys`' do
       expect(provider_collection.formats).to eq %i(a b)
       expect(providers).to have_received :keys
     end
+    # rubocop:enable RSpec/MultipleExpectations
   end
 
   describe '#add' do
-    let(:provider) { double :provider }
+    let(:provider) do
+      instance_double 'Rambling::Trie::Serializers::Marshal', :provider
+    end
 
     before do
       provider_collection.add :three, provider
@@ -76,7 +86,9 @@ describe Rambling::Trie::Configuration::ProviderCollection do
   end
 
   describe '#default=' do
-    let(:other_provider) { double :other_provider }
+    let(:other_provider) do
+      instance_double 'Rambling::Trie::Serializers::Marshal', :other_provider
+    end
 
     context 'when the given value is in the providers list' do
       it 'changes the default provider' do
@@ -106,43 +118,59 @@ describe Rambling::Trie::Configuration::ProviderCollection do
         expect(provider_collection.default).to be_nil
       end
 
+      # rubocop:disable RSpec/MultipleExpectations
       it 'raises an ArgumentError for any other provider' do
         expect do
           provider_collection.default = other_provider
         end.to raise_error ArgumentError
         expect(provider_collection.default).to be_nil
       end
+      # rubocop:enable RSpec/MultipleExpectations
     end
   end
 
   describe '#resolve' do
     context 'when the file extension is one of the providers' do
-      it 'returns the corresponding provider' do
-        expect(provider_collection.resolve 'hola.one').to eq first_provider
-        expect(provider_collection.resolve 'hola.two').to eq second_provider
+      [
+        ['hola.one', :first_provider],
+        ['hola.two', :second_provider],
+      ].each do |test_params|
+        filepath, provider = test_params
+
+        it 'returns the corresponding provider' do
+          provider_instance = public_send provider
+          expect(provider_collection.resolve filepath).to eq provider_instance
+        end
       end
     end
 
     context 'when the file extension is not one of the providers' do
-      it 'returns the default provider' do
-        expect(provider_collection.resolve 'hola.unknown').to eq first_provider
-        expect(provider_collection.resolve 'hola').to eq first_provider
+      %w(hola.unknown hola).each do |filepath|
+        it 'returns the default provider' do
+          expect(provider_collection.resolve filepath).to eq first_provider
+        end
       end
     end
   end
 
   describe '#reset' do
     let(:configured_default) { second_provider }
-    let(:provider) { double :provider }
+    let(:provider) do
+      instance_double 'Rambling::Trie::Serializers::Marshal', :provider
+    end
 
     before do
       provider_collection.add :three, provider
       provider_collection.default = provider
     end
 
-    it 'resets to back to the initially configured values' do
+    it 'resets to back to the initially configured values (:three => nil)' do
       provider_collection.reset
       expect(provider_collection[:three]).to be_nil
+    end
+
+    it 'resets to back to the initially configured default' do
+      provider_collection.reset
       expect(provider_collection.default).to eq second_provider
     end
   end
