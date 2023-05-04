@@ -5,7 +5,7 @@ require 'spec_helper'
 describe Rambling::Trie::Serializers::Zip do
   it_behaves_like 'a serializer' do
     let(:properties) { Rambling::Trie::Configuration::Properties.new }
-    let(:serializer) { Rambling::Trie::Serializers::Zip.new properties }
+    let(:serializer) { described_class.new properties }
     let(:format) { 'marshal.zip' }
 
     before do

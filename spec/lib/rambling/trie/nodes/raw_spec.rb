@@ -3,7 +3,7 @@
 require 'spec_helper'
 
 describe Rambling::Trie::Nodes::Raw do
-  let(:node) { Rambling::Trie::Nodes::Raw.new }
+  let(:node) { described_class.new }
 
   it_behaves_like 'a trie node implementation' do
     def add_word_to_tree word
@@ -103,8 +103,8 @@ describe Rambling::Trie::Nodes::Raw do
     end
 
     context 'when the node has a letter and a parent' do
-      let(:parent) { Rambling::Trie::Nodes::Raw.new }
-      let(:node) { Rambling::Trie::Nodes::Raw.new :a, parent }
+      let(:parent) { described_class.new }
+      let(:node) { described_class.new :a, parent }
 
       context 'adding an empty string' do
         before do
