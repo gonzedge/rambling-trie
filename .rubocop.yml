@@ -25,6 +25,9 @@ AllCops:
 Layout/AccessModifierIndentation:
   EnforcedStyle: indent
 
+Layout/ArgumentAlignment:
+  EnforcedStyle: with_fixed_indentation
+
 # Align the elements of a hash literal if they span more than one line.
 Layout/HashAlignment:
   # Alignment of entries using colon as separator. Valid values are:
@@ -798,6 +801,10 @@ Style/EmptyMethod:
   SupportedStyles:
     - compact
     - expanded
+
+# Disable explicit block argument as it has a significant effect on performance
+Style/ExplicitBlockArgument:
+  Enabled: false
 
 # Checks use of for or each in multiline loops.
 Style/For:
