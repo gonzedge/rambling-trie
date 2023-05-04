@@ -170,133 +170,64 @@ describe Rambling::Trie::Container do
   end
 
   describe '#word?' do
-    [
-      [true, 'Rambling::Trie::Nodes::Compressed'],
-      [false, 'Rambling::Trie::Nodes::Raw'],
-    ].each do |test_params|
-      compressed_value, instance_double_class = test_params
-
-      context "when root has compressed=#{compressed_value}" do
-        let(:root) do
-          instance_double(
-            instance_double_class,
-            :root,
-            compressed?: compressed_value,
-            word?: nil,
-          )
-        end
-
-        it 'calls the root with the word characters' do
-          container.word? 'words'
-          expect(root).to have_received(:word?).with %w(w o r d s)
-        end
-      end
+    it_behaves_like 'a propagating node' do
+      let(:method) { :word? }
     end
 
     context 'when word is contained' do
       before { add_words container, %w(hello high) }
 
-      %w(hello high).each do |word|
-        it 'matches the whole word' do
-          expect(container.word? word).to be true
-        end
-      end
+      it_behaves_like 'a matching container#word'
 
       context 'with compressed root' do
         before { container.compress! }
 
-        %w(hello high).each do |word|
-          it 'matches the whole word' do
-            expect(container.word? word).to be true
-          end
-        end
+        it_behaves_like 'a matching container#word'
       end
     end
 
     context 'when word is not contained' do
       before { add_word container, 'hello' }
 
-      %w(halt al).each do |word|
-        it 'does not match the whole word' do
-          expect(container.word? word).to be false
-        end
-      end
+      it_behaves_like 'a non-matching container#word'
 
       context 'with compressed root' do
         before { container.compress! }
 
-        %w(halt al).each do |word|
-          it 'does not match the whole word' do
-            expect(container.word? word).to be false
-          end
-        end
+        it_behaves_like 'a non-matching container#word'
       end
     end
   end
 
   describe '#partial_word?' do
-    [
-      [true, 'Rambling::Trie::Nodes::Compressed'],
-      [false, 'Rambling::Trie::Nodes::Raw'],
-    ].each do |test_params|
-      compressed_value, instance_double_class = test_params
+    context 'with underlying node' do
 
-      context "when root has compressed=#{compressed_value}" do
-        let(:root) do
-          instance_double(
-            instance_double_class,
-            :root,
-            compressed?: compressed_value,
-            partial_word?: nil,
-          )
-        end
-
-        it 'calls the root with the word characters' do
-          container.partial_word? 'words'
-          expect(root).to have_received(:partial_word?).with %w(w o r d s)
-        end
+      it_behaves_like 'a propagating node' do
+        let(:method) { :partial_word? }
       end
     end
 
     context 'when word is contained' do
       before { add_words container, %w(hello high) }
 
-      %w(h he hell hello hi hig high).each do |prefix|
-        it 'matches part of the word' do
-          expect(container.partial_word? prefix).to be true
-        end
-      end
+      it_behaves_like 'a matching container#partial_word'
 
       context 'with compressed root' do
         before { container.compress! }
 
-        %w(h he hell hello hi hig high).each do |prefix|
-          it 'matches part of the word' do
-            expect(container.partial_word? prefix).to be true
-          end
-        end
-      end
-    end
-
-    shared_examples_for 'a non matching tree' do
-      it 'does not match any part of the word' do
-        %w(ha hal al).each do |word|
-          expect(container.partial_word? word).to be false
-        end
+        it_behaves_like 'a matching container#partial_word'
       end
     end
 
     context 'when word is not contained' do
       before { add_word container, 'hello' }
 
-      context 'with uncompressed root' do
-        it_behaves_like 'a non matching tree'
-      end
+      it_behaves_like 'a non-matching container#partial_word'
 
       context 'with compressed root' do
         before { container.compress! }
 
-        it_behaves_like 'a non matching tree'
+        it_behaves_like 'a non-matching container#partial_word'
       end
     end
   end
@@ -307,30 +238,12 @@ describe Rambling::Trie::Container do
         add_words container, %w(hi hello high hell highlight histerical)
       end
 
-      [
-        ['hi', %w(hi high highlight histerical)],
-        ['hig', %w(high highlight)],
-      ].each do |test_params|
-        prefix, expected = test_params
-
-        it "returns an array with the words that match '#{prefix}'" do
-          expect(container.scan prefix).to eq expected
-        end
-      end
+      it_behaves_like 'a matching container#scan'
 
       context 'with compressed root' do
         before { container.compress! }
 
-        [
-          ['hi', %w(hi high highlight histerical)],
-          ['hig', %w(high highlight)],
-        ].each do |test_params|
-          prefix, expected = test_params
-
-          it "returns an array with the words that match '#{prefix}'" do
-            expect(container.scan prefix).to eq expected
-          end
-        end
+        it_behaves_like 'a matching container#scan'
       end
     end
 
@@ -369,30 +282,12 @@ describe Rambling::Trie::Container do
     end
 
     context 'when phrase contains one word at the start of the phrase' do
-      [
-        ['word', %w(word)],
-        ['wordxyz', %w(word)],
-      ].each do |test_params|
-        phrase, expected = test_params
-
-        it "returns an array with the word found in the phrase '#{phrase}'" do
-          expect(container.words_within phrase).to match_array expected
-        end
-      end
+      it_behaves_like 'a matching container#words_within'
 
       context 'with compressed node' do
         before { container.compress! }
 
-        [
-          ['word', %w(word)],
-          ['wordxyz', %w(word)],
-        ].each do |test_params|
-          phrase, expected = test_params
-
-          it "returns an array with the word found in the phrase '#{phrase}'" do
-            expect(container.words_within phrase).to match_array expected
-          end
-        end
+        it_behaves_like 'a matching container#words_within'
       end
     end
 
@@ -411,18 +306,12 @@ describe Rambling::Trie::Container do
     end
 
     context 'when phrase contains a few words' do
-      it 'returns an array with all words found in the phrase' do
-        expect(container.words_within 'xyzword otherzxyone')
-          .to match_array %w(word other one)
-      end
+      it_behaves_like 'a non-matching container#words_within'
 
       context 'with compressed node' do
         before { container.compress! }
 
-        it 'returns an array with all words found in the phrase' do
-          expect(container.words_within 'xyzword otherzxyone')
-            .to match_array %w(word other one)
-        end
+        it_behaves_like 'a non-matching container#words_within'
       end
     end
   end
@@ -430,18 +319,12 @@ describe Rambling::Trie::Container do
   describe '#words_within?' do
     before { add_words container, %w(one word and other words) }
 
-    context 'when phrase does not contain any words' do
-      it 'returns false' do
-        expect(container.words_within? 'xyz').to be false
-      end
-    end
+    it_behaves_like 'a matching container#words_within?'
 
-    context 'when phrase contains any word' do
-      ['xyz words', 'xyzone word'].each do |phrase|
-        it "returns true for '#{phrase}'" do
-          expect(container.words_within? phrase).to be true
-        end
-      end
+    context 'with compressed node' do
+        before { container.compress! }
+
+        it_behaves_like 'a matching container#words_within?'
     end
   end
 

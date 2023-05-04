@@ -29,7 +29,8 @@ require 'support/config'
 
 %w(
   a_compressible_trie a_serializable_trie a_serializer a_trie_data_structure
-  a_trie_node a_trie_node_implementation
+  a_trie_node a_trie_node_implementation a_container_scan a_container_word
+  a_container_partial_word a_container_words_within
 ).each do |name|
   require File.join('support', 'shared_examples', name)
 end
