@@ -40,5 +40,4 @@ shared_examples_for 'a propagating node' do
       end
     end
   end
-
 end

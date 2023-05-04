@@ -15,4 +15,3 @@ shared_examples_for 'a non-matching container#partial_word' do
     end
   end
 end
-

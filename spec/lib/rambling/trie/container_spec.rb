@@ -201,7 +201,6 @@ describe Rambling::Trie::Container do
 
   describe '#partial_word?' do
     context 'with underlying node' do
-
       it_behaves_like 'a propagating node' do
         let(:method) { :partial_word? }
       end
@@ -322,9 +321,9 @@ describe Rambling::Trie::Container do
     it_behaves_like 'a matching container#words_within?'
 
     context 'with compressed node' do
-        before { container.compress! }
+      before { container.compress! }
 
-        it_behaves_like 'a matching container#words_within?'
+      it_behaves_like 'a matching container#words_within?'
     end
   end
 
