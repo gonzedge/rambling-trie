@@ -1410,6 +1410,11 @@ Lint/UnusedMethodArgument:
 # Lint/Void:
 #   CheckForMethodsWithNoSideEffects: false
 
+#################### RSpec #################################
+
+RSpec/MultipleMemoizedHelpers:
+  Max: 10
+
 #################### Performance ###########################
 
 Performance/DoubleStartEndWith:
