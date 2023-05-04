@@ -392,6 +392,8 @@ describe Rambling::Trie::Container do
       end
 
       context 'and the root has been compressed' do
+        before { container.compress! }
+
         it_behaves_like 'a non matching tree'
       end
     end
