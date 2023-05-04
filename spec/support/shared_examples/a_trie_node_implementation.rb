@@ -12,26 +12,22 @@ shared_examples_for 'a trie node implementation' do
 
     context 'when the chars array is not empty' do
       context 'when the node has a tree that matches the characters' do
-        before do
-          add_word_to_tree 'abc'
-        end
+        before { add_word_to_tree 'abc' }
 
-        it 'returns true' do
-          expect(node.partial_word? %w(a)).to be true
-          expect(node.partial_word? %w(a b)).to be true
-          expect(node.partial_word? %w(a b c)).to be true
+        [%w(a), %w(a b), %w(a b c)].each do |letters|
+          it "returns true for '#{letters}'" do
+            expect(node.partial_word? letters).to be true
+          end
         end
       end
 
       context 'when the node has a tree that does not match the characters' do
-        before do
-          add_word_to_tree 'cba'
-        end
+        before { add_word_to_tree 'cba' }
 
-        it 'returns false' do
-          expect(node.partial_word? %w(a)).to be false
-          expect(node.partial_word? %w(a b)).to be false
-          expect(node.partial_word? %w(a b c)).to be false
+        [%w(a), %w(a b), %w(a b c)].each do |letters|
+          it "returns false for '#{letters}'" do
+            expect(node.partial_word? letters).to be false
+          end
         end
       end
     end
@@ -40,9 +36,7 @@ shared_examples_for 'a trie node implementation' do
   describe '#word?' do
     context 'when the chars array is empty' do
       context 'when the node is terminal' do
-        before do
-          node.terminal!
-        end
+        before { node.terminal! }
 
         it 'returns true' do
           expect(node.word? []).to be true
@@ -58,9 +52,7 @@ shared_examples_for 'a trie node implementation' do
 
     context 'when the chars array is not empty' do
       context 'when the node has a tree that matches all the characters' do
-        before do
-          add_word_to_tree 'abc'
-        end
+        before { add_word_to_tree 'abc' }
 
         it 'returns true' do
           expect(node.word? %w(a b c).map(&:dup)).to be true
@@ -68,13 +60,12 @@ shared_examples_for 'a trie node implementation' do
       end
 
       context 'when the node subtree does not match all the characters' do
-        before do
-          add_word_to_tree 'abc'
-        end
+        before { add_word_to_tree 'abc' }
 
-        it 'returns false' do
-          expect(node.word? %w(a).map(&:dup)).to be false
-          expect(node.word? %w(a b).map(&:dup)).to be false
+        [%w(a), %w(a b)].each do |letters|
+          it "returns false for '#{letters}'" do
+            expect(node.word? letters.map(&:dup)).to be false
+          end
         end
       end
     end
@@ -88,26 +79,34 @@ shared_examples_for 'a trie node implementation' do
     end
 
     context 'when the chars array is not empty' do
-      before do
-        add_words_to_tree %w(cba ccab)
-      end
+      before { add_words_to_tree %w(cba ccab) }
 
       context 'when the chars are found' do
-        it 'returns the found child' do
-          expect(node.scan %w(c)).to match_array %w(cba ccab)
-          expect(node.scan %w(c b)).to match_array %w(cba)
-          expect(node.scan %w(c b a)).to match_array %w(cba)
+        [
+          [%w(c), %w(cba ccab)],
+          [%w(c b), %w(cba)],
+          [%w(c b a), %w(cba)],
+        ].each do |test_params|
+          letters, expected = test_params
+
+          it "returns the corresponding children (#{letters} => #{expected})" do
+            expect(node.scan letters).to match_array expected
+          end
         end
       end
 
       context 'when the chars are not found' do
-        it 'returns a Nodes::Missing' do
-          expect(node.scan %w(a)).to be_a Rambling::Trie::Nodes::Missing
-          expect(node.scan %w(a b)).to be_a Rambling::Trie::Nodes::Missing
-          expect(node.scan %w(a b c)).to be_a Rambling::Trie::Nodes::Missing
-          expect(node.scan %w(c a)).to be_a Rambling::Trie::Nodes::Missing
-          expect(node.scan %w(c c b)).to be_a Rambling::Trie::Nodes::Missing
-          expect(node.scan %w(c b a d)).to be_a Rambling::Trie::Nodes::Missing
+        [
+          %w(a),
+          %w(a b),
+          %w(a b c),
+          %w(c a),
+          %w(c c b),
+          %w(c b a d),
+        ].each do |letters|
+          it "returns a Nodes::Missing for '#{letters}'" do
+            expect(node.scan letters).to be_a Rambling::Trie::Nodes::Missing
+          end
         end
       end
     end
@@ -120,9 +119,7 @@ shared_examples_for 'a trie node implementation' do
     end
 
     context 'when the node is terminal' do
-      before do
-        node.terminal!
-      end
+      before { node.terminal! }
 
       it 'adds itself to the words' do
         expect(node.match_prefix %w(g n i t e)).to include 'i'
