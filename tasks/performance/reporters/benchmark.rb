@@ -7,6 +7,7 @@ module Performance
   module Reporters
     class Benchmark < Performance::Reporters::Reporter
       def initialize _ = nil, output = $stdout.dup
+        super()
         @output = output
       end
 

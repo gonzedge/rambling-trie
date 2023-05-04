@@ -144,7 +144,7 @@ class TestDelegate
   require 'forwardable'
   extend ::Forwardable
 
-  delegate [:[]] => :hash
+  delegate %i([]) => :hash
 
   attr_reader :hash
 
@@ -168,7 +168,7 @@ class TestMyForwardable
 
   extend TestMyForwardable::Forwardable
 
-  delegate [:[]] => :hash
+  delegate %i([]) => :hash
 
   attr_reader :hash
 
