@@ -9,7 +9,7 @@ module Rambling
       # @return [Boolean] `true` for non-{Nodes::Node#terminal? terminal} nodes
       #   with one child, `false` otherwise.
       def compressible?
-        !(root? || terminal?) && children_tree.size == 1
+        !(root? || terminal?) && 1 == children_tree.size
       end
     end
   end

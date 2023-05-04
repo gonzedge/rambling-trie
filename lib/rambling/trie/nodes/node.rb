@@ -51,9 +51,9 @@ module Rambling
         def first_child
           return if children_tree.empty?
 
-          children_tree.each_value do |child|
-            return child
-          end
+          # rubocop:disable Lint/UnreachableLoop
+          children_tree.each_value { |child| return child }
+          # rubocop:enable Lint/UnreachableLoop
         end
 
         # Indicates if the current node is the root node.
