@@ -10,6 +10,7 @@ module Performance
           include Helpers::Trie
 
           def initialize params_to_iterations = default_params
+            super()
             @params_to_iterations = params_to_iterations
           end
 

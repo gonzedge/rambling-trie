@@ -3,7 +3,8 @@
 require 'spec_helper'
 
 describe Rambling::Trie::Container do
-  let(:container) { Rambling::Trie::Container.new root, compressor }
+  subject(:container) { described_class.new root, compressor }
+
   let(:compressor) { Rambling::Trie::Compressor.new }
   let(:root) { Rambling::Trie::Nodes::Raw.new }
 
@@ -16,7 +17,7 @@ describe Rambling::Trie::Container do
       it 'yields the container' do
         yielded = nil
 
-        container = Rambling::Trie::Container.new root, compressor do |c|
+        container = described_class.new root, compressor do |c|
           yielded = c
         end
 
@@ -26,15 +27,18 @@ describe Rambling::Trie::Container do
   end
 
   describe '#add' do
+    # rubocop:disable RSpec/MultipleExpectations
     it 'adds the word to the root node' do
       add_word container, 'hello'
 
       expect(root.children.size).to eq 1
       expect(root.to_a).to eq %w(hello)
     end
+    # rubocop:enable RSpec/MultipleExpectations
   end
 
   describe '#concat' do
+    # rubocop:disable RSpec/MultipleExpectations
     it 'adds all the words to the root node' do
       container.concat %w(other words)
 
@@ -48,42 +52,7 @@ describe Rambling::Trie::Container do
       expect(nodes.first.letter).to eq :o
       expect(nodes.last.letter).to eq :w
     end
-  end
-
-  describe '#compress!' do
-    let(:node) { Rambling::Trie::Nodes::Compressed.new }
-
-    before do
-      allow(compressor).to receive(:compress).and_return node
-
-      add_word root, 'yes'
-      node[:yes] = Rambling::Trie::Nodes::Compressed.new
-    end
-
-    it 'compresses the trie using the compressor' do
-      container.compress!
-
-      expect(compressor).to have_received(:compress).with root
-    end
-
-    it 'changes to the root returned by the compressor' do
-      container.compress!
-
-      expect(container.root).not_to eq root
-      expect(container.root).to eq node
-    end
-
-    it 'returns itself' do
-      expect(container.compress!).to eq container
-    end
-
-    it 'does not compress multiple times' do
-      container.compress!
-      allow(node).to receive(:compressed?).and_return(true)
-
-      container.compress!
-      expect(compressor).to have_received(:compress).once
-    end
+    # rubocop:enable RSpec/MultipleExpectations
   end
 
   describe '#compress' do
@@ -102,12 +71,14 @@ describe Rambling::Trie::Container do
       expect(compressor).to have_received(:compress).with root
     end
 
+    # rubocop:disable RSpec/MultipleExpectations
     it 'returns a container with the new root' do
       new_container = container.compress
 
       expect(new_container.root).not_to eq root
       expect(new_container.root).to eq node
     end
+    # rubocop:enable RSpec/MultipleExpectations
 
     it 'returns a new container' do
       expect(container.compress).not_to eq container
@@ -128,55 +99,281 @@ describe Rambling::Trie::Container do
     end
   end
 
-  describe '#word?' do
-    let(:root) do
-      double :root,
-        compressed?: compressed,
-        word?: nil
+  describe '#compress!' do
+    let(:node) { Rambling::Trie::Nodes::Compressed.new }
+
+    context 'with a mocked result' do
+      before do
+        allow(compressor).to receive(:compress).and_return node
+
+        add_word root, 'yes'
+        node[:yes] = Rambling::Trie::Nodes::Compressed.new
+      end
+
+      it 'compresses the trie using the compressor' do
+        container.compress!
+
+        expect(compressor).to have_received(:compress).with root
+      end
+
+      # rubocop:disable RSpec/MultipleExpectations
+      it 'changes to the root returned by the compressor' do
+        container.compress!
+
+        expect(container.root).not_to eq root
+        expect(container.root).to eq node
+      end
+      # rubocop:enable RSpec/MultipleExpectations
+
+      it 'returns itself' do
+        expect(container.compress!).to eq container
+      end
+
+      it 'does not compress multiple times' do
+        container.compress!
+        allow(node).to receive(:compressed?).and_return(true)
+
+        container.compress!
+        expect(compressor).to have_received(:compress).once
+      end
+
+      # rubocop:disable RSpec/MultipleExpectations
+      it 'gets a new root from the compressor' do
+        container.compress!
+
+        expect(container.root).not_to be root
+        expect(container.root).to be_compressed
+        expect(root).not_to be_compressed
+      end
+      # rubocop:enable RSpec/MultipleExpectations
     end
 
-    context 'for an uncompressed root' do
-      let(:compressed) { true }
+    it 'generates a new root with the words from the passed root' do
+      words = %w(a few words hello hell)
 
-      it 'calls the root with the word characters' do
-        container.word? 'words'
-        expect(root).to have_received(:word?).with %w(w o r d s)
+      add_words container, words
+      container.compress!
+
+      words.each { |word| expect(container).to include word }
+    end
+
+    describe 'and trying to add a word' do
+      it 'raises an error' do
+        add_words container, %w(repay rest repaint)
+        container.compress!
+
+        expect do
+          add_word container, 'restaurant'
+        end.to raise_error Rambling::Trie::InvalidOperation
+      end
+    end
+  end
+
+  describe '#word?' do
+    it_behaves_like 'a propagating node' do
+      let(:method) { :word? }
+    end
+
+    context 'when word is contained' do
+      before { add_words container, %w(hello high) }
+
+      it_behaves_like 'a matching container#word'
+
+      context 'with compressed root' do
+        before { container.compress! }
+
+        it_behaves_like 'a matching container#word'
       end
     end
 
-    context 'for a compressed root' do
-      let(:compressed) { false }
+    context 'when word is not contained' do
+      before { add_word container, 'hello' }
 
-      it 'calls the root with the full word' do
-        container.word? 'words'
-        expect(root).to have_received(:word?).with %w(w o r d s)
+      it_behaves_like 'a non-matching container#word'
+
+      context 'with compressed root' do
+        before { container.compress! }
+
+        it_behaves_like 'a non-matching container#word'
       end
     end
   end
 
   describe '#partial_word?' do
-    let(:root) do
-      double :root,
-        compressed?: compressed,
-        partial_word?: nil
-    end
+    context 'with underlying node' do
 
-    context 'for an uncompressed root' do
-      let(:compressed) { true }
-
-      it 'calls the root with the word characters' do
-        container.partial_word? 'words'
-        expect(root).to have_received(:partial_word?).with %w(w o r d s)
+      it_behaves_like 'a propagating node' do
+        let(:method) { :partial_word? }
       end
     end
 
-    context 'for a compressed root' do
-      let(:compressed) { false }
+    context 'when word is contained' do
+      before { add_words container, %w(hello high) }
 
-      it 'calls the root with the word characters' do
-        container.partial_word? 'words'
-        expect(root).to have_received(:partial_word?).with %w(w o r d s)
+      it_behaves_like 'a matching container#partial_word'
+
+      context 'with compressed root' do
+        before { container.compress! }
+
+        it_behaves_like 'a matching container#partial_word'
       end
+    end
+
+    context 'when word is not contained' do
+      before { add_word container, 'hello' }
+
+      it_behaves_like 'a non-matching container#partial_word'
+
+      context 'with compressed root' do
+        before { container.compress! }
+
+        it_behaves_like 'a non-matching container#partial_word'
+      end
+    end
+  end
+
+  describe '#scan' do
+    context 'when words that match are contained' do
+      before do
+        add_words container, %w(hi hello high hell highlight histerical)
+      end
+
+      it_behaves_like 'a matching container#scan'
+
+      context 'with compressed root' do
+        before { container.compress! }
+
+        it_behaves_like 'a matching container#scan'
+      end
+    end
+
+    context 'when words that match are not contained' do
+      before { add_word container, 'hello' }
+
+      it 'returns an empty array' do
+        expect(container.scan 'hi').to eq %w()
+      end
+
+      context 'with compressed root' do
+        before { container.compress! }
+
+        it 'returns an empty array' do
+          expect(container.scan 'hi').to eq %w()
+        end
+      end
+    end
+  end
+
+  describe '#words_within' do
+    before { add_words container, %w(one word and other words) }
+
+    context 'when phrase does not contain any words' do
+      it 'returns an empty array' do
+        expect(container.words_within 'xyz').to match_array []
+      end
+
+      context 'with compressed node' do
+        before { container.compress! }
+
+        it 'returns an empty array' do
+          expect(container.words_within 'xyz').to match_array []
+        end
+      end
+    end
+
+    context 'when phrase contains one word at the start of the phrase' do
+      it_behaves_like 'a matching container#words_within'
+
+      context 'with compressed node' do
+        before { container.compress! }
+
+        it_behaves_like 'a matching container#words_within'
+      end
+    end
+
+    context 'when phrase contains one word at the end of the phrase' do
+      it 'returns an array with the word found in the phrase' do
+        expect(container.words_within 'xyz word').to match_array %w(word)
+      end
+
+      context 'with compressed node' do
+        before { container.compress! }
+
+        it 'returns an array with the word found in the phrase' do
+          expect(container.words_within 'xyz word').to match_array %w(word)
+        end
+      end
+    end
+
+    context 'when phrase contains a few words' do
+      it_behaves_like 'a non-matching container#words_within'
+
+      context 'with compressed node' do
+        before { container.compress! }
+
+        it_behaves_like 'a non-matching container#words_within'
+      end
+    end
+  end
+
+  describe '#words_within?' do
+    before { add_words container, %w(one word and other words) }
+
+    it_behaves_like 'a matching container#words_within?'
+
+    context 'with compressed node' do
+        before { container.compress! }
+
+        it_behaves_like 'a matching container#words_within?'
+    end
+  end
+
+  describe '#==' do
+    context 'when the root nodes are the same' do
+      let(:other_container) do
+        described_class.new container.root, compressor
+      end
+
+      it 'returns true' do
+        expect(container).to eq other_container
+      end
+    end
+
+    context 'when the root nodes are not the same' do
+      let(:other_root) { Rambling::Trie::Nodes::Raw.new }
+      let(:other_container) do
+        described_class.new other_root, compressor
+      end
+
+      before { add_word other_container, 'hola' }
+
+      it 'returns false' do
+        expect(container).not_to eq other_container
+      end
+    end
+  end
+
+  describe '#each' do
+    before { add_words container, %w(yes no why) }
+
+    it 'returns an enumerator when no block is given' do
+      expect(container.each).to be_instance_of Enumerator
+    end
+
+    it 'iterates through all words contained' do
+      expect(container.each.to_a).to eq %w(yes no why)
+    end
+  end
+
+  describe '#inspect' do
+    before { add_words container, %w(a few words hello hell) }
+
+    it 'returns the container class name plus the root inspection' do
+      expect(container.inspect).to eq one_line <<~CONTAINER
+        #<Rambling::Trie::Container root: #<Rambling::Trie::Nodes::Raw letter: nil,
+        terminal: nil,
+        children: [:a, :f, :w, :h]>>
+      CONTAINER
     end
   end
 
@@ -265,329 +462,6 @@ describe Rambling::Trie::Container do
     it 'delegates `#size` to the root node' do
       container.size
       expect(root).to have_received :size
-    end
-  end
-
-  describe '#compress!' do
-    it 'gets a new root from the compressor' do
-      container.compress!
-
-      expect(container.root).not_to be root
-      expect(container.root).to be_compressed
-      expect(root).not_to be_compressed
-    end
-
-    it 'generates a new root with the words from the passed root' do
-      words = %w(a few words hello hell)
-
-      add_words container, words
-      container.compress!
-
-      words.each do |word|
-        expect(container).to include word
-      end
-    end
-
-    describe 'and trying to add a word' do
-      it 'raises an error' do
-        add_words container, %w(repay rest repaint)
-        container.compress!
-
-        expect do
-          add_word container, 'restaurant'
-        end.to raise_error Rambling::Trie::InvalidOperation
-      end
-    end
-  end
-
-  describe '#word?' do
-    context 'word is contained' do
-      before do
-        add_words container, %w(hello high)
-      end
-
-      it 'matches the whole word' do
-        expect(container.word? 'hello').to be true
-        expect(container.word? 'high').to be true
-      end
-
-      context 'and the root has been compressed' do
-        before do
-          container.compress!
-        end
-
-        it 'matches the whole word' do
-          expect(container.word? 'hello').to be true
-          expect(container.word? 'high').to be true
-        end
-      end
-    end
-
-    context 'word is not contained' do
-      before do
-        add_word container, 'hello'
-      end
-
-      it 'does not match the whole word' do
-        expect(container.word? 'halt').to be false
-        expect(container.word? 'al').to be false
-      end
-
-      context 'and the root has been compressed' do
-        before do
-          container.compress!
-        end
-
-        it 'does not match the whole word' do
-          expect(container.word? 'halt').to be false
-          expect(container.word? 'al').to be false
-        end
-      end
-    end
-  end
-
-  describe '#partial_word?' do
-    context 'word is contained' do
-      before do
-        add_words container, %w(hello high)
-      end
-
-      it 'matches part of the word' do
-        expect(container.partial_word? 'hell').to be true
-        expect(container.partial_word? 'hig').to be true
-      end
-
-      context 'and the root has been compressed' do
-        before do
-          container.compress!
-        end
-
-        it 'matches part of the word' do
-          expect(container.partial_word? 'h').to be true
-          expect(container.partial_word? 'he').to be true
-          expect(container.partial_word? 'hell').to be true
-          expect(container.partial_word? 'hello').to be true
-          expect(container.partial_word? 'hi').to be true
-          expect(container.partial_word? 'hig').to be true
-          expect(container.partial_word? 'high').to be true
-        end
-      end
-    end
-
-    shared_examples_for 'a non matching tree' do
-      it 'does not match any part of the word' do
-        %w(ha hal al).each do |word|
-          expect(container.partial_word? word).to be false
-        end
-      end
-    end
-
-    context 'word is not contained' do
-      before do
-        add_word container, 'hello'
-      end
-
-      context 'and the root is uncompressed' do
-        it_behaves_like 'a non matching tree'
-      end
-
-      context 'and the root has been compressed' do
-        before { container.compress! }
-
-        it_behaves_like 'a non matching tree'
-      end
-    end
-  end
-
-  describe '#scan' do
-    context 'words that match are not contained' do
-      before do
-        add_words container, %w(hi hello high hell highlight histerical)
-      end
-
-      it 'returns an array with the words that match' do
-        expect(container.scan 'hi').to eq %w(hi high highlight histerical)
-        expect(container.scan 'hig').to eq %w(high highlight)
-      end
-
-      context 'and the root has been compressed' do
-        before do
-          container.compress!
-        end
-
-        it 'returns an array with the words that match' do
-          expect(container.scan 'hi').to eq %w(hi high highlight histerical)
-          expect(container.scan 'hig').to eq %w(high highlight)
-        end
-      end
-    end
-
-    context 'words that match are not contained' do
-      before do
-        add_word container, 'hello'
-      end
-
-      it 'returns an empty array' do
-        expect(container.scan 'hi').to eq %w()
-      end
-
-      context 'and the root has been compressed' do
-        before do
-          container.compress!
-        end
-
-        it 'returns an empty array' do
-          expect(container.scan 'hi').to eq %w()
-        end
-      end
-    end
-  end
-
-  describe '#words_within' do
-    before do
-      add_words container, %w(one word and other words)
-    end
-
-    context 'phrase does not contain any words' do
-      it 'returns an empty array' do
-        expect(container.words_within 'xyz').to match_array []
-      end
-
-      context 'and the node is compressed' do
-        before do
-          container.compress!
-        end
-
-        it 'returns an empty array' do
-          expect(container.words_within 'xyz').to match_array []
-        end
-      end
-    end
-
-    context 'phrase contains one word at the start of the phrase' do
-      it 'returns an array with the word found in the phrase' do
-        expect(container.words_within 'word').to match_array %w(word)
-        expect(container.words_within 'wordxyz').to match_array %w(word)
-      end
-
-      context 'and the node is compressed' do
-        before do
-          container.compress!
-        end
-
-        it 'returns an array with the word found in the phrase' do
-          expect(container.words_within 'word').to match_array %w(word)
-          expect(container.words_within 'wordxyz').to match_array %w(word)
-        end
-      end
-    end
-
-    context 'phrase contains one word at the end of the phrase' do
-      it 'returns an array with the word found in the phrase' do
-        expect(container.words_within 'xyz word').to match_array %w(word)
-      end
-
-      context 'and the node is compressed' do
-        before do
-          container.compress!
-        end
-
-        it 'returns an array with the word found in the phrase' do
-          expect(container.words_within 'xyz word').to match_array %w(word)
-        end
-      end
-    end
-
-    context 'phrase contains a few words' do
-      it 'returns an array with all words found in the phrase' do
-        expect(container.words_within 'xyzword otherzxyone')
-          .to match_array %w(word other one)
-      end
-
-      context 'and the node is compressed' do
-        before do
-          container.compress!
-        end
-
-        it 'returns an array with all words found in the phrase' do
-          expect(container.words_within 'xyzword otherzxyone')
-            .to match_array %w(word other one)
-        end
-      end
-    end
-  end
-
-  describe '#words_within?' do
-    before do
-      add_words container, %w(one word and other words)
-    end
-
-    context 'phrase does not contain any words' do
-      it 'returns false' do
-        expect(container.words_within? 'xyz').to be false
-      end
-    end
-
-    context 'phrase contains any word' do
-      it 'returns true' do
-        expect(container.words_within? 'xyz words').to be true
-        expect(container.words_within? 'xyzone word').to be true
-      end
-    end
-  end
-
-  describe '#==' do
-    context 'when the root nodes are the same' do
-      let(:other_container) do
-        Rambling::Trie::Container.new container.root, compressor
-      end
-
-      it 'returns true' do
-        expect(container).to eq other_container
-      end
-    end
-
-    context 'when the root nodes are not the same' do
-      let(:other_root) { Rambling::Trie::Nodes::Raw.new }
-      let(:other_container) do
-        Rambling::Trie::Container.new other_root, compressor
-      end
-
-      before do
-        add_word other_container, 'hola'
-      end
-
-      it 'returns false' do
-        expect(container).not_to eq other_container
-      end
-    end
-  end
-
-  describe '#each' do
-    before do
-      add_words container, %w(yes no why)
-    end
-
-    it 'returns an enumerator when no block is given' do
-      expect(container.each).to be_instance_of Enumerator
-    end
-
-    it 'iterates through all words contained' do
-      expect(container.each.to_a).to eq %w(yes no why)
-    end
-  end
-
-  describe '#inspect' do
-    before do
-      add_words container, %w(a few words hello hell)
-    end
-
-    it 'returns the container class name plus the root inspection' do
-      expect(container.inspect).to eq one_line <<~CONTAINER
-        #<Rambling::Trie::Container root: #<Rambling::Trie::Nodes::Raw letter: nil,
-        terminal: nil,
-        children: [:a, :f, :w, :h]>>
-      CONTAINER
     end
   end
 end

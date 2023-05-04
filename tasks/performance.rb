@@ -14,7 +14,7 @@ task :performance, arg_names => dependencies do |_, args|
 
   configuration = Performance::Configuration.new
   task = Performance::Task.new configuration
-  task.run **args
+  task.run(**args)
 end
 
 namespace :performance do

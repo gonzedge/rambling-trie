@@ -6,17 +6,15 @@ describe Rambling::Trie::Stringifyable do
   describe '#as_word' do
     let(:node) { Rambling::Trie::Nodes::Raw.new }
 
-    context 'for an empty node' do
-      before do
-        add_word node, ''
-      end
+    context 'with an empty node' do
+      before { add_word node, '' }
 
       it 'returns nil' do
         expect(node.as_word).to be_empty
       end
     end
 
-    context 'for one letter' do
+    context 'with one letter' do
       before do
         node.letter = :a
         add_word node, ''
@@ -27,7 +25,7 @@ describe Rambling::Trie::Stringifyable do
       end
     end
 
-    context 'for a small word' do
+    context 'with a small word' do
       before do
         node.letter = :a
         add_word node, 'll'
@@ -43,7 +41,7 @@ describe Rambling::Trie::Stringifyable do
       end
     end
 
-    context 'for a long word' do
+    context 'with a long word' do
       before do
         node.letter = :b
         add_word node, 'eautiful'
@@ -54,7 +52,7 @@ describe Rambling::Trie::Stringifyable do
       end
     end
 
-    context 'for a node with nil letter' do
+    context 'with a node with nil letter' do
       let(:node) { Rambling::Trie::Nodes::Raw.new nil }
 
       it 'returns nil' do
@@ -62,7 +60,7 @@ describe Rambling::Trie::Stringifyable do
       end
     end
 
-    context 'for a compressed node' do
+    context 'with a compressed node' do
       let(:compressor) { Rambling::Trie::Compressor.new }
       let(:compressed_node) { compressor.compress node }
 
@@ -71,12 +69,18 @@ describe Rambling::Trie::Stringifyable do
         add_words node, %w(m dd)
       end
 
-      it 'returns the words for the terminal nodes' do
-        expect(compressed_node[:m].as_word).to eq 'am'
-        expect(compressed_node[:d].as_word).to eq 'add'
+      [
+        [:m, 'am'],
+        [:d, 'add'],
+      ].each do |test_params|
+        key, expected = test_params
+
+        it "returns the words for terminal nodes (#{key} => #{expected})" do
+          expect(compressed_node[key].as_word).to eq expected
+        end
       end
 
-      it 'raise an error for non terminal nodes' do
+      it 'raises an error for non terminal nodes' do
         expect { compressed_node.as_word }
           .to raise_error Rambling::Trie::InvalidOperation
       end

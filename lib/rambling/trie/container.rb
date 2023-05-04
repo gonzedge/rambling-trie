@@ -59,6 +59,7 @@ module Rambling
       #   compressed.
       def compress
         return self if root.compressed?
+
         Rambling::Trie::Container.new compress_root, compressor
       end
 

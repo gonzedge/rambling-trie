@@ -17,11 +17,14 @@ end
 
 group :test do
   gem 'coveralls_reborn', '~> 0.27.0', require: false
-  gem 'simplecov', require: false
   gem 'rspec_junit_formatter'
+  gem 'simplecov', require: false
 end
 
 group :local do
   gem 'guard-rspec'
   gem 'rubocop', require: false
+  gem 'rubocop-performance', require: false
+  gem 'rubocop-rake', require: false
+  gem 'rubocop-rspec', require: false
 end

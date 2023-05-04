@@ -15,20 +15,22 @@ describe Rambling::Trie do
     end
 
     it 'returns a new instance of the trie container' do
-      expect(Rambling::Trie.create).to eq container
+      expect(described_class.create).to eq container
     end
 
     context 'with a block' do
       it 'yields the new container' do
         yielded = nil
-        Rambling::Trie.create { |trie| yielded = trie }
+        described_class.create { |trie| yielded = trie }
         expect(yielded).to eq container
       end
     end
 
     context 'with a filepath' do
       let(:filepath) { 'a test filepath' }
-      let(:reader) { double :reader }
+      let(:reader) do
+        instance_double 'Rambling::Trie::Readers::PlainText', :reader
+      end
       let(:words) { %w(a couple of test words over here) }
 
       before do
@@ -42,7 +44,7 @@ describe Rambling::Trie do
       end
 
       it 'loads every word' do
-        Rambling::Trie.create filepath, reader
+        described_class.create filepath, reader
 
         words.each do |word|
           expect(container).to have_received(:<<).with word
@@ -52,17 +54,23 @@ describe Rambling::Trie do
 
     context 'without any reader' do
       let(:filepath) { 'a test filepath' }
-      let(:reader) { double :reader, each_word: nil }
+      let(:reader) do
+        instance_double(
+          'Rambling::Trie::Readers::PlainText',
+          :reader,
+          each_word: nil,
+        )
+      end
 
       before do
-        Rambling::Trie.config do |c|
+        described_class.config do |c|
           c.readers.add :default, reader
           c.readers.default = reader
         end
       end
 
       it 'defaults to a plain text reader' do
-        Rambling::Trie.create filepath, nil
+        described_class.create filepath, nil
 
         expect(reader).to have_received(:each_word).with filepath
       end
@@ -70,29 +78,53 @@ describe Rambling::Trie do
   end
 
   describe '.load' do
+    let(:filepath) { 'a path to a file' }
     let(:root) { Rambling::Trie::Nodes::Raw.new }
     let(:compressor) { Rambling::Trie::Compressor.new }
     let(:container) { Rambling::Trie::Container.new root, compressor }
-    let(:serializer) { double :serializer, load: root }
-    let(:filepath) { 'a path to a file' }
+    let(:serializer) do
+      instance_double(
+        'Rambling::True::Serializers::File',
+        :serializer,
+        load: root,
+      )
+    end
 
     it 'returns a new container with the loaded root node' do
-      trie = Rambling::Trie.load filepath, serializer
+      trie = described_class.load filepath, serializer
       expect(trie).to eq container
     end
 
     it 'uses the serializer to load the root node from the given filepath' do
-      Rambling::Trie.load filepath, serializer
+      described_class.load filepath, serializer
       expect(serializer).to have_received(:load).with filepath
     end
 
     context 'without a serializer' do
-      let(:marshal_serializer) { double :marshal_serializer, load: nil }
-      let(:default_serializer) { double :default_serializer, load: nil }
-      let(:yaml_serializer) { double :yaml_serializer, load: nil }
+      let(:marshal_serializer) do
+        instance_double(
+          'Rambling::Trie::Serializers::Marshal',
+          :marshal_serializer,
+          load: nil,
+        )
+      end
+      let(:default_serializer) do
+        instance_double(
+          'Rambling::Trie::Serializers::File',
+          :default_serializer,
+          load: nil,
+        )
+      end
+      let(:yaml_serializer) do
+        instance_double(
+          'Rambling::Trie::Serializers::Yaml',
+          :yaml_serializer,
+          load: nil,
+        )
+      end
 
       before do
-        Rambling::Trie.config do |c|
+        described_class.config do |c|
           c.serializers.add :default, default_serializer
           c.serializers.add :marshal, marshal_serializer
           c.serializers.add :yml, yaml_serializer
@@ -102,18 +134,21 @@ describe Rambling::Trie do
         end
       end
 
-      it 'determines the serializer based on the file extension' do
-        Rambling::Trie.load 'test.marshal'
-        expect(marshal_serializer).to have_received(:load).with 'test.marshal'
+      [
+        ['.marshal', :marshal_serializer],
+        ['.yml', :yaml_serializer],
+        ['.yaml', :yaml_serializer],
+        ['', :default_serializer],
+      ].each do |test_params|
+        extension, serializer = test_params
+        filepath = "test#{extension}"
 
-        Rambling::Trie.load 'test.yml'
-        expect(yaml_serializer).to have_received(:load).with 'test.yml'
+        it "uses extension-based serializer (#{filepath} -> #{serializer})" do
+          serializer_instance = public_send serializer
 
-        Rambling::Trie.load 'test.yaml'
-        expect(yaml_serializer).to have_received(:load).with 'test.yaml'
-
-        Rambling::Trie.load 'test'
-        expect(default_serializer).to have_received(:load).with 'test'
+          described_class.load filepath
+          expect(serializer_instance).to have_received(:load).with filepath
+        end
       end
     end
 
@@ -121,7 +156,7 @@ describe Rambling::Trie do
       it 'yields the new container' do
         yielded = nil
 
-        Rambling::Trie.load filepath, serializer do |trie|
+        described_class.load filepath, serializer do |trie|
           yielded = trie
         end
 
@@ -132,16 +167,36 @@ describe Rambling::Trie do
 
   describe '.dump' do
     let(:filename) { 'a trie' }
-    let(:root) { double :root }
-    let(:compressor) { double :compressor }
+    let(:root) { instance_double 'Rambling::Trie::Serializers::Marshal', :root }
+    let(:compressor) do
+      instance_double 'Rambling::Trie::Serializers::Marshal', :compressor
+    end
     let(:trie) { Rambling::Trie::Container.new root, compressor }
 
-    let(:marshal_serializer) { double :marshal_serializer, dump: nil }
-    let(:yaml_serializer) { double :yaml_serializer, dump: nil }
-    let(:default_serializer) { double :default_serializer, dump: nil }
+    let(:marshal_serializer) do
+      instance_double(
+        'Rambling::Trie::Serializers::Marshal',
+        :marshal_serializer,
+        dump: nil,
+      )
+    end
+    let(:yaml_serializer) do
+      instance_double(
+        'Rambling::Trie::Serializers::Yaml',
+        :yaml_serializer,
+        dump: nil,
+      )
+    end
+    let(:default_serializer) do
+      instance_double(
+        'Rambling::Trie::Serializers::File',
+        :default_serializer,
+        dump: nil,
+      )
+    end
 
     before do
-      Rambling::Trie.config do |c|
+      described_class.config do |c|
         c.serializers.add :default, default_serializer
         c.serializers.add :marshal, marshal_serializer
         c.serializers.add :yml, yaml_serializer
@@ -151,32 +206,39 @@ describe Rambling::Trie do
     end
 
     it 'uses the configured default serializer by default' do
-      Rambling::Trie.dump trie, filename
+      described_class.dump trie, filename
       expect(default_serializer).to have_received(:dump).with root, filename
     end
 
     context 'when provided with a format' do
-      it 'uses the corresponding serializer' do
-        Rambling::Trie.dump trie, "#{filename}.marshal"
-        expect(marshal_serializer).to have_received(:dump)
-          .with root, "#{filename}.marshal"
+      [
+        ['.marshal', :marshal_serializer],
+        ['.yml', :yaml_serializer],
+        ['', :default_serializer],
+      ].each do |test_params|
+        extension, serializer = test_params
 
-        Rambling::Trie.dump trie, "#{filename}.yml"
-        expect(yaml_serializer).to have_received(:dump)
-          .with root, "#{filename}.yml"
+        it 'uses the corresponding serializer' do
+          filepath = "#{filename}#{extension}"
+          serializer_instance = public_send serializer
+
+          described_class.dump trie, filepath
+          expect(serializer_instance).to have_received(:dump)
+            .with root, filepath
+        end
       end
     end
   end
 
   describe '.config' do
     it 'returns the properties' do
-      expect(Rambling::Trie.config).to eq Rambling::Trie.send :properties
+      expect(described_class.config).to eq described_class.send :properties
     end
 
     it 'yields the properties' do
       yielded = nil
-      Rambling::Trie.config { |c| yielded = c }
-      expect(yielded).to eq Rambling::Trie.send :properties
+      described_class.config { |c| yielded = c }
+      expect(yielded).to eq described_class.send :properties
     end
   end
 end

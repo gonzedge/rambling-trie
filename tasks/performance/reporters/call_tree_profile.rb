@@ -6,6 +6,7 @@ module Performance
   module Reporters
     class CallTreeProfile < Performance::Reporters::Reporter
       def initialize dirname
+        super()
         @dirname = dirname
       end
 

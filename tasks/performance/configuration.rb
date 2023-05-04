@@ -13,9 +13,9 @@ module Performance
       type ||= 'all'
       method ||= 'all'
 
-      if type == 'all'
+      if 'all' == type
         get_all_types method
-      elsif method == 'all'
+      elsif 'all' == method
         get_all_methods type
       else
         tasks[type][method]
@@ -165,7 +165,7 @@ module Performance
 
     def lookups_scan_raw
       lambda do |iterations|
-        if iterations.nil? || iterations == 200_000
+        if iterations.nil? || 200_000 == iterations
           Performance::SubTasks::Lookups::Scan::Raw.new
         else
           Performance::SubTasks::Lookups::Scan::Raw.new(
@@ -181,7 +181,7 @@ module Performance
 
     def lookups_scan_compressed _ = nil
       lambda do |iterations|
-        if iterations.nil? || iterations == 200_000
+        if iterations.nil? || 200_000 == iterations
           Performance::SubTasks::Lookups::Scan::Compressed.new
         else
           Performance::SubTasks::Lookups::Scan::Compressed.new(

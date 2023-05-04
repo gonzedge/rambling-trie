@@ -6,6 +6,7 @@ module Performance
   module Reporters
     class Flamegraph < Performance::Reporters::Reporter
       def initialize filename
+        super()
         @filename = filename
       end
 

@@ -12,13 +12,11 @@ module Performance
       include Helpers::Path
       include Helpers::Time
 
-      def report iterations = 1, params = nil
+      def report iterations = 1, params = nil, &block
         params = Array params
         params << nil unless params.any?
 
-        do_report iterations, params do |param|
-          yield param
-        end
+        do_report iterations, params, &block
       end
     end
   end

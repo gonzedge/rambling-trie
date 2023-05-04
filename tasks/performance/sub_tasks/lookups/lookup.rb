@@ -9,6 +9,7 @@ module Performance
         include Helpers::Trie
 
         def initialize iterations = 200_000
+          super()
           @iterations = iterations
         end
 

@@ -8,6 +8,7 @@ module Performance
       include Helpers::Path
 
       def initialize iterations = 5
+        super()
         @iterations = iterations
       end
 
