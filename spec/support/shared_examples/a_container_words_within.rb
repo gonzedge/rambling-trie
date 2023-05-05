@@ -21,19 +21,19 @@ shared_examples_for 'a non-matching container#words_within' do
 end
 
 shared_examples_for 'a matching container#words_within?' do
-    context 'when phrase does not contain any words' do
-      it 'returns false' do
-        expect(container.words_within? 'xyz').to be false
-      end
+  context 'when phrase does not contain any words' do
+    it 'returns false' do
+      expect(container.words_within? 'xyz').to be false
     end
+  end
 
-    context 'when phrase contains any word' do
-      ['xyz words', 'xyzone word'].each do |phrase|
-        it "returns true for '#{phrase}'" do
-          expect(container.words_within? phrase).to be true
-        end
+  context 'when phrase contains any word' do
+    ['xyz words', 'xyzone word'].each do |phrase|
+      it "returns true for '#{phrase}'" do
+        expect(container.words_within? phrase).to be true
       end
     end
+  end
 end
 
 shared_examples_for 'a non-matching container#words_within?' do
