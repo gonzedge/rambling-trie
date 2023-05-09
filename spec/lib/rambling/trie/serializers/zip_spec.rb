@@ -16,13 +16,12 @@ describe Rambling::Trie::Serializers::Zip do
         let(:format) { :zip }
 
         let(:filepath) { File.join tmp_path, "trie-root.#{format}.zip" }
-        let(:format_content) { -> (content) { zip dump_method.call content } }
+        let(:format_content) { ->(content) { zip dump_method.call content } }
         let(:filename) { File.basename(filepath).gsub %r{\.zip}, '' }
 
         before { properties.tmp_path = tmp_path }
       end
     end
-
   end
 
   def zip content
