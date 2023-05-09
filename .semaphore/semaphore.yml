@@ -249,11 +249,6 @@ blocks:
 #         - name: bundle exec rspec
 #           commands:
 #             - bundle exec rspec --format RspecJunitFormatter --out junit.xml --format documentation
-global_job_config:
-  epilogue:
-    always:
-      commands:
-        - '[[ -f report.xml ]] && test-results publish report.xml'
 after_pipeline:
   task:
     jobs:
