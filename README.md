@@ -1,6 +1,7 @@
 # Rambling Trie
 
 [![Gem Version][badge_fury_badge]][badge_fury_link]
+[![Downloads][downloads_badge]][downloads_link]
 [![Build Status][semaphore_ci_badge]][semaphore_ci_link]
 [![Code Climate][code_climate_badge]][code_climage_link]
 [![Coverage Status][coveralls_badge]][coveralls_link]
@@ -287,6 +288,8 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 [code_climate_badge]: https://codeclimate.com/github/gonzedge/rambling-trie/badges/gpa.svg
 [coveralls_badge]: https://img.shields.io/coveralls/gonzedge/rambling-trie.svg
 [coveralls_link]: https://coveralls.io/r/gonzedge/rambling-trie
+[downloads_badge]: https://img.shields.io/gem/dt/rambling-trie.svg
+[downloads_link]: https://rubygems.org/gems/rambling-trie
 [gemnasium_badge]: https://gemnasium.com/gonzedge/rambling-trie.svg
 [gemnasium_link]: https://gemnasium.com/gonzedge/rambling-trie
 [github_user_gonzedge]: https://github.com/gonzedge
