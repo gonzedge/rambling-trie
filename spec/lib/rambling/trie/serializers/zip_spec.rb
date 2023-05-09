@@ -3,26 +3,34 @@
 require 'spec_helper'
 
 describe Rambling::Trie::Serializers::Zip do
-  it_behaves_like 'a serializer' do
-    let(:properties) { Rambling::Trie::Configuration::Properties.new }
-    let(:serializer) { described_class.new properties }
-    let(:format) { :zip }
+  {
+    yaml: YAML.method(:dump),
+    yml: YAML.method(:dump),
+    marshal: Marshal.method(:dump),
+    file: Marshal.method(:dump),
+  }.each do |format, dump_method|
+    context "with '.#{format}'" do
+      it_behaves_like 'a serializer' do
+        let(:properties) { Rambling::Trie::Configuration::Properties.new }
+        let(:serializer) { described_class.new properties }
+        let(:format) { :zip }
 
-    before do
-      properties.tmp_path = tmp_path
-    end
+        let(:filepath) { File.join tmp_path, "trie-root.#{format}.zip" }
+        let(:format_content) { ->(content) { zip dump_method.call content } }
+        let(:filename) { File.basename(filepath).gsub %r{\.zip}, '' }
 
-    let(:filename) { File.basename(filepath).gsub %r{\.zip}, '' }
-    let(:formatted_content) { zip Marshal.dump content }
-
-    def zip content
-      cursor = Zip::OutputStream.write_buffer do |io|
-        io.put_next_entry filename
-        io.write content
+        before { properties.tmp_path = tmp_path }
       end
-
-      cursor.rewind
-      cursor.read
     end
+  end
+
+  def zip content
+    cursor = Zip::OutputStream.write_buffer do |io|
+      io.put_next_entry filename
+      io.write content
+    end
+
+    cursor.rewind
+    cursor.read
   end
 end

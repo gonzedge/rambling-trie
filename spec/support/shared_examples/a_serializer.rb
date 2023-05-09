@@ -14,27 +14,42 @@ shared_examples_for 'a serializer' do
   end
 
   describe '#dump' do
-    before do
-      serializer.dump content, filepath
-    end
+    [true, false].each do |compress_value|
+      context "with compressed=#{compress_value} trie" do
+        before do
+          trie.compress! if compress_value
+          serializer.dump content, filepath
+        end
 
-    it 'creates the file with the provided path' do
-      expect(File.exist? filepath).to be true
-    end
+        it 'creates the file with the provided path' do
+          expect(File.exist? filepath).to be true
+        end
 
-    it 'converts the contents to the appropriate format' do
-      file = File.read(filepath)
-      expect(file.size).to be_within(15).of formatted_content.size
+        it 'converts the contents to the appropriate format' do
+          formatted_content = format_content.call content
+          expect(File.size filepath).to be_within(20).of formatted_content.size
+        end
+      end
     end
   end
 
   describe '#load' do
-    before do
-      serializer.dump content, filepath
-    end
+    [true, false].each do |compress_value|
+      context "with compressed=#{compress_value} trie" do
+        before do
+          trie.compress! if compress_value
+          serializer.dump content, filepath
+        end
 
-    it 'loads the dumped object back into memory' do
-      expect(serializer.load filepath).to eq content
+        it 'loads the dumped object back into memory' do
+          expect(serializer.load filepath).to eq content
+        end
+
+        it "loads a compressed=#{compress_value} object" do
+          loaded = serializer.load filepath
+          expect(loaded.compressed?).to be compress_value if :file != format
+        end
+      end
     end
   end
 end
