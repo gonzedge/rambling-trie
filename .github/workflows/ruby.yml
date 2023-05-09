@@ -71,4 +71,12 @@ jobs:
           ruby-version: 3.2.2
           bundler-cache: true
       - name: Report rspec test coverage to coveralls.io
-        run: COVERALLS_REPO_TOKEN=${{ secrets.COVERALLS_REPO_TOKEN }} bundle exec rspec
+        env:
+          COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
+        run: bundle exec rspec
+      - name: Report rspec test coverage to codeclimate.com
+        uses: paambaati/codeclimate-action@v4.0.0
+        env:
+          CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
+        with:
+          coverageCommand: bundle exec rspec
