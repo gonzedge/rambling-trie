@@ -2,12 +2,15 @@
 
 [![Gem Version][badge_fury_badge]][badge_fury_link]
 [![Downloads][downloads_badge]][downloads_link]
-[![Build Status][semaphore_ci_badge]][semaphore_ci_link]
-[![Coverage Status][coveralls_badge]][coveralls_link]
-[![Code Climate][code_climate_badge]][code_climate_link]
-[![Issue Count][code_climate_issues_badge]][code_climate_link]
-[![Documentation Status][inch_ci_badge]][inch_ci_link]
 [![License][license_badge]][license_link]
+
+[![Build Status][github_action_build_badge]][github_action_build_link]
+[![Coverage Status][coveralls_badge]][coveralls_link]
+[![Documentation Status][inch_ci_badge]][rubydoc]
+[![CodeQL Status][github_action_codeql_badge]][github_action_codeql_link]
+
+[![Code Climate Grade][code_climate_grade_badge]][code_climate_link]
+[![Code Climate Issue Count][code_climate_issues_badge]][code_climate_link]
 
 The Rambling Trie is a Ruby implementation of the [trie data structure][trie_wiki], which includes compression abilities and is designed to be very fast to traverse.
 
@@ -285,7 +288,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 [badge_fury_badge]: https://badge.fury.io/rb/rambling-trie.svg?version=2.3.0
 [badge_fury_link]: https://badge.fury.io/rb/rambling-trie
 [chruby]: https://github.com/postmodern/chruby
-[code_climate_badge]: https://codeclimate.com/github/gonzedge/rambling-trie/badges/gpa.svg
+[code_climate_grade_badge]: https://codeclimate.com/github/gonzedge/rambling-trie/badges/gpa.svg
 [code_climate_issues_badge]: https://codeclimate.com/github/gonzedge/rambling-trie/badges/issue_count.svg
 [code_climate_link]: https://codeclimate.com/github/gonzedge/rambling-trie
 [coveralls_badge]: https://img.shields.io/coveralls/gonzedge/rambling-trie.svg
@@ -294,9 +297,12 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 [downloads_link]: https://rubygems.org/gems/rambling-trie
 [gemnasium_badge]: https://gemnasium.com/gonzedge/rambling-trie.svg
 [gemnasium_link]: https://gemnasium.com/gonzedge/rambling-trie
+[github_action_build_badge]: https://github.com/gonzedge/rambling-trie/actions/workflows/ruby.yml/badge.svg
+[github_action_build_link]: https://github.com/gonzedge/rambling-trie/actions/workflows/ruby.yml
+[github_action_codeql_badge]: https://github.com/gonzedge/rambling-trie/actions/workflows/codeql.yml/badge.svg
+[github_action_codeql_link]: https://github.com/gonzedge/rambling-trie/actions/workflows/codeql.yml
 [github_user_gonzedge]: https://github.com/gonzedge
 [inch_ci_badge]: https://inch-ci.org/github/gonzedge/rambling-trie.svg?branch=master
-[inch_ci_link]: http://rubydoc.info/gems/rambling-trie
 [license_badge]: https://img.shields.io/badge/license-MIT-blue.svg
 [license_link]: https://opensource.org/licenses/mit-license.php
 [marshal]: https://ruby-doc.org/core-2.7.0/Marshal.html
@@ -308,7 +314,5 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 [rubydoc_github]: http://rubydoc.info/github/gonzedge/rambling-trie
 [rubyzip]: https://github.com/rubyzip/rubyzip
 [rvm]: https://rvm.io
-[semaphore_ci_badge]: https://gonzedge.semaphoreci.com/badges/rambling-trie/branches/master.svg?style=shields&key=70cb32ae-6165-4aa1-92c0-1610cc4101ca
-[semaphore_ci_link]: https://gonzedge.semaphoreci.com/projects/rambling-trie
 [trie_wiki]: https://en.wikipedia.org/wiki/Trie
 [yaml]: https://ruby-doc.org/stdlib-2.7.0/libdoc/yaml/rdoc/YAML.html
