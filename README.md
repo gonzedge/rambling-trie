@@ -3,8 +3,9 @@
 [![Gem Version][badge_fury_badge]][badge_fury_link]
 [![Downloads][downloads_badge]][downloads_link]
 [![Build Status][semaphore_ci_badge]][semaphore_ci_link]
-[![Code Climate][code_climate_badge]][code_climage_link]
 [![Coverage Status][coveralls_badge]][coveralls_link]
+[![Code Climate][code_climate_badge]][code_climate_link]
+[![Issue Count][code_climate_issues_badge]][code_climate_link]
 [![Documentation Status][inch_ci_badge]][inch_ci_link]
 [![License][license_badge]][license_link]
 
@@ -284,8 +285,9 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 [badge_fury_badge]: https://badge.fury.io/rb/rambling-trie.svg?version=2.3.0
 [badge_fury_link]: https://badge.fury.io/rb/rambling-trie
 [chruby]: https://github.com/postmodern/chruby
-[code_climage_link]: https://codeclimate.com/github/gonzedge/rambling-trie
 [code_climate_badge]: https://codeclimate.com/github/gonzedge/rambling-trie/badges/gpa.svg
+[code_climate_issues_badge]: https://codeclimate.com/github/gonzedge/rambling-trie/badges/issue_count.svg
+[code_climate_link]: https://codeclimate.com/github/gonzedge/rambling-trie
 [coveralls_badge]: https://img.shields.io/coveralls/gonzedge/rambling-trie.svg
 [coveralls_link]: https://coveralls.io/r/gonzedge/rambling-trie
 [downloads_badge]: https://img.shields.io/gem/dt/rambling-trie.svg
