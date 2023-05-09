@@ -19,12 +19,12 @@ blocks:
       jobs:
         - name: bundle exec rspec
           commands:
-            - bundle exec rspec --format RspecJunitFormatter --out junit.xml --format documentation
+            - bundle exec rspec --format RspecJunitFormatter --out report.xml
       epilogue:
         always:
           commands:
             - ./cc-test-reporter after-build
-            - test-results publish junit.xml
+            - test-results publish report.xml
 #   - name: 3.2.0
 #     dependencies: []
 #     task:
@@ -253,9 +253,14 @@ blocks:
 #         - name: bundle exec rspec
 #           commands:
 #             - bundle exec rspec --format RspecJunitFormatter --out junit.xml --format documentation
-# after_pipeline:
-#   task:
-#     jobs:
-#       - name: test report
-#         commands:
-#           - test-results gen-pipeline-report
+global_job_config:
+  epilogue:
+    always:
+      commands:
+        - '[[ -f report.xml ]] && test-results publish report.xml'
+after_pipeline:
+  task:
+    jobs:
+      - name: test report
+        commands:
+          - test-results gen-pipeline-report
