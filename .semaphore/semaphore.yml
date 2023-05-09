@@ -23,6 +23,7 @@ blocks:
       epilogue:
         always:
           commands:
+            - echo $SEMAPHORE_THREAD_RESULT
             - exitcode=$(if [ "$SEMAPHORE_THREAD_RESULT" == "passed" ]; then echo 0; else echo 1; fi)
             - ./cc-test-reporter after-build --exit-code $exitcode
             - test-results publish junit.xml
