@@ -3,7 +3,7 @@
 require 'yaml'
 require 'simplecov'
 
-if ENV.has_key? 'COVERALLS_REPO_TOKEN'
+if ENV.key? 'COVERALLS_REPO_TOKEN'
   require 'coveralls'
 
   SimpleCov.formatters = [
