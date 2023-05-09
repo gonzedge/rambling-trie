@@ -297,7 +297,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 [github_user_gonzedge]: https://github.com/gonzedge
 [inch_ci_badge]: https://inch-ci.org/github/gonzedge/rambling-trie.svg?branch=master
 [inch_ci_link]: http://rubydoc.info/gems/rambling-trie
-[license_badge]: https://badges.frapsoft.com/os/mit/mit.svg?v=103
+[license_badge]: https://img.shields.io/badge/license-MIT-blue.svg
 [license_link]: https://opensource.org/licenses/mit-license.php
 [marshal]: https://ruby-doc.org/core-2.7.0/Marshal.html
 [rambling_trie_configuration]: https://github.com/gonzedge/rambling-trie#configuration
