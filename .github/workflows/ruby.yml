@@ -1,4 +1,4 @@
-name: Ruby
+name: build
 
 on:
   push:
@@ -16,14 +16,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: Set up Ruby
+      - name: Set up ruby
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: 3.2.2
           bundler-cache: true
-      - name: Lint
+      - name: Run rubocop
         run: bundle exec rubocop
-  test:
+  spec:
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -54,21 +54,21 @@ jobs:
           - 2.7.0
     steps:
       - uses: actions/checkout@v3
-      - name: Set up Ruby
+      - name: Set up ruby
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: ${{ matrix.ruby-version }}
           bundler-cache: true
-      - name: Run tests
+      - name: Run rspec
         run: bundle exec rspec
   coverage:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: Set up Ruby
+      - name: Set up ruby
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: 3.2.2
           bundler-cache: true
-      - name: Run tests and report test coverage
+      - name: Report rspec test coverage to coveralls.io
         run: COVERALLS_REPO_TOKEN=${{ secrets.COVERALLS_REPO_TOKEN }} bundle exec rspec
