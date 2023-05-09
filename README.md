@@ -1,6 +1,13 @@
 # Rambling Trie
 
-[![Gem Version][badge_fury_badge]][badge_fury_link] [![Build Status][semaphore_ci_badge]][semaphore_ci_link] [![Code Climate][code_climate_badge]][code_climage_link] [![Coverage Status][coveralls_badge]][coveralls_link] [![Documentation Status][inch_ci_badge]][inch_ci_link] [![License][license_badge]][license_link]
+[![Gem Version][badge_fury_badge]][badge_fury_link]
+[![Downloads][downloads_badge]][downloads_link]
+[![Build Status][semaphore_ci_badge]][semaphore_ci_link]
+[![Coverage Status][coveralls_badge]][coveralls_link]
+[![Code Climate][code_climate_badge]][code_climate_link]
+[![Issue Count][code_climate_issues_badge]][code_climate_link]
+[![Documentation Status][inch_ci_badge]][inch_ci_link]
+[![License][license_badge]][license_link]
 
 The Rambling Trie is a Ruby implementation of the [trie data structure][trie_wiki], which includes compression abilities and is designed to be very fast to traverse.
 
@@ -278,16 +285,19 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 [badge_fury_badge]: https://badge.fury.io/rb/rambling-trie.svg?version=2.3.0
 [badge_fury_link]: https://badge.fury.io/rb/rambling-trie
 [chruby]: https://github.com/postmodern/chruby
-[code_climage_link]: https://codeclimate.com/github/gonzedge/rambling-trie
 [code_climate_badge]: https://codeclimate.com/github/gonzedge/rambling-trie/badges/gpa.svg
+[code_climate_issues_badge]: https://codeclimate.com/github/gonzedge/rambling-trie/badges/issue_count.svg
+[code_climate_link]: https://codeclimate.com/github/gonzedge/rambling-trie
 [coveralls_badge]: https://img.shields.io/coveralls/gonzedge/rambling-trie.svg
 [coveralls_link]: https://coveralls.io/r/gonzedge/rambling-trie
+[downloads_badge]: https://img.shields.io/gem/dt/rambling-trie.svg
+[downloads_link]: https://rubygems.org/gems/rambling-trie
 [gemnasium_badge]: https://gemnasium.com/gonzedge/rambling-trie.svg
 [gemnasium_link]: https://gemnasium.com/gonzedge/rambling-trie
 [github_user_gonzedge]: https://github.com/gonzedge
 [inch_ci_badge]: https://inch-ci.org/github/gonzedge/rambling-trie.svg?branch=master
-[inch_ci_link]: https://inch-ci.org/github/gonzedge/rambling-trie
-[license_badge]: https://badges.frapsoft.com/os/mit/mit.svg?v=103
+[inch_ci_link]: http://rubydoc.info/gems/rambling-trie
+[license_badge]: https://img.shields.io/badge/license-MIT-blue.svg
 [license_link]: https://opensource.org/licenses/mit-license.php
 [marshal]: https://ruby-doc.org/core-2.7.0/Marshal.html
 [rambling_trie_configuration]: https://github.com/gonzedge/rambling-trie#configuration
