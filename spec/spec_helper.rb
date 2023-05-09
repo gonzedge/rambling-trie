@@ -1,15 +1,21 @@
 # frozen_string_literal: true
 
+require 'yaml'
 require 'simplecov'
-require 'coveralls'
 
-SimpleCov.formatters = [
-  SimpleCov::Formatter::HTMLFormatter,
-  Coveralls::SimpleCov::Formatter,
-]
+if ENV.key? 'COVERALLS_REPO_TOKEN'
+  require 'coveralls'
 
-Coveralls.wear! do
-  add_filter '/spec/'
+  SimpleCov.formatters = [
+    SimpleCov::Formatter::HTMLFormatter,
+    Coveralls::SimpleCov::Formatter,
+  ]
+
+  Coveralls.wear! do
+    add_filter '/spec/'
+  end
+else
+  SimpleCov.start
 end
 
 require 'rspec'
