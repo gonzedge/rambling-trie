@@ -71,6 +71,6 @@ jobs:
           ruby-version: 3.2.2
           bundler-cache: true
       - name: Run tests
-        run: bundle exec rspec
+        run: COVERALLS_REPO_TOKEN=${{ secrets.COVERALLS_REPO_TOKEN }} bundle exec rspec
       - name: Report test coverage
         uses: coverallsapp/github-action@v1
