@@ -1,5 +1,5 @@
 version: v1.0
-name: ruby
+name: Run specs in all supported rubies
 agent:
   machine:
     type: e1-standard-2
@@ -24,17 +24,17 @@ blocks:
         always:
           commands:
             - '[[ -f report.xml ]] && test-results publish report.xml'
-  # - name: 3.2.1
-  #   dependencies: []
-  #   task:
-  #     prologue:
-  #       commands:
-  #         - sem-version ruby 3.2.1
-  #         - bundle install
-  #     jobs:
-  #       - name: bundle exec rspec
-  #         commands:
-  #           - bundle exec rspec
+  - name: 3.2.1
+    dependencies: []
+    task:
+      prologue:
+        commands:
+          - sem-version ruby 3.2.1
+          - bundle install
+      jobs:
+        - name: bundle exec rspec
+          commands:
+            - bundle exec rspec
   # - name: 3.2.0
   #   dependencies: []
   #   task:
