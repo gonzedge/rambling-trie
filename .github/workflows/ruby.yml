@@ -2,14 +2,27 @@ name: Ruby
 
 on:
   push:
-    branches: [ $default-branch ]
+    branches:
+      - master
   pull_request:
-    branches: [ $default-branch ]
+    branches:
+      - master
 
 permissions:
   contents: read
 
 jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.2.2
+          bundler-cache: true
+      - name: Lint
+        run: bundle exec rubocop
   test:
     runs-on: ubuntu-latest
     strategy:
@@ -46,9 +59,16 @@ jobs:
         with:
           ruby-version: ${{ matrix.ruby-version }}
           bundler-cache: true
-      - name: Lint
-        run: rubocop
       - name: Run tests
         run: bundle exec rspec
-      - name: Report coverage
-        uses: coverallsapp/github-action@v1
+  coverage:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.2.2
+          bundler-cache: true
+      - name: Run tests and report test coverage
+        run: COVERALLS_REPO_TOKEN=${{ secrets.COVERALLS_REPO_TOKEN }} bundle exec rspec
