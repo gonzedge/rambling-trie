@@ -12,10 +12,7 @@ blocks:
         commands:
           - checkout
           - sem-version ruby 3.2.2
-          - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
-          - chmod +x ./cc-test-reporter
           - bundle install
-          - ./cc-test-reporter before-build
       jobs:
         - name: bundle exec rspec
           commands:
@@ -23,8 +20,7 @@ blocks:
       epilogue:
         always:
           commands:
-            - ./cc-test-reporter after-build
-            - test-results publish report.xml
+            - '[[ -f report.xml ]] && test-results publish report.xml'
 #   - name: 3.2.0
 #     dependencies: []
 #     task:
