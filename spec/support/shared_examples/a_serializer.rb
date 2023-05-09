@@ -6,7 +6,7 @@ shared_examples_for 'a serializer' do
   let(:trie) { Rambling::Trie.create }
   let(:tmp_path) { File.join ::SPEC_ROOT, 'tmp' }
   let(:filepath) { File.join tmp_path, "trie-root.#{format}" }
-  let(:content) { trie.root }
+  let(:root) { trie.root }
 
   before do
     trie.concat %w(a few words to validate that load and dump are working)
@@ -14,27 +14,42 @@ shared_examples_for 'a serializer' do
   end
 
   describe '#dump' do
-    before do
-      serializer.dump content, filepath
-    end
+    [true, false].each do |compress_value|
+      context "with compressed=#{compress_value} trie" do
+        before do
+          trie.compress! if compress_value
+          serializer.dump root, filepath
+        end
 
-    it 'creates the file with the provided path' do
-      expect(File.exist? filepath).to be true
-    end
+        it 'creates the file with the provided path' do
+          expect(File.exist? filepath).to be true
+        end
 
-    it 'converts the contents to the appropriate format' do
-      file = File.read(filepath)
-      expect(file.size).to be_within(15).of formatted_content.size
+        it 'converts the contents to the appropriate format' do
+          formatted_content = format_content.call root
+          expect(File.size filepath).to be_within(20).of formatted_content.size
+        end
+      end
     end
   end
 
   describe '#load' do
-    before do
-      serializer.dump content, filepath
-    end
+    [true, false].each do |compress_value|
+      context "with compressed=#{compress_value} trie" do
+        before do
+          trie.compress! if compress_value
+          serializer.dump root, filepath
+        end
 
-    it 'loads the dumped object back into memory' do
-      expect(serializer.load filepath).to eq content
+        it 'loads the dumped object back into memory' do
+          expect(serializer.load filepath).to eq root
+        end
+
+        it "loads a compressed=#{compress_value} root" do
+          loaded = serializer.load filepath
+          expect(loaded.compressed?).to be compress_value
+        end
+      end
     end
   end
 end
