@@ -323,7 +323,7 @@ describe Rambling::Trie::Container do
     context 'with compressed node' do
       before { container.compress! }
 
-      it_behaves_like 'a matching container#words_within?'
+      it_behaves_like 'a non-matching container#words_within?'
     end
   end
 
