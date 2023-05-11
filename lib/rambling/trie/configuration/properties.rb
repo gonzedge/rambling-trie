@@ -6,13 +6,13 @@ module Rambling
       # Provides configurable properties for Rambling::Trie.
       class Properties
         # The configured {Readers Readers}.
-        # @return [ProviderCollection] the mapping of configured {Readers
-        #   Readers}.
+        # @return [ProviderCollection<Readers::Reader>] the mapping of
+        #   configured {Readers Readers}.
         attr_reader :readers
 
         # The configured {Serializers Serializers}.
-        # @return [ProviderCollection] the mapping of configured {Serializers
-        #   Serializers}.
+        # @return [ProviderCollection<Serializers::Serializer>] the mapping of
+        #   configured {Serializers Serializers}.
         attr_reader :serializers
 
         # The configured {Compressor Compressor}.

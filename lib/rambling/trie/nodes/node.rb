@@ -22,8 +22,8 @@ module Rambling
         attr_reader :letter
 
         # Child nodes tree.
-        # @return [Hash] the children_tree hash, consisting of `:letter =>
-        #   node`.
+        # @return [Hash<Symbol, Node>] the children_tree hash, consisting of
+        #   `:letter => node`.
         attr_accessor :children_tree
 
         # Parent node.
