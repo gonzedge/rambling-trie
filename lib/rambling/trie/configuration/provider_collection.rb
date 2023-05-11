@@ -63,8 +63,8 @@ module Rambling
 
         # Resolves the provider from a filepath based on the file extension.
         # @param [String] filepath the filepath to resolve into a provider.
-        # @return [TProvider, nil] the provider corresponding to the file extension
-        #   in provider collection. {#default} if not found.
+        # @return [TProvider, nil] the provider for the given file's extension.
+        #   {#default} if not found.
         def resolve filepath
           providers[file_format filepath] || default
         end

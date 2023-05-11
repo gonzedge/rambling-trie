@@ -149,8 +149,8 @@ module Rambling
       end
 
       # Root node's children tree.
-      # @return [Hash<Symbol, Nodes::Node>] the children tree hash, consisting of
-      #   +:letter => node+.
+      # @return [Hash<Symbol, Nodes::Node>] the children tree hash contained in
+      #   the root node, consisting of +:letter => node+.
       # @see Nodes::Node#children_tree
       def children_tree
         root.children_tree

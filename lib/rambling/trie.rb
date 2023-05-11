@@ -13,7 +13,7 @@ module Rambling
   # Entry point for +rambling-trie+ API.
   module Trie
     class << self
-      # Creates a new +Rambling::Trie+. Entry point for the +Rambling::Trie+ API.
+      # Creates a new +Rambling::Trie+. Entry point for the +rambling-trie+ API.
       # @param [String, nil] filepath the file to load the words from.
       # @param [Readers::Reader, nil] reader the file parser to get each word.
       # @return [Container] the trie just created.

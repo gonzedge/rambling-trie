@@ -19,7 +19,7 @@ module Rambling
         # @return [Compressor] the configured compressor.
         attr_accessor :compressor
 
-        # The configured +root_builder+, which should return a {Nodes::Node Node}
+        # The configured +root_builder+, which returns a {Nodes::Node Node}
         # when called.
         # @return [Proc<Nodes::Node>] the configured +root_builder+.
         attr_accessor :root_builder
