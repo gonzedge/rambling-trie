@@ -67,8 +67,7 @@ module Rambling
       # @param [String] word the word or partial word to look for in the trie.
       # @return [Boolean] +true+ if the word or partial word is found, +false+
       #   otherwise.
-      # @see Nodes::Raw#partial_word?
-      # @see Nodes::Compressed#partial_word?
+      # @see Nodes::Node#partial_word?
       def partial_word? word = ''
         root.partial_word? word.chars
       end
@@ -86,8 +85,7 @@ module Rambling
       # @param [String] word the word to look for in the trie.
       # @return [Array<String>] all the words contained in the trie that start
       #   with the specified characters.
-      # @see Nodes::Raw#scan
-      # @see Nodes::Compressed#scan
+      # @see Nodes::Node#scan
       def scan word = ''
         root.scan(word.chars).to_a
       end
@@ -151,8 +149,8 @@ module Rambling
       end
 
       # Root node's children tree.
-      # @return [Array<Nodes::Node>] the array of children nodes contained in
-      #   the root node.
+      # @return [Hash<Symbol, Nodes::Node>] the children tree hash, consisting of
+      #   +:letter => node+.
       # @see Nodes::Node#children_tree
       def children_tree
         root.children_tree
