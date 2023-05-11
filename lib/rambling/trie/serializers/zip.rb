@@ -5,12 +5,13 @@ module Rambling
     module Serializers
       # Zip file serializer. Dumps/loads contents from zip files. Automatically
       # detects if zip file contains `.marshal` or `.yml` file
-      class Zip
+      class Zip < Serializer
         # Creates a new Zip serializer.
         # @param [Configuration::Properties] properties the configuration
         #   properties set up so far.
         def initialize properties
           @properties = properties
+          super()
         end
 
         # Unzip contents from specified filepath and load in contents from

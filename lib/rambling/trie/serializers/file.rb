@@ -4,7 +4,7 @@ module Rambling
   module Trie
     module Serializers
       # Basic file serializer. Dumps/loads string contents from files.
-      class File
+      class File < Serializer
         # Loads contents from a specified filepath.
         # @param [String] filepath the filepath to load contents from.
         # @return [String] all contents of the file.

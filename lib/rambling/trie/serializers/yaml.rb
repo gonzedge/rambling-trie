@@ -4,12 +4,13 @@ module Rambling
   module Trie
     module Serializers
       # Serializer for Ruby yaml format (.yaml) files.
-      class Yaml
+      class Yaml < Serializer
         # Creates a new Yaml serializer.
         # @param [Serializer] serializer the serializer responsible to write to
         #   and read from disk.
         def initialize serializer = nil
           @serializer = serializer || Rambling::Trie::Serializers::File.new
+          super()
         end
 
         # Loads serialized object from YAML file in filepath and deserializes
