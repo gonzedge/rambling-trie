@@ -3,7 +3,7 @@
 module Rambling
   module Trie
     module Serializers
-      # Serializer for Ruby yaml format (.yaml) files.
+      # Serializer for Ruby yaml format (+.yaml+, or +.yml+) files.
       class Yaml < Serializer
         # Creates a new Yaml serializer.
         # @param [Serializer] serializer the serializer responsible to write to

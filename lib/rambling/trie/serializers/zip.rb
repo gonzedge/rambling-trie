@@ -3,8 +3,9 @@
 module Rambling
   module Trie
     module Serializers
-      # Zip file serializer. Dumps/loads contents from zip files. Automatically
-      # detects if zip file contains `.marshal` or `.yml` file
+      # Zip file serializer. Dumps/loads contents from +.zip+ files.
+      # Automatically detects if zip file contains a +.marshal+ or +.yml+ file,
+      # or any other registered +:format => serializer+ combo.
       class Zip < Serializer
         # Creates a new Zip serializer.
         # @param [Configuration::Properties] properties the configuration

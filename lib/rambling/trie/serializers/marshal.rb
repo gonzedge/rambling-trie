@@ -3,7 +3,7 @@
 module Rambling
   module Trie
     module Serializers
-      # Serializer for Ruby marshal format (.marshal) files.
+      # Serializer for Ruby marshal format (+.marshal+) files.
       class Marshal < Serializer
         # Creates a new Marshal serializer.
         # @param [Serializer] serializer the serializer responsible to write to

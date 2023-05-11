@@ -22,8 +22,8 @@ module Rambling
         attr_reader :letter
 
         # Child nodes tree.
-        # @return [Hash<Symbol, Node>] the children_tree hash, consisting of
-        #   `:letter => node`.
+        # @return [Hash<Symbol, Node>] the children tree hash, consisting of
+        #   +:letter => node+.
         attr_accessor :children_tree
 
         # Parent node.
@@ -57,14 +57,14 @@ module Rambling
         end
 
         # Indicates if the current node is the root node.
-        # @return [Boolean] `true` if the node does not have a parent, `false`
+        # @return [Boolean] +true+ if the node does not have a parent, +false+
         #   otherwise.
         def root?
           !parent
         end
 
         # Indicates if a {Node Node} is terminal or not.
-        # @return [Boolean] `true` for terminal nodes, `false` otherwise.
+        # @return [Boolean] +true+ for terminal nodes, +false+ otherwise.
         def terminal?
           !!terminal
         end
@@ -82,7 +82,7 @@ module Rambling
 
         # Checks if a path for a set of characters exists in the trie.
         # @param [Array<String>] chars the characters to look for in the trie.
-        # @return [Boolean] `true` if the characters are found, `false`
+        # @return [Boolean] +true+ if the characters are found, +false+
         #   otherwise.
         def partial_word? chars
           return true if chars.empty?
@@ -92,8 +92,8 @@ module Rambling
 
         # Checks if a path for set of characters represents a word in the trie.
         # @param [Array<String>] chars the characters to look for in the trie.
-        # @return [Boolean] `true` if the characters are found and form a word,
-        #   `false` otherwise.
+        # @return [Boolean] +true+ if the characters are found and form a word,
+        #   +false+ otherwise.
         def word? chars = []
           return terminal? if chars.empty?
 
@@ -148,7 +148,7 @@ module Rambling
         # Check if a {Node Node}'s children tree contains a given
         #   letter.
         # @param [Symbol] letter the letter to search for in the node.
-        # @return [Boolean] `true` if the letter is present, `false` otherwise
+        # @return [Boolean] +true+ if the letter is present, +false+ otherwise.
         # @see https://ruby-doc.org/core-2.7.0/Hash.html#method-i-has_key-3F
         #   Hash#key?
         def key? letter

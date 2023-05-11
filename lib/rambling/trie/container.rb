@@ -65,7 +65,7 @@ module Rambling
 
       # Checks if a path for a word or partial word exists in the trie.
       # @param [String] word the word or partial word to look for in the trie.
-      # @return [Boolean] `true` if the word or partial word is found, `false`
+      # @return [Boolean] +true+ if the word or partial word is found, +false+
       #   otherwise.
       # @see Nodes::Raw#partial_word?
       # @see Nodes::Compressed#partial_word?
@@ -75,10 +75,9 @@ module Rambling
 
       # Checks if a whole word exists in the trie.
       # @param [String] word the word to look for in the trie.
-      # @return [Boolean] `true` only if the word is found and the last
-      #   character corresponds to a terminal node, `false` otherwise.
-      # @see Nodes::Raw#word?
-      # @see Nodes::Compressed#word?
+      # @return [Boolean] +true+ only if the word is found and the last
+      #   character corresponds to a terminal node, +false+ otherwise.
+      # @see Nodes::Node#word?
       def word? word = ''
         root.word? word.chars
       end
@@ -99,15 +98,14 @@ module Rambling
       # @return [Enumerator<String>] all the words in the given string that
       #   match a word in the trie.
       # @yield [String] each word found in phrase.
-      # @see Nodes::Node#words_within
       def words_within phrase
         words_within_root(phrase).to_a
       end
 
       # Checks if there are any valid words in a given string.
       # @param [String] phrase the string to look for matching words in.
-      # @return [Boolean] `true` if any word within phrase is contained in the
-      #   trie, `false` otherwise.
+      # @return [Boolean] +true+ if any word within phrase is contained in the
+      #   trie, +false+ otherwise.
       # @see Container#words_within
       def words_within? phrase
         words_within_root(phrase).any?
@@ -161,8 +159,8 @@ module Rambling
 
       # Indicates if the root {Nodes::Node Node} can be
       # compressed or not.
-      # @return [Boolean] `true` for non-{Nodes::Node#terminal? terminal}
-      #    nodes with one child, `false` otherwise.
+      # @return [Boolean] +true+ for non-{Nodes::Node#terminal? terminal}
+      #    nodes with one child, +false+ otherwise.
       def compressed?
         root.compressed?
       end
