@@ -23,6 +23,8 @@ module Rambling
             yield word
           end
         end
+
+        self
       end
     end
   end
