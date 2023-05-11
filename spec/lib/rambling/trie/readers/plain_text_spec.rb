@@ -14,5 +14,13 @@ describe Rambling::Trie::Readers::PlainText do
       reader.each_word(filepath) { |word| yielded << word }
       expect(yielded).to eq words
     end
+
+    it 'returns an enumerator when no block is given' do
+      expect(reader.each_word filepath).to be_an Enumerator
+    end
+
+    it 'returns the enumerable when a block is given' do
+      expect(reader.each_word(filepath) { |_| }).to eq reader
+    end
   end
 end

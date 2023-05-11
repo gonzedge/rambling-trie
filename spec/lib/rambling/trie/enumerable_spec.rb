@@ -11,8 +11,8 @@ module Rambling
       before { add_words node, words }
 
       describe '#each' do
-        it 'returns an enumerator' do
-          expect(node.each).to be_a Enumerator
+        it 'returns an enumerator when no block is given' do
+          expect(node.each).to be_an Enumerator
         end
 
         it 'has the same word count as the trie' do
@@ -21,6 +21,10 @@ module Rambling
 
         it 'includes every word contained in the trie' do
           node.each { |word| expect(words).to include word }
+        end
+
+        it 'returns the enumerable when a block is given' do
+          expect(node.each { |_| }).to eq node
         end
       end
 
