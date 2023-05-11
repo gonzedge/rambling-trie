@@ -43,21 +43,14 @@ end
 def compare_pop_shift_slice
   compare do |bm|
     a = []
+    bm.report('push') { a.push 1 }
+    bm.report('pop') { a.pop }
 
-    bm.report 'push/pop' do
-      a.push 1
-      a.pop
-    end
+    bm.report('unshift') { a.unshift 1 }
+    bm.report('shift') { a.shift }
 
-    bm.report 'unshift/shift' do
-      a.unshift 1
-      a.shift
-    end
-
-    bm.report 'shovel(<<)/slice!(0)' do
-      a << 1
-      a.slice! 0
-    end
+    bm.report('shovel(<<)') { a << 1 }
+    bm.report('slice!(0)') { a.slice! 0 }
   end
 end
 
