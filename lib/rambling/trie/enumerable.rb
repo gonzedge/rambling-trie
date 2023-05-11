@@ -13,6 +13,7 @@ module Rambling
 
       # Iterates over the words contained in the trie.
       # @yield [String] the words contained in this trie node.
+      # @return [self]
       def each
         return enum_for :each unless block_given?
 

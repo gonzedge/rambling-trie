@@ -9,14 +9,14 @@ module Rambling
         # trying to add a word to the current compressed trie node
         # @param [String] _ the word to add to the trie.
         # @raise [InvalidOperation] if the trie is already compressed.
-        # @return [nil] this never returns as it always raises an exception.
+        # @return [void]
         def add _
           raise Rambling::Trie::InvalidOperation,
             'Cannot add word to compressed trie'
         end
 
-        # Always return `true` for a compressed node.
-        # @return [Boolean] always `true` for a compressed node.
+        # Always return +true+ for a compressed node.
+        # @return [Boolean] always +true+ for a compressed node.
         def compressed?
           true
         end

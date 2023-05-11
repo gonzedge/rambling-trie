@@ -17,8 +17,8 @@ module Rambling
           end
         end
 
-        # Always return `false` for a raw (uncompressed) node.
-        # @return [Boolean] always `false` for a raw (uncompressed) node.
+        # Always return +false+ for a raw (uncompressed) node.
+        # @return [Boolean] always +false+ for a raw (uncompressed) node.
         def compressed?
           false
         end
