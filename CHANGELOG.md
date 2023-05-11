@@ -1,5 +1,71 @@
 ## 2.3.1 [compare][compare_v2_3_0_and_master]
 
+- Fix `Rambling::Trie.load` docs in README by [@gonzedge][github_user_gonzedge]
+- Destructure args hash before passing to performance rake task by [@gonzedge][github_user_gonzedge]
+- Update copyright years by [@gonzedge][github_user_gonzedge]
+- Attempt to clear gem version badge being cached by GitHub (?) by [@gonzedge][github_user_gonzedge]
+- Migrate from TravisCI to SemaphoreCI by [@gonzedge][github_user_gonzedge]
+- Be more lax with file size tests ([#26][github_pull_26]) by [@gonzedge][github_user_gonzedge]
+- Add missing `compress!` in container spec ([#25][github_pull_25]) by [@gonzedge][github_user_gonzedge]
+  - To actually test the non-matching tree shared example for compressed tries.
+- Upgrade RuboCop and apply new rules ([#24][github_pull_24]) by [@gonzedge][github_user_gonzedge]
+  - Issues found in `lib/` and `tasks/`
+    1. Explicitly disable `Style/ExplicitBlockArgument` due to resulting performance hits
+    2. Add missing `super`s
+    3. Yoda-style conditionals
+    4. Bump target ruby required version to current min supported (`2.7.0`)
+  - Issues found in `spec/`
+    1. Use `instance_double` instead of `double`
+    2. Split tests into single-assertion specs when parameterization is possible; disable otherwise
+    3. Use `let!` instead of instance variables
+    4. Remove duplicate test groups
+    5. Use `when` at the start of `context` block descriptions
+    6. Use `described_class`, `subject` in specs where possible
+    7. Single-line `before` where possible
+  - Other
+    1. Explicitly add `rubocop-performance`, `rubocop-rake`, `rubocop-rspec` plugins
+    2. Remove unused `Rails` rules
+    3. Remove unused/deprecated `RSpec`/`Layout`/`Style`/`Lint` rules
+- More thorough serializer tests ([#28][github_pull_28]) by [@gonzedge][github_user_gonzedge]
+  - Realized that, except for one integration test, we were not testing compressed tries being serialized so added some
+    more specific use cases. Also took the chance to expand the zip serializer spec to handle all formats.
+- Update badges, CI and test/coverage reporting ([#29][github_pull_29]) by [@gonzedge][github_user_gonzedge]
+  - Correctly configure main task to publish test report, now being picked up by Semaphore
+  - On badges:
+    - Change `README.md` to have one badge per line instead of all in one giant line
+    - Add RubyGems downloads badge
+    - Add CodeClimate issues badge
+    - Update docs badge to point directly to [rubydoc.info/gems/rambling-trie][rubydoc]
+    - Update license badge to one from shields.io
+- Use GitHub Actions for main branch and PR checks ([#30][github_pull_30], [#31][github_pull_31], [#32][github_pull_32])
+  by [@gonzedge][github_user_gonzedge]
+  - Run `build` action with `lint` for `rubocop`, `spec` for `rspec`, `coverage` for `coveralls`
+  - Run `codeql` action
+  - Run `dependency-review` action only on pull requests
+- Reduce semaphore config to latest ruby ([#33][github_pull_33]) by [@gonzedge][github_user_gonzedge]
+  - Now, we only care about top-level pass/fail for badge reporting. All other tests are run with GitHub Actions.
+- Rename GitHub Actions and steps for better badges ([#34][github_pull_34]) by [@gonzedge][github_user_gonzedge]
+  - Plus reformat badges at top of `README.md`.
+- Add CodeClimate coverage step to build GH action ([#35][github_pull_35]) by [@gonzedge][github_user_gonzedge]
+  - Do things differently for coveralls and code climate
+  - Use correct shared example for `words_within?` on compressed tries
+- Ensure all serializer `#dump` methods return the size of the file ([#36][github_pull_36]) by [@gonzedge][github_user_gonzedge]
+  - Add test in `a serializer` shared examples
+  - Implement method for `Rambling::Trie::Serializers::Zip`
+- Ensure `#each`/`#each_word` return `Enumerator`/`self` ([#37][github_pull_37]) by [@gonzedge][github_user_gonzedge]
+  - … depending on whether a block is given or not.
+- Improve API documentation ([#38][github_pull_38]) by [@gonzedge][github_user_gonzedge]
+  - Add `Readers::Reader` and `Serializer::Serializer` base classes
+  - Make all readers/serializers extend from their corresponding base classes
+  - Better docs with `Reader`/`Serializer` and generics
+  - Fix all code blocks from `\`` to `+` and add some more
+  - Add `@return [void]` where appropriate
+  - Add `@return [self]` where appropriate
+  - Fix `Nodes::Node` duplicate and broken references
+  - Fix some typos and add some missing periods
+- Add explicit changelog and docs urls to `.gemspec` ([#39][github_pull_39]) by [@gonzedge][github_user_gonzedge]
+  - Update `CHANGELOG.md` with latest changes
+
 ## 2.3.0 [compare][compare_v2_2_1_and_v2_3_0]
 
 - Don't use `YAML.safe_load`'s legacy API by [@KitaitiMakoto][github_user_kitaitimakoto]
@@ -25,7 +91,7 @@
 
 ## 2.1.1 [compare][compare_v2_1_0_and_v2_1_1]
 
-- Change `slice!` to `shift` by [@shinjiikeda][github_user_shinjiikeda]
+- Change `slice!` to `shift` (#16) by [@shinjiikeda][github_user_shinjiikeda]
 - Frozen string issue fix by [@godsent][github_user_godsent]
 - Drop Ruby 2.4.x; add 2.7 and updated 2.6.x/2.5.x support by [@gonzedge][github_user_gonzedge]
 - Be more flexible with file sizes for zip file test by [@gonzedge][github_user_gonzedge]
@@ -869,6 +935,30 @@ Most of these help with the gem's overall performance.
 [github_issue_09]: https://github.com/gonzedge/rambling-trie/issues/9
 [github_issue_10]: https://github.com/gonzedge/rambling-trie/issues/10
 [github_issue_11]: https://github.com/gonzedge/rambling-trie/issues/11
+[github_pull_16]: https://github.com/gonzedge/rambling-trie/pull/16
+[github_pull_17]: https://github.com/gonzedge/rambling-trie/pull/17
+[github_pull_18]: https://github.com/gonzedge/rambling-trie/pull/18
+[github_pull_19]: https://github.com/gonzedge/rambling-trie/pull/19
+[github_pull_20]: https://github.com/gonzedge/rambling-trie/pull/20
+[github_pull_21]: https://github.com/gonzedge/rambling-trie/pull/21
+[github_pull_22]: https://github.com/gonzedge/rambling-trie/pull/22
+[github_pull_23]: https://github.com/gonzedge/rambling-trie/pull/23
+[github_pull_24]: https://github.com/gonzedge/rambling-trie/pull/24
+[github_pull_25]: https://github.com/gonzedge/rambling-trie/pull/25
+[github_pull_26]: https://github.com/gonzedge/rambling-trie/pull/26
+[github_pull_27]: https://github.com/gonzedge/rambling-trie/pull/27
+[github_pull_28]: https://github.com/gonzedge/rambling-trie/pull/28
+[github_pull_29]: https://github.com/gonzedge/rambling-trie/pull/29
+[github_pull_30]: https://github.com/gonzedge/rambling-trie/pull/30
+[github_pull_31]: https://github.com/gonzedge/rambling-trie/pull/31
+[github_pull_32]: https://github.com/gonzedge/rambling-trie/pull/32
+[github_pull_33]: https://github.com/gonzedge/rambling-trie/pull/33
+[github_pull_34]: https://github.com/gonzedge/rambling-trie/pull/34
+[github_pull_35]: https://github.com/gonzedge/rambling-trie/pull/35
+[github_pull_36]: https://github.com/gonzedge/rambling-trie/pull/36
+[github_pull_37]: https://github.com/gonzedge/rambling-trie/pull/37
+[github_pull_38]: https://github.com/gonzedge/rambling-trie/pull/38
+[github_pull_39]: https://github.com/gonzedge/rambling-trie/pull/39
 [github_user_agate]: https://github.com/agate
 [github_user_as181920]: https://github.com/as181920
 [github_user_godsent]: https://github.com/godsent
@@ -877,3 +967,4 @@ Most of these help with the gem's overall performance.
 [github_user_lilibethdlc]: https://github.com/lilibethdlc
 [github_user_shinjiikeda]: https://github.com/shinjiikeda
 [ruby_bug_13111]: https://bugs.ruby-lang.org/issues/13111
+[rubydoc]: http://rubydoc.info/gems/rambling-trie

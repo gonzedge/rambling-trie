@@ -15,6 +15,10 @@ Gem::Specification.new do |gem|
   gem.summary = 'A Ruby implementation of the trie data structure.'
   gem.homepage = 'http://github.com/gonzedge/rambling-trie'
   gem.date = Time.now.strftime '%Y-%m-%d'
+  gem.metadata = {
+    'changelog_uri' => 'https://github.com/gonzedge/rambling-trie/blob/master/CHANGELOG.md',
+    'documentation_uri' => 'https://www.rubydoc.info/gems/rambling-trie',
+  }
 
   executables = `git ls-files -- bin/*`.split "\n"
   files = `git ls-files -- {lib,*file,*.gemspec,LICENSE*,README*}`.split "\n"
