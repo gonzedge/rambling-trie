@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'benchmark/ips'
-
 namespace :ips do
   task :pop_shift_slice do
     compare_pop_shift_slice
@@ -33,6 +31,7 @@ namespace :ips do
 end
 
 def compare
+  require 'benchmark/ips'
   Benchmark.ips do |bm|
     yield bm
 
