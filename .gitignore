@@ -1,6 +1,7 @@
-# Vim
+# Vim / IDEs
 *.swp
 *.swo
+.idea/
 
 # RVM
 .rvmrc
