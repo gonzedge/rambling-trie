@@ -3,23 +3,23 @@
 module Rambling
   module Trie
     module Serializers
-      # Basic file serializer. Dumps/loads string contents from files.
-      class File < Serializer
+      # Base class for all serializers.
+      class Serializer
         # Loads contents from a specified filepath.
+        # @abstract Subclass and override {#load} to parse the desired format.
         # @param [String] filepath the filepath to load contents from.
-        # @return [String] all contents of the file.
+        # @return [TContents] parsed contents from given file.
         def load filepath
-          ::File.read filepath
+          raise NotImplementedError
         end
 
         # Dumps contents into a specified filepath.
-        # @param [String] contents the contents to dump.
+        # @abstract Subclass and override {#dump} to output the desired format.
+        # @param [TContents] contents the contents to dump into given file.
         # @param [String] filepath the filepath to dump the contents to.
         # @return [Numeric] number of bytes written to disk.
         def dump contents, filepath
-          ::File.open filepath, 'w+' do |f|
-            f.write contents
-          end
+          raise NotImplementedError
         end
       end
     end

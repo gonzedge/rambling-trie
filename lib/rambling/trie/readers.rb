@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-%w(plain_text).each do |file|
+%w(reader plain_text).each do |file|
   require File.join('rambling', 'trie', 'readers', file)
 end
 

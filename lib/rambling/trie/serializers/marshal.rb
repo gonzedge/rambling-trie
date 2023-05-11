@@ -3,13 +3,14 @@
 module Rambling
   module Trie
     module Serializers
-      # Serializer for Ruby marshal format (.marshal) files.
-      class Marshal
+      # Serializer for Ruby marshal format (+.marshal+) files.
+      class Marshal < Serializer
         # Creates a new Marshal serializer.
         # @param [Serializer] serializer the serializer responsible to write to
         #   and read from disk.
         def initialize serializer = nil
           @serializer = serializer || Rambling::Trie::Serializers::File.new
+          super()
         end
 
         # Loads marshaled object from contents in filepath and deserializes it

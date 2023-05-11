@@ -10,12 +10,12 @@ end
 
 # General namespace for all Rambling gems.
 module Rambling
-  # Entry point for rambling-trie API.
+  # Entry point for +rambling-trie+ API.
   module Trie
     class << self
-      # Creates a new Rambling::Trie. Entry point for the Rambling::Trie API.
+      # Creates a new +Rambling::Trie+. Entry point for the +rambling-trie+ API.
       # @param [String, nil] filepath the file to load the words from.
-      # @param [Reader, nil] reader the file parser to get each word.
+      # @param [Readers::Reader, nil] reader the file parser to get each word.
       # @return [Container] the trie just created.
       # @yield [Container] the trie just created.
       # @see Rambling::Trie::Readers Readers.
@@ -36,7 +36,7 @@ module Rambling
 
       # Loads an existing trie from disk into memory. By default, it will
       # deduce the correct way to deserialize based on the file extension.
-      # Available formats are `yml`, `marshal`, and `zip` versions of all the
+      # Available formats are +yml+, +marshal+, and +zip+ versions of all the
       # previous formats. You can also define your own.
       # @param [String] filepath the file to load the words from.
       # @param [Serializer, nil] serializer the object responsible of loading
@@ -46,7 +46,7 @@ module Rambling
       # @see Rambling::Trie::Serializers Serializers.
       # @note Use of
       #   {https://ruby-doc.org/core-2.7.0/Marshal.html#method-c-load
-      #   Marshal.load} is generally discouraged. Only use the `.marshal`
+      #   Marshal.load} is generally discouraged. Only use the +.marshal+
       #   format with trusted input.
       def load filepath, serializer = nil
         serializer ||= serializers.resolve filepath
@@ -58,19 +58,21 @@ module Rambling
 
       # Dumps an existing trie from memory into disk. By default, it will
       # deduce the correct way to serialize based on the file extension.
-      # Available formats are `yml`, `marshal`, and `zip` versions of all the
+      # Available formats are +yml+, +marshal+, and +zip+ versions of all the
       # previous formats. You can also define your own.
       # @param [Container] trie the trie to dump into disk.
       # @param [String] filepath the file to dump to serialized trie into.
-      # @param [Serializer, nil] serializer the object responsible of
+      # @param [Serializers::Serializer, nil] serializer the object responsible
+      #   for trie serialization.
+      # @return [void]
       #   serializing and dumping the trie into disk.
-      # @see Rambling::Trie::Serializers Serializers.
+      # @see Serializers Serializers.
       def dump trie, filepath, serializer = nil
         serializer ||= serializers.resolve filepath
         serializer.dump trie.root, filepath
       end
 
-      # Provides configuration properties for the Rambling::Trie gem.
+      # Provides configuration properties for the +Rambling::Trie+ gem.
       # @return [Configuration::Properties] the configured properties of the
       #   gem.
       # @yield [Configuration::Properties] the configured properties of the

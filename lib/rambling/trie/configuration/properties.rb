@@ -6,26 +6,26 @@ module Rambling
       # Provides configurable properties for Rambling::Trie.
       class Properties
         # The configured {Readers Readers}.
-        # @return [ProviderCollection] the mapping of configured {Readers
-        #   Readers}.
+        # @return [ProviderCollection<Readers::Reader>] the mapping of
+        #   configured {Readers Readers}.
         attr_reader :readers
 
         # The configured {Serializers Serializers}.
-        # @return [ProviderCollection] the mapping of configured {Serializers
-        #   Serializers}.
+        # @return [ProviderCollection<Serializers::Serializer>] the mapping of
+        #   configured {Serializers Serializers}.
         attr_reader :serializers
 
         # The configured {Compressor Compressor}.
         # @return [Compressor] the configured compressor.
         attr_accessor :compressor
 
-        # The configured root_builder, which should return a {Nodes::Node Node}
-        #   when called.
-        # @return [Proc<Nodes::Node>] the configured root_builder.
+        # The configured +root_builder+, which returns a {Nodes::Node Node}
+        # when called.
+        # @return [Proc<Nodes::Node>] the configured +root_builder+.
         attr_accessor :root_builder
 
-        # The configured tmp_path, which will be used for throwaway files.
-        # @return [String] the configured tmp_path.
+        # The configured +tmp_path+, which will be used for throwaway files.
+        # @return [String] the configured +tmp_path+.
         attr_accessor :tmp_path
 
         # Returns a new properties instance.
@@ -34,6 +34,7 @@ module Rambling
         end
 
         # Resets back to default properties.
+        # @return [void]
         def reset
           reset_readers
           reset_serializers

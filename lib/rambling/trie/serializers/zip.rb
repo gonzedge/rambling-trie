@@ -3,20 +3,22 @@
 module Rambling
   module Trie
     module Serializers
-      # Zip file serializer. Dumps/loads contents from zip files. Automatically
-      # detects if zip file contains `.marshal` or `.yml` file
-      class Zip
+      # Zip file serializer. Dumps/loads contents from +.zip+ files.
+      # Automatically detects if zip file contains a +.marshal+ or +.yml+ file,
+      # or any other registered +:format => serializer+ combo.
+      class Zip < Serializer
         # Creates a new Zip serializer.
         # @param [Configuration::Properties] properties the configuration
         #   properties set up so far.
         def initialize properties
           @properties = properties
+          super()
         end
 
         # Unzip contents from specified filepath and load in contents from
         # unzipped files.
         # @param [String] filepath the filepath to load contents from.
-        # @return [String] all contents of the unzipped loaded file.
+        # @return [TContents] all contents of the unzipped loaded file.
         # @see https://github.com/rubyzip/rubyzip#reading-a-zip-file Zip
         #   reading a file
         def load filepath
@@ -35,7 +37,7 @@ module Rambling
         # Dumps contents and zips into a specified filepath.
         # @param [String] contents the contents to dump.
         # @param [String] filepath the filepath to dump the contents to.
-        # @return [Numeric] number of bytes written to disk.
+        # @return [TContents] number of bytes written to disk.
         # @see https://github.com/rubyzip/rubyzip#basic-zip-archive-creation
         #   Zip archive creation
         def dump contents, filepath
