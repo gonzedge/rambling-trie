@@ -38,8 +38,9 @@ module Rambling
         # Adds a new provider to the provider collection.
         # @param [Symbol] extension the extension that the provider will
         #   correspond to.
-        # @param [provider] provider the provider to add to the provider
+        # @param [TProvider] provider the provider to add to the provider
         #   collection.
+        # @return [TProvider] the provider just added.
         def add extension, provider
           providers[extension] = provider
         end
