@@ -69,6 +69,7 @@ module Rambling
         end
 
         # Resets the provider collection to the initial values.
+        # @return [void]
         def reset
           providers.clear
           configured_providers.each { |k, v| self[k] = v }

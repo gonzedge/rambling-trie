@@ -34,6 +34,7 @@ module Rambling
         end
 
         # Resets back to default properties.
+        # @return [void]
         def reset
           reset_readers
           reset_serializers
