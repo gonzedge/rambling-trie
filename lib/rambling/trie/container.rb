@@ -13,7 +13,7 @@ module Rambling
       # Creates a new trie.
       # @param [Nodes::Node] root the root node for the trie
       # @param [Compressor] compressor responsible for compressing the trie
-      # @yield [Container] the trie just created.
+      # @yield [self] the trie just initialized.
       def initialize root, compressor
         @root = root
         @compressor = compressor
@@ -44,7 +44,7 @@ module Rambling
       # Compresses the existing trie using redundant node elimination. Marks
       # the trie as compressed. Does nothing if the trie has already been
       # compressed.
-      # @return [Container] self
+      # @return [self]
       # @note This method replaces the root {Nodes::Raw Raw} node with a
       #   {Nodes::Compressed Compressed} version of it.
       def compress!
@@ -113,13 +113,14 @@ module Rambling
 
       # Compares two trie data structures.
       # @param [Container] other the trie to compare against.
-      # @return [Boolean] `true` if the tries are equal, `false` otherwise.
+      # @return [Boolean] +true+ if the tries are equal, +false+ otherwise.
       def == other
         root == other.root
       end
 
       # Iterates over the words contained in the trie.
       # @yield [String] the words contained in this trie node.
+      # @return [self]
       def each
         return enum_for :each unless block_given?
 
