@@ -30,9 +30,7 @@ module Performance
 
         require 'benchmark'
         measure = ::Benchmark.measure do
-          iterations.times do
-            result = yield param
-          end
+          iterations.times { result = yield param }
         end
 
         output.puts result.to_s.ljust 10
