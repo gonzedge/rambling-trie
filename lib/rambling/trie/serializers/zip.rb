@@ -50,6 +50,8 @@ module Rambling
 
             zip.add filename, entry_path
           end
+
+          ::File.size filepath
         end
 
         private
