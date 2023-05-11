@@ -31,7 +31,7 @@ module Rambling
         attr_accessor :parent
 
         # Creates a new node.
-        # @param [Symbol, nil] letter the Node's letter value
+        # @param [Symbol, nil] letter the Node's letter value.
         # @param [Node, nil] parent the parent of the current node.
         def initialize letter = nil, parent = nil, children_tree = {}
           @letter = letter
@@ -40,7 +40,7 @@ module Rambling
         end
 
         # Child nodes.
-        # @return [Array<Node>] the array of children nodes contained
+        # @return [Array<Node>] the array of child nodes contained
         #   in the current node.
         def children
           children_tree.values
@@ -156,7 +156,7 @@ module Rambling
         end
 
         # Delete a given letter and its corresponding {Node Node} from
-        #   this {Node Node}'s children tree.
+        # this {Node Node}'s children tree.
         # @param [Symbol] letter the letter to delete from the node's children
         #   tree.
         # @return [Node] the node corresponding to the deleted letter.
