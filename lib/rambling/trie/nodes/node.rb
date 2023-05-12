@@ -70,7 +70,7 @@ module Rambling
         end
 
         # Mark {Node Node} as terminal.
-        # @return [Node] the modified node.
+        # @return [self] the modified node.
         def terminal!
           self.terminal = true
           self

@@ -1,16 +1,16 @@
 ## Contributing to Rambling Trie
 
 1. If you have found a bug or have a feature request, please [search through the issues][github_issues_all] to see if it has already been reported. If that's not the case, then [create a new one][github_issues_new] with a full description of what you have found or what you need.
-1. If you have bug fix or a feature implementation in mind, then [fork Rambling Trie][github_fork] and create a branch with a descriptive name.
-1. Get the gem up and running locally (tests are written in RSpec):
+2. If you have bug fix or a feature implementation in mind, then [fork Rambling Trie][github_fork] and create a branch with a descriptive name.
+3. Get the gem up and running locally (tests are written in RSpec):
 
     ```sh
     bundle install
     rake
     ```
 
-1. Implement your bug fix or feature - ***make sure to add tests!***
-1. [Make a Pull Request][github_pull_request]
+4. Implement your bug fix or feature - ***make sure to add tests!***
+5. [Make a Pull Request][github_pull_request]
 
     Before doing so:
 
