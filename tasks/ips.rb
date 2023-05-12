@@ -12,7 +12,7 @@ namespace :ips do
   end
 
   task :hash_has_key_or_direct do
-    compare_hash_has_key_with_square_brackets
+    compare_has_key_with_square_brackets
   end
 
   task :attr_accessor_vs_def_method do
@@ -83,20 +83,20 @@ def compare_symbols_with_array_hash_keys
   end
 end
 
-def compare_hash_has_key_with_square_brackets
+def compare_has_key_with_square_brackets
   compare do |bm|
-    hash = { 'thing' => 'gniht' }
+    hash = { thing: 'gniht' }
 
     bm.report 'key?' do
-      hash.key? 'thing'
+      hash.key? :thing
     end
 
     bm.report 'has_key?' do
-      hash.has_key? 'thing'
+      hash.has_key? :thing
     end
 
     bm.report '[]' do
-      !!hash['thing']
+      !!hash[:thing]
     end
   end
 end
