@@ -6,6 +6,26 @@ require 'zip'
 describe Rambling::Trie do
   let(:assets_path) { File.join ::SPEC_ROOT, 'assets' }
 
+  describe '::VERSION' do
+    let(:root_path) { File.join ::SPEC_ROOT, '..' }
+    let(:readme_path) { File.join root_path, 'README.md' }
+    let(:readme) { File.read readme_path }
+    let(:changelog_path) { File.join root_path, 'CHANGELOG.md' }
+    let(:changelog) { File.read changelog_path }
+
+    it 'matches with the version in the README badge' do
+      match = %r{\?version=(?<version>.*)$}.match readme
+      expect(match['version']).to eq Rambling::Trie::VERSION
+    end
+
+    it 'is the version before the latest one in the CHANGELOG' do
+      match = %r{(?<version>\d+\.\d+\.\d+)}.match changelog.split("\n")[0]
+      changelog_version = Gem::Version.new match['version']
+      lib_version = Gem::Version.new Rambling::Trie::VERSION
+      expect(changelog_version).to be_between(lib_version, lib_version.bump).exclusive
+    end
+  end
+
   context 'when providing words directly' do
     it_behaves_like 'a compressible trie' do
       let(:trie) { described_class.create }
