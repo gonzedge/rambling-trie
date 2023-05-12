@@ -14,15 +14,11 @@ module Performance
         FileUtils.mkdir_p dirpath
 
         require 'ruby-prof'
-        result = RubyProf.profile merge_fibers: true do
-          params.each do |param|
-            iterations.times do
-              yield param
-            end
-          end
-        end
+        profile = RubyProf::Profile.new
+        profile.profile { params.each { |p| iterations.times { yield p } } }
+        profile.merge!
 
-        printer = RubyProf::CallTreePrinter.new result
+        printer = RubyProf::CallTreePrinter.new profile
         printer.print path: dirpath
       end
 
