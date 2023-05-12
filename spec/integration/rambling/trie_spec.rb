@@ -6,6 +6,34 @@ require 'zip'
 describe Rambling::Trie do
   let(:assets_path) { File.join ::SPEC_ROOT, 'assets' }
 
+  describe '::VERSION' do
+    let(:root_path) { File.join ::SPEC_ROOT, '..' }
+    let(:readme_path) { File.join root_path, 'README.md' }
+    let(:readme) { File.read readme_path }
+    let(:changelog_path) { File.join root_path, 'CHANGELOG.md' }
+    let(:changelog) { File.read changelog_path }
+
+    it 'matches with the version in the README badge' do
+      match = %r{\?version=(?<version>.*)$}.match readme
+      expect(match['version']).to eq Rambling::Trie::VERSION
+    end
+
+    it 'is the version before the one at the top of the CHANGELOG' do
+      match = %r{## (?<version>\d+\.\d+\.\d+)}.match changelog.split("\n")[0]
+      changelog_version = Gem::Version.new match['version']
+      lib_version = Gem::Version.new "#{Rambling::Trie::VERSION}.0"
+      expect(changelog_version).to eq lib_version.bump
+    end
+
+    it 'is included in the CHANGELOG diffs' do
+      matches = Set.new
+      changelog.scan %r{^## (\d+\.\d+\.\d+)} do |match|
+        matches << match[0]
+      end
+      expect(matches).to include Rambling::Trie::VERSION
+    end
+  end
+
   context 'when providing words directly' do
     it_behaves_like 'a compressible trie' do
       let(:trie) { described_class.create }
