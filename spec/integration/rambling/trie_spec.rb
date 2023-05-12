@@ -18,7 +18,7 @@ describe Rambling::Trie do
   context 'when provided with words with unicode characters' do
     it_behaves_like 'a compressible trie' do
       let(:trie) { described_class.create }
-      let(:words) do
+      let :words do
         %w(poquísimas palabras para nuestra prueba de integración completa 🙃)
       end
 
@@ -50,14 +50,14 @@ describe Rambling::Trie do
     context 'when serialized with Ruby marshal format (default)' do
       it_behaves_like 'a serializable trie' do
         let(:trie_to_serialize) { described_class.create words_filepath }
-        let(:format) { :marshal }
+        let(:file_format) { :marshal }
       end
     end
 
     context 'when serialized with YAML' do
       it_behaves_like 'a serializable trie' do
         let(:trie_to_serialize) { described_class.create words_filepath }
-        let(:format) { :yml }
+        let(:file_format) { :yml }
       end
     end
 
@@ -77,7 +77,7 @@ describe Rambling::Trie do
 
       it_behaves_like 'a serializable trie' do
         let(:trie_to_serialize) { described_class.create words_filepath }
-        let(:format) { 'marshal.zip' }
+        let(:file_format) { 'marshal.zip' }
       end
     end
   end

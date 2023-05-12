@@ -72,7 +72,7 @@ shared_examples_for 'a trie node' do
   end
 
   describe 'delegates and aliases' do
-    let(:children_tree) do
+    let :children_tree do
       instance_double(
         'Hash',
         :children_tree,

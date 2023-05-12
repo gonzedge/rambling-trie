@@ -27,7 +27,7 @@ RSpec.configure do |config|
   config.tty = true
   config.formatter = :documentation
   config.order = :random
-  config.run_all_when_everything_filtered = true
+  config.filter_run_when_matching :focus
   config.raise_errors_for_deprecations!
 end
 

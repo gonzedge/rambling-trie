@@ -5,6 +5,12 @@ require 'spec_helper'
 describe Rambling::Trie::Nodes::Raw do
   let(:node) { described_class.new }
 
+  describe '#new' do
+    it 'is not a word' do
+      expect(node).not_to be_word
+    end
+  end
+
   it_behaves_like 'a trie node implementation' do
     def add_word_to_tree word
       add_word node, word
@@ -16,10 +22,6 @@ describe Rambling::Trie::Nodes::Raw do
 
     def assign_letter letter
       node.letter = letter
-    end
-
-    it 'is not a word' do
-      expect(node).not_to be_word
     end
   end
 

@@ -171,7 +171,7 @@ describe Rambling::Trie::Container do
 
   describe '#word?' do
     it_behaves_like 'a propagating node' do
-      let(:method) { :word? }
+      let(:method_name) { :word? }
     end
 
     context 'when word is contained' do
@@ -202,7 +202,7 @@ describe Rambling::Trie::Container do
   describe '#partial_word?' do
     context 'with underlying node' do
       it_behaves_like 'a propagating node' do
-        let(:method) { :partial_word? }
+        let(:method_name) { :partial_word? }
       end
     end
 
@@ -329,7 +329,7 @@ describe Rambling::Trie::Container do
 
   describe '#==' do
     context 'when the root nodes are the same' do
-      let(:other_container) do
+      let :other_container do
         described_class.new container.root, compressor
       end
 
@@ -340,7 +340,7 @@ describe Rambling::Trie::Container do
 
     context 'when the root nodes are not the same' do
       let(:other_root) { Rambling::Trie::Nodes::Raw.new }
-      let(:other_container) do
+      let :other_container do
         described_class.new other_root, compressor
       end
 
