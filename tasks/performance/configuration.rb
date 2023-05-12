@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
 require_relative '../helpers/trie'
-require_relative '../helpers/gc'
+require_relative '../helpers/garbage_collection'
 require_relative 'sub_tasks'
 require_relative 'reporters'
 
 module Performance
   class Configuration
-    include Helpers::GC
+    include Helpers::GarbageCollection
 
     def get type, method
       type ||= 'all'
