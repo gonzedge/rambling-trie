@@ -23,8 +23,10 @@ module Rambling
         root = root_builder.call
 
         Rambling::Trie::Container.new root, compressor do |container|
+          # noinspection RubyMismatchedArgumentType
           if filepath
             reader ||= readers.resolve filepath
+            # noinspection RubyMismatchedArgumentType,RubyNilAnalysis
             reader.each_word filepath do |word|
               container << word
             end
@@ -69,6 +71,7 @@ module Rambling
       # @see Serializers Serializers.
       def dump trie, filepath, serializer = nil
         serializer ||= serializers.resolve filepath
+        # noinspection RubyNilAnalysis
         serializer.dump trie.root, filepath
       end
 

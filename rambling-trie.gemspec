@@ -5,7 +5,7 @@ require 'rambling/trie/version'
 
 Gem::Specification.new do |gem|
   gem.authors = ['Edgar Gonzalez', 'Lilibeth De La Cruz']
-  gem.email = ['edggonzalezg@gmail.com', 'lilibethdlc@gmail.com']
+  gem.email = %w(edggonzalezg@gmail.com lilibethdlc@gmail.com)
 
   gem.description = <<~DESCRIPTION.gsub(%r{\s+}, ' ')
     The Rambling Trie is a Ruby implementation of the trie data structure, which
@@ -13,7 +13,7 @@ Gem::Specification.new do |gem|
   DESCRIPTION
 
   gem.summary = 'A Ruby implementation of the trie data structure.'
-  gem.homepage = 'http://github.com/gonzedge/rambling-trie'
+  gem.homepage = 'https://github.com/gonzedge/rambling-trie'
   gem.date = Time.now.strftime '%Y-%m-%d'
   gem.metadata = {
     'changelog_uri' => 'https://github.com/gonzedge/rambling-trie/blob/master/CHANGELOG.md',
