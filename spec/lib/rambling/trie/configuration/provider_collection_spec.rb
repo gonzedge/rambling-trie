@@ -4,18 +4,18 @@ require 'spec_helper'
 
 describe Rambling::Trie::Configuration::ProviderCollection do
   let(:configured_default) { nil }
-  let(:configured_providers) do
+  let :configured_providers do
     { one: first_provider, two: second_provider }
   end
 
-  let(:first_provider) do
+  let :first_provider do
     instance_double 'Rambling::Trie::Serializers::Marshal', :first_provider
   end
-  let(:second_provider) do
+  let :second_provider do
     instance_double 'Rambling::Trie::Serializers::Marshal', :second_provider
   end
 
-  let(:provider_collection) do
+  let :provider_collection do
     described_class.new(
       :provider,
       configured_providers,
@@ -72,7 +72,7 @@ describe Rambling::Trie::Configuration::ProviderCollection do
   end
 
   describe '#add' do
-    let(:provider) do
+    let :provider do
       instance_double 'Rambling::Trie::Serializers::Marshal', :provider
     end
 
@@ -86,7 +86,7 @@ describe Rambling::Trie::Configuration::ProviderCollection do
   end
 
   describe '#default=' do
-    let(:other_provider) do
+    let :other_provider do
       instance_double 'Rambling::Trie::Serializers::Marshal', :other_provider
     end
 
@@ -155,7 +155,7 @@ describe Rambling::Trie::Configuration::ProviderCollection do
 
   describe '#reset' do
     let(:configured_default) { second_provider }
-    let(:provider) do
+    let :provider do
       instance_double 'Rambling::Trie::Serializers::Marshal', :provider
     end
 

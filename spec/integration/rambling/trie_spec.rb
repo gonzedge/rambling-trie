@@ -18,7 +18,7 @@ describe Rambling::Trie do
   context 'when provided with words with unicode characters' do
     it_behaves_like 'a compressible trie' do
       let(:trie) { described_class.create }
-      let(:words) do
+      let :words do
         %w(poquísimas palabras para nuestra prueba de integración completa 🙃)
       end
 

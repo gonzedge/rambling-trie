@@ -24,7 +24,7 @@ shared_examples_for 'a propagating node' do
     compressed_value, instance_double_class = test_params
 
     context "when root has compressed=#{compressed_value}" do
-      let(:root) do
+      let :root do
         instance_double(
           instance_double_class,
           :root,
