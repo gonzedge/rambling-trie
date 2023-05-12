@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Helpers
-  module GC
+  module GarbageCollection
     def with_gc_stats name = nil
       puts "Live objects before #{name} - #{::GC.stat[:heap_live_slots]}"
       yield
