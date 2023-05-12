@@ -171,7 +171,7 @@ Most of these help with the gem's overall performance.
 - Define delegate methods explicitly and remove dependency on `Forwardable` by [@gonzedge][github_user_gonzedge]
 - Reverse char array and use `#pop` instead of slice when adding a word by [@gonzedge][github_user_gonzedge]
 - Pull `#scan` up to `Node` by [@gonzedge][github_user_gonzedge]
-- Slightly reduce memeory for `Properties` and `ProviderCollection` classes by [@gonzedge][github_user_gonzedge]
+- Slightly reduce memory for `Properties` and `ProviderCollection` classes by [@gonzedge][github_user_gonzedge]
 - Use `#children_tree` instead of `#children` when possible by [@gonzedge][github_user_gonzedge]
 - Remove unnecessary assignment in `#letter=` by [@gonzedge][github_user_gonzedge]
 - Use `#each_value` instead of `#values`.`#each` in `Enumerable#each` by [@gonzedge][github_user_gonzedge]
@@ -345,7 +345,7 @@ Most of these help with the gem's overall performance.
   [@gonzedge][github_user_gonzedge]
 - Add missing docs by [@gonzedge][github_user_gonzedge]
 - Improvements on TravisCI setup by [@gonzedge][github_user_gonzedge]
-- Add codeclimate test coverage integration by
+- Add CodeClimate test coverage integration by
   [@gonzedge][github_user_gonzedge]
 - Move rspec config from .rspec to spec_helper by
   [@gonzedge][github_user_gonzedge]
@@ -727,7 +727,7 @@ Most of these help with the gem's overall performance.
 - Add guard to Gemfile by [@gonzedge][github_user_gonzedge]
 - Add simplecov for code coverage by [@gonzedge][github_user_gonzedge]
 - Refactor rambling-trie requires by [@gonzedge][github_user_gonzedge]
-- Remov unnecessary internal `#trie_node` by [@gonzedge][github_user_gonzedge]
+- Remove unnecessary internal `#trie_node` by [@gonzedge][github_user_gonzedge]
 - Refactor specs to "The RSpec Way" by [@gonzedge][github_user_gonzedge]
 - Add new benchmarking report info by [@gonzedge][github_user_gonzedge]
 - Update RubyDoc.info link and compression info by [@gonzedge][github_user_gonzedge]
