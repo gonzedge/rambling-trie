@@ -35,8 +35,8 @@ shared_examples_for 'a propagating node' do
       end
 
       it 'calls the root with the word characters' do
-        container.public_send method, 'words'
-        expect(root).to have_received(method).with %w(w o r d s)
+        container.public_send method_name, 'words'
+        expect(root).to have_received(method_name).with %w(w o r d s)
       end
     end
   end

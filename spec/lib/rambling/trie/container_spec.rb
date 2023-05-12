@@ -171,7 +171,7 @@ describe Rambling::Trie::Container do
 
   describe '#word?' do
     it_behaves_like 'a propagating node' do
-      let(:method) { :word? }
+      let(:method_name) { :word? }
     end
 
     context 'when word is contained' do
@@ -202,7 +202,7 @@ describe Rambling::Trie::Container do
   describe '#partial_word?' do
     context 'with underlying node' do
       it_behaves_like 'a propagating node' do
-        let(:method) { :partial_word? }
+        let(:method_name) { :partial_word? }
       end
     end
 
