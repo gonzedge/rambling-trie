@@ -5,7 +5,7 @@ shared_examples_for 'a serializer' do
 
   let(:trie) { Rambling::Trie.create }
   let(:tmp_path) { File.join ::SPEC_ROOT, 'tmp' }
-  let(:filepath) { File.join tmp_path, "trie-root.#{format}" }
+  let(:filepath) { File.join tmp_path, "trie-root.#{file_format}" }
   let(:content) { trie.root }
 
   before do
@@ -52,7 +52,9 @@ shared_examples_for 'a serializer' do
 
         it "loads a compressed=#{compress_value} object" do
           loaded = serializer.load filepath
-          expect(loaded.compressed?).to be compress_value if :file != format
+          if :file != file_format
+            expect(loaded.compressed?).to be compress_value
+          end
         end
       end
     end

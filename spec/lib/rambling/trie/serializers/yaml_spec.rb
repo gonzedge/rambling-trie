@@ -4,7 +4,7 @@ require 'spec_helper'
 
 describe Rambling::Trie::Serializers::Yaml do
   it_behaves_like 'a serializer' do
-    let(:format) { :yml }
+    let(:file_format) { :yml }
     let(:format_content) { YAML.method(:dump) }
   end
 end

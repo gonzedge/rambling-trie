@@ -28,14 +28,14 @@ describe Rambling::Trie do
 
     context 'with a filepath' do
       let(:filepath) { 'a test filepath' }
-      let(:reader) do
+      let :reader do
         instance_double 'Rambling::Trie::Readers::PlainText', :reader
       end
       let(:words) { %w(a couple of test words over here) }
 
       before do
         receive_and_yield = receive(:each_word)
-        words.inject(receive_and_yield) do |yielder, word|
+        words.inject receive_and_yield do |yielder, word|
           yielder.and_yield word
         end
 
@@ -54,7 +54,7 @@ describe Rambling::Trie do
 
     context 'without any reader' do
       let(:filepath) { 'a test filepath' }
-      let(:reader) do
+      let :reader do
         instance_double(
           'Rambling::Trie::Readers::PlainText',
           :reader,
@@ -82,7 +82,7 @@ describe Rambling::Trie do
     let(:root) { Rambling::Trie::Nodes::Raw.new }
     let(:compressor) { Rambling::Trie::Compressor.new }
     let(:container) { Rambling::Trie::Container.new root, compressor }
-    let(:serializer) do
+    let :serializer do
       instance_double(
         'Rambling::True::Serializers::File',
         :serializer,
@@ -101,21 +101,21 @@ describe Rambling::Trie do
     end
 
     context 'without a serializer' do
-      let(:marshal_serializer) do
+      let :marshal_serializer do
         instance_double(
           'Rambling::Trie::Serializers::Marshal',
           :marshal_serializer,
           load: nil,
         )
       end
-      let(:default_serializer) do
+      let :default_serializer do
         instance_double(
           'Rambling::Trie::Serializers::File',
           :default_serializer,
           load: nil,
         )
       end
-      let(:yaml_serializer) do
+      let :yaml_serializer do
         instance_double(
           'Rambling::Trie::Serializers::Yaml',
           :yaml_serializer,
@@ -168,26 +168,26 @@ describe Rambling::Trie do
   describe '.dump' do
     let(:filename) { 'a trie' }
     let(:root) { instance_double 'Rambling::Trie::Serializers::Marshal', :root }
-    let(:compressor) do
+    let :compressor do
       instance_double 'Rambling::Trie::Serializers::Marshal', :compressor
     end
     let(:trie) { Rambling::Trie::Container.new root, compressor }
 
-    let(:marshal_serializer) do
+    let :marshal_serializer do
       instance_double(
         'Rambling::Trie::Serializers::Marshal',
         :marshal_serializer,
         dump: nil,
       )
     end
-    let(:yaml_serializer) do
+    let :yaml_serializer do
       instance_double(
         'Rambling::Trie::Serializers::Yaml',
         :yaml_serializer,
         dump: nil,
       )
     end
-    let(:default_serializer) do
+    let :default_serializer do
       instance_double(
         'Rambling::Trie::Serializers::File',
         :default_serializer,

@@ -2,7 +2,7 @@
 
 shared_examples_for 'a serializable trie' do
   let(:tmp_path) { File.join ::SPEC_ROOT, 'tmp' }
-  let(:filepath) { File.join tmp_path, "trie-root.#{format}" }
+  let(:filepath) { File.join tmp_path, "trie-root.#{file_format}" }
 
   context 'with an uncompressed trie' do
     before { Rambling::Trie.dump trie_to_serialize, filepath }
