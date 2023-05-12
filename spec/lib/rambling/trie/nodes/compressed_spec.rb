@@ -7,6 +7,12 @@ describe Rambling::Trie::Nodes::Compressed do
   let(:compressor) { Rambling::Trie::Compressor.new }
   let(:node) { compressor.compress raw_node }
 
+  describe '#new' do
+    it 'is not a word' do
+      expect(node).not_to be_word
+    end
+  end
+
   it_behaves_like 'a trie node implementation' do
     def add_word_to_tree word
       add_word raw_node, word
