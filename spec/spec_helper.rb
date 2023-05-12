@@ -3,6 +3,8 @@
 require 'yaml'
 require 'simplecov'
 
+COVERAGE_FILTER = %r{/spec/}.freeze
+
 if ENV.key? 'COVERALLS_REPO_TOKEN'
   require 'coveralls'
 
@@ -11,11 +13,9 @@ if ENV.key? 'COVERALLS_REPO_TOKEN'
     Coveralls::SimpleCov::Formatter,
   ]
 
-  Coveralls.wear! do
-    add_filter '/spec/'
-  end
+  Coveralls.wear! { add_filter COVERAGE_FILTER }
 else
-  SimpleCov.start
+  SimpleCov.start { add_filter COVERAGE_FILTER }
 end
 
 require 'rspec'
