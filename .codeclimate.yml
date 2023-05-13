@@ -20,3 +20,6 @@ plugins:
   # Semgrep Ruby rules
   semgrep:
     enabled: true
+    runs:
+      - configs:
+          - rules/ruby/lang
