@@ -1,3 +1,5 @@
+# CHANGELOG
+
 ## 2.3.2 [compare][compare_v2_3_1_and_master]
 
 ## 2.3.1 [compare][compare_v2_3_0_and_v2_3_1]
