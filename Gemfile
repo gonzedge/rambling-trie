@@ -13,6 +13,7 @@ group :development do
   gem 'pry'
   gem 'ruby-prof'
   gem 'stackprof'
+  gem 'did_you_mean', '~> 1.5.0'
 end
 
 group :test do
