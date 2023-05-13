@@ -1,4 +1,4 @@
-## Contributing to Rambling Trie
+# Contributing to Rambling Trie
 
 1. If you have found a bug or have a feature request, please [search through the issues][github_issues_all] to see if it has already been reported. If that's not the case, then [create a new one][github_issues_new] with a full description of what you have found or what you need.
 2. If you have bug fix or a feature implementation in mind, then [fork Rambling Trie][github_fork] and create a branch with a descriptive name.

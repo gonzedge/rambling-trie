@@ -13,10 +13,11 @@ group :development do
   gem 'pry'
   gem 'ruby-prof'
   gem 'stackprof'
+  gem 'did_you_mean', '~> 1.5.0'
 end
 
 group :test do
-  gem 'coveralls_reborn', '~> 0.27.0', require: false
+  gem 'coveralls_reborn', require: false
   gem 'rspec_junit_formatter'
   gem 'simplecov', require: false
 end
