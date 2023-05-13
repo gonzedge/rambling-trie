@@ -8,6 +8,7 @@ gem 'rubyzip'
 
 group :development do
   gem 'benchmark-ips'
+  gem 'did_you_mean', '~> 1.5.0'
   gem 'flamegraph'
   gem 'memory_profiler'
   gem 'pry'
