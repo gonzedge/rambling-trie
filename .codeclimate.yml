@@ -16,6 +16,7 @@ plugins:
   # Ruby lint
   rubocop:
     enabled: true
+    channel: rubocop-1-51
   # Semgrep Ruby rules
   semgrep:
     enabled: true
