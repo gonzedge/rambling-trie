@@ -1,9 +1,6 @@
 exclude_paths:
   - 'tasks/'
 plugins:
-  # Audit dependencies
-  bundler-audit:
-    enabled: true
   # No to-dos or similar
   fixme:
     enabled: true
