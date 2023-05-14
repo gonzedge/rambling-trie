@@ -8,6 +8,7 @@ gem 'rubyzip'
 
 group :development do
   gem 'benchmark-ips'
+  gem 'did_you_mean', '~> 1.5.0'
   gem 'flamegraph'
   gem 'memory_profiler'
   gem 'pry'
@@ -16,7 +17,7 @@ group :development do
 end
 
 group :test do
-  gem 'coveralls_reborn', '~> 0.27.0', require: false
+  gem 'coveralls_reborn', require: false
   gem 'rspec_junit_formatter'
   gem 'simplecov', require: false
 end
