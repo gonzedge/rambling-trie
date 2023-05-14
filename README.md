@@ -12,7 +12,8 @@
 [![Code Climate Grade][code_climate_grade_badge]][code_climate_link]
 [![Code Climate Issue Count][code_climate_issues_badge]][code_climate_link]
 
-The Rambling Trie is a Ruby implementation of the [trie data structure][trie_wiki], which includes compression abilities and is designed to be very fast to traverse.
+The Rambling Trie is a Ruby implementation of the [trie data structure][trie_wiki], which includes compression abilities
+and is designed to be very fast to traverse.
 
 ## Installing the Rambling Trie
 
@@ -57,7 +58,8 @@ Rambling::Trie.create do |trie|
 end
 ```
 
-Additionally, you can provide the path to a file that contains all the words to be added to the trie, and it will read the file and create the complete structure for you, like this:
+Additionally, you can provide the path to a file that contains all the words to be added to the trie, and it will read
+the file and create the complete structure for you, like this:
 
 ``` ruby
 trie = Rambling::Trie.create '/path/to/file'
@@ -74,7 +76,10 @@ the
 trie
 ```
 
-If you want to use a custom file format, you will need to provide a custom file reader that defines an `#each_word` method that yields each word contained in the file. Look at the [`PlainText` reader][rambling_trie_plain_text_reader] class for an example, and at the [Configuration section][rambling_trie_configuration] to see how to add your own custom file readers.
+If you want to use a custom file format, you will need to provide a custom `Reader` that defines an `#each_word` method
+that yields each word contained in the file. Look at the [`PlainText` reader][rambling_trie_plain_text_reader] class for
+an example, and at the [Configuration section][rambling_trie_configuration] to see how to add your own custom file
+readers.
 
 ### Operations
 
@@ -98,7 +103,8 @@ trie.word? 'word'
 trie.include? 'word'
 ```
 
-If you wish to find if part of a word exists in the trie instance, you should call `#partial_word?` or its alias `#match?`:
+If you wish to find if part of a word exists in the trie instance, you should call `#partial_word?` or its
+alias `#match?`:
 
 ``` ruby
 trie.partial_word? 'partial_word'
@@ -119,7 +125,8 @@ trie.words_within 'ifdxawesome45someword3' # => ['if', 'aw', 'awe', ...]
 trie.words_within 'tktktktk' # => []
 ```
 
-Or, if you're just interested in knowing whether a given string contains any valid words or not, you can use `#words_within?`:
+Or, if you're just interested in knowing whether a given string contains any valid words or not, you can
+use `#words_within?`:
 
 ``` ruby
 trie.words_within? 'ifdxawesome45someword3' # => true
@@ -128,13 +135,15 @@ trie.words_within? 'tktktktk' # => false
 
 ### Compression
 
-By default, the Rambling Trie works as a standard trie. Starting from version 0.1.0, you can obtain a compressed trie from the standard one, by using the compression feature. Just call the `#compress!` method on the trie instance:
+By default, the Rambling Trie works as a standard trie. Starting from version 0.1.0, you can obtain a compressed trie
+from the standard one, by using the compression feature. Just call the `#compress!` method on the trie instance:
 
 ``` ruby
 trie.compress!
 ```
 
-This will reduce the size of the trie by using redundant node elimination (redundant nodes are the only-child non-terminal nodes).
+This will reduce the size of the trie by using redundant node elimination (redundant nodes are the only-child
+non-terminal nodes).
 
 > _**Note**: The `#compress!` method acts over the trie instance it belongs to
 > and replaces the root `Node`. Also, adding words after compression (with `#add` or
@@ -155,7 +164,8 @@ compressed_trie.compressed? # => true
 
 ### Enumeration
 
-Starting from version 0.4.2, you can use any `Enumerable` method over a trie instance, and it will iterate over each word contained in the trie. You can now do things like:
+Starting from version 0.4.2, you can use any `Enumerable` method over a trie instance, and it will iterate over each
+word contained in the trie. You can now do things like:
 
 ``` ruby
 trie.each { |word| puts word }
@@ -166,7 +176,10 @@ trie.all? { |word| word.include? 'x' }
 
 ### Serialization
 
-Starting from version 1.0.0, you can store a full trie instance on disk and retrieve/use it later on. Loading a trie from disk takes less time, less cpu and less memory than loading every word into the trie every time. This is particularly useful for production applications, when you have word lists that you know are going to be static, or that change with little frequency.
+Starting from version 1.0.0, you can store a full trie instance on disk and retrieve/use it later on. Loading a trie
+from disk takes less time, less cpu and less memory than loading every word into the trie every time. This is
+particularly useful for production applications, when you have word lists that you know are going to be static, or that
+change with little frequency.
 
 To store a trie on disk, you can use `.dump` like this:
 
@@ -174,7 +187,8 @@ To store a trie on disk, you can use `.dump` like this:
 Rambling::Trie.dump trie, '/path/to/file'
 ```
 
-Then, when you need to use a trie next time, you don't have to create a new one with all the necessary words. Rather, you can retrieve a previously stored one with `.load` like this:
+Then, when you need to use a trie next time, you don't have to create a new one with all the necessary words. Rather,
+you can retrieve a previously stored one with `.load` like this:
 
 ``` ruby
 trie = Rambling::Trie.load '/path/to/file'
@@ -184,14 +198,15 @@ trie = Rambling::Trie.load '/path/to/file'
 
 Currently, these formats are supported to store tries on disk:
 
-- Ruby's [binary (Marshal)][marshal] format
-- [YAML][yaml]
+* Ruby's [binary (Marshal)][marshal] format
+* [YAML][yaml]
 
 > When dumping into or loading from disk, the format is determined
 > automatically based on the file extension, so `.yml` or `.yaml` files will be
 > handled through `YAML` and `.marshal` files through `Marshal`.
 
-Optionally, you can use a `.zip` version of the supported formats. In order to do so, you'll have to install the [`rubyzip`][rubyzip] gem:
+Optionally, you can use a `.zip` version of the supported formats. In order to do so, you'll have to install
+the [`rubyzip`][rubyzip] gem:
 
 ``` bash
 gem install rubyzip
@@ -246,7 +261,8 @@ end
 
 ### Further Documentation
 
-You can find further API documentation on the autogenerated [rambling-trie gem RubyDoc.info page][rubydoc] or if you want edge documentation, you can go the [GitHub project RubyDoc.info page][rubydoc_github].
+You can find further API documentation on the autogenerated [rambling-trie gem RubyDoc.info page][rubydoc] or if you
+want edge documentation, you can go the [GitHub project RubyDoc.info page][rubydoc_github].
 
 ## Compatible Ruby and Rails versions
 
@@ -271,7 +287,8 @@ The Rambling Trie has been tested with the following Ruby versions:
 
 ## Contributing to Rambling Trie
 
-Take a look at the [contributing guide][rambling_trie_contributing_guide] to get started, or fire a question to [@gonzedge][github_user_gonzedge].
+Take a look at the [contributing guide][rambling_trie_contributing_guide] to get started, or fire a question
+to [@gonzedge][github_user_gonzedge].
 
 ## License and copyright
 
@@ -279,11 +296,18 @@ Copyright (c) 2012-2023 Edgar González
 
 MIT License
 
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
+documentation files (the "Software"), to deal in the Software without restriction, including without limitation the
+rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit
+persons to whom the Software is furnished to do so, subject to the following conditions:
 
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the
+Software.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
+WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 [badge_fury_badge]: https://badge.fury.io/rb/rambling-trie.svg?version=2.3.1
 [badge_fury_link]: https://badge.fury.io/rb/rambling-trie
