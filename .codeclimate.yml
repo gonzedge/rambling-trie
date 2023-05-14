@@ -9,6 +9,8 @@ plugins:
   # ABC-complexity
   flog:
     enabled: true
+    exclude_patterns:
+      - 'spec/'
   # Markdown lint with rules from https://github.com/markdownlint/markdownlint/blob/main/docs/RULES.md
   markdownlint:
     enabled: true
