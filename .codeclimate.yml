@@ -1,2 +1,31 @@
-exclude_paths:
+exclude_patterns:
   - 'tasks/'
+plugins:
+  # No to-dos or similar
+  fixme:
+    enabled: true
+    exclude_patterns:
+      - '.rubocop.*'
+  # ABC-complexity
+  flog:
+    enabled: true
+    exclude_patterns:
+      - 'specs/'
+  # Markdown lint with rules from https://github.com/markdownlint/markdownlint/blob/main/docs/RULES.md
+  markdownlint:
+    enabled: true
+  # Code smells
+  reek:
+    enabled: true
+    exclude_patterns:
+      - 'specs/'
+  # Ruby lint
+  rubocop:
+    enabled: true
+    channel: rubocop-1-50-2
+  # Semgrep Ruby rules
+  semgrep:
+    enabled: true
+    runs:
+      - configs:
+          - rules/ruby/lang
