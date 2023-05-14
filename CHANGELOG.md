@@ -62,7 +62,7 @@
   - Add `Readers::Reader` and `Serializer::Serializer` base classes
   - Make all readers/serializers extend from their corresponding base classes
   - Better docs with `Reader`/`Serializer` and generics
-  - Fix all code blocks from `\`` to `+` and add some more
+  - Fix all code blocks from backtick to `+` and add some more
   - Add `@return [void]` where appropriate
   - Add `@return [self]` where appropriate
   - Fix `Nodes::Node` duplicate and broken references
@@ -321,20 +321,15 @@ Most of these help with the gem's overall performance.
 
 - Add Ruby 2.4 to supported versions by [@gonzedge][github_user_gonzedge]
 - Drastically reduce size of gem by [@gonzedge][github_user_gonzedge]
-
-  By excluding unnecessary `assets/` and `reports/` when building the gem.
-  **Size reduction**: from ~472KB to ~21KB.
-
+  - By excluding unnecessary `assets/` and `reports/` when building the gem.
+  - **Size reduction**: from ~472KB to ~21KB.
 - Make root node accessible via container by [@gonzedge][github_user_gonzedge]
-
-  So that anyone using rambling-trie can develop their custom algorithms
-
+  - So that anyone using rambling-trie can develop their custom algorithms
 - Expose root node's `#to_a` method through `Container` by
   [@gonzedge][github_user_gonzedge]
 - Add own `Forwardable#delegate` because of [Ruby 2.4 performance
   degradation][ruby_bug_13111] by [@gonzedge][github_user_gonzedge]
-
-  Was able to take Creation and Compression benchmarks (~8.8s and ~1.5s
+  - Was able to take Creation and Compression benchmarks (~8.8s and ~1.5s
   respectively) back down to the Ruby 2.3.3 levels by adding own definition of
   `Forwardable#delegate`.
 
@@ -413,16 +408,12 @@ Most of these help with the gem's overall performance.
 
 - `Rambling::Trie.create` now returns a `Container` instead of a `Root` by
   [@gonzedge][github_user_gonzedge]
-
-  `Container` exposes these API entry points:
-
+  - `Container` exposes these API entry points:
     - `#partial_word?` and its alias `#match?`
     - `#word?` and its alias `#include?`
     - `#add` and its alias `#<<`
     - yield the constructed `Container` on `#initialize`
-
-  `Rambling::Trie::Node` and its subclasses no longer expose:
-
+  - `Rambling::Trie::Node` and its subclasses no longer expose:
     - `#match?`
     - `#include?`
     - `#<<`
