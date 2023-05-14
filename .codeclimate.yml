@@ -18,7 +18,7 @@ plugins:
   reek:
     enabled: true
     exclude_patterns:
-      - 'specs/'
+      - 'spec/'
   # Ruby lint
   rubocop:
     enabled: true
