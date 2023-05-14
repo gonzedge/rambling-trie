@@ -17,6 +17,8 @@ plugins:
   # Code smells
   reek:
     enabled: true
+    exclude_patterns:
+      - 'specs/'
   # Ruby lint
   rubocop:
     enabled: true
