@@ -1,7 +1,8 @@
-exclude_paths:
+exclude_patterns:
   - 'tasks/'
 plugins:
   # No to-dos or similar
   fixme:
     enabled: true
-  # ABC-complexity
+    exclude_patterns:
+      - '.rubocop.*'
