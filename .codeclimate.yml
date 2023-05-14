@@ -10,7 +10,7 @@ plugins:
   flog:
     enabled: true
     exclude_patterns:
-      - 'specs/'
+      - 'spec/'
   # Markdown lint with rules from https://github.com/markdownlint/markdownlint/blob/main/docs/RULES.md
   markdownlint:
     enabled: true
