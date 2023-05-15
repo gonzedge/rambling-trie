@@ -11,6 +11,7 @@ end
 # General namespace for all Rambling gems.
 module Rambling
   # Entry point for +rambling-trie+ API.
+  # :reek:TooManyStatements { max_statements: 10 }
   module Trie
     class << self
       # Creates a new +Rambling::Trie+. Entry point for the +rambling-trie+ API.
@@ -19,6 +20,7 @@ module Rambling
       # @return [Container] the trie just created.
       # @yield [Container] the trie just created.
       # @see Rambling::Trie::Readers Readers.
+      # :reek:NestedIterators
       def create filepath = nil, reader = nil
         root = root_builder.call
 

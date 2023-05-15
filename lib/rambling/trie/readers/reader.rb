@@ -12,6 +12,7 @@ module Rambling
         #   from.
         # @yield [String] Each line read from the file.
         # @return [self]
+        # :reek:UnusedParameters
         def each_word filepath
           raise NotImplementedError
         end
