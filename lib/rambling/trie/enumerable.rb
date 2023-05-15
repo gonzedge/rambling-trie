@@ -3,6 +3,7 @@
 module Rambling
   module Trie
     # Provides enumerable behavior to the trie data structure.
+    # :reek:TooManyStatements { max_statements: 10 }
     module Enumerable
       include ::Enumerable
 
@@ -14,16 +15,13 @@ module Rambling
       # Iterates over the words contained in the trie.
       # @yield [String] the words contained in this trie node.
       # @return [self]
+      # :reek:NestedIterators
       def each
         return enum_for :each unless block_given?
 
         yield as_word if terminal?
 
-        children_tree.each_value do |child|
-          child.each do |word|
-            yield word
-          end
-        end
+        children_tree.each_value { |child| child.each { |word| yield word } }
 
         self
       end

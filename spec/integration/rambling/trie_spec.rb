@@ -13,24 +13,28 @@ describe Rambling::Trie do
     let(:changelog_path) { File.join root_path, 'CHANGELOG.md' }
     let(:changelog) { File.read changelog_path }
 
+    let(:changelog_versions) do
+      matches = []
+      changelog.scan %r{^## (\d+\.\d+\.\d+)} do |match|
+        matches << match[0]
+      end
+      matches
+    end
+
     it 'matches with the version in the README badge' do
       match = %r{\?version=(?<version>.*)$}.match readme
       expect(match['version']).to eq Rambling::Trie::VERSION
     end
 
     it 'is the version before the one at the top of the CHANGELOG' do
-      match = %r{## (?<version>\d+\.\d+\.\d+)}.match changelog.split("\n")[0]
-      changelog_version = Gem::Version.new match['version']
+      changelog_version = Gem::Version.new changelog_versions.first
       lib_version = Gem::Version.new "#{Rambling::Trie::VERSION}.0"
       expect(changelog_version).to eq lib_version.bump
     end
 
     it 'is included in the CHANGELOG diffs' do
-      matches = Set.new
-      changelog.scan %r{^## (\d+\.\d+\.\d+)} do |match|
-        matches << match[0]
-      end
-      expect(matches).to include Rambling::Trie::VERSION
+      changelog_versions.shift
+      expect(changelog_versions.first).to eq Rambling::Trie::VERSION
     end
   end
 

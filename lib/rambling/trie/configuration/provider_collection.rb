@@ -27,6 +27,7 @@ module Rambling
         # @param [Symbol] name the name for this provider collection.
         # @param [Hash<Symbol, TProvider>] providers the configured providers.
         # @param [TProvider, nil] default the configured default provider.
+        # :reek:ControlParameter
         def initialize name, providers = {}, default = nil
           @name = name
           @configured_providers = providers
@@ -66,14 +67,17 @@ module Rambling
         # @return [TProvider, nil] the provider for the given file's extension.
         #   {#default} if not found.
         def resolve filepath
-          providers[file_format filepath] || default
+          format = File.extname filepath
+          # Cannot do slice(1..) because it returns +nil+ for empty strings
+          format.slice! 0
+          providers[format.to_sym] || default
         end
 
         # Resets the provider collection to the initial values.
         # @return [void]
         def reset
           providers.clear
-          configured_providers.each { |k, v| self[k] = v }
+          configured_providers.each { |key, value| self[key] = value }
           self.default = configured_default
         end
 
@@ -106,15 +110,9 @@ module Rambling
           providers.values
         end
 
-        def file_format filepath
-          format = File.extname filepath
-          format.slice! 0
-          format.to_sym
-        end
-
+        # :reek:ControlParameter
         def contains? provider
-          provider.nil? ||
-            (providers.any? && provider_instances.include?(provider))
+          !provider || (providers.any? && provider_instances.include?(provider))
         end
 
         alias_method :provider_instances, :values

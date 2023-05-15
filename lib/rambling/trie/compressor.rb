@@ -3,6 +3,7 @@
 module Rambling
   module Trie
     # Responsible for the compression process of a trie data structure.
+    # :reek:UtilityFunction { public_methods_only: true }
     class Compressor
       # Compresses a {Nodes::Node Node} from a trie data structure.
       # @param [Nodes::Raw] node the node to compress.
@@ -21,43 +22,22 @@ module Rambling
         merge node, compress(node.first_child)
       end
 
+      # :reek:FeatureEnvy
       def merge node, other
         letter = node.letter.to_s << other.letter.to_s
-
-        new_compressed_node(
-          letter.to_sym,
-          node.parent,
-          other.children_tree,
-          other.terminal?,
-        )
+        Rambling::Trie::Nodes::Compressed.new letter.to_sym, node.parent, other.children_tree, other.terminal?
       end
 
+      # :reek:FeatureEnvy
       def compress_children_and_copy node
-        new_compressed_node(
-          node.letter,
-          node.parent,
-          compress_children(node.children_tree),
-          node.terminal?,
-        )
+        children_tree = compress_children node.children_tree
+        Rambling::Trie::Nodes::Compressed.new node.letter, node.parent, children_tree, node.terminal?
       end
 
       def compress_children tree
         new_tree = {}
-
-        tree.each do |letter, child|
-          compressed_child = compress child
-          new_tree[letter] = compressed_child
-        end
-
+        tree.each { |letter, child| new_tree[letter] = compress child }
         new_tree
-      end
-
-      def new_compressed_node letter, parent, tree, terminal
-        node = Rambling::Trie::Nodes::Compressed.new letter, parent, tree
-        node.terminal! if terminal
-
-        tree.each_value { |child| child.parent = node }
-        node
       end
     end
   end

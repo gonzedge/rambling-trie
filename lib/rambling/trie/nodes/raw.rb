@@ -4,6 +4,8 @@ module Rambling
   module Trie
     module Nodes
       # A representation of a node in an uncompressed trie data structure.
+      # :reek:RepeatedConditional
+      # :reek:TooManyStatements { max_statements: 10 }
       class Raw < Rambling::Trie::Nodes::Node
         # Adds a word to the current raw (uncompressed) trie node.
         # @param [Array<Symbol>] chars the char array to add to the trie.
