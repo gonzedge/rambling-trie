@@ -52,9 +52,7 @@ shared_examples_for 'a serializer' do
 
         it "loads a compressed=#{compress_value} object" do
           loaded = serializer.load filepath
-          if :file != file_format
-            expect(loaded.compressed?).to be compress_value
-          end
+          expect(loaded.compressed?).to be compress_value unless :file == file_format
         end
       end
     end
