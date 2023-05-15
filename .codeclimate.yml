@@ -25,3 +25,6 @@ plugins:
   rubocop:
     enabled: true
     channel: rubocop-1-50-2
+  # Semgrep Ruby rules
+  semgrep:
+    enabled: true
