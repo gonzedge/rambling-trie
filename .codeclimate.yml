@@ -9,3 +9,6 @@ plugins:
   # Markdown lint with rules from https://github.com/markdownlint/markdownlint/blob/main/docs/RULES.md
   markdownlint:
     enabled: true
+  # Ruby lint
+  rubocop:
+    enabled: true
