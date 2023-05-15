@@ -3,6 +3,7 @@
 module Rambling
   module Trie
     # Wrapper on top of trie data structure.
+    # No such thing as :reek:TooManyMethods here because this is the API entrypoint.
     class Container
       include ::Enumerable
 
@@ -202,8 +203,9 @@ module Rambling
         return enum_for :words_within_root, phrase unless block_given?
 
         chars = phrase.chars
-        0.upto(chars.length - 1).each do |starting_index|
-          new_phrase = chars.slice starting_index..(chars.length - 1)
+        last_index = chars.length - 1
+        0.upto(last_index).each do |starting_index|
+          new_phrase = chars.slice starting_index..last_index
           root.match_prefix new_phrase do |word|
             yield word
           end
@@ -215,9 +217,7 @@ module Rambling
       end
 
       def char_symbols word
-        symbols = []
-        word.reverse.each_char { |c| symbols << c.to_sym }
-        symbols
+        word.reverse.chars.map(&:to_sym)
       end
     end
   end

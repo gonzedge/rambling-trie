@@ -1,6 +1,14 @@
 # frozen_string_literal: true
 
 namespace :ips do
+  task :each_char_shovel_vs_chars_map do
+    compare_each_char_shovel_vs_chars_map
+  end
+
+  task :string_pop_shift_slice do
+    compare_string_pop_shift_slice
+  end
+
   task :pop_shift_slice do
     compare_pop_shift_slice
   end
@@ -39,15 +47,49 @@ def compare
   end
 end
 
+def compare_each_char_shovel_vs_chars_map
+  compare do |bm|
+    word = 'awesome'
+
+    bm.report 'each_char and <<' do
+      symbols = []
+      word.reverse.each_char { |char| symbols << char.to_sym }
+      symbols.to_a
+    end
+
+    bm.report 'chars map' do
+      word.reverse.chars.map(&:to_sym).to_a
+    end
+  end
+end
+
+def compare_string_pop_shift_slice
+  compare do |bm|
+    a = ''
+    bm.report('<<') { a << 'a' }
+    bm.report('pop') { a.chars.pop }
+
+    a.clear
+    bm.report('<<') { a << 'a' }
+    bm.report('shift') { a.chars.shift }
+
+    a.clear
+    bm.report('<<') { a << 'a' }
+    bm.report('slice!(0)') { a.slice! 0 }
+  end
+end
+
 def compare_pop_shift_slice
   compare do |bm|
     a = []
     bm.report('push') { a.push 1 }
     bm.report('pop') { a.pop }
 
+    a.clear
     bm.report('unshift') { a.unshift 1 }
     bm.report('shift') { a.shift }
 
+    a.clear
     bm.report('shovel(<<)') { a << 1 }
     bm.report('slice!(0)') { a.slice! 0 }
   end
