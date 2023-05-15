@@ -22,6 +22,7 @@ group :test do
 end
 
 group :local do
+  gem 'flog', require: false
   gem 'guard-rspec'
   gem 'mdl', require: false
   gem 'rubocop', require: false
