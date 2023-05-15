@@ -1336,6 +1336,7 @@ Metrics/BlockLength:
   Exclude:
     - 'test/**/*'
     - 'spec/**/*'
+    - 'tasks/ips.rb'
 
 Metrics/BlockNesting:
   CountBlocks: false
