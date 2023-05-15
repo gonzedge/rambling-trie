@@ -6,3 +6,6 @@ plugins:
     enabled: true
     exclude_patterns:
       - '.rubocop.*'
+  # Markdown lint with rules from https://github.com/markdownlint/markdownlint/blob/main/docs/RULES.md
+  markdownlint:
+    enabled: true
