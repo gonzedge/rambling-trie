@@ -9,8 +9,9 @@ module Rambling
         # @param [Serializer] serializer the serializer responsible to write to
         #   and read from disk.
         def initialize serializer = nil
-          @serializer = serializer || Rambling::Trie::Serializers::File.new
           super()
+          # :reek:ControlParameter
+          @serializer = serializer || Rambling::Trie::Serializers::File.new
         end
 
         # Loads serialized object from YAML file in filepath and deserializes

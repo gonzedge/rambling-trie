@@ -8,6 +8,7 @@ module Rambling
         # Loads contents from a specified filepath.
         # @param [String] filepath the filepath to load contents from.
         # @return [String] all contents of the file.
+        # :reek:UtilityFunction
         def load filepath
           ::File.read filepath
         end
@@ -16,9 +17,10 @@ module Rambling
         # @param [String] contents the contents to dump.
         # @param [String] filepath the filepath to dump the contents to.
         # @return [Numeric] number of bytes written to disk.
+        # :reek:UtilityFunction
         def dump contents, filepath
-          ::File.open filepath, 'w+' do |f|
-            f.write contents
+          ::File.open filepath, 'w+' do |file|
+            file.write contents
           end
         end
       end
