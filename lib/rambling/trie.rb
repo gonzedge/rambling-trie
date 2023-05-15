@@ -12,6 +12,7 @@ end
 module Rambling
   # Entry point for +rambling-trie+ API.
   module Trie
+    # :reek:TooManyStatements { max_statements: 10 }
     class << self
       # Creates a new +Rambling::Trie+. Entry point for the +rambling-trie+ API.
       # @param [String, nil] filepath the file to load the words from.
@@ -27,6 +28,7 @@ module Rambling
           if filepath
             reader ||= readers.resolve filepath
             # noinspection RubyMismatchedArgumentType,RubyNilAnalysis
+            # :reek:NestedIterators
             reader.each_word filepath do |word|
               container << word
             end
