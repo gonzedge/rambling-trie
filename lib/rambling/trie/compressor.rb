@@ -36,12 +36,7 @@ module Rambling
 
       def compress_children tree
         new_tree = {}
-
-        tree.each do |letter, child|
-          compressed_child = compress child
-          new_tree[letter] = compressed_child
-        end
-
+        tree.each { |letter, child| new_tree[letter] = compress child }
         new_tree
       end
 
