@@ -24,8 +24,12 @@ module Rambling
 
       # :reek:FeatureEnvy
       def merge node, other
-        letter = node.letter.to_s << other.letter.to_s
-        Rambling::Trie::Nodes::Compressed.new letter.to_sym, node.parent, other.children_tree, other.terminal?
+        Rambling::Trie::Nodes::Compressed.new(
+          "#{node.letter}#{other.letter}".to_sym,
+          node.parent,
+          other.children_tree,
+          other.terminal?,
+        )
       end
 
       # :reek:FeatureEnvy
