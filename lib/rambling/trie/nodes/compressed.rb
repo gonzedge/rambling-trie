@@ -11,8 +11,7 @@ module Rambling
         # @raise [InvalidOperation] if the trie is already compressed.
         # @return [void]
         def add _
-          raise Rambling::Trie::InvalidOperation,
-            'Cannot add word to compressed trie'
+          raise Rambling::Trie::InvalidOperation, 'Cannot add word to compressed trie'
         end
 
         # Always return +true+ for a compressed node.

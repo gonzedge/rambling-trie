@@ -24,21 +24,11 @@ module Rambling
       def merge node, other
         letter = node.letter.to_s << other.letter.to_s
 
-        new_compressed_node(
-          letter.to_sym,
-          node.parent,
-          other.children_tree,
-          other.terminal?,
-        )
+        new_compressed_node letter.to_sym, node.parent, other.children_tree, other.terminal?
       end
 
       def compress_children_and_copy node
-        new_compressed_node(
-          node.letter,
-          node.parent,
-          compress_children(node.children_tree),
-          node.terminal?,
-        )
+        new_compressed_node node.letter, node.parent, compress_children(node.children_tree), node.terminal?
       end
 
       def compress_children tree

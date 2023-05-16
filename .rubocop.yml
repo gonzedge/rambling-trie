@@ -29,6 +29,37 @@ Layout/AccessModifierIndentation:
 Layout/ArgumentAlignment:
   EnforcedStyle: with_fixed_indentation
 
+# checks whether the end keywords are aligned properly for `do` `end` blocks.
+Layout/BlockAlignment:
+  # The value `start_of_block` means that the `end` should be aligned with line
+  # where the `do` keyword appears.
+  # The value `start_of_line` means it should be aligned with the whole
+  # expression's starting line.
+  # The value `either` means both are allowed.
+  EnforcedStyleAlignWith: start_of_line
+
+Layout/DefEndAlignment:
+  # The value `def` means that `end` should be aligned with the def keyword.
+  # The value `start_of_line` means that `end` should be aligned with method
+  # calls like `private`, `public`, etc, if present in front of the `def`
+  # keyword on the same line.
+  EnforcedStyleAlignWith: start_of_line
+  # AutoCorrect: false
+  Severity: warning
+
+# Align ends correctly.
+Layout/EndAlignment:
+  # The value `keyword` means that `end` should be aligned with the matching
+  # keyword (`if`, `while`, etc.).
+  # The value `variable` means that in assignments, `end` should be aligned
+  # with the start of the variable on the left hand side of `=`. In all other
+  # situations, `end` should still be aligned with the keyword.
+  # The value `start_of_line` means that `end` should be aligned with the start
+  # of the line which the matching keyword appears on.
+  EnforcedStyleAlignWith: start_of_line
+  # AutoCorrect: false
+  Severity: warning
+
 # Align the elements of a hash literal if they span more than one line.
 Layout/HashAlignment:
   # Alignment of entries using colon as separator. Valid values are:
@@ -75,6 +106,23 @@ Layout/HashAlignment:
   #     function(a: 1,
   #       b: 2)
   EnforcedLastArgumentHashStyle: ignore_implicit
+
+Layout/LineLength:
+  Max: 120
+  # To make it possible to copy or click on URIs in the code, we allow lines
+  # containing a URI to be longer than Max.
+  AllowHeredoc: true
+  AllowURI: true
+  URISchemes:
+    - http
+    - https
+  # The IgnoreCopDirectives option causes the LineLength rule to ignore cop
+  # directives like '# rubocop: enable ...' when calculating a line's length.
+  IgnoreCopDirectives: false
+  # The IgnoredPatterns option is a list of !ruby/regexp and/or string
+  # elements. Strings will be converted to Regexp objects. A line that matches
+  # any regular expression listed in this option will be ignored by LineLength.
+  IgnoredPatterns: []
 
 Layout/ParameterAlignment:
   # Alignment of parameters in multi-line method calls.
@@ -1288,6 +1336,7 @@ Metrics/BlockLength:
   Exclude:
     - 'test/**/*'
     - 'spec/**/*'
+    - 'tasks/ips.rb'
 
 Metrics/BlockNesting:
   CountBlocks: false
@@ -1304,23 +1353,6 @@ Metrics/ClassLength:
 Metrics/CyclomaticComplexity:
   Max: 6
 
-Layout/LineLength:
-  Max: 80
-  # To make it possible to copy or click on URIs in the code, we allow lines
-  # containing a URI to be longer than Max.
-  AllowHeredoc: true
-  AllowURI: true
-  URISchemes:
-    - http
-    - https
-  # The IgnoreCopDirectives option causes the LineLength rule to ignore cop
-  # directives like '# rubocop: enable ...' when calculating a line's length.
-  IgnoreCopDirectives: false
-  # The IgnoredPatterns option is a list of !ruby/regexp and/or string
-  # elements. Strings will be converted to Regexp objects. A line that matches
-  # any regular expression listed in this option will be ignored by LineLength.
-  IgnoredPatterns: []
-
 Metrics/MethodLength:
   CountComments: false  # count full line comments?
   Max: 20
@@ -1331,6 +1363,7 @@ Metrics/ModuleLength:
 
 Metrics/ParameterLists:
   Max: 5
+  MaxOptionalParameters: 5
   CountKeywordArgs: true
 
 Metrics/PerceivedComplexity:
@@ -1341,37 +1374,6 @@ Metrics/PerceivedComplexity:
 # Allow safe assignment in conditions.
 Lint/AssignmentInCondition:
   AllowSafeAssignment: true
-
-# checks whether the end keywords are aligned properly for `do` `end` blocks.
-Layout/BlockAlignment:
-  # The value `start_of_block` means that the `end` should be aligned with line
-  # where the `do` keyword appears.
-  # The value `start_of_line` means it should be aligned with the whole
-  # expression's starting line.
-  # The value `either` means both are allowed.
-  EnforcedStyleAlignWith: start_of_line
-
-Layout/DefEndAlignment:
-  # The value `def` means that `end` should be aligned with the def keyword.
-  # The value `start_of_line` means that `end` should be aligned with method
-  # calls like `private`, `public`, etc, if present in front of the `def`
-  # keyword on the same line.
-  EnforcedStyleAlignWith: start_of_line
-  # AutoCorrect: false
-  Severity: warning
-
-# Align ends correctly.
-Layout/EndAlignment:
-  # The value `keyword` means that `end` should be aligned with the matching
-  # keyword (`if`, `while`, etc.).
-  # The value `variable` means that in assignments, `end` should be aligned
-  # with the start of the variable on the left hand side of `=`. In all other
-  # situations, `end` should still be aligned with the keyword.
-  # The value `start_of_line` means that `end` should be aligned with the start
-  # of the line which the matching keyword appears on.
-  EnforcedStyleAlignWith: start_of_line
-  # AutoCorrect: false
-  Severity: warning
 
 Lint/SuppressedException:
   Exclude:
