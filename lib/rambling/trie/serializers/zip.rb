@@ -6,10 +6,12 @@ module Rambling
       # Zip file serializer. Dumps/loads contents from +.zip+ files.
       # Automatically detects if zip file contains a +.marshal+ or +.yml+ file,
       # or any other registered +:format => serializer+ combo.
+      # :reek:TooManyStatements { max_statements: 10 }
       class Zip < Serializer
         # Creates a new Zip serializer.
         # @param [Configuration::Properties] properties the configuration
         #   properties set up so far.
+        # :reek:ControlParameter
         def initialize properties
           super()
           @properties = properties

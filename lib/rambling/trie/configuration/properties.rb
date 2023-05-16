@@ -4,6 +4,7 @@ module Rambling
   module Trie
     module Configuration
       # Provides configurable properties for Rambling::Trie.
+      # :reek:TooManyInstanceVariables { max_instance_variables: 5 }
       class Properties
         # The configured {Readers Readers}.
         # @return [ProviderCollection<Readers::Reader>] the mapping of configured {Readers Readers}.
@@ -15,14 +16,17 @@ module Rambling
 
         # The configured {Compressor Compressor}.
         # @return [Compressor] the configured compressor.
+        # :reek:Attribute
         attr_accessor :compressor
 
         # The configured +root_builder+, which returns a {Nodes::Node Node} when called.
         # @return [Proc<Nodes::Node>] the configured +root_builder+.
+        # :reek:Attribute
         attr_accessor :root_builder
 
         # The configured +tmp_path+, which will be used for throwaway files.
         # @return [String] the configured +tmp_path+.
+        # :reek:Attribute
         attr_accessor :tmp_path
 
         # Returns a new properties instance.
@@ -32,6 +36,7 @@ module Rambling
 
         # Resets back to default properties.
         # @return [void]
+        # :reek:TooManyStatements { max_statements: 10 }
         def reset
           reset_readers
           reset_serializers

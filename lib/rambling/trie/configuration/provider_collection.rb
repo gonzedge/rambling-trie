@@ -26,6 +26,7 @@ module Rambling
         # @param [Symbol] name the name for this provider collection.
         # @param [Hash<Symbol, TProvider>] providers the configured providers.
         # @param [TProvider, nil] default the configured default provider.
+        # :reek:ControlParameter
         def initialize name, providers = {}, default = nil
           @name = name
           @configured_providers = providers
@@ -103,6 +104,8 @@ module Rambling
           format.to_sym
         end
 
+        # :reek:ControlParameter
+        # :reek:NilCheck
         def contains? provider
           provider.nil? || (providers.any? && provider_instances.include?(provider))
         end

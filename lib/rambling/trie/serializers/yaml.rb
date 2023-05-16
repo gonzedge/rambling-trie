@@ -7,6 +7,7 @@ module Rambling
       class Yaml < Serializer
         # Creates a new Yaml serializer.
         # @param [Serializer] serializer the serializer responsible to write to and read from disk.
+        # :reek:ControlParameter
         def initialize serializer = nil
           super()
           @serializer = serializer || Rambling::Trie::Serializers::File.new
