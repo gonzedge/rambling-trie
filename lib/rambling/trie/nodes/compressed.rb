@@ -4,6 +4,8 @@ module Rambling
   module Trie
     module Nodes
       # A representation of a node in an compressed trie data structure.
+      # :reek:RepeatedConditional
+      # :reek:TooManyStatements { max_statements: 10 }
       class Compressed < Rambling::Trie::Nodes::Node
         # Always raises {Rambling::Trie::InvalidOperation InvalidOperation} when
         # trying to add a word to the current compressed trie node
@@ -22,6 +24,7 @@ module Rambling
 
         private
 
+        # :reek:FeatureEnvy
         def partial_word_chars? chars
           child = children_tree[chars.first.to_sym]
           return false unless child
@@ -38,6 +41,8 @@ module Rambling
           child_letter == letter
         end
 
+        # :reek:FeatureEnvy
+        # :reek:DuplicateMethodCall
         def word_chars? chars
           letter = chars.slice! 0
           letter_sym = letter.to_sym
@@ -57,6 +62,7 @@ module Rambling
           false
         end
 
+        # :reek:FeatureEnvy
         def closest_node chars
           child = children_tree[chars.first.to_sym]
           return missing unless child

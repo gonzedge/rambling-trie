@@ -4,6 +4,10 @@ module Rambling
   module Trie
     module Nodes
       # A representation of a node in the trie data structure.
+      # :reek:RepeatedConditional
+      # :reek:TooManyMethods
+      # :reek:MissingSafeMethod
+      # :reek:UtilityFunction { public_methods_only: true }
       class Node
         include Rambling::Trie::Compressible
         include Rambling::Trie::Enumerable
@@ -23,10 +27,12 @@ module Rambling
 
         # Child nodes tree.
         # @return [Hash<Symbol, Node>] the children tree hash, consisting of +:letter => node+.
+        # :reek:Attribute
         attr_accessor :children_tree
 
         # Parent node.
         # @return [Node, nil] the parent of the current node.
+        # :reek:Attribute
         attr_accessor :parent
 
         # Creates a new node.
@@ -56,6 +62,7 @@ module Rambling
 
         # Indicates if the current node is the root node.
         # @return [Boolean] +true+ if the node does not have a parent, +false+ otherwise.
+        # :reek:NilCheck
         def root?
           !parent
         end
@@ -163,6 +170,7 @@ module Rambling
 
         private
 
+        # :reek:Attribute
         attr_accessor :terminal
       end
     end

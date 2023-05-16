@@ -7,6 +7,7 @@ module Rambling
       class Marshal < Serializer
         # Creates a new Marshal serializer.
         # @param [Serializer] serializer the serializer responsible to write to and read from disk.
+        # :reek:ControlParameter
         def initialize serializer = nil
           super()
           @serializer = serializer || Rambling::Trie::Serializers::File.new

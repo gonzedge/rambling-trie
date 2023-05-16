@@ -3,6 +3,8 @@
 module Rambling
   module Trie
     # Wrapper on top of trie data structure.
+    # No such thing as :reek:TooManyMethods here because this is the API entrypoint.
+    # :reek:TooManyStatements { max_statements: 10 }
     class Container
       include ::Enumerable
 
@@ -186,6 +188,7 @@ module Rambling
       attr_reader :compressor
       attr_writer :root
 
+      # :reek:NestedIterators
       def words_within_root phrase
         return enum_for :words_within_root, phrase unless block_given?
 
@@ -202,6 +205,7 @@ module Rambling
         compressor.compress root
       end
 
+      # :reek:UtilityFunction
       def char_symbols word
         symbols = []
         word.reverse.each_char { |c| symbols << c.to_sym }
