@@ -193,8 +193,9 @@ module Rambling
         return enum_for :words_within_root, phrase unless block_given?
 
         chars = phrase.chars
-        0.upto(chars.length - 1).each do |starting_index|
-          new_phrase = chars.slice starting_index..(chars.length - 1)
+        last_index = chars.length - 1
+        0.upto(last_index).each do |starting_index|
+          new_phrase = chars.slice starting_index..last_index
           root.match_prefix new_phrase do |word|
             yield word
           end
