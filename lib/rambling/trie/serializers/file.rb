@@ -19,8 +19,8 @@ module Rambling
         # @return [Numeric] number of bytes written to disk.
         # :reek:UtilityFunction
         def dump contents, filepath
-          ::File.open filepath, 'w+' do |f|
-            f.write contents
+          ::File.open filepath, 'w+' do |file|
+            file.write contents
           end
         end
       end

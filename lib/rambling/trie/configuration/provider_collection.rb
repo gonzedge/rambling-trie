@@ -69,7 +69,7 @@ module Rambling
         # @return [void]
         def reset
           providers.clear
-          configured_providers.each { |k, v| self[k] = v }
+          configured_providers.each { |key, value| self[key] = value }
           self.default = configured_default
         end
 
