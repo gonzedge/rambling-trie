@@ -41,15 +41,16 @@ module Rambling
           return false unless child
 
           child_letter = child.letter.to_s
+          size = child_letter.size
 
-          if chars.size >= child_letter.size
-            letter = chars.slice!(0, child_letter.size).join
-            return child.partial_word? chars if child_letter == letter
+          if chars.size >= size
+            partial_letter = chars.shift(size).join
+            return child.partial_word? chars if child_letter == partial_letter
           end
 
-          letter = chars.join
-          child_letter = child_letter.slice 0, letter.size
-          child_letter == letter
+          full_letter = chars.join
+          child_letter = child_letter.slice 0, full_letter.size
+          child_letter == full_letter
         end
 
         # :reek:FeatureEnvy
@@ -79,16 +80,17 @@ module Rambling
           return missing unless child
 
           child_letter = child.letter.to_s
+          size = child_letter.size
 
-          if chars.size >= child_letter.size
-            letter = chars.slice!(0, child_letter.size).join
-            return child.scan chars if child_letter == letter
+          if chars.size >= size
+            partial_letter = chars.shift(size).join
+            return child.scan chars if child_letter == partial_letter
           end
 
-          letter = chars.join
-          child_letter = child_letter.slice 0, letter.size
+          full_letter = chars.join
+          child_letter = child_letter.slice 0, full_letter.size
 
-          child_letter == letter ? child : missing
+          child_letter == full_letter ? child : missing
         end
 
         def children_match_prefix chars
