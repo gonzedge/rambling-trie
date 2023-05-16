@@ -59,7 +59,10 @@ module Rambling
         # @param [String] filepath the filepath to resolve into a provider.
         # @return [TProvider, nil] the provider for the given file's extension. {#default} if not found.
         def resolve filepath
-          providers[file_format filepath] || default
+          format = File.extname filepath
+          # Cannot do slice(1..) because it returns +nil+ for empty strings
+          format.slice! 0
+          providers[format.to_sym] || default
         end
 
         # Resets the provider collection to the initial values.
@@ -96,12 +99,6 @@ module Rambling
 
         def values
           providers.values
-        end
-
-        def file_format filepath
-          format = File.extname filepath
-          format.slice! 0
-          format.to_sym
         end
 
         # :reek:ControlParameter
