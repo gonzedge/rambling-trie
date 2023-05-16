@@ -7,6 +7,17 @@ module Rambling
       # :reek:RepeatedConditional
       # :reek:TooManyStatements { max_statements: 10 }
       class Compressed < Rambling::Trie::Nodes::Node
+        # Creates a new compressed node.
+        # @param [Symbol, nil] letter the Node's letter value.
+        # @param [Node, nil] parent the parent of the current node.
+        # @param [Hash<Symbol, Node>] children_tree the tree of child nodes.
+        # @param [Boolean, nil] terminal whether the node is terminal or not.
+        # :reek:ControlParameter
+        def initialize letter = nil, parent = nil, children_tree = {}, terminal = nil
+          super letter, parent, children_tree, terminal || nil
+          children_tree.each_value { |child| child.parent = self }
+        end
+
         # Always raises {Rambling::Trie::InvalidOperation InvalidOperation} when
         # trying to add a word to the current compressed trie node
         # @param [String] _ the word to add to the trie.
