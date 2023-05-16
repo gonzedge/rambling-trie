@@ -1,6 +1,14 @@
 # frozen_string_literal: true
 
 namespace :ips do
+  task :string_shovel_vs_plus do
+    compare_string_shovel_vs_plus
+  end
+
+  task :assign_variable_vs_not do
+    compare_assign_variable_vs_not
+  end
+
   task :do_end_vs_brackets do
     compare_do_end_vs_brackets
   end
@@ -55,18 +63,53 @@ def compare
   end
 end
 
+def compare_string_shovel_vs_plus
+  compare do |bm|
+    bm.report '<<' do
+      a = 'hey'.chars.join
+      a << 'there'
+    end
+
+    bm.report '+' do
+      a = 'hey'.chars.join
+      a + 'there'
+    end
+
+    bm.report 'interpolation' do
+      a = 'hey'.chars.join
+      "#{a}there"
+    end
+  end
+end
+
+def compare_assign_variable_vs_not
+  compare do |bm|
+    bm.config time: 20, warmup: 2
+    a = 1
+
+    bm.report 'assign var' do
+      b = 2
+      a + b
+    end
+
+    bm.report 'no var' do
+      a + 2
+    end
+  end
+end
+
 def compare_do_end_vs_brackets
   compare do |bm|
     bm.config time: 20, warmup: 5
     a = [1, 2, 3] * 100
 
-    bm.report('do/end') do
+    bm.report 'do/end' do
       a.map do |i|
         1 <= i
       end
     end
 
-    bm.report('{ }') do
+    bm.report '{ }' do
       a.map { |i| 1 <= i }
     end
   end
