@@ -28,10 +28,11 @@ module Rambling
 
           ::Zip::File.open filepath do |zip|
             entry = zip.entries.first
-            entry_path = path entry.name
+            entry_name = entry.name
+            entry_path = path entry_name
             entry.extract entry_path
 
-            serializer = serializers.resolve entry.name
+            serializer = serializers.resolve entry_name
             serializer.load entry_path
           end
         end
