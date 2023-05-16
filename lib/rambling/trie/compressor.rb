@@ -30,8 +30,12 @@ module Rambling
 
       # :reek:FeatureEnvy
       def compress_children_and_copy node
-        children_tree = compress_children node.children_tree
-        Rambling::Trie::Nodes::Compressed.new node.letter, node.parent, children_tree, node.terminal?
+        Rambling::Trie::Nodes::Compressed.new(
+          node.letter,
+          node.parent,
+          compress_children(node.children_tree),
+          node.terminal?,
+        )
       end
 
       def compress_children tree
