@@ -56,7 +56,7 @@ module Rambling
         # :reek:FeatureEnvy
         # :reek:DuplicateMethodCall
         def word_chars? chars
-          letter = chars.slice! 0
+          letter = chars.shift
           letter_sym = letter.to_sym
 
           child = children_tree[letter_sym]
@@ -67,7 +67,7 @@ module Rambling
 
             break if chars.empty?
 
-            letter << chars.slice!(0)
+            letter << chars.shift
             letter_sym = letter.to_sym
           end
 
@@ -102,7 +102,7 @@ module Rambling
           return unless child
 
           child_letter = child.letter.to_s
-          letter = chars.slice!(0, child_letter.size).join
+          letter = chars.shift(child_letter.size).join
 
           return unless child_letter == letter
 
