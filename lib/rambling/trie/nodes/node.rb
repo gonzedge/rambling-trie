@@ -65,7 +65,7 @@ module Rambling
         # @return [Boolean] +true+ if the node does not have a parent, +false+ otherwise.
         # :reek:NilCheck
         def root?
-          !parent
+          parent.nil?
         end
 
         # Indicates if a {Node Node} is terminal or not.
