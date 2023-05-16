@@ -208,9 +208,7 @@ module Rambling
 
       # :reek:UtilityFunction
       def char_symbols word
-        symbols = []
-        word.reverse.each_char { |c| symbols << c.to_sym }
-        symbols
+        word.reverse.chars.map(&:to_sym)
       end
     end
   end
