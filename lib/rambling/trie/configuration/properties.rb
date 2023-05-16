@@ -6,21 +6,18 @@ module Rambling
       # Provides configurable properties for Rambling::Trie.
       class Properties
         # The configured {Readers Readers}.
-        # @return [ProviderCollection<Readers::Reader>] the mapping of
-        #   configured {Readers Readers}.
+        # @return [ProviderCollection<Readers::Reader>] the mapping of configured {Readers Readers}.
         attr_reader :readers
 
         # The configured {Serializers Serializers}.
-        # @return [ProviderCollection<Serializers::Serializer>] the mapping of
-        #   configured {Serializers Serializers}.
+        # @return [ProviderCollection<Serializers::Serializer>] the mapping of configured {Serializers Serializers}.
         attr_reader :serializers
 
         # The configured {Compressor Compressor}.
         # @return [Compressor] the configured compressor.
         attr_accessor :compressor
 
-        # The configured +root_builder+, which returns a {Nodes::Node Node}
-        # when called.
+        # The configured +root_builder+, which returns a {Nodes::Node Node} when called.
         # @return [Proc<Nodes::Node>] the configured +root_builder+.
         attr_accessor :root_builder
 
@@ -50,11 +47,7 @@ module Rambling
 
         def reset_readers
           plain_text_reader = Rambling::Trie::Readers::PlainText.new
-
-          @readers = Rambling::Trie::Configuration::ProviderCollection.new(
-            :reader,
-            txt: plain_text_reader,
-          )
+          @readers = Rambling::Trie::Configuration::ProviderCollection.new :reader, txt: plain_text_reader
         end
 
         def reset_serializers

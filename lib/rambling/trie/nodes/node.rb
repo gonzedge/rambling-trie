@@ -22,8 +22,7 @@ module Rambling
         attr_reader :letter
 
         # Child nodes tree.
-        # @return [Hash<Symbol, Node>] the children tree hash, consisting of
-        #   +:letter => node+.
+        # @return [Hash<Symbol, Node>] the children tree hash, consisting of +:letter => node+.
         attr_accessor :children_tree
 
         # Parent node.
@@ -40,8 +39,7 @@ module Rambling
         end
 
         # Child nodes.
-        # @return [Array<Node>] the array of child nodes contained
-        #   in the current node.
+        # @return [Array<Node>] the array of child nodes contained in the current node.
         def children
           children_tree.values
         end
@@ -57,8 +55,7 @@ module Rambling
         end
 
         # Indicates if the current node is the root node.
-        # @return [Boolean] +true+ if the node does not have a parent, +false+
-        #   otherwise.
+        # @return [Boolean] +true+ if the node does not have a parent, +false+ otherwise.
         def root?
           !parent
         end
@@ -82,8 +79,7 @@ module Rambling
 
         # Checks if a path for a set of characters exists in the trie.
         # @param [Array<String>] chars the characters to look for in the trie.
-        # @return [Boolean] +true+ if the characters are found, +false+
-        #   otherwise.
+        # @return [Boolean] +true+ if the characters are found, +false+ otherwise.
         def partial_word? chars
           return true if chars.empty?
 
@@ -92,8 +88,7 @@ module Rambling
 
         # Checks if a path for set of characters represents a word in the trie.
         # @param [Array<String>] chars the characters to look for in the trie.
-        # @return [Boolean] +true+ if the characters are found and form a word,
-        #   +false+ otherwise.
+        # @return [Boolean] +true+ if the characters are found and form a word, +false+ otherwise.
         def word? chars = []
           return terminal? if chars.empty?
 
@@ -112,8 +107,7 @@ module Rambling
 
         # Returns all words that match a prefix of any length within chars.
         # @param [String] chars the chars to base the prefix on.
-        # @return [Enumerator<String>] all the words that match a prefix given
-        #   by chars.
+        # @return [Enumerator<String>] all the words that match a prefix by chars.
         # @yield [String] each word found.
         def match_prefix chars
           return enum_for :match_prefix, chars unless block_given?
@@ -128,8 +122,7 @@ module Rambling
         # Get {Node Node} corresponding to a given letter.
         # @param [Symbol] letter the letter to search for in the node.
         # @return [Node] the node corresponding to that letter.
-        # @see https://ruby-doc.org/core-2.7.0/Hash.html#method-i-5B-5D
-        #   Hash#[]
+        # @see https://ruby-doc.org/core-2.7.0/Hash.html#method-i-5B-5D Hash#[]
         def [] letter
           children_tree[letter]
         end
@@ -137,31 +130,25 @@ module Rambling
         # Set the {Node Node} that corresponds to a given letter.
         # @param [Symbol] letter the letter to insert or update in the node's
         # @param [Node] node the {Node Node} to assign to that letter.
-        # @return [Node] the node corresponding to the inserted or
-        #   updated letter.
-        # @see https://ruby-doc.org/core-2.7.0/Hash.html#method-i-5B-5D
-        #   Hash#[]
+        # @return [Node] the node corresponding to the inserted or updated letter.
+        # @see https://ruby-doc.org/core-2.7.0/Hash.html#method-i-5B-5D Hash#[]
         def []= letter, node
           children_tree[letter] = node
         end
 
-        # Check if a {Node Node}'s children tree contains a given
-        #   letter.
+        # Check if a {Node Node}'s children tree contains a given letter.
         # @param [Symbol] letter the letter to search for in the node.
         # @return [Boolean] +true+ if the letter is present, +false+ otherwise.
-        # @see https://ruby-doc.org/core-2.7.0/Hash.html#method-i-has_key-3F
-        #   Hash#key?
+        # @see https://ruby-doc.org/core-2.7.0/Hash.html#method-i-has_key-3F Hash#key?
         def key? letter
           children_tree.key? letter
         end
 
         # Delete a given letter and its corresponding {Node Node} from
         # this {Node Node}'s children tree.
-        # @param [Symbol] letter the letter to delete from the node's children
-        #   tree.
+        # @param [Symbol] letter the letter to delete from the node's children tree.
         # @return [Node] the node corresponding to the deleted letter.
-        # @see https://ruby-doc.org/core-2.7.0/Hash.html#method-i-delete
-        #   Hash#delete
+        # @see https://ruby-doc.org/core-2.7.0/Hash.html#method-i-delete Hash#delete
         def delete letter
           children_tree.delete letter
         end

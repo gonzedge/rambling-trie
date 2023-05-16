@@ -11,8 +11,8 @@ module Rambling
         # @param [Configuration::Properties] properties the configuration
         #   properties set up so far.
         def initialize properties
-          @properties = properties
           super()
+          @properties = properties
         end
 
         # Unzip contents from specified filepath and load in contents from
