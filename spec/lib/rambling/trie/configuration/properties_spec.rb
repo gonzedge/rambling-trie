@@ -37,7 +37,7 @@ describe Rambling::Trie::Configuration::Properties do
 
     it 'configures the compressor' do
       compressor = properties.compressor
-      expect(compressor).to be_instance_of Rambling::Trie::Compressor
+      expect(compressor).to be_instance_of Rambling::Trie::Compressors::WithGarbageCollection
     end
 
     it 'configures the root_builder' do

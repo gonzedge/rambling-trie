@@ -61,7 +61,7 @@ describe Rambling::Trie::Stringifyable do
     end
 
     context 'with a compressed node' do
-      let(:compressor) { Rambling::Trie::Compressor.new }
+      let(:compressor) { Rambling::Trie::Compressors::WithMergingStrategy.new }
       let(:compressed_node) { compressor.compress node }
 
       before do

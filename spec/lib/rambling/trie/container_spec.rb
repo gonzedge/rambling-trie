@@ -5,7 +5,7 @@ require 'spec_helper'
 describe Rambling::Trie::Container do
   subject(:container) { described_class.new root, compressor }
 
-  let(:compressor) { Rambling::Trie::Compressor.new }
+  let(:compressor) { Rambling::Trie::Compressors::WithMergingStrategy.new }
   let(:root) { Rambling::Trie::Nodes::Raw.new }
 
   describe '.new' do

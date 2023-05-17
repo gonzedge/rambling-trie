@@ -6,16 +6,16 @@ module Rambling
       # Provides configurable properties for Rambling::Trie.
       # :reek:TooManyInstanceVariables { max_instance_variables: 5 }
       class Properties
-        # The configured {Readers Readers}.
+        # The configured {Readers::Reader Reader}.
         # @return [ProviderCollection<Readers::Reader>] the mapping of configured {Readers Readers}.
         attr_reader :readers
 
-        # The configured {Serializers Serializers}.
+        # The configured {Serializers::Serializer Serializer}.
         # @return [ProviderCollection<Serializers::Serializer>] the mapping of configured {Serializers Serializers}.
         attr_reader :serializers
 
-        # The configured {Compressor Compressor}.
-        # @return [Compressor] the configured compressor.
+        # The configured {Compressors::Compressor Compressor}.
+        # @return [Compressors::Default] the configured compressor.
         # :reek:Attribute
         attr_accessor :compressor
 
@@ -41,7 +41,7 @@ module Rambling
           reset_readers
           reset_serializers
 
-          @compressor = Rambling::Trie::Compressor.new
+          @compressor = Rambling::Trie::Compressors::WithGarbageCollection.new
           @root_builder = -> { Rambling::Trie::Nodes::Raw.new }
           @tmp_path = '/tmp'
         end

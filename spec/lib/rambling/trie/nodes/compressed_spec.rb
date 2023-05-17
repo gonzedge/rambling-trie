@@ -4,7 +4,7 @@ require 'spec_helper'
 
 describe Rambling::Trie::Nodes::Compressed do
   let(:raw_node) { Rambling::Trie::Nodes::Raw.new }
-  let(:compressor) { Rambling::Trie::Compressor.new }
+  let(:compressor) { Rambling::Trie::Compressors::WithMergingStrategy.new }
   let(:node) { compressor.compress raw_node }
 
   describe '#new' do

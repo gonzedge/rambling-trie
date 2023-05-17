@@ -14,7 +14,7 @@ module Rambling
 
       # Creates a new trie.
       # @param [Nodes::Node] root the root node for the trie
-      # @param [Compressor] compressor responsible for compressing the trie
+      # @param [Default] compressor responsible for compressing the trie
       # @yield [self] the trie just initialized.
       def initialize root, compressor
         @root = root

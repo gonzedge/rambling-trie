@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-describe Rambling::Trie::Compressor do
+describe Rambling::Trie::Compressors::WithMergingStrategy do
   let(:compressor) { described_class.new }
 
   describe '#compress' do

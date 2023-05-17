@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 %w(
-  comparable compressible compressor configuration container enumerable inspectable invalid_operation
+  comparable compressible compressors configuration container enumerable inspectable invalid_operation
   readers serializers stringifyable nodes version
 ).each do |file|
   require File.join('rambling', 'trie', file)

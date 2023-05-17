@@ -38,7 +38,7 @@ describe Rambling::Trie::Inspectable do
     end
 
     context 'with a compressed node' do
-      let(:compressor) { Rambling::Trie::Compressor.new }
+      let(:compressor) { Rambling::Trie::Compressors::WithMergingStrategy.new }
       let(:compressed) { compressor.compress node }
       let(:compressed_child) { compressed[:o] }
 

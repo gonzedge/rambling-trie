@@ -5,7 +5,7 @@ require 'spec_helper'
 describe Rambling::Trie do
   describe '.create' do
     let(:root) { Rambling::Trie::Nodes::Raw.new }
-    let(:compressor) { Rambling::Trie::Compressor.new }
+    let(:compressor) { Rambling::Trie::Compressors::WithMergingStrategy.new }
     let!(:container) { Rambling::Trie::Container.new root, compressor }
 
     before do
@@ -80,7 +80,7 @@ describe Rambling::Trie do
   describe '.load' do
     let(:filepath) { 'a path to a file' }
     let(:root) { Rambling::Trie::Nodes::Raw.new }
-    let(:compressor) { Rambling::Trie::Compressor.new }
+    let(:compressor) { Rambling::Trie::Compressors::WithMergingStrategy.new }
     let(:container) { Rambling::Trie::Container.new root, compressor }
     let :serializer do
       instance_double(
