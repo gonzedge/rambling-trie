@@ -1,0 +1,9 @@
+module Rambling
+  module Trie
+    module Stringifyable
+      def as_word: -> String
+
+      def to_s: -> String
+    end
+  end
+end
