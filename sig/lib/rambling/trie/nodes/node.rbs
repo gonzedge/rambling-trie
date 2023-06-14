@@ -1,0 +1,47 @@
+module Rambling
+  module Trie
+    module Nodes
+      class Node
+        attr_reader letter: Symbol?
+        attr_accessor children_tree: Hash[Symbol, Node]
+        attr_accessor parent: Node?
+
+        def children: -> Array[Node]
+
+        def first_child: -> Node?
+
+        def match_prefix: (String) { (String) -> void } -> Enumerator[String, void]
+
+        def root?: -> bool
+
+        def scan: (Array[String]) -> Node
+
+        def terminal?: -> bool
+
+        def terminal!: -> Node
+
+        def letter=: (String | Symbol?) -> Symbol?
+
+        def partial_word?: (Array[String]) -> bool
+
+        def word?: (Array[String]) -> bool
+
+        def []: (Symbol) -> Node
+
+        def []=: (Symbol, Node) -> Node
+
+        def key?: (Symbol) -> bool
+
+        def delete: (Symbol) -> Node?
+
+        alias has_key? key?
+
+        private
+
+        def missing: -> Node
+
+        attr_accessor terminal: bool?
+      end
+    end
+  end
+end
