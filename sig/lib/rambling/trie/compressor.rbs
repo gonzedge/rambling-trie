@@ -1,0 +1,19 @@
+module Rambling
+  module Trie
+    class Compressor
+      def compress: (Nodes::Node) -> Nodes::Compressed
+
+      private
+
+      def compress_child_and_merge: (Nodes::Node) -> Nodes::Compressed
+
+      def merge: (Nodes::Node, Nodes::Node) -> Nodes::Compressed
+
+      def compress_children_and_copy: (Nodes::Node) -> Nodes::Compressed
+
+      def compress_children: (Hash[Symbol, Nodes::Node]) -> Hash[Symbol, Nodes::Node]
+
+      def new_compressed_node: (Symbol?, Nodes::Node?, Hash[Symbol, Nodes::Node], bool?) -> untyped
+    end
+  end
+end

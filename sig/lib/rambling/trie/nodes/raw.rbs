@@ -1,0 +1,25 @@
+module Rambling
+  module Trie
+    module Nodes
+      class Raw < Node
+        def add: (Array[Symbol]) -> Node
+
+        def compressed?: -> bool
+
+        private
+
+        def add_to_children_tree: (Array[Symbol]) -> Node
+
+        def new_node: (Symbol) -> Node
+
+        def partial_word_chars?: (Array[String | Symbol]) -> bool
+
+        def word_chars?: (Array[String | Symbol]) -> bool
+
+        def closest_node: (Array[String | Symbol]) -> Node
+
+        def children_match_prefix: (Array[String | Symbol]) -> Enumerator[String, void]
+      end
+    end
+  end
+end
