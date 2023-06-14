@@ -1,0 +1,27 @@
+module Rambling
+  module Trie
+    VERSION: String
+
+    @properties: Configuration::Properties
+
+    def create: (String?, Readers::Reader?) { (Container) -> void } -> Container
+
+    def load: (String, Serializers::Serializer[untyped]?) -> Container
+
+    def dump: (Container, String, Serializers::Serializer[untyped]?) -> void
+
+    def config: { (Configuration::Properties) -> void } -> Configuration::Properties
+
+    private
+
+    def properties: -> untyped
+
+    def readers: -> untyped
+
+    def serializers: -> untyped
+
+    def compressor: -> untyped
+
+    def root_builder: -> ^() -> Nodes::Node
+  end
+end

@@ -1,0 +1,19 @@
+module Rambling
+  module Trie
+    module Inspectable
+      def inspect: -> String
+
+      private
+
+      def class_name: -> String?
+
+      def attributes: -> String
+
+      def letter_inspect: -> String
+
+      def terminal_inspect: -> String
+
+      def children_inspect: -> String
+    end
+  end
+end
