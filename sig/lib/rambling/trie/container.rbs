@@ -1,0 +1,63 @@
+module Rambling
+  module Trie
+    class Container
+      @compressor: Compressor
+
+      attr_reader root: Nodes::Node
+
+      def add: (String) -> Nodes::Node
+
+      def concat: (Array[String]) -> Array[Nodes::Node]
+
+      def compress!: -> Container
+
+      def compress: -> Container
+
+      def each: -> (Enumerator[String, void] | Nodes::Node)
+
+      def partial_word?: (String) -> bool
+
+      def word?: (String) -> bool
+
+      def scan: (String) -> Array[String]
+
+      def words_within: (String) -> Array[String]
+
+      def words_within?: (String) -> bool
+
+      def ==: (Container) -> bool
+
+      def []: (Symbol) -> Nodes::Node
+
+      def children: -> Array[Nodes::Node]
+
+      def children_tree: -> Hash[Symbol, Nodes::Node]
+
+      def compressed?: -> bool
+
+      def to_a: -> Array[String]
+
+      def key?: (Symbol) -> bool
+
+      def size: -> Numeric
+
+      alias include? word?
+      alias match? partial_word?
+      alias words? scan
+      alias << add
+      alias has_key? key?
+      alias has_letter? key?
+
+      private
+
+      attr_reader compressor: Compressor
+      attr_writer root: Nodes::Node
+
+      def words_within_root: (String) -> (Enumerator[String, void] | Numeric)
+
+      def compress_root: -> Nodes::Compressed
+
+      def char_symbols: (String) -> Array[Symbol]
+    end
+  end
+end
