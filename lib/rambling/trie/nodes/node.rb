@@ -147,7 +147,7 @@ module Rambling
         # Delete a given letter and its corresponding {Node Node} from
         # this {Node Node}'s children tree.
         # @param [Symbol] letter the letter to delete from the node's children tree.
-        # @return [Node] the node corresponding to the deleted letter.
+        # @return [Node, nil] the node corresponding to the deleted letter.
         # @see https://ruby-doc.org/core-2.7.0/Hash.html#method-i-delete Hash#delete
         def delete letter
           children_tree.delete letter

@@ -87,7 +87,7 @@ module Rambling
 
       # Returns all words within a string that match a word contained in the trie.
       # @param [String] phrase the string to look for matching words in.
-      # @return [Enumerator<String>] all the words in the given string that match a word in the trie.
+      # @return [Array<String>] all the words in the given string that match a word in the trie.
       # @yield [String] each word found in phrase.
       def words_within phrase
         words_within_root(phrase).to_a
