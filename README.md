@@ -268,6 +268,7 @@ want edge documentation, you can go the [GitHub project RubyDoc.info page][rubyd
 
 The Rambling Trie has been tested with the following Ruby versions:
 
+* 3.3.x
 * 3.2.x
 * 3.1.x
 * 3.0.x
