@@ -268,6 +268,7 @@ want edge documentation, you can go the [GitHub project RubyDoc.info page][rubyd
 
 The Rambling Trie has been tested with the following Ruby versions:
 
+* 3.3.x
 * 3.2.x
 * 3.1.x
 * 3.0.x
@@ -309,7 +310,7 @@ WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEM
 COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
 OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-[badge_fury_badge]: https://badge.fury.io/rb/rambling-trie.svg?version=2.3.1
+[badge_fury_badge]: https://badge.fury.io/rb/rambling-trie.svg?version=2.4.0
 [badge_fury_link]: https://badge.fury.io/rb/rambling-trie
 [chruby]: https://github.com/postmodern/chruby
 [code_climate_grade_badge]: https://codeclimate.com/github/gonzedge/rambling-trie/badges/gpa.svg

@@ -1,6 +1,48 @@
 # CHANGELOG
 
-## 2.3.2 [compare][compare_v2_3_1_and_master]
+## 2.4.1 [compare][compare_v2_4_0_and_master]
+
+## 2.4.0 [compare][compare_v2_3_1_and_v2_4_0]
+
+- Handle code inspections in `lib/` - use `%w` and `https` in gemspec by [@gonzedge][github_user_gonzedge]
+  - And add explicit RubyMine `noinspection` comments for things that RuboCop already takes care of.
+- Handle code inspections in `tasks/` by [@gonzedge][github_user_gonzedge]
+  - Rename `Helpers::{GC => GarbageCollection}` (and corresponding files)
+  - Use symbols for hash `key?`/`has_key?`/`!![]` ips benchmark comparison
+- Use `RSpec::Config`'s `filter_run_when_matching` instead of deprecated `run_all_when_everything_filtered`
+  by [@gonzedge][github_user_gonzedge]
+  - Use non-reserved words for file format and method name so that we are not accidentally shadowing important
+    built-ins (`:format` => `:file_format`, `:method` => `:method_name`)
+  - Explicitly assert any new `Node` is not a `#word?` by default after initialization
+  - Remove unnecessary parens from let definitions in specs
+- Use `@return [self]` in `Node#terminal!` rubydoc by [@gonzedge][github_user_gonzedge]
+  - Also fix typos in `CHANGELOG.md` and `CONTRIBUTING.md`
+- Update `CallTreeProfiler` to use new `RubyProf::Profiler` format by [@gonzedge][github_user_gonzedge]
+
+  Plus:
+
+  - More accurate `pop`/`shift`/`slice!` reporting
+  - Only require `benchmark/ips` when necessary
+  - One-liner blocks
+- Add version specs to ensure `README/CHANGELOG` update before release by [@gonzedge][github_user_gonzedge]
+- Exclude `spec/` from `simplecov` coverage by [@gonzedge][github_user_gonzedge]
+
+  ... by using the same filter as we use for `Coveralls.wear!`
+- CodeClimate plugins by [@gonzedge][github_user_gonzedge]
+  - `fixme`
+    - And exclude `rubocop` files
+  - `markdownlint`
+    - Max line length is 120 (`MD013`)
+    - Ordered list style is `ordered` (`MD029`)
+    - Add titles to `CHANGELOG.md` and `CONTRIBUTING.md`
+    - Apply lint rules
+    - Fix corresponding tests
+  - `rubocop`
+    - Allow up to 5 params to be optional (same as max total params)
+    - Change max line length to 120.
+  - `flog`
+- Add `semgrep` GitHub Action by [@gonzedge][github_user_gonzedge]
+- Update copyright years by [@gonzedge][github_user_gonzedge]
 
 ## 2.3.1 [compare][compare_v2_3_0_and_v2_3_1]
 
@@ -917,7 +959,8 @@ Most of these help with the gem's overall performance.
 [compare_v2_2_0_and_v2_2_1]: https://github.com/gonzedge/rambling-trie/compare/v2.2.0...v2.2.1
 [compare_v2_2_1_and_v2_3_0]: https://github.com/gonzedge/rambling-trie/compare/v2.2.1...v2.3.0
 [compare_v2_3_0_and_v2_3_1]: https://github.com/gonzedge/rambling-trie/compare/v2.3.0...v2.3.1
-[compare_v2_3_1_and_master]: https://github.com/gonzedge/rambling-trie/compare/v2.3.1...master
+[compare_v2_3_1_and_v2_4_0]: https://github.com/gonzedge/rambling-trie/compare/v2.3.1...v2.4.0
+[compare_v2_4_0_and_master]: https://github.com/gonzedge/rambling-trie/compare/v2.4.0...master
 [design_patterns_null_object]: http://wiki.c2.com/?NullObject
 [github_commit_current_key_less_memory]: https://github.com/gonzedge/rambling-trie/commit/218fac218a77e70ba04a3672ff5abfddf6544f57
 [github_commit_reduced_memory_footprint]: https://github.com/gonzedge/rambling-trie/commit/aa8c0262f888e88df6a2f1e1351d8f14b21e43c4

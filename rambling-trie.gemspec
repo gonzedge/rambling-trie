@@ -35,7 +35,7 @@ Gem::Specification.new do |gem|
   gem.platform = Gem::Platform::RUBY
   gem.required_ruby_version = '>= 2.7', '< 4'
 
-  gem.add_development_dependency 'rake', '~> 13.0'
+  gem.add_development_dependency 'rake', '~> 13.1'
   gem.add_development_dependency 'rspec', '~> 3.12'
-  gem.add_development_dependency 'yard', '~> 0.9.28'
+  gem.add_development_dependency 'yard', '~> 0.9.34'
 end
