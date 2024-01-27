@@ -1,0 +1,7 @@
+module Rambling
+  module Trie
+    module Compressible
+      def compressible?: -> bool
+    end
+  end
+end
