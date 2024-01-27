@@ -3,10 +3,11 @@
 *.swo
 .idea/
 
-# RVM
+# RVM / asdf
 .rvmrc
 .ruby-version
 .ruby-gemset
+.tool-versions
 
 # Gemfile
 Gemfile.lock
