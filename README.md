@@ -292,7 +292,7 @@ to [@gonzedge][github_user_gonzedge].
 
 ## License and copyright
 
-Copyright (c) 2012-2023 Edgar González
+Copyright (c) 2012-2024 Edgar González
 
 MIT License
 
