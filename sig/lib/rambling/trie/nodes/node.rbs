@@ -2,9 +2,17 @@ module Rambling
   module Trie
     module Nodes
       class Node
+        include Compressible
+        include Enumerable
+        include Comparable
+        include Stringifyable
+        include Inspectable
+
         attr_reader letter: Symbol?
         attr_accessor children_tree: Hash[Symbol, Node]
         attr_accessor parent: Node?
+
+        def initialize: (Symbol?, Node?, ?Hash[Symbol, Node]) -> void
 
         def children: -> Array[Node]
 

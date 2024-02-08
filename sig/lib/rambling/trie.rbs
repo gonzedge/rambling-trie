@@ -4,24 +4,24 @@ module Rambling
 
     @properties: Configuration::Properties
 
-    def create: (String?, Readers::Reader?) { (Container) -> void } -> Container
+    def self.create: (String?, Readers::Reader?) { (Container) -> void } -> Container
 
-    def load: (String, Serializers::Serializer[untyped]?) -> Container
+    def self.load: (String, Serializers::Serializer[Nodes::Node]?) -> Container
 
-    def dump: (Container, String, Serializers::Serializer[untyped]?) -> void
+    def self.dump: (Container, String, Serializers::Serializer[Nodes::Node]?) -> void
 
-    def config: { (Configuration::Properties) -> void } -> Configuration::Properties
+    def self.config: { (Configuration::Properties) -> void } -> Configuration::Properties
 
     private
 
-    def properties: -> untyped
+    def self.properties: -> Configuration::Properties
 
-    def readers: -> untyped
+    def self.readers: -> Configuration::ProviderCollection[Readers::Reader]
 
-    def serializers: -> untyped
+    def self.serializers: -> Configuration::ProviderCollection[Serializers::Serializer[Nodes::Node]]
 
-    def compressor: -> untyped
+    def self.compressor: -> Compressor
 
-    def root_builder: -> ^() -> Nodes::Node
+    def self.root_builder: -> ^() -> Nodes::Node
   end
 end

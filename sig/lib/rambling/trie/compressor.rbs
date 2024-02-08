@@ -13,7 +13,7 @@ module Rambling
 
       def compress_children: (Hash[Symbol, Nodes::Node]) -> Hash[Symbol, Nodes::Node]
 
-      def new_compressed_node: (Symbol?, Nodes::Node?, Hash[Symbol, Nodes::Node], bool?) -> untyped
+      def new_compressed_node: (Symbol?, Nodes::Node?, Hash[Symbol, Nodes::Node], bool?) -> Nodes::Compressed
     end
   end
 end
