@@ -1,0 +1,9 @@
+module Rambling
+  module Trie
+    module Readers
+      class PlainText < Reader
+        def each_word: (String) { (String?) -> void } -> (Enumerator[String?, void] | PlainText)
+      end
+    end
+  end
+end
