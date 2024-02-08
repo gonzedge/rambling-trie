@@ -13,7 +13,7 @@ module Rambling
 
         def add: (Symbol, TProvider) -> TProvider
 
-        def default=: (TProvider) -> TProvider
+        def default=: (TProvider?) -> TProvider?
 
         def formats: -> Array[Symbol]
 
