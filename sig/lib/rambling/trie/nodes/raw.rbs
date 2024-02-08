@@ -18,7 +18,7 @@ module Rambling
 
         def closest_node: (Array[String | Symbol]) -> Node
 
-        def children_match_prefix: (Array[String | Symbol]) -> Enumerator[String, void]
+        def children_match_prefix: (Array[String | Symbol]) { (String) -> void } -> Enumerator[String, void]?
       end
     end
   end

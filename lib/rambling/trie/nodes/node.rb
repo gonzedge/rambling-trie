@@ -52,6 +52,8 @@ module Rambling
           # rubocop:disable Lint/UnreachableLoop
           children_tree.each_value { |child| return child }
           # rubocop:enable Lint/UnreachableLoop
+
+          nil
         end
 
         # Indicates if the current node is the root node.
