@@ -108,7 +108,7 @@ module Rambling
         end
 
         # Returns all words that match a prefix of any length within chars.
-        # @param [String] chars the chars to base the prefix on.
+        # @param [Array[String]] chars the chars to base the prefix on.
         # @return [Enumerator<String>] all the words that match a prefix by chars.
         # @yield [String] each word found.
         def match_prefix chars
