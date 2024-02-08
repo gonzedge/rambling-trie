@@ -55,7 +55,7 @@ module Rambling
       attr_reader compressor: Compressor
       attr_writer root: Nodes::Node
 
-      def words_within_root: (String) { (String) -> void } -> (Enumerator[String, void] | Numeric)
+      def words_within_root: (String) { (String) -> void } -> (Enumerator[String, void]?)
 
       def compress_root: -> Nodes::Compressed
 

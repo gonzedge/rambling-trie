@@ -14,11 +14,13 @@ module Rambling
 
         def initialize: (Symbol?, Node?, ?Hash[Symbol, Node]) -> void
 
+        def add: (Array[Symbol]) -> Node
+
         def children: -> Array[Node]
 
         def first_child: -> Node?
 
-        def match_prefix: (String) { (String) -> void } -> Enumerator[String, void]
+        def match_prefix: (Array[String]) { (String) -> void } -> Enumerator[String, void]?
 
         def root?: -> bool
 
@@ -44,9 +46,20 @@ module Rambling
 
         alias has_key? key?
 
+
         private
 
         def missing: -> Node
+
+        def partial_word_chars?: (Array[String]) -> bool
+
+        def word_chars?: (Array[String]) -> bool
+
+        def closest_node: (Array[String]) -> Node
+
+        def children_match_prefix: (Array[String]) { (String) -> void } -> Enumerator[String, void]?
+
+        def compressed?: -> bool
 
         attr_accessor terminal: bool?
       end
