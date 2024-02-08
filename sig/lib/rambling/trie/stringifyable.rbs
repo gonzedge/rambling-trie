@@ -4,6 +4,18 @@ module Rambling
       def as_word: -> String
 
       def to_s: -> String
+
+      private
+
+      # abstract methods
+
+      def letter: -> Symbol
+
+      def terminal?: -> bool
+
+      def parent: -> Nodes::Node?
+
+      def children_tree: -> Hash[Symbol, Nodes::Node]
     end
   end
 end
