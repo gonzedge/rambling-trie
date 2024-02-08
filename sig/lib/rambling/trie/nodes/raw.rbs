@@ -12,13 +12,13 @@ module Rambling
 
         def new_node: (Symbol) -> Node
 
-        def partial_word_chars?: (Array[String | Symbol]) -> bool
+        def partial_word_chars?: (Array[String]) -> bool
 
-        def word_chars?: (Array[String | Symbol]) -> bool
+        def word_chars?: (Array[String]) -> bool
 
-        def closest_node: (Array[String | Symbol]) -> Node
+        def closest_node: (Array[String]) -> Node
 
-        def children_match_prefix: (Array[String | Symbol]) { (String) -> void } -> Enumerator[String, void]?
+        def children_match_prefix: (Array[String]) { (String) -> void } -> Enumerator[String, void]?
       end
     end
   end
