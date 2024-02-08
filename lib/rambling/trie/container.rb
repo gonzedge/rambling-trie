@@ -196,6 +196,8 @@ module Rambling
             yield word
           end
         end
+
+        nil
       end
 
       def compress_root
