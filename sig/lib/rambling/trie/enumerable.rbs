@@ -1,7 +1,7 @@
 module Rambling
   module Trie
     module Enumerable
-      include ::Enumerable[Nodes::Node]
+      include ::Enumerable[String]
 
       alias size count
 
