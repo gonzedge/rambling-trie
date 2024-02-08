@@ -4,11 +4,13 @@ module Rambling
       class Zip < Serializer[Nodes::Node]
         @properties: Configuration::Properties
 
+        def initialize: (Configuration::Properties) -> void
+
         private
 
         attr_reader properties: Configuration::Properties
 
-        def serializers: -> Configuration::ProviderCollection[Serializer[untyped]]
+        def serializers: -> Configuration::ProviderCollection[Serializer[Nodes::Node]]
 
         def tmp_path: -> String
 
