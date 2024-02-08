@@ -2,6 +2,16 @@ module Rambling
   module Trie
     module Compressible
       def compressible?: -> bool
+
+      private
+
+      # abstract methods
+
+      def root?: -> bool
+
+      def terminal?: -> bool
+
+      def children_tree: -> Hash[Symbol, Nodes::Node]
     end
   end
 end

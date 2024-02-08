@@ -6,6 +6,16 @@ module Rambling
       alias size count
 
       def each: { (String) -> void } -> (Enumerator[String, void] | Enumerable)
+
+      private
+
+      # abstract methods
+
+      def as_word: -> String
+
+      def terminal?: -> bool
+
+      def children_tree: -> Hash[Symbol, Nodes::Node]
     end
   end
 end
