@@ -5,6 +5,7 @@ source 'https://rubygems.org'
 gemspec
 
 gem 'rbs'
+gem 'steep'
 gem 'rubyzip'
 
 group :development do
