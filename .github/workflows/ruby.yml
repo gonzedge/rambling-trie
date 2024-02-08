@@ -23,6 +23,8 @@ jobs:
           bundler-cache: true
       - name: Run rubocop
         run: bundle exec rubocop
+      - name: Run rbs
+        run: bundle exec rbs validate lib/**/*.rb
   spec:
     runs-on: ubuntu-latest
     strategy:
