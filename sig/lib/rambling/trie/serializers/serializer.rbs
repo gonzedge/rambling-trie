@@ -1,0 +1,10 @@
+module Rambling
+  module Trie
+    module Serializers
+      class Serializer[TContents]
+        def load: (String) -> TContents
+        def dump: (TContents, String) -> Numeric
+      end
+    end
+  end
+end

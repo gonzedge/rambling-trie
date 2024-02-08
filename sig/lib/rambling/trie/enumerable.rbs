@@ -1,0 +1,11 @@
+module Rambling
+  module Trie
+    module Enumerable
+      include ::Enumerable[Nodes::Node]
+
+      alias size count
+
+      def each: { (String) -> void } -> (Enumerator[String, void] | Enumerable)
+    end
+  end
+end

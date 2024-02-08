@@ -1,0 +1,7 @@
+module Rambling
+  module Trie
+    module Comparable
+      def ==: (Nodes::Node) -> bool
+    end
+  end
+end
