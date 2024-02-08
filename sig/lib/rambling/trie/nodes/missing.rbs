@@ -1,0 +1,8 @@
+module Rambling
+  module Trie
+    module Nodes
+      class Missing < Node
+      end
+    end
+  end
+end
