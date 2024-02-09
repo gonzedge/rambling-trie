@@ -1,0 +1,27 @@
+module Rambling
+  module Trie
+    VERSION: String
+
+    @properties: Configuration::Properties
+
+    def self.create: (String?, Readers::Reader?) ?{ (Container) -> void } -> Container
+
+    def self.load: (String, Serializers::Serializer[Nodes::Node]?) ?{ (Container) -> void } -> Container
+
+    def self.dump: (Container, String, Serializers::Serializer[Nodes::Node]?) -> void
+
+    def self.config: ?{ (Configuration::Properties) -> void } -> Configuration::Properties
+
+    private
+
+    def self.properties: -> Configuration::Properties
+
+    def self.readers: -> Configuration::ProviderCollection[Readers::Reader]
+
+    def self.serializers: -> Configuration::ProviderCollection[Serializers::Serializer[Nodes::Node]]
+
+    def self.compressor: -> Compressor
+
+    def self.root_builder: -> ^() -> Nodes::Node
+  end
+end

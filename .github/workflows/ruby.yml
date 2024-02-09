@@ -3,10 +3,10 @@ name: build
 on:
   push:
     branches:
-      - master
+      - main
   pull_request:
     branches:
-      - master
+      - main
 
 permissions:
   contents: read
@@ -23,6 +23,8 @@ jobs:
           bundler-cache: true
       - name: Run rubocop
         run: bundle exec rubocop
+      - name: Run rbs + steep
+        run: bundle exec steep check
   spec:
     runs-on: ubuntu-latest
     strategy:
