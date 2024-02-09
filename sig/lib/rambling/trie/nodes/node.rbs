@@ -1,0 +1,69 @@
+module Rambling
+  module Trie
+    module Nodes
+      class Node
+        include Compressible
+        include Enumerable
+        include Comparable
+        include Stringifyable
+        include Inspectable
+
+        attr_reader letter: Symbol?
+        attr_accessor children_tree: Hash[Symbol, Node]
+        attr_accessor parent: Node?
+
+        def initialize: (?Symbol?, ?Node?, ?Hash[Symbol, Node]) -> void
+
+        def add: (Array[Symbol]) -> Node
+
+        def children: -> Array[Node]
+
+        def first_child: -> Node?
+
+        def match_prefix: (Array[String]) { (String) -> void } -> Enumerator[String, void]?
+
+        def root?: -> bool
+
+        def scan: (Array[String]) -> Node
+
+        def terminal?: -> bool
+
+        def terminal!: -> Node
+
+        def letter=: (String | Symbol?) -> Symbol?
+
+        def compressed?: -> bool
+
+        def partial_word?: (Array[String]) -> bool
+
+        def word?: (Array[String]) -> bool
+
+        def []: (Symbol) -> Node
+
+        def []=: (Symbol, Node) -> Node
+
+        def key?: (Symbol) -> bool
+
+        def delete: (Symbol) -> Node?
+
+        alias has_key? key?
+
+        private
+
+        def missing: -> Node
+
+        attr_accessor terminal: bool?
+
+        # abstract methods
+
+        def partial_word_chars?: (Array[String]) -> bool
+
+        def word_chars?: (Array[String]) -> bool
+
+        def closest_node: (Array[String]) -> Node
+
+        def children_match_prefix: (Array[String]) { (String) -> void } -> Enumerator[String, void]?
+      end
+    end
+  end
+end

@@ -7,7 +7,7 @@ module Rambling
       class Raw < Rambling::Trie::Nodes::Node
         # Adds a word to the current raw (uncompressed) trie node.
         # @param [Array<Symbol>] chars the char array to add to the trie.
-        # @return [Raw] the added/modified node based on the word added.
+        # @return [Node] the added/modified node based on the word added.
         # @note This method clears the contents of the chars variable.
         def add chars
           if chars.empty?

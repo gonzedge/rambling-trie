@@ -1,0 +1,7 @@
+module Rambling
+  module Trie
+    class InvalidOperation < RuntimeError
+      def initialize: (String? message) -> void
+    end
+  end
+end
