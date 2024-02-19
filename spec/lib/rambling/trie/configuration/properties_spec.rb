@@ -11,17 +11,13 @@ describe Rambling::Trie::Configuration::Properties do
       expect(serializers.formats).to match_array %i(marshal yaml yml zip)
     end
 
-    # rubocop:disable RSpec/ExampleLength
     it 'configures the serializer providers' do
       serializers = properties.serializers
-      expect(serializers.providers.to_a).to match_array [
-        [:marshal, Rambling::Trie::Serializers::Marshal],
-        [:yaml, Rambling::Trie::Serializers::Yaml],
-        [:yml, Rambling::Trie::Serializers::Yaml],
-        [:zip, Rambling::Trie::Serializers::Zip],
-      ]
+      expect(serializers.providers.to_a).to contain_exactly(
+        [:marshal, Rambling::Trie::Serializers::Marshal], [:yaml, Rambling::Trie::Serializers::Yaml],
+        [:yml, Rambling::Trie::Serializers::Yaml], [:zip, Rambling::Trie::Serializers::Zip]
+      )
     end
-    # rubocop:enable RSpec/ExampleLength
 
     it 'configures the reader formats' do
       readers = properties.readers
@@ -30,9 +26,7 @@ describe Rambling::Trie::Configuration::Properties do
 
     it 'configures the reader providers' do
       readers = properties.readers
-      expect(readers.providers.to_a).to match_array [
-        [:txt, Rambling::Trie::Readers::PlainText],
-      ]
+      expect(readers.providers.to_a).to contain_exactly([:txt, Rambling::Trie::Readers::PlainText])
     end
 
     it 'configures the compressor' do
