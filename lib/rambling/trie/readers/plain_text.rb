@@ -10,7 +10,7 @@ module Rambling
         # @yield [String] Each line read from the file.
         # @return [self]
         def each_word filepath
-          return enum_for :each_word unless block_given?
+          return enum_for :each_word, filepath unless block_given?
 
           ::File.foreach(filepath) { |line| yield line.chomp! }
 
