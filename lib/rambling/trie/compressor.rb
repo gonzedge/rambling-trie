@@ -22,6 +22,8 @@ module Rambling
       end
 
       def merge node, other
+        return new_compressed_node node.letter, node.parent, node.children_tree, node.terminal? if other.nil?
+
         letter = node.letter.to_s << other.letter.to_s
 
         new_compressed_node letter.to_sym, node.parent, other.children_tree, other.terminal?
