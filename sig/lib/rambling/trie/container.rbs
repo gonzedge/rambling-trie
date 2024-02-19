@@ -21,6 +21,8 @@ module Rambling
 
       def partial_word?: (String) -> bool
 
+      def push: (*String) -> Array[Nodes::Node]
+
       def word?: (String) -> bool
 
       def scan: (String) -> Array[String]
