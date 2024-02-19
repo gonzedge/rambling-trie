@@ -19,10 +19,10 @@
 
     ```sh
     git remote add upstream git@github.com:gonzedge/rambling-trie.git
-    git checkout master
+    git checkout main
     git pull upstream
     git checkout my-feature-branch
-    git rebase master
+    git rebase main
     git push --set-upstream origin my-feature-branch
     ```
 
