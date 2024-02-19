@@ -1,0 +1,8 @@
+module Rambling
+  module Trie
+    module Serializers
+      class File < Serializer[String]
+      end
+    end
+  end
+end
