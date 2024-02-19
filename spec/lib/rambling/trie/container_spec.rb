@@ -286,14 +286,14 @@ describe Rambling::Trie::Container do
 
     context 'when phrase does not contain any words' do
       it 'returns an empty array' do
-        expect(container.words_within 'xyz').to match_array []
+        expect(container.words_within 'xyz').to be_empty
       end
 
       context 'with compressed node' do
         before { container.compress! }
 
         it 'returns an empty array' do
-          expect(container.words_within 'xyz').to match_array []
+          expect(container.words_within 'xyz').to be_empty
         end
       end
     end
