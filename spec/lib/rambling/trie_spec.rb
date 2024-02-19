@@ -29,7 +29,7 @@ describe Rambling::Trie do
     context 'with a filepath' do
       let(:filepath) { 'a test filepath' }
       let :reader do
-        instance_double 'Rambling::Trie::Readers::PlainText', :reader
+        instance_double Rambling::Trie::Readers::PlainText, :reader
       end
       let(:words) { %w(a couple of test words over here) }
 
@@ -56,7 +56,7 @@ describe Rambling::Trie do
       let(:filepath) { 'a test filepath' }
       let :reader do
         instance_double(
-          'Rambling::Trie::Readers::PlainText',
+          Rambling::Trie::Readers::PlainText,
           :reader,
           each_word: nil,
         )
@@ -84,7 +84,7 @@ describe Rambling::Trie do
     let(:container) { Rambling::Trie::Container.new root, compressor }
     let :serializer do
       instance_double(
-        'Rambling::True::Serializers::File',
+        Rambling::Trie::Serializers::File,
         :serializer,
         load: root,
       )
@@ -103,21 +103,21 @@ describe Rambling::Trie do
     context 'without a serializer' do
       let :marshal_serializer do
         instance_double(
-          'Rambling::Trie::Serializers::Marshal',
+          Rambling::Trie::Serializers::Marshal,
           :marshal_serializer,
           load: nil,
         )
       end
       let :default_serializer do
         instance_double(
-          'Rambling::Trie::Serializers::File',
+          Rambling::Trie::Serializers::File,
           :default_serializer,
           load: nil,
         )
       end
       let :yaml_serializer do
         instance_double(
-          'Rambling::Trie::Serializers::Yaml',
+          Rambling::Trie::Serializers::Yaml,
           :yaml_serializer,
           load: nil,
         )
@@ -167,29 +167,29 @@ describe Rambling::Trie do
 
   describe '.dump' do
     let(:filename) { 'a trie' }
-    let(:root) { instance_double 'Rambling::Trie::Serializers::Marshal', :root }
+    let(:root) { instance_double Rambling::Trie::Serializers::Marshal, :root }
     let :compressor do
-      instance_double 'Rambling::Trie::Serializers::Marshal', :compressor
+      instance_double Rambling::Trie::Serializers::Marshal, :compressor
     end
     let(:trie) { Rambling::Trie::Container.new root, compressor }
 
     let :marshal_serializer do
       instance_double(
-        'Rambling::Trie::Serializers::Marshal',
+        Rambling::Trie::Serializers::Marshal,
         :marshal_serializer,
         dump: nil,
       )
     end
     let :yaml_serializer do
       instance_double(
-        'Rambling::Trie::Serializers::Yaml',
+        Rambling::Trie::Serializers::Yaml,
         :yaml_serializer,
         dump: nil,
       )
     end
     let :default_serializer do
       instance_double(
-        'Rambling::Trie::Serializers::File',
+        Rambling::Trie::Serializers::File,
         :default_serializer,
         dump: nil,
       )

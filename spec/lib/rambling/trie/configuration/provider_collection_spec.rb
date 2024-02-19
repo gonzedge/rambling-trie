@@ -9,10 +9,10 @@ describe Rambling::Trie::Configuration::ProviderCollection do
   end
 
   let :first_provider do
-    instance_double 'Rambling::Trie::Serializers::Marshal', :first_provider
+    instance_double Rambling::Trie::Serializers::Marshal, :first_provider
   end
   let :second_provider do
-    instance_double 'Rambling::Trie::Serializers::Marshal', :second_provider
+    instance_double Rambling::Trie::Serializers::Marshal, :second_provider
   end
 
   let :provider_collection do
@@ -73,7 +73,7 @@ describe Rambling::Trie::Configuration::ProviderCollection do
 
   describe '#add' do
     let :provider do
-      instance_double 'Rambling::Trie::Serializers::Marshal', :provider
+      instance_double Rambling::Trie::Serializers::Marshal, :provider
     end
 
     before do
@@ -87,7 +87,7 @@ describe Rambling::Trie::Configuration::ProviderCollection do
 
   describe '#default=' do
     let :other_provider do
-      instance_double 'Rambling::Trie::Serializers::Marshal', :other_provider
+      instance_double Rambling::Trie::Serializers::Marshal, :other_provider
     end
 
     context 'when the given value is in the providers list' do
@@ -156,7 +156,7 @@ describe Rambling::Trie::Configuration::ProviderCollection do
   describe '#reset' do
     let(:configured_default) { second_provider }
     let :provider do
-      instance_double 'Rambling::Trie::Serializers::Marshal', :provider
+      instance_double Rambling::Trie::Serializers::Marshal, :provider
     end
 
     before do
