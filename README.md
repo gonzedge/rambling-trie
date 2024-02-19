@@ -327,13 +327,13 @@ OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 [github_action_codeql_badge]: https://github.com/gonzedge/rambling-trie/actions/workflows/codeql.yml/badge.svg
 [github_action_codeql_link]: https://github.com/gonzedge/rambling-trie/actions/workflows/codeql.yml
 [github_user_gonzedge]: https://github.com/gonzedge
-[inch_ci_badge]: https://inch-ci.org/github/gonzedge/rambling-trie.svg?branch=master
+[inch_ci_badge]: https://inch-ci.org/github/gonzedge/rambling-trie.svg?branch=main
 [license_badge]: https://img.shields.io/badge/license-MIT-blue.svg
 [license_link]: https://opensource.org/licenses/mit-license.php
 [marshal]: https://ruby-doc.org/core-2.7.0/Marshal.html
 [rambling_trie_configuration]: https://github.com/gonzedge/rambling-trie#configuration
-[rambling_trie_contributing_guide]: https://github.com/gonzedge/rambling-trie/blob/master/CONTRIBUTING.md
-[rambling_trie_plain_text_reader]: https://github.com/gonzedge/rambling-trie/blob/master/lib/rambling/trie/readers/plain_text.rb
+[rambling_trie_contributing_guide]: https://github.com/gonzedge/rambling-trie/blob/main/CONTRIBUTING.md
+[rambling_trie_plain_text_reader]: https://github.com/gonzedge/rambling-trie/blob/main/lib/rambling/trie/readers/plain_text.rb
 [rbenv]: https://github.com/sstephenson/rbenv
 [rubydoc]: http://rubydoc.info/gems/rambling-trie
 [rubydoc_github]: http://rubydoc.info/github/gonzedge/rambling-trie

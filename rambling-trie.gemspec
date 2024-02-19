@@ -16,7 +16,7 @@ Gem::Specification.new do |gem|
   gem.homepage = 'https://github.com/gonzedge/rambling-trie'
   gem.date = Time.now.strftime '%Y-%m-%d'
   gem.metadata = {
-    'changelog_uri' => 'https://github.com/gonzedge/rambling-trie/blob/master/CHANGELOG.md',
+    'changelog_uri' => 'https://github.com/gonzedge/rambling-trie/blob/main/CHANGELOG.md',
     'documentation_uri' => 'https://www.rubydoc.info/gems/rambling-trie',
   }
 
