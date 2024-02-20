@@ -98,7 +98,7 @@ module Rambling
 
       # Returns all words within a string that match a word contained in the trie.
       # @param [String] phrase the string to look for matching words in.
-      # @return [Enumerator<String>] all the words in the given string that match a word in the trie.
+      # @return [Array<String>] all the words in the given string that match a word in the trie.
       # @yield [String] each word found in phrase.
       def words_within phrase
         words_within_root(phrase).to_a
@@ -202,15 +202,15 @@ module Rambling
 
         chars = phrase.chars
         0.upto(chars.length - 1).each do |starting_index|
-          new_phrase = chars.slice starting_index..(chars.length - 1)
+          new_phrase = chars.slice starting_index..(chars.length - 1) #: Array[String]
           root.match_prefix new_phrase do |word|
             yield word
           end
-        end
+        end #: Enumerator[String, void]
       end
 
       def compress_root
-        compressor.compress root
+         compressor.compress root #: Nodes::Compressed
       end
 
       def char_symbols word

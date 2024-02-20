@@ -23,6 +23,8 @@ jobs:
           bundler-cache: true
       - name: Run rubocop
         run: bundle exec rubocop
+      - name: Run rbs + steep
+        run: bundle exec steep check
   spec:
     runs-on: ubuntu-latest
     strategy:
