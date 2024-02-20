@@ -46,8 +46,11 @@ module Rambling
         attr_writer :readers, :serializers
 
         def reset_readers
-          plain_text_reader = Rambling::Trie::Readers::PlainText.new
-          @readers = Rambling::Trie::Configuration::ProviderCollection.new :reader, txt: plain_text_reader
+          @readers = Rambling::Trie::Configuration::ProviderCollection.new :reader, default_reader_providers
+        end
+
+        def default_reader_providers
+          { txt: Rambling::Trie::Readers::PlainText.new }
         end
 
         def reset_serializers

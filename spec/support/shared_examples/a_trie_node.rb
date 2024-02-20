@@ -74,7 +74,7 @@ shared_examples_for 'a trie node' do
   describe 'delegates and aliases' do
     let :children_tree do
       instance_double(
-        'Hash',
+        Hash,
         :children_tree,
         :[] => 'value',
         :[]= => nil,
@@ -118,8 +118,8 @@ shared_examples_for 'a trie node' do
     # rubocop:disable RSpec/ExampleLength
     it 'delegates `#children` to its children tree values' do
       children = [
-        instance_double('Rambling::Trie::Nodes::Node', :child_one),
-        instance_double('Rambling::Trie::Nodes::Node', :child_two),
+        instance_double(Rambling::Trie::Nodes::Node, :child_one),
+        instance_double(Rambling::Trie::Nodes::Node, :child_two),
       ]
       allow(children_tree).to receive(:values).and_return children
 
