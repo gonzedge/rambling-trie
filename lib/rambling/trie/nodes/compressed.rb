@@ -77,15 +77,15 @@ module Rambling
         def children_match_prefix chars
           return enum_for :children_match_prefix, chars unless block_given?
 
-          return if chars.empty?
+          return EMPTY_ENUMERATOR if chars.empty?
 
           child = children_tree[chars.first.to_sym]
-          return unless child
+          return EMPTY_ENUMERATOR unless child
 
           child_letter = child.letter.to_s
           letter = chars.slice!(0, child_letter.size).join
 
-          return unless child_letter == letter
+          return EMPTY_ENUMERATOR unless child_letter == letter
 
           child.match_prefix chars do |word|
             yield word
