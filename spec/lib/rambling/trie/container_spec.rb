@@ -355,6 +355,12 @@ describe Rambling::Trie::Container do
   describe '#each' do
     before { add_words container, %w(yes no why) }
 
+    it 'yields every word previously added' do
+      yielded = []
+      container.each { |word| yielded << word }
+      expect(yielded).to eq %w(yes no why)
+    end
+
     it 'returns an enumerator when no block is given' do
       expect(container.each).to be_instance_of Enumerator
     end
