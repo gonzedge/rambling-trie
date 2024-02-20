@@ -68,6 +68,17 @@ module Rambling
         root.partial_word? word.chars
       end
 
+      # Adds all provided words to the trie.
+      # @param [Array<String>] words the words to add the branch from.
+      # @return [Array<Nodes::Node>] the collection of nodes added.
+      # @raise [InvalidOperation] if the trie is already compressed.
+      # @see #concat
+      # @see Nodes::Raw#add
+      # @see Nodes::Compressed#add
+      def push *words
+        concat words
+      end
+
       # Checks if a whole word exists in the trie.
       # @param [String] word the word to look for in the trie.
       # @return [Boolean] +true+ only if the word is found and the last character corresponds to a terminal node,
