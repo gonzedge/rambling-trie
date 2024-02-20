@@ -17,9 +17,7 @@ module Rambling
         # @param [String] filepath the filepath to dump the contents to.
         # @return [Numeric] number of bytes written to disk.
         def dump contents, filepath
-          ::File.open filepath, 'w+' do |f|
-            f.write contents
-          end
+          ::File.write filepath, contents
         end
       end
     end

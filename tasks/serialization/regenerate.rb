@@ -48,7 +48,7 @@ module Serialization
       puts "Serializing to '#{filename}'... "
 
       path = File.join tries_path, filename
-      File.delete path if File.exist?(path)
+      FileUtils.rm_f path
       Rambling::Trie.dump trie, path
     end
   end

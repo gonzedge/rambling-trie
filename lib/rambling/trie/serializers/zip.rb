@@ -26,6 +26,8 @@ module Rambling
 
           ::Zip::File.open filepath do |zip|
             entry = zip.entries.first
+            return nil if entry.nil?
+
             entry_path = path entry.name
             entry.extract entry_path
 
