@@ -1327,6 +1327,8 @@ Metrics/AbcSize:
   # The ABC size is a calculated magnitude, so this number can be an Integer or
   # a Float.
   Max: 20
+  AllowedMethods:
+    - 'closest_node'
   Exclude:
     - 'tasks/*.rb'
 
@@ -1353,6 +1355,9 @@ Metrics/ClassLength:
 # Avoid complex methods.
 Metrics/CyclomaticComplexity:
   Max: 6
+  AllowedMethods:
+    - 'children_match_prefix'
+    - 'closest_node'
 
 Metrics/MethodLength:
   CountComments: false  # count full line comments?
