@@ -4,8 +4,6 @@ source 'https://rubygems.org'
 
 gemspec
 
-gem 'rbs'
-gem 'steep'
 gem 'rubyzip'
 
 group :development do
@@ -14,9 +12,11 @@ group :development do
   gem 'memory_profiler'
   gem 'pry'
   gem 'rake'
+  gem 'rbs'
   gem 'rspec'
   gem 'ruby-prof'
   gem 'stackprof'
+  gem 'steep'
   gem 'yard'
 end
 
