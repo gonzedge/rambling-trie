@@ -2,8 +2,6 @@ module Rambling
   module Trie
     module Nodes
       class Node
-        EMPTY_ENUMERATOR: Enumerator[String, void]
-
         include Compressible
         include Enumerable
         include Comparable
