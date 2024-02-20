@@ -11,7 +11,7 @@ module Rambling
         # @note This method clears the contents of the chars variable.
         def add chars
           if chars.empty?
-            terminal!
+            terminal! unless root?
           else
             add_to_children_tree chars
           end

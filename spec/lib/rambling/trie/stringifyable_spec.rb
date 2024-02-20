@@ -4,13 +4,21 @@ require 'spec_helper'
 
 describe Rambling::Trie::Stringifyable do
   describe '#as_word' do
-    let(:node) { Rambling::Trie::Nodes::Raw.new }
+    let(:parent) { Rambling::Trie::Nodes::Raw.new }
+    let(:node) { Rambling::Trie::Nodes::Raw.new nil, parent }
 
     context 'with an empty node' do
       before { add_word node, '' }
 
       it 'returns nil' do
         expect(node.as_word).to be_empty
+      end
+
+      context 'with no parent' do
+        let(:parent) { nil }
+        it 'returns nil' do
+          expect(node.as_word).to be_empty
+        end
       end
     end
 
