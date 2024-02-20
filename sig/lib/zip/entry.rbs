@@ -6,6 +6,6 @@ module Zip
 
     def extract: (String) -> void
 
-    def each: ?{ (Entry) -> void } -> (Enumerator[Entry, void])?
+    def each: ?{ (Entry) -> void } -> (Enumerator[Entry, void])
   end
 end

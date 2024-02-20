@@ -11,6 +11,8 @@ module Rambling
         include Rambling::Trie::Stringifyable
         include Rambling::Trie::Inspectable
 
+        EMPTY_ENUMERATOR = [].to_enum :each
+
         # @overload letter
         #   Letter(s) corresponding to the current node.
         # @overload letter=(letter)
