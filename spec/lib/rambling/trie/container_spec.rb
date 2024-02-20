@@ -34,6 +34,12 @@ describe Rambling::Trie::Container do
       expect(root.children.size).to eq 1
       expect(root.to_a).to eq %w(hello)
     end
+
+    it 'does nothing with empty strings' do
+      add_word container, ''
+      expect(root.children.size).to eq 0
+      expect(root.to_a).to be_empty
+    end
     # rubocop:enable RSpec/MultipleExpectations
   end
 
