@@ -45,6 +45,10 @@ describe Rambling::Trie::Nodes::Raw do
         it 'does not mark itself as terminal' do
           expect(node).not_to be_terminal
         end
+
+        it 'returns the node' do
+          expect(add_word(node, '')).to eq node
+        end
       end
     end
 
@@ -142,6 +146,10 @@ describe Rambling::Trie::Nodes::Raw do
 
         it 'changes the node to terminal' do
           expect(node).to be_terminal
+        end
+
+        it 'returns the node' do
+          expect(add_word(node, '')).to eq node
         end
       end
 
