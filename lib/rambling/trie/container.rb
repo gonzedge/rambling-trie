@@ -202,17 +202,15 @@ module Rambling
 
         chars = phrase.chars
         0.upto(chars.length - 1).each do |starting_index|
-          new_phrase = chars.slice starting_index..(chars.length - 1)
+          new_phrase = chars.slice starting_index..(chars.length - 1) #: Array[String]
           root.match_prefix new_phrase do |word|
             yield word
           end
-        end
-
-        nil
+        end #: Enumerator[String, void]
       end
 
       def compress_root
-        compressor.compress root
+         compressor.compress root #: Nodes::Compressed
       end
 
       def char_symbols word

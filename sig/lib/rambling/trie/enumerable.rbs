@@ -3,6 +3,8 @@ module Rambling
     module Enumerable
       include ::Enumerable[String]
 
+      EMPTY_ENUMERATOR: Enumerator[String, void]
+
       alias size count
 
       def each: { (String) -> void } -> (Enumerator[String, void] | Enumerable)
