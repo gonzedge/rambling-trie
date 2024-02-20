@@ -201,16 +201,18 @@ module Rambling
         return enum_for :words_within_root, phrase unless block_given?
 
         chars = phrase.chars
+        # rubocop:disable Style/CommentedKeyword
         0.upto(chars.length - 1).each do |starting_index|
-          new_phrase = chars.slice starting_index..(chars.length - 1) #: Array[String]
+          new_phrase = chars.slice starting_index..(chars.length - 1) # : Array[String]
           root.match_prefix new_phrase do |word|
             yield word
           end
-        end #: Enumerator[String, void]
+        end # : Enumerator[String, void]
+        # rubocop:enable Style/CommentedKeyword
       end
 
       def compress_root
-         compressor.compress root #: Nodes::Compressed
+        compressor.compress root # : Nodes::Compressed
       end
 
       def char_symbols word

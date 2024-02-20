@@ -54,6 +54,7 @@ module Rambling
             serializer = serializers.resolve filename
 
             raise if serializer.nil?
+
             serializer.dump contents, entry_path
 
             zip.add filename, entry_path
