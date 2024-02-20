@@ -12,6 +12,7 @@ module Rambling
         def add chars
           if chars.empty?
             terminal! unless root?
+            self
           else
             add_to_children_tree chars
           end
