@@ -1,0 +1,21 @@
+module Rambling
+  module Trie
+    module Nodes
+      class Compressed < Node
+        def add: (Array[Symbol]) -> Node
+
+        def compressed?: -> bool
+
+        private
+
+        def partial_word_chars?: (Array[String]) -> bool
+
+        def word_chars?: (Array[String]) -> bool
+
+        def closest_node: (Array[String]) -> Node
+
+        def children_match_prefix: (Array[String]) { (String) -> void } -> Enumerator[String, void]
+      end
+    end
+  end
+end

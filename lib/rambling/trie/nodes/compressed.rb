@@ -23,13 +23,13 @@ module Rambling
         private
 
         def partial_word_chars? chars
-          child = children_tree[chars.first.to_sym]
+          child = children_tree[(chars.first || raise).to_sym]
           return false unless child
 
           child_letter = child.letter.to_s
 
           if chars.size >= child_letter.size
-            letter = chars.slice!(0, child_letter.size).join
+            letter = (chars.slice!(0, child_letter.size) || raise).join
             return child.partial_word? chars if child_letter == letter
           end
 
@@ -39,7 +39,7 @@ module Rambling
         end
 
         def word_chars? chars
-          letter = chars.slice! 0
+          letter = chars.slice!(0) || raise
           letter_sym = letter.to_sym
 
           child = children_tree[letter_sym]
@@ -50,7 +50,7 @@ module Rambling
 
             break if chars.empty?
 
-            letter << chars.slice!(0)
+            letter << (chars.slice!(0) || raise)
             letter_sym = letter.to_sym
           end
 
@@ -58,13 +58,13 @@ module Rambling
         end
 
         def closest_node chars
-          child = children_tree[chars.first.to_sym]
+          child = children_tree[(chars.first || raise).to_sym]
           return missing unless child
 
           child_letter = child.letter.to_s
 
           if chars.size >= child_letter.size
-            letter = chars.slice!(0, child_letter.size).join
+            letter = (chars.slice!(0, child_letter.size) || raise).join
             return child.scan chars if child_letter == letter
           end
 
@@ -77,15 +77,15 @@ module Rambling
         def children_match_prefix chars
           return enum_for :children_match_prefix, chars unless block_given?
 
-          return if chars.empty?
+          return EMPTY_ENUMERATOR if chars.empty?
 
-          child = children_tree[chars.first.to_sym]
-          return unless child
+          child = children_tree[(chars.first || raise).to_sym]
+          return EMPTY_ENUMERATOR unless child
 
           child_letter = child.letter.to_s
-          letter = chars.slice!(0, child_letter.size).join
+          letter = (chars.slice!(0, child_letter.size) || raise).join
 
-          return unless child_letter == letter
+          return EMPTY_ENUMERATOR unless child_letter == letter
 
           child.match_prefix chars do |word|
             yield word

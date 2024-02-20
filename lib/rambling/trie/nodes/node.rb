@@ -52,6 +52,8 @@ module Rambling
           # rubocop:disable Lint/UnreachableLoop
           children_tree.each_value { |child| return child }
           # rubocop:enable Lint/UnreachableLoop
+
+          nil
         end
 
         # Indicates if the current node is the root node.
@@ -106,7 +108,7 @@ module Rambling
         end
 
         # Returns all words that match a prefix of any length within chars.
-        # @param [String] chars the chars to base the prefix on.
+        # @param [Array[String]] chars the chars to base the prefix on.
         # @return [Enumerator<String>] all the words that match a prefix by chars.
         # @yield [String] each word found.
         def match_prefix chars
@@ -147,7 +149,7 @@ module Rambling
         # Delete a given letter and its corresponding {Node Node} from
         # this {Node Node}'s children tree.
         # @param [Symbol] letter the letter to delete from the node's children tree.
-        # @return [Node] the node corresponding to the deleted letter.
+        # @return [Node, nil] the node corresponding to the deleted letter.
         # @see https://ruby-doc.org/core-2.7.0/Hash.html#method-i-delete Hash#delete
         def delete letter
           children_tree.delete letter

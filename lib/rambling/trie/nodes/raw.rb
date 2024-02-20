@@ -7,7 +7,7 @@ module Rambling
       class Raw < Rambling::Trie::Nodes::Node
         # Adds a word to the current raw (uncompressed) trie node.
         # @param [Array<Symbol>] chars the char array to add to the trie.
-        # @return [Raw] the added/modified node based on the word added.
+        # @return [Node] the added/modified node based on the word added.
         # @note This method clears the contents of the chars variable.
         def add chars
           if chars.empty?
@@ -27,7 +27,7 @@ module Rambling
         private
 
         def add_to_children_tree chars
-          letter = chars.pop
+          letter = chars.pop || raise
           child = children_tree[letter] || new_node(letter)
           child.add chars
           child
@@ -40,7 +40,7 @@ module Rambling
         end
 
         def partial_word_chars? chars = []
-          letter = chars.shift.to_sym
+          letter = (chars.shift || raise).to_sym
           child = children_tree[letter]
           return false unless child
 
@@ -48,7 +48,7 @@ module Rambling
         end
 
         def word_chars? chars = []
-          letter = chars.shift.to_sym
+          letter = (chars.shift || raise).to_sym
           child = children_tree[letter]
           return false unless child
 
@@ -56,7 +56,7 @@ module Rambling
         end
 
         def closest_node chars
-          letter = chars.shift.to_sym
+          letter = (chars.shift || raise).to_sym
           child = children_tree[letter]
           return missing unless child
 
@@ -66,12 +66,12 @@ module Rambling
         def children_match_prefix chars
           return enum_for :children_match_prefix, chars unless block_given?
 
-          return if chars.empty?
+          return EMPTY_ENUMERATOR if chars.empty?
 
-          letter = chars.shift.to_sym
+          letter = (chars.shift || raise).to_sym
           child = children_tree[letter]
 
-          return unless child
+          return EMPTY_ENUMERATOR unless child
 
           child.match_prefix chars do |word|
             yield word
