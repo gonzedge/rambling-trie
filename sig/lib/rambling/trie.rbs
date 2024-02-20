@@ -4,11 +4,11 @@ module Rambling
 
     @properties: Configuration::Properties
 
-    def self.create: (String?, Readers::Reader?) ?{ (Container) -> void } -> Container
+    def self.create: (?String?, ?Readers::Reader?) ?{ (Container) -> void } -> Container
 
-    def self.load: (String, Serializers::Serializer[Nodes::Node]?) ?{ (Container) -> void } -> Container
+    def self.load: (String, ?Serializers::Serializer[Nodes::Node]?) ?{ (Container) -> void } -> Container
 
-    def self.dump: (Container, String, Serializers::Serializer[Nodes::Node]?) -> void
+    def self.dump: (Container, String, ?Serializers::Serializer[Nodes::Node]?) -> void
 
     def self.config: ?{ (Configuration::Properties) -> void } -> Configuration::Properties
 
