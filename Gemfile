@@ -11,6 +11,7 @@ group :development do
   gem 'flamegraph'
   gem 'memory_profiler'
   gem 'pry'
+  gem 'racc'
   gem 'rake'
   gem 'rbs'
   gem 'rspec'
