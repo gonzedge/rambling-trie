@@ -32,6 +32,7 @@ module Rambling
         # Creates a new node.
         # @param [Symbol, nil] letter the Node's letter value.
         # @param [Node, nil] parent the parent of the current node.
+        # @param [Hash<Symbol, Node>] children_tree the children tree of the current node.
         def initialize letter = nil, parent = nil, children_tree = {}
           @letter = letter
           @parent = parent
