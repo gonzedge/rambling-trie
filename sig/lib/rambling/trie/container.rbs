@@ -63,7 +63,7 @@ module Rambling
 
       def compress_root: -> Nodes::Compressed
 
-      def char_symbols: (String) -> Array[Symbol]
+      def reversed_char_symbols: (String) -> Array[Symbol]
     end
   end
 end

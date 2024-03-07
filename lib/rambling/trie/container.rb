@@ -28,7 +28,7 @@ module Rambling
       # @see Nodes::Raw#add
       # @see Nodes::Compressed#add
       def add word
-        root.add char_symbols word
+        root.add reversed_char_symbols word
       end
 
       # Adds all provided words to the trie.
@@ -215,7 +215,7 @@ module Rambling
         compressor.compress root # : Nodes::Compressed
       end
 
-      def char_symbols word
+      def reversed_char_symbols word
         symbols = []
         word.reverse.each_char { |c| symbols << c.to_sym }
         symbols
