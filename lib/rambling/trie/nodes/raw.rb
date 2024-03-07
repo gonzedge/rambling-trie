@@ -6,15 +6,15 @@ module Rambling
       # A representation of a node in an uncompressed trie data structure.
       class Raw < Rambling::Trie::Nodes::Node
         # Adds a word to the current raw (uncompressed) trie node.
-        # @param [Array<Symbol>] chars the char array to add to the trie.
+        # @param [Array<Symbol>] reversed_chars the char array to add to the trie, in reverse order.
         # @return [Node] the added/modified node based on the word added.
         # @note This method clears the contents of the chars variable.
-        def add chars
-          if chars.empty?
+        def add reversed_chars
+          if reversed_chars.empty?
             terminal! unless root?
             self
           else
-            add_to_children_tree chars
+            add_to_children_tree reversed_chars
           end
         end
 
