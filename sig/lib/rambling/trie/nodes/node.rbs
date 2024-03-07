@@ -50,19 +50,19 @@ module Rambling
 
         private
 
-        def missing: -> Node
-
         attr_accessor terminal: bool?
 
+        def missing: -> Node
+
         # abstract methods
+
+        def children_match_prefix: (Array[String]) { (String) -> void } -> Enumerator[String, void]
 
         def partial_word_chars?: (Array[String]) -> bool
 
         def word_chars?: (Array[String]) -> bool
 
         def closest_node: (Array[String]) -> Node
-
-        def children_match_prefix: (Array[String]) { (String) -> void } -> Enumerator[String, void]
       end
     end
   end

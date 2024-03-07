@@ -167,6 +167,24 @@ module Rambling
         private
 
         attr_accessor :terminal
+
+        # abstract methods
+
+        def children_match_prefix chars
+          raise NotImplementedError
+        end
+
+        def partial_word_chars? chars
+          raise NotImplementedError
+        end
+
+        def word_chars? chars
+          raise NotImplementedError
+        end
+
+        def closest_node chars
+          raise NotImplementedError
+        end
       end
     end
   end
