@@ -380,8 +380,7 @@ describe Rambling::Trie::Container do
     before { add_words container, %w(yes no why) }
 
     it 'yields every word previously added' do
-      yielded = []
-      container.each { |word| yielded << word }
+      yielded = container.map { |word| word }
       expect(yielded).to eq %w(yes no why)
     end
 
