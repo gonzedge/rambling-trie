@@ -1,22 +1,5 @@
 # These are all the cops that are disabled in the default configuration.
 
-Capybara/MatchStyle: # new in 2.17
-  Enabled: false
-Capybara/NegationMatcher: # new in 2.14
-  Enabled: false
-Capybara/SpecificActions: # new in 2.14
-  Enabled: false
-Capybara/SpecificFinders: # new in 2.13
-  Enabled: false
-Capybara/SpecificMatcher: # new in 2.12
-  Enabled: false
-FactoryBot/ConsistentParenthesesStyle: # new in 2.14
-  Enabled: false
-FactoryBot/FactoryNameStyle: # new in 2.16
-  Enabled: false
-FactoryBot/SyntaxMethods: # new in 2.7
-  Enabled: false
-
 Layout/ClassStructure:
   Description: 'Enforces a configured order of definitions within a class body.'
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#consistent-classes'
@@ -54,17 +37,6 @@ Layout/MultilineAssignmentLayout:
 # Lint/NumberConversion:
 #   Description: 'Checks unsafe usage of number conversion methods.'
 #   Enabled: false
-
-RSpec/Rails/AvoidSetupHook: # new in 2.4
-  Enabled: false
-RSpec/Rails/HaveHttpStatus: # new in 2.12
-  Enabled: false
-RSpec/Rails/InferredSpecType: # new in 2.14
-  Enabled: false
-RSpec/Rails/MinitestAssertions: # new in 2.17
-  Enabled: false
-RSpec/Rails/TravelAround: # new in 2.19
-  Enabled: false
 
 Style/AutoResourceCleanup:
   Description: 'Suggests the usage of an auto resource cleanup version of a method (if available).'
