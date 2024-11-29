@@ -21,7 +21,7 @@ and is designed to be very fast to traverse.
 
 You will need:
 
-* Ruby 2.7.0 or up
+* Ruby 3.1.0 or up
 * RubyGems
 
 See [RVM][rvm], [rbenv][rbenv] or [chruby][chruby] for more information on how to manage Ruby versions.
@@ -277,11 +277,11 @@ The Rambling Trie has been tested with the following Ruby versions:
 * 3.3.x
 * 3.2.x
 * 3.1.x
-* 3.0.x
-* 2.7.x
 
 **No longer supported**:
 
+* 3.0.x (EOL'ed)
+* 2.7.x (EOL'ed)
 * 2.6.x (EOL'ed)
 * 2.5.x (EOL'ed)
 * 2.4.x (EOL'ed)
@@ -336,7 +336,7 @@ OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 [inch_ci_badge]: https://inch-ci.org/github/gonzedge/rambling-trie.svg?branch=main
 [license_badge]: https://img.shields.io/badge/license-MIT-blue.svg
 [license_link]: https://opensource.org/licenses/mit-license.php
-[marshal]: https://ruby-doc.org/core-2.7.0/Marshal.html
+[marshal]: https://ruby-doc.org/3.3.0/Marshal.html
 [rambling_trie_configuration]: https://github.com/gonzedge/rambling-trie#configuration
 [rambling_trie_contributing_guide]: https://github.com/gonzedge/rambling-trie/blob/main/CONTRIBUTING.md
 [rambling_trie_plain_text_reader]: https://github.com/gonzedge/rambling-trie/blob/main/lib/rambling/trie/readers/plain_text.rb
@@ -346,4 +346,4 @@ OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 [rubyzip]: https://github.com/rubyzip/rubyzip
 [rvm]: https://rvm.io
 [trie_wiki]: https://en.wikipedia.org/wiki/Trie
-[yaml]: https://ruby-doc.org/stdlib-2.7.0/libdoc/yaml/rdoc/YAML.html
+[yaml]: https://ruby-doc.org/3.3.0/stdlibs/yaml/YAML.html
