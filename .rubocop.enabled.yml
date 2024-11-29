@@ -55,6 +55,15 @@ Gemspec/RequiredRubyVersion:
   Include:
     - '**/*.gemspec'
 
+Gemspec/DeprecatedAttributeAssignment: # new in 1.30
+  Enabled: true
+Gemspec/DevelopmentDependencies: # new in 1.44
+  Enabled: true
+Gemspec/RequireMFA: # new in 1.23
+  Enabled: true
+Gemspec/AddRuntimeDependency: # new in 1.65
+  Enabled: true
+
 #################### Layout ###############################
 
 Layout/AccessModifierIndentation:
@@ -402,6 +411,15 @@ Layout/TrailingEmptyLines:
 Layout/TrailingWhitespace:
   Description: 'Avoid trailing whitespace.'
   StyleGuide: '#no-trailing-whitespace'
+  Enabled: true
+
+Layout/LineContinuationLeadingSpace: # new in 1.31
+  Enabled: true
+Layout/LineContinuationSpacing: # new in 1.31
+  Enabled: true
+Layout/LineEndStringConcatenationIndentation: # new in 1.18
+  Enabled: true
+Layout/SpaceBeforeBrackets: # new in 1.7
   Enabled: true
 
 #################### Lint ##################################
@@ -762,6 +780,85 @@ Lint/Void:
   Description: 'Possible use of operator/literal/variable in void context.'
   Enabled: true
 
+Lint/AmbiguousAssignment: # new in 1.7
+  Enabled: true
+Lint/AmbiguousOperatorPrecedence: # new in 1.21
+  Enabled: true
+Lint/AmbiguousRange: # new in 1.19
+  Enabled: true
+Lint/ConstantOverwrittenInRescue: # new in 1.31
+  Enabled: true
+Lint/DeprecatedConstants: # new in 1.8
+  Enabled: true
+Lint/DuplicateBranch: # new in 1.3
+  Enabled: true
+Lint/DuplicateMagicComment: # new in 1.37
+  Enabled: true
+Lint/DuplicateMatchPattern: # new in 1.50
+  Enabled: true
+Lint/DuplicateRegexpCharacterClassElement: # new in 1.1
+  Enabled: true
+Lint/EmptyBlock: # new in 1.1
+  Enabled: true
+Lint/EmptyClass: # new in 1.3
+  Enabled: true
+Lint/EmptyInPattern: # new in 1.16
+  Enabled: true
+Lint/IncompatibleIoSelectWithFiberScheduler: # new in 1.21
+  Enabled: true
+Lint/LambdaWithoutLiteralBlock: # new in 1.8
+  Enabled: true
+Lint/NoReturnInBeginEndBlocks: # new in 1.2
+  Enabled: true
+Lint/NonAtomicFileOperation: # new in 1.31
+  Enabled: true
+Lint/NumberedParameterAssignment: # new in 1.9
+  Enabled: true
+Lint/OrAssignmentToConstant: # new in 1.9
+  Enabled: true
+Lint/RedundantDirGlobSort: # new in 1.8
+  Enabled: true
+Lint/RefinementImportMethods: # new in 1.27
+  Enabled: true
+Lint/RequireRangeParentheses: # new in 1.32
+  Enabled: true
+Lint/RequireRelativeSelfPath: # new in 1.22
+  Enabled: true
+Lint/SymbolConversion: # new in 1.9
+  Enabled: true
+Lint/ToEnumArguments: # new in 1.1
+  Enabled: true
+Lint/TripleQuotes: # new in 1.9
+  Enabled: true
+Lint/UnexpectedBlockArity: # new in 1.5
+  Enabled: true
+Lint/UnmodifiedReduceAccumulator: # new in 1.1
+  Enabled: true
+Lint/UselessRescue: # new in 1.43
+  Enabled: true
+Lint/UselessRuby2Keywords: # new in 1.23
+  Enabled: true
+Lint/DuplicateSetElement: # new in 1.67
+  Enabled: true
+Lint/HashNewWithKeywordArgumentsAsDefault: # new in 1.69
+  Enabled: true
+Lint/ItWithoutArgumentsInBlock: # new in 1.59
+  Enabled: true
+Lint/LiteralAssignmentInCondition: # new in 1.58
+  Enabled: true
+Lint/MixedCaseRange: # new in 1.53
+  Enabled: true
+Lint/NumericOperationWithConstantResult: # new in 1.69
+  Enabled: true
+Lint/RedundantRegexpQuantifiers: # new in 1.53
+  Enabled: true
+Lint/UnescapedBracketInRegexp: # new in 1.68
+  Enabled: true
+Lint/UselessDefined: # new in 1.69
+  Enabled: true
+Lint/UselessNumericOperation: # new in 1.66
+  Enabled: true
+
 #################### Metrics ###############################
 
 Metrics/AbcSize:
@@ -813,6 +910,9 @@ Metrics/PerceivedComplexity:
   Description: >-
                  A complexity metric geared towards measuring complexity for a
                  human reader.
+  Enabled: true
+
+Metrics/CollectionLiteralLength: # new in 1.47
   Enabled: true
 
 #################### Naming ##############################
@@ -886,6 +986,9 @@ Naming/VariableName:
 
 Naming/VariableNumber:
   Description: 'Use the configured style when numbering variables.'
+  Enabled: true
+
+Naming/BlockForwarding: # new in 1.24
   Enabled: true
 
 #################### Performance ###########################
@@ -1055,6 +1158,86 @@ Performance/UriDefaultParser:
   Description: 'Use `URI::DEFAULT_PARSER` instead of `URI::Parser.new`.'
   Enabled: true
 
+Performance/AncestorsInclude: # new in 1.7
+  Enabled: true
+Performance/BigDecimalWithNumericArgument: # new in 1.7
+  Enabled: true
+Performance/BlockGivenWithExplicitBlock: # new in 1.9
+  Enabled: true
+Performance/CollectionLiteralInLoop: # new in 1.8
+  Enabled: true
+Performance/ConcurrentMonotonicTime: # new in 1.12
+  Enabled: true
+Performance/ConstantRegexp: # new in 1.9
+  Enabled: true
+Performance/MapCompact: # new in 1.11
+  Enabled: true
+Performance/MethodObjectAsBlock: # new in 1.9
+  Enabled: true
+Performance/RedundantEqualityComparisonBlock: # new in 1.10
+  Enabled: true
+Performance/RedundantSortBlock: # new in 1.7
+  Enabled: true
+Performance/RedundantSplitRegexpArgument: # new in 1.10
+  Enabled: true
+Performance/RedundantStringChars: # new in 1.7
+  Enabled: true
+Performance/ReverseFirst: # new in 1.7
+  Enabled: true
+Performance/SortReverse: # new in 1.7
+  Enabled: true
+Performance/Squeeze: # new in 1.7
+  Enabled: true
+Performance/StringIdentifierArgument: # new in 1.13
+  Enabled: true
+Performance/StringInclude: # new in 1.7
+  Enabled: true
+Performance/Sum: # new in 1.8
+  Enabled: true
+Performance/MapMethodChain: # new in 1.19
+  Enabled: true
+Performance/StringBytesize: # new in 1.23
+  Enabled: true
+
+#####################  RSpec ###############################
+
+RSpec/BeEmpty: # new in 2.20
+  Enabled: true
+RSpec/BeEq: # new in 2.9.0
+  Enabled: true
+RSpec/BeNil: # new in 2.9.0
+  Enabled: true
+RSpec/ChangeByZero: # new in 2.11
+  Enabled: true
+RSpec/ContainExactly: # new in 2.19
+  Enabled: true
+RSpec/DuplicatedMetadata: # new in 2.16
+  Enabled: true
+RSpec/ExcessiveDocstringSpacing: # new in 2.5
+  Enabled: true
+RSpec/IdenticalEqualityAssertion: # new in 2.4
+  Enabled: true
+RSpec/IndexedLet: # new in 2.20
+  Enabled: true
+RSpec/MatchArray: # new in 2.19
+  Enabled: true
+RSpec/NoExpectationExample: # new in 2.13
+  Enabled: true
+RSpec/PendingWithoutReason: # new in 2.16
+  Enabled: true
+RSpec/RedundantAround: # new in 2.19
+  Enabled: true
+RSpec/SkipBlockInsideExample: # new in 2.19
+  Enabled: true
+RSpec/SortMetadata: # new in 2.14
+  Enabled: true
+RSpec/SubjectDeclaration: # new in 2.5
+  Enabled: true
+RSpec/VerifiedDoubleReference: # new in 2.10.0
+  Enabled: true
+RSpec/StringAsInstanceDoubleConstant: # new in 3.1
+  Enabled: true
+
 #################### Security ##############################
 
 Security/Eval:
@@ -1065,7 +1248,7 @@ Security/JSONLoad:
   Description: >-
                  Prefer usage of `JSON.parse` over `JSON.load` due to potential
                  security issues. See reference for more information.
-  Reference: 'http://ruby-doc.org/stdlib-2.3.0/libdoc/json/rdoc/JSON.html#method-i-load'
+  Reference: 'https://ruby-doc.org/3.3.0/exts/json/JSON.html#method-i-load'
   Enabled: true
   # Autocorrect here will change to a method that may cause crashes depending
   # on the value of the argument.
@@ -1075,7 +1258,7 @@ Security/MarshalLoad:
   Description: >-
                  Avoid using of `Marshal.load` or `Marshal.restore` due to potential
                  security issues. See reference for more information.
-  Reference: 'http://ruby-doc.org/core-2.3.3/Marshal.html#module-Marshal-label-Security+considerations'
+  Reference: 'https://ruby-doc.org/3.3.0/Marshal.html#module-Marshal-label-Security+considerations'
   Enabled: true
 
 # Security/Open:
@@ -1086,7 +1269,12 @@ Security/YAMLLoad:
   Description: >-
                  Prefer usage of `YAML.safe_load` over `YAML.load` due to potential
                  security issues. See reference for more information.
-  Reference: 'https://ruby-doc.org/stdlib-2.3.3/libdoc/yaml/rdoc/YAML.html#module-YAML-label-Security'
+  Reference: 'https://ruby-doc.org/3.3.0/stdlibs/yaml/YAML.html#module-YAML-label-Security'
+  Enabled: true
+
+Security/CompoundHash: # new in 1.28
+  Enabled: true
+Security/IoMethods: # new in 1.22
   Enabled: true
 
 #################### Style ###############################
@@ -1820,86 +2008,6 @@ Style/ZeroLengthPredicate:
   Description: 'Use #empty? when testing for objects of length 0.'
   Enabled: true
 
-Gemspec/DeprecatedAttributeAssignment: # new in 1.30
-  Enabled: true
-Gemspec/DevelopmentDependencies: # new in 1.44
-  Enabled: true
-Gemspec/RequireMFA: # new in 1.23
-  Enabled: true
-Layout/LineContinuationLeadingSpace: # new in 1.31
-  Enabled: true
-Layout/LineContinuationSpacing: # new in 1.31
-  Enabled: true
-Layout/LineEndStringConcatenationIndentation: # new in 1.18
-  Enabled: true
-Layout/SpaceBeforeBrackets: # new in 1.7
-  Enabled: true
-Lint/AmbiguousAssignment: # new in 1.7
-  Enabled: true
-Lint/AmbiguousOperatorPrecedence: # new in 1.21
-  Enabled: true
-Lint/AmbiguousRange: # new in 1.19
-  Enabled: true
-Lint/ConstantOverwrittenInRescue: # new in 1.31
-  Enabled: true
-Lint/DeprecatedConstants: # new in 1.8
-  Enabled: true
-Lint/DuplicateBranch: # new in 1.3
-  Enabled: true
-Lint/DuplicateMagicComment: # new in 1.37
-  Enabled: true
-Lint/DuplicateMatchPattern: # new in 1.50
-  Enabled: true
-Lint/DuplicateRegexpCharacterClassElement: # new in 1.1
-  Enabled: true
-Lint/EmptyBlock: # new in 1.1
-  Enabled: true
-Lint/EmptyClass: # new in 1.3
-  Enabled: true
-Lint/EmptyInPattern: # new in 1.16
-  Enabled: true
-Lint/IncompatibleIoSelectWithFiberScheduler: # new in 1.21
-  Enabled: true
-Lint/LambdaWithoutLiteralBlock: # new in 1.8
-  Enabled: true
-Lint/NoReturnInBeginEndBlocks: # new in 1.2
-  Enabled: true
-Lint/NonAtomicFileOperation: # new in 1.31
-  Enabled: true
-Lint/NumberedParameterAssignment: # new in 1.9
-  Enabled: true
-Lint/OrAssignmentToConstant: # new in 1.9
-  Enabled: true
-Lint/RedundantDirGlobSort: # new in 1.8
-  Enabled: true
-Lint/RefinementImportMethods: # new in 1.27
-  Enabled: true
-Lint/RequireRangeParentheses: # new in 1.32
-  Enabled: true
-Lint/RequireRelativeSelfPath: # new in 1.22
-  Enabled: true
-Lint/SymbolConversion: # new in 1.9
-  Enabled: true
-Lint/ToEnumArguments: # new in 1.1
-  Enabled: true
-Lint/TripleQuotes: # new in 1.9
-  Enabled: true
-Lint/UnexpectedBlockArity: # new in 1.5
-  Enabled: true
-Lint/UnmodifiedReduceAccumulator: # new in 1.1
-  Enabled: true
-Lint/UselessRescue: # new in 1.43
-  Enabled: true
-Lint/UselessRuby2Keywords: # new in 1.23
-  Enabled: true
-Metrics/CollectionLiteralLength: # new in 1.47
-  Enabled: true
-Naming/BlockForwarding: # new in 1.24
-  Enabled: true
-Security/CompoundHash: # new in 1.28
-  Enabled: true
-Security/IoMethods: # new in 1.22
-  Enabled: true
 Style/ArgumentsForwarding: # new in 1.1
   Enabled: true
 Style/ArrayIntersect: # new in 1.40
@@ -1992,73 +2100,45 @@ Style/StringChars: # new in 1.12
   Enabled: true
 Style/SwapValues: # new in 1.1
   Enabled: true
-Performance/AncestorsInclude: # new in 1.7
+Style/AmbiguousEndlessMethodDefinition: # new in 1.68
   Enabled: true
-Performance/BigDecimalWithNumericArgument: # new in 1.7
+Style/BitwisePredicate: # new in 1.68
   Enabled: true
-Performance/BlockGivenWithExplicitBlock: # new in 1.9
+Style/CombinableDefined: # new in 1.68
   Enabled: true
-Performance/CollectionLiteralInLoop: # new in 1.8
+Style/DigChain: # new in 1.69
   Enabled: true
-Performance/ConcurrentMonotonicTime: # new in 1.12
+Style/FileNull: # new in 1.69
   Enabled: true
-Performance/ConstantRegexp: # new in 1.9
+Style/FileTouch: # new in 1.69
   Enabled: true
-Performance/MapCompact: # new in 1.11
+Style/KeywordArgumentsMerging: # new in 1.68
   Enabled: true
-Performance/MethodObjectAsBlock: # new in 1.9
+Style/MapIntoArray: # new in 1.63
   Enabled: true
-Performance/RedundantEqualityComparisonBlock: # new in 1.10
+Style/RedundantArrayConstructor: # new in 1.52
   Enabled: true
-Performance/RedundantSortBlock: # new in 1.7
+Style/RedundantCurrentDirectoryInPath: # new in 1.53
   Enabled: true
-Performance/RedundantSplitRegexpArgument: # new in 1.10
+Style/RedundantFilterChain: # new in 1.52
   Enabled: true
-Performance/RedundantStringChars: # new in 1.7
+Style/RedundantInterpolationUnfreeze: # new in 1.66
   Enabled: true
-Performance/ReverseFirst: # new in 1.7
+Style/RedundantRegexpArgument: # new in 1.53
   Enabled: true
-Performance/SortReverse: # new in 1.7
+Style/RedundantRegexpConstructor: # new in 1.52
   Enabled: true
-Performance/Squeeze: # new in 1.7
+Style/ReturnNilInPredicateMethodDefinition: # new in 1.53
   Enabled: true
-Performance/StringIdentifierArgument: # new in 1.13
+Style/SafeNavigationChainLength: # new in 1.68
   Enabled: true
-Performance/StringInclude: # new in 1.7
+Style/SendWithLiteralMethodName: # new in 1.64
   Enabled: true
-Performance/Sum: # new in 1.8
+Style/SingleLineDoEndBlock: # new in 1.57
   Enabled: true
-RSpec/BeEmpty: # new in 2.20
+Style/SuperArguments: # new in 1.64
   Enabled: true
-RSpec/BeEq: # new in 2.9.0
+Style/SuperWithArgsParentheses: # new in 1.58
   Enabled: true
-RSpec/BeNil: # new in 2.9.0
-  Enabled: true
-RSpec/ChangeByZero: # new in 2.11
-  Enabled: true
-RSpec/ContainExactly: # new in 2.19
-  Enabled: true
-RSpec/DuplicatedMetadata: # new in 2.16
-  Enabled: true
-RSpec/ExcessiveDocstringSpacing: # new in 2.5
-  Enabled: true
-RSpec/IdenticalEqualityAssertion: # new in 2.4
-  Enabled: true
-RSpec/IndexedLet: # new in 2.20
-  Enabled: true
-RSpec/MatchArray: # new in 2.19
-  Enabled: true
-RSpec/NoExpectationExample: # new in 2.13
-  Enabled: true
-RSpec/PendingWithoutReason: # new in 2.16
-  Enabled: true
-RSpec/RedundantAround: # new in 2.19
-  Enabled: true
-RSpec/SkipBlockInsideExample: # new in 2.19
-  Enabled: true
-RSpec/SortMetadata: # new in 2.14
-  Enabled: true
-RSpec/SubjectDeclaration: # new in 2.5
-  Enabled: true
-RSpec/VerifiedDoubleReference: # new in 2.10.0
+Style/YAMLFileRead: # new in 1.53
   Enabled: true

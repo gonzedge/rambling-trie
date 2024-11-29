@@ -8,7 +8,7 @@ module Performance
       module WordsWithin
         class Raw < Performance::SubTasks::Lookups::Lookup
           def initialize iterations = 100_000
-            super iterations
+            super
           end
 
           def name

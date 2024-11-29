@@ -166,7 +166,7 @@ module Rambling
 
       # Array of words contained in the root {Nodes::Node Node}.
       # @return [Array<String>] all words contained in this trie.
-      # @see https://ruby-doc.org/core-2.7.0/Enumerable.html#method-i-to_a Enumerable#to_a
+      # @see https://ruby-doc.org/3.3.0/Enumerable.html#method-i-to_a Enumerable#to_a
       def to_a
         root.to_a
       end
