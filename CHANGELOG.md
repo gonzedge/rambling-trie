@@ -1,6 +1,17 @@
 # CHANGELOG
 
-## 2.4.1 [compare][compare_v2_4_0_and_main]
+## 2.4.2 [compare][compare_v2_4_1_and_main]
+
+## 2.4.1 [compare][compare_v2_4_0_and_v_2_4_1]
+
+- Bump version to `2.4.1` for next release by [@gonzedge][github_user_gonzedge]
+- Ensure self is returned during call to `Nodes::Raw#add` by [@gonzedge][github_user_gonzedge]
+- Ensure only non-root nodes are marked as terminal by [@gonzedge][github_user_gonzedge]
+- Upgrade `rubocop` rules and fix new rule offenses by [@gonzedge][github_user_gonzedge]
+- Add `Container#push` to mirror `Array#push` interface by [@gonzedge][github_user_gonzedge]
+- Fix missing params for enumerator for `Readers::PlainText` by [@gonzedge][github_user_gonzedge]
+- Update `ma{ster => in}` branch references by [@gonzedge][github_user_gonzedge]
+- Add explicit support for Ruby `3.3.x` by [@gonzedge][github_user_gonzedge]
 
 ## 2.4.0 [compare][compare_v2_3_1_and_v2_4_0]
 
@@ -960,7 +971,8 @@ Most of these help with the gem's overall performance.
 [compare_v2_2_1_and_v2_3_0]: https://github.com/gonzedge/rambling-trie/compare/v2.2.1...v2.3.0
 [compare_v2_3_0_and_v2_3_1]: https://github.com/gonzedge/rambling-trie/compare/v2.3.0...v2.3.1
 [compare_v2_3_1_and_v2_4_0]: https://github.com/gonzedge/rambling-trie/compare/v2.3.1...v2.4.0
-[compare_v2_4_0_and_main]: https://github.com/gonzedge/rambling-trie/compare/v2.4.0...main
+[compare_v2_4_0_and_v2_4_1]: https://github.com/gonzedge/rambling-trie/compare/v2.4.0...v2.4.1
+[compare_v2_4_1_and_main]: https://github.com/gonzedge/rambling-trie/compare/v2.4.1...main
 [design_patterns_null_object]: http://wiki.c2.com/?NullObject
 [github_commit_current_key_less_memory]: https://github.com/gonzedge/rambling-trie/commit/218fac218a77e70ba04a3672ff5abfddf6544f57
 [github_commit_reduced_memory_footprint]: https://github.com/gonzedge/rambling-trie/commit/aa8c0262f888e88df6a2f1e1351d8f14b21e43c4
