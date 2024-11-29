@@ -1,22 +1,5 @@
 # These are all the cops that are disabled in the default configuration.
 
-Capybara/MatchStyle: # new in 2.17
-  Enabled: false
-Capybara/NegationMatcher: # new in 2.14
-  Enabled: false
-Capybara/SpecificActions: # new in 2.14
-  Enabled: false
-Capybara/SpecificFinders: # new in 2.13
-  Enabled: false
-Capybara/SpecificMatcher: # new in 2.12
-  Enabled: false
-FactoryBot/ConsistentParenthesesStyle: # new in 2.14
-  Enabled: false
-FactoryBot/FactoryNameStyle: # new in 2.16
-  Enabled: false
-FactoryBot/SyntaxMethods: # new in 2.7
-  Enabled: false
-
 Layout/ClassStructure:
   Description: 'Enforces a configured order of definitions within a class body.'
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#consistent-classes'
