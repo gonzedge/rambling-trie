@@ -3,7 +3,7 @@
 require 'yaml'
 require 'simplecov'
 
-COVERAGE_FILTER = %r{/spec/}.freeze
+COVERAGE_FILTER = %r{/spec/}
 
 if ENV.key? 'COVERALLS_REPO_TOKEN'
   require 'coveralls'
