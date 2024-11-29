@@ -55,17 +55,6 @@ Layout/MultilineAssignmentLayout:
 #   Description: 'Checks unsafe usage of number conversion methods.'
 #   Enabled: false
 
-RSpec/Rails/AvoidSetupHook: # new in 2.4
-  Enabled: false
-RSpec/Rails/HaveHttpStatus: # new in 2.12
-  Enabled: false
-RSpec/Rails/InferredSpecType: # new in 2.14
-  Enabled: false
-RSpec/Rails/MinitestAssertions: # new in 2.17
-  Enabled: false
-RSpec/Rails/TravelAround: # new in 2.19
-  Enabled: false
-
 Style/AutoResourceCleanup:
   Description: 'Suggests the usage of an auto resource cleanup version of a method (if available).'
   Enabled: false
