@@ -15,8 +15,8 @@ module Rambling
         # Loads marshaled object from contents in filepath and deserializes it into a {Nodes::Node Node}.
         # @param [String] filepath the full path of the file to load the marshaled object from.
         # @return [Nodes::Node] The deserialized {Nodes::Node Node}.
-        # @see https://ruby-doc.org/core-2.7.0/Marshal.html#method-c-load Marshal.load
-        # @note Use of {https://ruby-doc.org/core-2.7.0/Marshal.html#method-c-load Marshal.load} is generally
+        # @see https://ruby-doc.org/3.3.0/Marshal.html#method-c-load Marshal.load
+        # @note Use of {https://ruby-doc.org/3.3.0/Marshal.html#method-c-load Marshal.load} is generally
         #   discouraged. Only use this with trusted input.
         def load filepath
           ::Marshal.load serializer.load filepath
@@ -26,7 +26,7 @@ module Rambling
         # @param [Nodes::Node] node the node to serialize
         # @param [String] filepath the full path of the file to dump the marshaled object into.
         # @return [Numeric] number of bytes written to disk.
-        # @see https://ruby-doc.org/core-2.7.0/Marshal.html#method-c-dump Marshal.dump
+        # @see https://ruby-doc.org/3.3.0/Marshal.html#method-c-dump Marshal.dump
         def dump node, filepath
           serializer.dump ::Marshal.dump(node), filepath
         end
