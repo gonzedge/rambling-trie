@@ -28,10 +28,11 @@ module Rambling
             entry = zip.entries.first
             raise unless entry
 
-            entry_path = path entry.name
+            entry_name = entry.name
+            entry_path = path entry_name
             entry.extract entry_path
 
-            serializer = serializers.resolve entry.name
+            serializer = serializers.resolve entry_name
             raise unless serializer
 
             serializer.load entry_path
