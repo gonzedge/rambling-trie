@@ -32,6 +32,7 @@ module Rambling
         # Creates a new node.
         # @param [Symbol, nil] letter the Node's letter value.
         # @param [Node, nil] parent the parent of the current node.
+        # @param [Hash<Symbol, Node>] children_tree the children tree of the current node.
         def initialize letter = nil, parent = nil, children_tree = {}
           @letter = letter
           @parent = parent
@@ -52,6 +53,8 @@ module Rambling
           # rubocop:disable Lint/UnreachableLoop
           children_tree.each_value { |child| return child }
           # rubocop:enable Lint/UnreachableLoop
+
+          nil
         end
 
         # Indicates if the current node is the root node.
@@ -106,7 +109,7 @@ module Rambling
         end
 
         # Returns all words that match a prefix of any length within chars.
-        # @param [String] chars the chars to base the prefix on.
+        # @param [Array[String]] chars the chars to base the prefix on.
         # @return [Enumerator<String>] all the words that match a prefix by chars.
         # @yield [String] each word found.
         def match_prefix chars
@@ -147,7 +150,7 @@ module Rambling
         # Delete a given letter and its corresponding {Node Node} from
         # this {Node Node}'s children tree.
         # @param [Symbol] letter the letter to delete from the node's children tree.
-        # @return [Node] the node corresponding to the deleted letter.
+        # @return [Node, nil] the node corresponding to the deleted letter.
         # @see https://ruby-doc.org/3.3.0/Hash.html#method-i-delete Hash#delete
         def delete letter
           children_tree.delete letter
@@ -164,6 +167,24 @@ module Rambling
         private
 
         attr_accessor :terminal
+
+        # abstract methods
+
+        def children_match_prefix chars
+          raise NotImplementedError
+        end
+
+        def partial_word_chars? chars
+          raise NotImplementedError
+        end
+
+        def word_chars? chars
+          raise NotImplementedError
+        end
+
+        def closest_node chars
+          raise NotImplementedError
+        end
       end
     end
   end

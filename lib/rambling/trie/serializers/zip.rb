@@ -26,12 +26,14 @@ module Rambling
 
           ::Zip::File.open filepath do |zip|
             entry = zip.entries.first
-            return nil if entry.nil?
+            raise if entry.nil?
 
             entry_path = path entry.name
             entry.extract entry_path
 
             serializer = serializers.resolve entry.name
+            raise if serializer.nil?
+
             serializer.load entry_path
           end
         end
@@ -50,6 +52,9 @@ module Rambling
 
             entry_path = path filename
             serializer = serializers.resolve filename
+
+            raise if serializer.nil?
+
             serializer.dump contents, entry_path
 
             zip.add filename, entry_path
