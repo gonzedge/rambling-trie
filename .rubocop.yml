@@ -1362,6 +1362,8 @@ Metrics/CyclomaticComplexity:
 Metrics/MethodLength:
   CountComments: false  # count full line comments?
   Max: 20
+  Exclude:
+    - 'tasks/ips.rb'
 
 Metrics/ModuleLength:
   CountComments: false  # count full line comments?
