@@ -1,4 +1,8 @@
 ---
+exclude_paths:
+  - tasks
+  - spec
+
 detectors:
   Attribute:
     exclude:
