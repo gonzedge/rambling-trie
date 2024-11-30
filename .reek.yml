@@ -1,0 +1,60 @@
+---
+detectors:
+  Attribute:
+    exclude:
+      # Need these setters for compression
+      - 'Rambling::Trie::Nodes::Node#children_tree'
+      - 'Rambling::Trie::Nodes::Node#parent'
+      # All Properties are settable by clients because of config convention
+      - 'Rambling::Trie::Configuration::Properties'
+
+  ControlParameter:
+    enabled: false
+
+  DuplicateMethodCall:
+    exclude:
+      # Not actual duplicates, the underlying var is mutated
+      - 'Rambling::Trie::Nodes::Compressed'
+
+  FeatureEnvy:
+    exclude:
+      - 'Rambling::Trie::Compressor' # needs to access node internals to perform compression
+      - 'Rambling::Trie::Nodes::Compressed#partial_word_chars?' # needs access to child letter to figure out compressed letters
+
+  NestedIterators:
+    exclude:
+      - 'Rambling::Trie#create' # inner iteration goes through each word in given file
+      - 'Rambling::Trie::Container#words_within_root' # inner iteration does a match of each prefix
+      - 'Rambling::Trie::Enumerable#each' # inner iteration goes through each word in children_tree
+
+  NilCheck:
+    exclude:
+      - 'Rambling::Trie::Configuration::ProviderCollection#contains?' # necessary for steep type check
+
+  TooManyMethods:
+    exclude:
+      - 'Rambling::Trie::Container' # Container is the lib API entry point
+      - 'Rambling::Trie::Nodes::Node' # Node is the main building block
+
+  TooManyStatements:
+    max_statements: 10
+
+  UnusedParameters:
+    exclude:
+      # Rambling::Trie::Nodes::Node has some abstract methods
+      - 'Rambling::Trie::Nodes::Node#children_match_prefix'
+      - 'Rambling::Trie::Nodes::Node#closest_node'
+      - 'Rambling::Trie::Nodes::Node#partial_word_chars?'
+      - 'Rambling::Trie::Nodes::Node#word_chars?'
+      # Rambling::Trie::Readers::Reader is an abstract class
+      - 'Rambling::Trie::Readers::Reader#each_word'
+      # Rambling::Trie::Serializers::Serializer is an abstract class
+      - 'Rambling::Trie::Serializers::Serializer#dump'
+      - 'Rambling::Trie::Serializers::Serializer#load'
+
+  UtilityFunction:
+    public_methods_only: true
+    exclude:
+      # Rambling::Trie::Serializers::File are intentionally using ::File methods
+      - 'Rambling::Trie::Serializers::File#dump'
+      - 'Rambling::Trie::Serializers::File#load'
