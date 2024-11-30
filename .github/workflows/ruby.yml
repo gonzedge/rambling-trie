@@ -19,10 +19,12 @@ jobs:
       - name: Set up ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: 3.3.0
+          ruby-version: 3.3.6
           bundler-cache: true
       - name: Run rubocop
         run: bundle exec rubocop
+      - name: Run rbs + steep
+        run: bundle exec steep check
   spec:
     runs-on: ubuntu-latest
     strategy:
@@ -63,7 +65,7 @@ jobs:
       - name: Set up ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: 3.3.0
+          ruby-version: 3.3.6
           bundler-cache: true
       - name: Report rspec test coverage to coveralls.io
         env:

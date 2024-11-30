@@ -58,7 +58,12 @@ module Rambling
         # @param [String] filepath the filepath to resolve into a provider.
         # @return [TProvider, nil] the provider for the given file's extension. {#default} if not found.
         def resolve filepath
-          providers[file_format filepath] || default
+          extension = file_format filepath
+          if providers.key? extension
+            providers[extension]
+          else
+            default
+          end
         end
 
         # Resets the provider collection to the initial values.
@@ -104,7 +109,10 @@ module Rambling
         end
 
         def contains? provider
-          provider.nil? || (providers.any? && provider_instances.include?(provider))
+          return true if provider.nil?
+
+          p = (provider || raise)
+          providers.any? && provider_instances.include?(p)
         end
 
         alias_method :provider_instances, :values

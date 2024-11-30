@@ -26,7 +26,7 @@ module Rambling
           if filepath
             reader ||= readers.resolve filepath
             # noinspection RubyMismatchedArgumentType,RubyNilAnalysis
-            reader.each_word filepath do |word|
+            (reader || raise).each_word filepath do |word|
               container << word
             end
           end
@@ -48,7 +48,7 @@ module Rambling
       #   discouraged. Only use the +.marshal+ format with trusted input.
       def load filepath, serializer = nil
         serializer ||= serializers.resolve filepath
-        root = serializer.load filepath
+        root = (serializer || raise).load filepath
         Rambling::Trie::Container.new root, compressor do |container|
           yield container if block_given?
         end
@@ -66,7 +66,7 @@ module Rambling
       def dump trie, filepath, serializer = nil
         serializer ||= serializers.resolve filepath
         # noinspection RubyNilAnalysis
-        serializer.dump trie.root, filepath
+        (serializer || raise).dump trie.root, filepath
       end
 
       # Provides configuration properties for the +Rambling::Trie+ gem.
