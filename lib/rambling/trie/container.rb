@@ -201,10 +201,10 @@ module Rambling
         return enum_for :words_within_root, phrase unless block_given?
 
         chars = phrase.chars
-        size = chars.length - 1
+        last_index = chars.length - 1
         # rubocop:disable Style/CommentedKeyword
-        0.upto(size).each do |starting_index|
-          new_phrase = chars.slice starting_index..size # : Array[String]
+        0.upto(last_index).each do |starting_index|
+          new_phrase = chars.slice starting_index..last_index # : Array[String]
           root.match_prefix new_phrase do |word|
             yield word
           end

@@ -40,17 +40,19 @@ def compare
 end
 
 def compare_pop_shift_slice
-  a = []
+  push_pop = []
+  unshift_shift = []
+  shovel_slice = []
   compare do |bm|
-    bm.report('push') { a.push 1 }
-    bm.report('unshift') { a.unshift 1 }
-    bm.report('shovel(<<)') { a << 1 }
+    bm.report('push') { push_pop.push 1 }
+    bm.report('unshift') { unshift_shift.unshift 1 }
+    bm.report('shovel(<<)') { shovel_slice << 1 }
   end
 
   compare do |bm|
-    bm.report('pop') { a.pop }
-    bm.report('shift') { a.shift }
-    bm.report('slice!(0)') { a.slice! 0 }
+    bm.report('pop') { push_pop.pop }
+    bm.report('shift') { unshift_shift.shift }
+    bm.report('slice!(0)') { shovel_slice.slice! 0 }
   end
 end
 
