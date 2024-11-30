@@ -109,7 +109,7 @@ module Rambling
         end
 
         def contains? provider
-          return true if provider.nil?
+          return true unless provider
 
           providers.any? && provider_instances.include?(provider || raise)
         end

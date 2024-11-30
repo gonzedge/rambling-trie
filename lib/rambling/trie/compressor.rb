@@ -8,7 +8,7 @@ module Rambling
       # @param [Nodes::Node] node the node to compress.
       # @return [Nodes::Compressed] node the compressed version of the node.
       def compress node
-        return if node.nil?
+        return unless node
 
         if node.compressible?
           compress_child_and_merge node
@@ -24,7 +24,7 @@ module Rambling
       end
 
       def merge node, other
-        return new_compressed_node node.letter, node.parent, node.children_tree, node.terminal? if other.nil?
+        return new_compressed_node node.letter, node.parent, node.children_tree, node.terminal? unless other
 
         letter = node.letter.to_s << other.letter.to_s
 
