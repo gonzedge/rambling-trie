@@ -14,6 +14,9 @@ detectors:
       - 'Rambling::Trie::Container#words_within_root' # inner iteration does a match of each prefix
       - 'Rambling::Trie::Enumerable#each' # inner iteration goes through each word in children_tree
 
+  TooManyStatements:
+    max_statements: 10
+
   UnusedParameters:
     exclude:
       # Rambling::Trie::Nodes::Node has some abstract methods
