@@ -23,6 +23,11 @@ detectors:
       - 'Rambling::Trie::Container#words_within_root' # inner iteration does a match of each prefix
       - 'Rambling::Trie::Enumerable#each' # inner iteration goes through each word in children_tree
 
+  TooManyMethods:
+    exclude:
+      - 'Rambling::Trie::Container' # Container is the lib API entry point
+      - 'Rambling::Trie::Nodes::Node' # Node is the main building block
+
   TooManyStatements:
     max_statements: 10
 
