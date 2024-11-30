@@ -4,6 +4,8 @@ module Rambling
   module Trie
     module Nodes
       # A representation of a node in the trie data structure.
+      # :reek:MissingSafeMethod { exclude: [ terminal! ] }
+      # :reek:RepeatedConditional { max_ifs: 3 }
       class Node
         include Rambling::Trie::Compressible
         include Rambling::Trie::Enumerable

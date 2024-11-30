@@ -4,6 +4,7 @@ module Rambling
   module Trie
     module Nodes
       # A representation of a node in an uncompressed trie data structure.
+      # :reek:RepeatedConditional { max_ifs: 4 }
       class Raw < Rambling::Trie::Nodes::Node
         # Adds a word to the current raw (uncompressed) trie node.
         # @param [Array<Symbol>] reversed_chars the char array to add to the trie, in reverse order.
