@@ -70,7 +70,7 @@ module Rambling
         # @return [void]
         def reset
           providers.clear
-          configured_providers.each { |k, v| self[k] = v }
+          configured_providers.each { |extension, provider| self[extension] = provider }
           self.default = configured_default
         end
 
@@ -109,10 +109,10 @@ module Rambling
         end
 
         def contains? provider
-          return true if provider.nil?
+          return true unless provider
 
-          p = provider || raise
-          providers.any? && provider_instances.include?(p)
+          value = provider || raise
+          providers.any? && provider_instances.include?(value)
         end
 
         alias_method :provider_instances, :values
