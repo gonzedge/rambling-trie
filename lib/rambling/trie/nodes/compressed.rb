@@ -4,6 +4,7 @@ module Rambling
   module Trie
     module Nodes
       # A representation of a node in an compressed trie data structure.
+      # :reek:RepeatedConditional { max_ifs: 4 }
       class Compressed < Rambling::Trie::Nodes::Node
         # Always raises {Rambling::Trie::InvalidOperation InvalidOperation} when
         # trying to add a word to the current compressed trie node
