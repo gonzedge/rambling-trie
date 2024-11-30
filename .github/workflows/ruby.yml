@@ -12,17 +12,6 @@ permissions:
   contents: read
 
 jobs:
-  lint-rubocop:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - name: Set up ruby
-        uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: 3.3.6
-          bundler-cache: true
-      - name: Run rubocop
-        run: bundle exec rubocop
   lint-rbs-steep:
     runs-on: ubuntu-latest
     steps:
@@ -34,6 +23,28 @@ jobs:
           bundler-cache: true
       - name: Run rbs + steep
         run: bundle exec steep check
+  lint-reek:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.3.6
+          bundler-cache: true
+      - name: Run reek
+        run: bundle exec reek
+  lint-rubocop:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.3.6
+          bundler-cache: true
+      - name: Run rubocop
+        run: bundle exec rubocop
   spec:
     runs-on: ubuntu-latest
     strategy:

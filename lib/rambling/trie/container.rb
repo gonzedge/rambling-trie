@@ -201,9 +201,10 @@ module Rambling
         return enum_for :words_within_root, phrase unless block_given?
 
         chars = phrase.chars
+        size = chars.length - 1
         # rubocop:disable Style/CommentedKeyword
-        0.upto(chars.length - 1).each do |starting_index|
-          new_phrase = chars.slice starting_index..(chars.length - 1) # : Array[String]
+        0.upto(size).each do |starting_index|
+          new_phrase = chars.slice starting_index..size # : Array[String]
           root.match_prefix new_phrase do |word|
             yield word
           end
@@ -217,7 +218,7 @@ module Rambling
 
       def reversed_char_symbols word
         symbols = []
-        word.reverse.each_char { |c| symbols << c.to_sym }
+        word.reverse.each_char { |char| symbols << char.to_sym }
         symbols
       end
     end

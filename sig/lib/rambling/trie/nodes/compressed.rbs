@@ -2,6 +2,8 @@ module Rambling
   module Trie
     module Nodes
       class Compressed < Node
+        def initialize: (?Symbol?, ?Node?, ?Hash[Symbol, Node]) -> void
+
         def add: (Array[Symbol]) -> Node
 
         def compressed?: -> bool
