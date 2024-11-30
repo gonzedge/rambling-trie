@@ -1,0 +1,23 @@
+module Rambling
+  module Trie
+    module Enumerable
+      include ::Enumerable[String]
+
+      EMPTY_ENUMERATOR: Enumerator[String, void]
+
+      alias size count
+
+      def each: { (String) -> void } -> (Enumerator[String, void] | Enumerable)
+
+      private
+
+      # abstract methods
+
+      def as_word: -> String
+
+      def terminal?: -> bool
+
+      def children_tree: -> Hash[Symbol, Nodes::Node]
+    end
+  end
+end

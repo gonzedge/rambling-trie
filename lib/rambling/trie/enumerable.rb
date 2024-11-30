@@ -6,6 +6,8 @@ module Rambling
     module Enumerable
       include ::Enumerable
 
+      EMPTY_ENUMERATOR = [].to_enum :each
+
       # Returns number of words contained in the trie
       # @see https://ruby-doc.org/3.3.0/Enumerable.html#method-i-count Enumerable#count
       alias_method :size, :count

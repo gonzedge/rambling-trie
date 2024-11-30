@@ -1,0 +1,27 @@
+module Rambling
+  module Trie
+    module Inspectable
+      def inspect: -> String
+
+      private
+
+      def class_name: -> String?
+
+      def attributes: -> String
+
+      def letter_inspect: -> String
+
+      def terminal_inspect: -> String
+
+      def children_inspect: -> String
+
+      # abstract methods
+
+      def letter: -> Symbol
+
+      def terminal: -> bool?
+
+      def children_tree: -> Hash[Symbol, Nodes::Node]
+    end
+  end
+end
