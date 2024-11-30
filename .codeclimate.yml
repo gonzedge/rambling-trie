@@ -21,6 +21,11 @@ plugins:
   # Markdown lint with rules from https://github.com/markdownlint/markdownlint/blob/main/docs/RULES.md
   markdownlint:
     enabled: true
+  # Code smells
+  reek:
+    enabled: true
+    exclude_patterns:
+      - 'spec/'
   # Ruby lint
   rubocop:
     enabled: true
