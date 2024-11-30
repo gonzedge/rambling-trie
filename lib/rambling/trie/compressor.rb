@@ -27,14 +27,23 @@ module Rambling
         letter = node.letter
         parent = node.parent
 
-        return new_compressed_node letter, parent, node.children_tree, node.terminal? unless other
+        if other
+          letter = letter.to_s << other.letter.to_s
+          compressed = Rambling::Trie::Nodes::Compressed.new letter.to_sym, parent, other.children_tree
+          terminal = other.terminal?
+        else
+          compressed = Rambling::Trie::Nodes::Compressed.new letter, parent, node.children_tree
+          terminal = node.terminal?
+        end
 
-        letter = letter.to_s << other.letter.to_s
-        new_compressed_node letter.to_sym, parent, other.children_tree, other.terminal?
+        compressed.terminal! if terminal
+        compressed
       end
 
       def compress_children_and_copy node
-        new_compressed_node node.letter, node.parent, compress_children(node.children_tree), node.terminal?
+        compressed = Rambling::Trie::Nodes::Compressed.new node.letter, node.parent, compress_children(node.children_tree)
+        compressed.terminal! if node.terminal?
+        compressed
       end
 
       def compress_children tree
@@ -46,14 +55,6 @@ module Rambling
         end
 
         new_tree
-      end
-
-      def new_compressed_node letter, parent, tree, terminal
-        node = Rambling::Trie::Nodes::Compressed.new letter, parent, tree
-        node.terminal! if terminal
-
-        tree.each_value { |child| child.parent = node }
-        node
       end
     end
   end

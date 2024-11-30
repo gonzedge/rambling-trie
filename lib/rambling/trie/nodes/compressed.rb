@@ -6,6 +6,17 @@ module Rambling
       # A representation of a node in an compressed trie data structure.
       # :reek:RepeatedConditional { max_ifs: 4 }
       class Compressed < Rambling::Trie::Nodes::Node
+        # Creates a new compressed node.
+        # @param [Symbol, nil] letter the Node's letter value.
+        # @param [Node, nil] parent the parent of the current node.
+        # @param [Hash<Symbol, Node>] children_tree the children tree of the current node.
+        def initialize letter = nil, parent = nil, children_tree = {}
+          super
+
+          # Ensure all children have the current compressed node as the parent
+          children_tree.each_value { |child| child.parent = self }
+        end
+
         # Always raises {Rambling::Trie::InvalidOperation InvalidOperation} when
         # trying to add a word to the current compressed trie node
         # @param [String] _ the word to add to the trie.
