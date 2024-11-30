@@ -8,6 +8,11 @@ detectors:
       # All Properties are settable by clients because of config convention
       - 'Rambling::Trie::Configuration::Properties'
 
+  DuplicateMethodCall:
+    exclude:
+      # Not actual duplicates, the underlying var is mutated
+      - 'Rambling::Trie::Nodes::Compressed'
+
   FeatureEnvy:
     exclude:
       - 'Rambling::Trie::Compressor' # needs to access node internals to perform compression

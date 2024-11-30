@@ -24,11 +24,13 @@ module Rambling
       end
 
       def merge node, other
-        return new_compressed_node node.letter, node.parent, node.children_tree, node.terminal? unless other
+        letter = node.letter
+        parent = node.parent
 
-        letter = node.letter.to_s << other.letter.to_s
+        return new_compressed_node letter, parent, node.children_tree, node.terminal? unless other
 
-        new_compressed_node letter.to_sym, node.parent, other.children_tree, other.terminal?
+        letter = letter.to_s << other.letter.to_s
+        new_compressed_node letter.to_sym, parent, other.children_tree, other.terminal?
       end
 
       def compress_children_and_copy node
