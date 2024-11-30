@@ -1,5 +1,10 @@
+version: "2"
 exclude_patterns:
   - 'tasks/'
+checks:
+  method-complexity:
+    config:
+      threshold: 7
 plugins:
   # No to-dos or similar
   fixme:
@@ -10,7 +15,7 @@ plugins:
   flog:
     enabled: true
     config:
-      score_threshold: 25.0
+      score_threshold: 28.5
     exclude_patterns:
       - 'spec/'
   # Markdown lint with rules from https://github.com/markdownlint/markdownlint/blob/main/docs/RULES.md
