@@ -27,6 +27,10 @@ detectors:
       - 'Rambling::Trie::Container#words_within_root' # inner iteration does a match of each prefix
       - 'Rambling::Trie::Enumerable#each' # inner iteration goes through each word in children_tree
 
+  NilCheck:
+    exclude:
+      - 'Rambling::Trie::Configuration::ProviderCollection#contains?' # necessary for steep type check
+
   TooManyMethods:
     exclude:
       - 'Rambling::Trie::Container' # Container is the lib API entry point
