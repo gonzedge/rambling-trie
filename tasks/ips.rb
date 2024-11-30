@@ -1,6 +1,10 @@
 # frozen_string_literal: true
 
 namespace :ips do
+  task :string_pop_shift_slice do
+    compare_string_pop_shift_slice
+  end
+
   task :pop_shift_slice do
     compare_pop_shift_slice
   end
@@ -39,18 +43,64 @@ def compare
   end
 end
 
-def compare_pop_shift_slice
-  a = []
+def compare_string_pop_shift_slice
+  pop = ''.chars.join
+  shift = ''.chars.join
+  slice = ''.chars.join
   compare do |bm|
-    bm.report('push') { a.push 1 }
-    bm.report('unshift') { a.unshift 1 }
-    bm.report('shovel(<<)') { a << 1 }
+    bm.report('<<') do
+      pop << 'a'
+      shift << 'b'
+      slice << 'c'
+    end
   end
 
   compare do |bm|
-    bm.report('pop') { a.pop }
-    bm.report('shift') { a.shift }
-    bm.report('slice!(0)') { a.slice! 0 }
+    bm.report('pop') do
+      pop_chars = pop.chars
+      pop_chars.pop
+      pop_chars.join
+    end
+
+    bm.report('shift') do
+      shift_chars = shift.chars
+      shift_chars.shift
+      shift_chars.join
+    end
+
+    bm.report('slice!(0)') { slice.slice! 0 }
+  end
+end
+
+def compare_pop_shift_slice
+  push_pop = []
+  unshift_shift = []
+  shovel_slice = []
+  compare do |bm|
+    bm.report('push') do
+      push_pop.push 1
+      push_pop.push 2
+    end
+    bm.report('unshift') do
+      unshift_shift.unshift 1
+      unshift_shift.unshift 2
+    end
+    bm.report('shovel(<<)') do
+      shovel_slice << 1
+      shovel_slice << 2
+    end
+  end
+
+  compare do |bm|
+    bm.report('pop') do
+      2.times { push_pop.pop }
+    end
+    bm.report('shift') do
+      unshift_shift.shift 2
+    end
+    bm.report('slice!(0)') do
+      shovel_slice.slice! 0, 2
+    end
   end
 end
 
