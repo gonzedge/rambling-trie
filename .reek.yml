@@ -15,3 +15,7 @@ detectors:
 
   UtilityFunction:
     public_methods_only: true
+    exclude:
+      # Rambling::Trie::Serializers::File are intentionally using ::File methods
+      - 'Rambling::Trie::Serializers::File#dump'
+      - 'Rambling::Trie::Serializers::File#load'
