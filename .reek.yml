@@ -1,5 +1,11 @@
 ---
 detectors:
+  NestedIterators:
+    exclude:
+      - 'Rambling::Trie#create' # inner iteration goes through each word in given file
+      - 'Rambling::Trie::Container#words_within_root' # inner iteration does a match of each prefix
+      - 'Rambling::Trie::Enumerable#each' # inner iteration goes through each word in children_tree
+
   UnusedParameters:
     exclude:
       # Rambling::Trie::Nodes::Node has some abstract methods
