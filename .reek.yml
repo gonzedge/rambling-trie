@@ -8,6 +8,9 @@ detectors:
       # All Properties are settable by clients because of config convention
       - 'Rambling::Trie::Configuration::Properties'
 
+  ControlParameter:
+    enabled: false
+
   DuplicateMethodCall:
     exclude:
       # Not actual duplicates, the underlying var is mutated
