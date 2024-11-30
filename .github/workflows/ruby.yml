@@ -19,7 +19,7 @@ jobs:
       - name: Set up ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: 3.3.0
+          ruby-version: 3.3.6
           bundler-cache: true
       - name: Run rubocop
         run: bundle exec rubocop
@@ -65,7 +65,7 @@ jobs:
       - name: Set up ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: 3.3.0
+          ruby-version: 3.3.6
           bundler-cache: true
       - name: Report rspec test coverage to coveralls.io
         env:
