@@ -19,6 +19,7 @@ detectors:
   FeatureEnvy:
     exclude:
       - 'Rambling::Trie::Compressor' # needs to access node internals to perform compression
+      - 'Rambling::Trie::Nodes::Compressed#partial_word_chars?' # needs access to child letter to figure out compressed letters
 
   NestedIterators:
     exclude:
