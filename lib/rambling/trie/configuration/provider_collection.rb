@@ -111,8 +111,7 @@ module Rambling
         def contains? provider
           return true if provider.nil?
 
-          p = provider || raise
-          providers.any? && provider_instances.include?(p)
+          providers.any? && provider_instances.include?(provider || raise)
         end
 
         alias_method :provider_instances, :values
