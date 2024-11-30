@@ -1,4 +1,17 @@
 ---
 detectors:
+  UnusedParameters:
+    exclude:
+      # Rambling::Trie::Nodes::Node has some abstract methods
+      - 'Rambling::Trie::Nodes::Node#children_match_prefix'
+      - 'Rambling::Trie::Nodes::Node#closest_node'
+      - 'Rambling::Trie::Nodes::Node#partial_word_chars?'
+      - 'Rambling::Trie::Nodes::Node#word_chars?'
+      # Rambling::Trie::Readers::Reader is an abstract class
+      - 'Rambling::Trie::Readers::Reader#each_word'
+      # Rambling::Trie::Serializers::Serializer is an abstract class
+      - 'Rambling::Trie::Serializers::Serializer#dump'
+      - 'Rambling::Trie::Serializers::Serializer#load'
+
   UtilityFunction:
     public_methods_only: true
