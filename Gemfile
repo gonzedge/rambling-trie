@@ -31,6 +31,7 @@ group :local do
   gem 'flog', require: false
   gem 'guard-rspec'
   gem 'mdl', require: false
+  gem 'reek', require: false
   gem 'rubocop', require: false
   gem 'rubocop-performance', require: false
   gem 'rubocop-rake', require: false
