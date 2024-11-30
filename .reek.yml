@@ -8,6 +8,11 @@ detectors:
       # All Properties are settable by clients because of config convention
       - 'Rambling::Trie::Configuration::Properties'
 
+  FeatureEnvy:
+    exclude:
+      - 'Rambling::Trie::Compressor' # needs to access node internals to perform compression
+      - 'Rambling::Trie::Nodes::Compressed#partial_word_chars?' # needs access to child letter to figure out compressed letters
+
   NestedIterators:
     exclude:
       - 'Rambling::Trie#create' # inner iteration goes through each word in given file
