@@ -41,7 +41,8 @@ module Rambling
       end
 
       def compress_children_and_copy node
-        compressed = Rambling::Trie::Nodes::Compressed.new node.letter, node.parent, compress_children(node.children_tree)
+        children_tree = compress_children(node.children_tree)
+        compressed = Rambling::Trie::Nodes::Compressed.new node.letter, node.parent, children_tree
         compressed.terminal! if node.terminal?
         compressed
       end
