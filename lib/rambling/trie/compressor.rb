@@ -5,13 +5,13 @@ module Rambling
     # Responsible for the compression process of a trie data structure.
     class Compressor
       # Compresses a {Nodes::Node Node} from a trie data structure.
-      # @param [Nodes::Node] node the node to compress.
-      # @return [Nodes::Compressed] node the compressed version of the node.
+      # @param [Nodes::Node, nil] node the node to compress.
+      # @return [Nodes::Compressed, nil] node the compressed version of the node.
       def compress node
-        return if node.nil?
+        return unless node
 
         if node.compressible?
-          compress_child_and_merge node
+          compress_only_child_and_merge node
         else
           compress_children_and_copy node
         end
@@ -19,20 +19,30 @@ module Rambling
 
       private
 
-      def compress_child_and_merge node
-        merge node, compress(node.first_child)
+      # Compresses a {Nodes::Node Node} with an only child from a trie data structure.
+      # By this point we already know the node is not nil and that it has an only child,
+      # so we use the type annotation because compressed_child will always have a value.
+      # @see Rambling::Trie::Compressible#compressible? Compressible#compressible?
+      # @param [Nodes::Node] node the node to compress.
+      # @return [Nodes::Compressed] node the compressed version of the node.
+      def compress_only_child_and_merge node
+        compressed_child = compress(node.first_child) # : Nodes::Compressed
+        merge node, compressed_child
       end
 
       def merge node, other
-        return new_compressed_node node.letter, node.parent, node.children_tree, node.terminal? if other.nil?
-
         letter = node.letter.to_s << other.letter.to_s
 
-        new_compressed_node letter.to_sym, node.parent, other.children_tree, other.terminal?
+        compressed = Rambling::Trie::Nodes::Compressed.new letter.to_sym, node.parent, other.children_tree
+        compressed.terminal! if other.terminal?
+        compressed
       end
 
       def compress_children_and_copy node
-        new_compressed_node node.letter, node.parent, compress_children(node.children_tree), node.terminal?
+        children_tree = compress_children(node.children_tree)
+        compressed = Rambling::Trie::Nodes::Compressed.new node.letter, node.parent, children_tree
+        compressed.terminal! if node.terminal?
+        compressed
       end
 
       def compress_children tree
@@ -44,14 +54,6 @@ module Rambling
         end
 
         new_tree
-      end
-
-      def new_compressed_node letter, parent, tree, terminal
-        node = Rambling::Trie::Nodes::Compressed.new letter, parent, tree
-        node.terminal! if terminal
-
-        tree.each_value { |child| child.parent = node }
-        node
       end
     end
   end

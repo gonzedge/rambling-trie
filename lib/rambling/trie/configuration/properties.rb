@@ -4,6 +4,7 @@ module Rambling
   module Trie
     module Configuration
       # Provides configurable properties for Rambling::Trie.
+      # :reek:TooManyInstanceVariables { max_instance_variables: 5 }
       class Properties
         # The configured {Readers Readers}.
         # @return [ProviderCollection<Readers::Reader>] the mapping of configured {Readers Readers}.
