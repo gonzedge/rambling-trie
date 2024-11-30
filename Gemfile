@@ -11,10 +11,13 @@ group :development do
   gem 'flamegraph'
   gem 'memory_profiler'
   gem 'pry'
+  gem 'racc'
   gem 'rake'
+  gem 'rbs'
   gem 'rspec'
   gem 'ruby-prof'
   gem 'stackprof'
+  gem 'steep'
   gem 'yard'
 end
 

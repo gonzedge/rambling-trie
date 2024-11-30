@@ -1,0 +1,13 @@
+module Rambling
+  module Trie
+    module Serializers
+      class Yaml < Serializer[Nodes::Node]
+        @serializer: Serializer[String]
+
+        private
+
+        attr_reader serializer: Serializer[String]
+      end
+    end
+  end
+end
