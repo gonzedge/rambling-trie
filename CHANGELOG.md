@@ -1,6 +1,38 @@
 # CHANGELOG
 
-## 2.4.1 [compare][compare_v2_4_0_and_main]
+## 2.5.1 [compare][compare_v2_5_0_and_main]
+
+## 2.5.0 [compare][compare_v2_4_0_and_v_2_5_0]
+
+- Bump version to `2.5.0` for next release by [@gonzedge][github_user_gonzedge]
+- Remove support for `2.7.x` and `3.0.x` (EOL'd) by [@gonzedge][github_user_gonzedge]
+  - Update all doc links to point to `3.3.0` docs
+  - Update min supported version to `3.1.0`
+  - Update `rubocop` target version to `3.1.0`
+  - Add new `rubocop` plugin cops (`performance`, `rake`, `rspec`)
+  - Apply new `rubocop` corrections
+- Remove now-invalid cops from rubocop by [@gonzedge][github_user_gonzedge]
+- Ensure self is returned during call to `Nodes::Raw#add` by [@gonzedge][github_user_gonzedge]
+- Ensure only non-root nodes are marked as terminal by [@gonzedge][github_user_gonzedge]
+- Upgrade `rubocop` rules and fix new rule offenses by [@gonzedge][github_user_gonzedge]
+  - Fix newer offenses; remove deprecated rules
+  - Explicitly disable `RSpec/Rails`, `Capybara` and `Factorybot` rules
+  - Enable new `Lint`, `Style` and `Rspec` rules
+  - Remove `add_development_dependency` and `test_files` from `Gemfile`
+  - Prefer `::File.write` over `::File.open`
+  - Remove `::` when unnecessary
+  - Use constants instead of strings for `instance_double`s
+  - Use `be_empty` instead of `match_array []`
+  - Prefer `FileUtils.rm_f path` instead of `File.delete if path File.exist?`
+  - Prefer `contain_exactly` over `match_array`
+- Add `Container#push` to mirror `Array#push` interface by [@gonzedge][github_user_gonzedge]
+- Fix missing params for enumerator for `Readers::PlainText` by [@gonzedge][github_user_gonzedge]
+- Update `ma{ster => in}` branch references by [@gonzedge][github_user_gonzedge]
+  - Use `main` branch for `.github/workflows`
+  - Change `ma{ster => in}` branch in `changelog_uri` in gemspec
+  - Change `ma{ster => in}` branch in `README`, `CONTRIBUTING` and `CHANGELOG`
+  - Upgrade `paambaati/codeclimate-action` to `v5.0.0`
+- Add explicit support for Ruby `3.3.x` by [@gonzedge][github_user_gonzedge]
 
 ## 2.4.0 [compare][compare_v2_3_1_and_v2_4_0]
 
@@ -960,7 +992,8 @@ Most of these help with the gem's overall performance.
 [compare_v2_2_1_and_v2_3_0]: https://github.com/gonzedge/rambling-trie/compare/v2.2.1...v2.3.0
 [compare_v2_3_0_and_v2_3_1]: https://github.com/gonzedge/rambling-trie/compare/v2.3.0...v2.3.1
 [compare_v2_3_1_and_v2_4_0]: https://github.com/gonzedge/rambling-trie/compare/v2.3.1...v2.4.0
-[compare_v2_4_0_and_main]: https://github.com/gonzedge/rambling-trie/compare/v2.4.0...main
+[compare_v2_4_0_and_v2_5_0]: https://github.com/gonzedge/rambling-trie/compare/v2.4.0...v2.5.0
+[compare_v2_5_0_and_main]: https://github.com/gonzedge/rambling-trie/compare/v2.5.0...main
 [design_patterns_null_object]: http://wiki.c2.com/?NullObject
 [github_commit_current_key_less_memory]: https://github.com/gonzedge/rambling-trie/commit/218fac218a77e70ba04a3672ff5abfddf6544f57
 [github_commit_reduced_memory_footprint]: https://github.com/gonzedge/rambling-trie/commit/aa8c0262f888e88df6a2f1e1351d8f14b21e43c4
