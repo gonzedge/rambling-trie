@@ -58,7 +58,7 @@ module Rambling
         # @param [String] filepath the filepath to resolve into a provider.
         # @return [TProvider, nil] the provider for the given file's extension. {#default} if not found.
         def resolve filepath
-          extension = file_extension filepath
+          extension = file_format filepath
           if providers.key? extension
             providers[extension]
           else
@@ -102,7 +102,7 @@ module Rambling
           providers.values
         end
 
-        def file_extension filepath
+        def file_format filepath
           File.extname(filepath).sub(%r{^\.}, '').to_sym
         end
 
