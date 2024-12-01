@@ -1,11 +1,10 @@
 # frozen_string_literal: true
 
+path = File.join 'rambling', 'trie'
 %w(
   comparable compressible compressor configuration container enumerable inspectable invalid_operation
   readers serializers stringifyable nodes version
-).each do |file|
-  require File.join('rambling', 'trie', file)
-end
+).each { |file| require File.join(path, file) }
 
 # General namespace for all Rambling gems.
 module Rambling
@@ -26,9 +25,7 @@ module Rambling
           if filepath
             reader ||= readers.resolve filepath
             # noinspection RubyMismatchedArgumentType,RubyNilAnalysis
-            (reader || raise).each_word filepath do |word|
-              container << word
-            end
+            (reader || raise).each_word(filepath) { |word| container << word }
           end
 
           yield container if block_given?
