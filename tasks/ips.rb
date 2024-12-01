@@ -1,6 +1,10 @@
 # frozen_string_literal: true
 
 namespace :ips do
+  task :hash_assign_vs_inject do
+    compare_hash_assign_vs_inject
+  end
+
   task :do_end_vs_brackets do
     compare_do_end_vs_brackets
   end
@@ -52,6 +56,26 @@ def compare
     yield bm
 
     bm.compare!
+  end
+end
+
+def compare_hash_assign_vs_inject
+  compare do |bm|
+    a = { hello: 'there', how: 'do', you: 'do', fellow: 'kids' }
+
+    bm.report 'var assign' do
+      new_hash = {}
+      a.each { |key, value| new_hash[key] = "#{value}-new" }
+      new_hash
+    end
+
+    bm.report 'inject' do
+      a.inject({}) { |new_hash, entry| new_hash[entry[0]] = "#{entry[1]}-new"; new_hash }
+    end
+
+    bm.report 'each_with_object' do
+      a.each_with_object({}) { |entry, new_hash| new_hash[entry[0]] = "#{entry[1]}-new" }
+    end
   end
 end
 
