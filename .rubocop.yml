@@ -18,6 +18,7 @@ AllCops:
     - 'reports/**/*'
     - 'tmp/**/*'
     - 'vendor/**/*'
+    - 'tasks/ips.rb'
   TargetRubyVersion: 3.1.0
 
 #################### Layout ###########################
@@ -633,8 +634,6 @@ Style/Alias:
   #   - prefer_alias
   #   - prefer_alias_method
   EnforcedStyle: prefer_alias_method
-  Exclude:
-    - 'tasks/ips.rb'
 
 Style/AndOr:
   # Whether `and` and `or` are banned only in conditionals (conditionals)
@@ -1339,7 +1338,6 @@ Metrics/BlockLength:
   Exclude:
     - 'test/**/*'
     - 'spec/**/*'
-    - 'tasks/ips.rb'
 
 Metrics/BlockNesting:
   CountBlocks: false
@@ -1362,8 +1360,6 @@ Metrics/CyclomaticComplexity:
 Metrics/MethodLength:
   CountComments: false  # count full line comments?
   Max: 20
-  Exclude:
-    - 'tasks/ips.rb'
 
 Metrics/ModuleLength:
   CountComments: false  # count full line comments?
