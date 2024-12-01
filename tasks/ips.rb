@@ -1,6 +1,30 @@
 # frozen_string_literal: true
 
 namespace :ips do
+  task :string_slice_vs_brackets do
+    compare_string_slice_vs_brackets
+  end
+
+  task :slice_vs_brackets do
+    compare_slice_vs_brackets
+  end
+
+  task :string_shovel_plus_interpolation do
+    compare_string_shovel_plus_interpolation
+  end
+
+  task :hash_assign_vs_inject do
+    compare_hash_assign_vs_inject
+  end
+
+  task :do_end_vs_brackets do
+    compare_do_end_vs_brackets
+  end
+
+  task :nil_check_vs_not do
+    compare_nil_check_vs_not
+  end
+
   task :each_char_shovel_vs_chars_map do
     compare_each_char_shovel_vs_chars_map
   end
@@ -44,6 +68,125 @@ def compare
     yield bm
 
     bm.compare!
+  end
+end
+
+def compare_string_slice_vs_brackets
+  compare do |bm|
+    bm.config time: 20, warmup: 2
+
+    string = 'a string with many characters to test performance of slice(i, j) vs slice(i..j) vs [i..j]'
+    size = string.size
+
+    bm.report 'slice(i, slice_size)' do
+      i = Random.rand size
+      slice_size = Random.rand size
+      string.slice i, slice_size
+    end
+
+    bm.report 'slice(i..j)' do
+      i = Random.rand size
+      slice_size = Random.rand size
+      string.slice i..(i + slice_size)
+    end
+
+    bm.report '[i..j]' do
+      i = Random.rand size
+      slice_size = Random.rand size
+      string[i..(i + slice_size)]
+    end
+  end
+end
+
+def compare_slice_vs_brackets
+  compare do |bm|
+    bm.config time: 20, warmup: 2
+
+    array = %w(t h i s i s a n a r r a y o f c h a r s t o f i g u r e o u t w h a t i s f a s t)
+    size = array.size
+
+    bm.report 'slice(i, slice_size)' do
+      i = Random.rand size
+      slice_size = Random.rand size
+      array.slice i, slice_size
+    end
+
+    bm.report 'slice(i..j)' do
+      i = Random.rand size
+      slice_size = Random.rand size
+      array.slice i..(i + slice_size)
+    end
+
+    bm.report '[i..j]' do
+      i = Random.rand size
+      slice_size = Random.rand size
+      array[i..(i + slice_size)]
+    end
+  end
+end
+
+def compare_string_shovel_plus_interpolation
+  compare do |bm|
+    bm.report '<<' do
+      a = 'hey'.chars.join
+      a << 'there'
+    end
+
+    bm.report '+' do
+      a = 'hey'.chars.join
+      a + 'there'
+    end
+
+    bm.report 'interpolation' do
+      a = 'hey'.chars.join
+      "#{a}there"
+    end
+  end
+end
+
+def compare_hash_assign_vs_inject
+  compare do |bm|
+    a = { hello: 'there', how: 'do', you: 'do', fellow: 'kids' }
+
+    bm.report 'var assign' do
+      new_hash = {}
+      a.each { |key, value| new_hash[key] = "#{value}-new" }
+      new_hash
+    end
+
+    bm.report 'inject' do
+      a.inject({}) { |new_hash, entry| new_hash[entry[0]] = "#{entry[1]}-new"; new_hash }
+    end
+
+    bm.report 'each_with_object' do
+      a.each_with_object({}) { |entry, new_hash| new_hash[entry[0]] = "#{entry[1]}-new" }
+    end
+  end
+end
+
+def compare_do_end_vs_brackets
+  compare do |bm|
+    bm.config time: 20, warmup: 5
+    a = [1, 2, 3] * 100
+
+    bm.report('do/end') do
+      a.map do |i|
+        1 <= i
+      end
+    end
+
+    bm.report('{ }') do
+      a.map { |i| 1 <= i }
+    end
+  end
+end
+
+def compare_nil_check_vs_not
+  compare do |bm|
+    value = nil
+
+    bm.report('value.nil?') { value.nil? }
+    bm.report('!value') { !value }
   end
 end
 

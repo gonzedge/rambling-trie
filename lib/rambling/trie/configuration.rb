@@ -1,8 +1,7 @@
 # frozen_string_literal: true
 
-%w(properties provider_collection).each do |file|
-  require File.join('rambling', 'trie', 'configuration', file)
-end
+path = File.join 'rambling', 'trie', 'configuration'
+%w(properties provider_collection).each { |file| require File.join(path, file) }
 
 module Rambling
   module Trie
