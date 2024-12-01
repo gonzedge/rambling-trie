@@ -1,6 +1,10 @@
 # frozen_string_literal: true
 
 namespace :ips do
+  task :each_char_shovel_vs_chars_map do
+    compare_each_char_shovel_vs_chars_map
+  end
+
   task :string_pop_shift_slice do
     compare_string_pop_shift_slice
   end
@@ -40,6 +44,22 @@ def compare
     yield bm
 
     bm.compare!
+  end
+end
+
+def compare_each_char_shovel_vs_chars_map
+  compare do |bm|
+    word = 'awesome'
+
+    bm.report 'each_char and <<' do
+      symbols = []
+      word.reverse.each_char { |char| symbols << char.to_sym }
+      symbols.to_a
+    end
+
+    bm.report 'chars map' do
+      word.reverse.chars.map(&:to_sym).to_a
+    end
   end
 end
 
