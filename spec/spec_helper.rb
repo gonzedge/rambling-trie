@@ -33,10 +33,9 @@ end
 
 require 'support/config'
 
+shared_examples_path = File.join 'support', 'shared_examples'
 %w(
   a_compressible_trie a_serializable_trie a_serializer a_trie_data_structure
   a_trie_node a_trie_node_implementation a_container_scan a_container_word
   a_container_partial_word a_container_words_within
-).each do |name|
-  require File.join('support', 'shared_examples', name)
-end
+).each { |name| require File.join(shared_examples_path, name) }

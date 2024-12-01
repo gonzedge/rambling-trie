@@ -1,8 +1,7 @@
 # frozen_string_literal: true
 
-%w(reader plain_text).each do |file|
-  require File.join('rambling', 'trie', 'readers', file)
-end
+path = File.join 'rambling', 'trie', 'readers'
+%w(reader plain_text).each { |file| require File.join(path, file) }
 
 module Rambling
   module Trie

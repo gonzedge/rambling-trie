@@ -69,14 +69,10 @@ module Rambling
 
           return EMPTY_ENUMERATOR if chars.empty?
 
-          letter = (chars.shift || raise).to_sym
-          child = children_tree[letter]
-
+          child = children_tree[(chars.shift || raise).to_sym]
           return EMPTY_ENUMERATOR unless child
 
-          child.match_prefix chars do |word|
-            yield word
-          end
+          child.match_prefix(chars) { |word| yield word }
         end
       end
     end
