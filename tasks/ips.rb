@@ -1,6 +1,14 @@
 # frozen_string_literal: true
 
 namespace :ips do
+  task :do_end_vs_brackets do
+    compare_do_end_vs_brackets
+  end
+
+  task :nil_check_vs_not do
+    compare_nil_check_vs_not
+  end
+
   task :each_char_shovel_vs_chars_map do
     compare_each_char_shovel_vs_chars_map
   end
@@ -44,6 +52,32 @@ def compare
     yield bm
 
     bm.compare!
+  end
+end
+
+def compare_do_end_vs_brackets
+  compare do |bm|
+    bm.config time: 20, warmup: 5
+    a = [1, 2, 3] * 100
+
+    bm.report('do/end') do
+      a.map do |i|
+        1 <= i
+      end
+    end
+
+    bm.report('{ }') do
+      a.map { |i| 1 <= i }
+    end
+  end
+end
+
+def compare_nil_check_vs_not
+  compare do |bm|
+    value = nil
+
+    bm.report('value.nil?') { value.nil? }
+    bm.report('!value') { !value }
   end
 end
 
