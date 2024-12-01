@@ -1,6 +1,18 @@
 # frozen_string_literal: true
 
 namespace :ips do
+  task :string_slice_vs_brackets do
+    compare_string_slice_vs_brackets
+  end
+
+  task :slice_vs_brackets do
+    compare_slice_vs_brackets
+  end
+
+  task :assign_variable_vs_not do
+    compare_assign_variable_vs_not
+  end
+
   task :string_shovel_plus_interpolation do
     compare_string_shovel_plus_interpolation
   end
@@ -60,6 +72,76 @@ def compare
     yield bm
 
     bm.compare!
+  end
+end
+
+def compare_string_slice_vs_brackets
+  compare do |bm|
+    bm.config time: 20, warmup: 2
+
+    string = 'a string with many characters to test performance of slice(i, j) vs slice(i..j) vs [i..j]'
+    size = string.size
+
+    bm.report 'slice(i, slice_size)' do
+      i = Random.rand size
+      slice_size = Random.rand size
+      string.slice i, slice_size
+    end
+
+    bm.report 'slice(i..j)' do
+      i = Random.rand size
+      slice_size = Random.rand size
+      string.slice i..(i + slice_size)
+    end
+
+    bm.report '[i..j]' do
+      i = Random.rand size
+      slice_size = Random.rand size
+      string[i..(i + slice_size)]
+    end
+  end
+end
+
+def compare_slice_vs_brackets
+  compare do |bm|
+    bm.config time: 20, warmup: 2
+
+    array = %w(t h i s i s a n a r r a y o f c h a r s t o f i g u r e o u t w h a t i s f a s t)
+    size = array.size
+
+    bm.report 'slice(i, slice_size)' do
+      i = Random.rand size
+      slice_size = Random.rand size
+      array.slice i, slice_size
+    end
+
+    bm.report 'slice(i..j)' do
+      i = Random.rand size
+      slice_size = Random.rand size
+      array.slice i..(i + slice_size)
+    end
+
+    bm.report '[i..j]' do
+      i = Random.rand size
+      slice_size = Random.rand size
+      array[i..(i + slice_size)]
+    end
+  end
+end
+
+def compare_assign_variable_vs_not
+  compare do |bm|
+    bm.config time: 20, warmup: 2
+    a = 1
+
+    bm.report 'assign var' do
+      b = 2
+      a + b
+    end
+
+    bm.report 'no var' do
+      a + 2
+    end
   end
 end
 
