@@ -99,9 +99,7 @@ module Rambling
 
           return EMPTY_ENUMERATOR unless child_letter == letter
 
-          child.match_prefix chars do |word|
-            yield word
-          end
+          child.match_prefix(chars) { |word| yield word }
         end
       end
     end

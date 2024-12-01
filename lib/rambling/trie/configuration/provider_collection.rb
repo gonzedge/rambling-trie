@@ -103,9 +103,7 @@ module Rambling
         end
 
         def file_format filepath
-          format = File.extname filepath
-          format.slice! 0
-          format.to_sym
+          File.extname(filepath).sub(%r{^\.}, '').to_sym
         end
 
         def contains? provider
