@@ -1,6 +1,10 @@
 # frozen_string_literal: true
 
 namespace :ips do
+  task :string_shovel_plus_interpolation do
+    compare_string_shovel_plus_interpolation
+  end
+
   task :hash_assign_vs_inject do
     compare_hash_assign_vs_inject
   end
@@ -56,6 +60,25 @@ def compare
     yield bm
 
     bm.compare!
+  end
+end
+
+def compare_string_shovel_plus_interpolation
+  compare do |bm|
+    bm.report '<<' do
+      a = 'hey'.chars.join
+      a << 'there'
+    end
+
+    bm.report '+' do
+      a = 'hey'.chars.join
+      a + 'there'
+    end
+
+    bm.report 'interpolation' do
+      a = 'hey'.chars.join
+      "#{a}there"
+    end
   end
 end
 
