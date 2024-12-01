@@ -9,10 +9,6 @@ namespace :ips do
     compare_slice_vs_brackets
   end
 
-  task :assign_variable_vs_not do
-    compare_assign_variable_vs_not
-  end
-
   task :string_shovel_plus_interpolation do
     compare_string_shovel_plus_interpolation
   end
@@ -125,22 +121,6 @@ def compare_slice_vs_brackets
       i = Random.rand size
       slice_size = Random.rand size
       array[i..(i + slice_size)]
-    end
-  end
-end
-
-def compare_assign_variable_vs_not
-  compare do |bm|
-    bm.config time: 20, warmup: 2
-    a = 1
-
-    bm.report 'assign var' do
-      b = 2
-      a + b
-    end
-
-    bm.report 'no var' do
-      a + 2
     end
   end
 end
