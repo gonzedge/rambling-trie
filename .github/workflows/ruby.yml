@@ -12,7 +12,7 @@ permissions:
   contents: read
 
 jobs:
-  lint-rbs-steep:
+  lint:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -23,28 +23,12 @@ jobs:
           bundler-cache: true
       - name: Run rbs + steep
         run: bundle exec rake steep
-  lint-reek:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - name: Set up ruby
-        uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: 3.3.6
-          bundler-cache: true
       - name: Run reek
         run: bundle exec rake reek
-  lint-rubocop:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - name: Set up ruby
-        uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: 3.3.6
-          bundler-cache: true
       - name: Run rubocop
         run: bundle exec rake rubocop
+      - name: Run yardoc
+        run: bundle exec rake yard | grep '100.00% documented'
   spec:
     runs-on: ubuntu-latest
     strategy:

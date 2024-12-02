@@ -3,9 +3,9 @@
 module Rambling
   module Trie
     module Readers
-      # File reader for +.txt+ files.
+      # File reader for `.txt` files.
       class PlainText < Reader
-        # Yields each word read from a +.txt+ file.
+        # Yields each word read from a `.txt` file.
         # @param [String] filepath the full path of the file to load the words from.
         # @yield [String] Each line read from the file.
         # @return [self]
