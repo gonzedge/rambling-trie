@@ -46,8 +46,7 @@ module Rambling
           end
 
           letter = chars.join
-          child_letter = child_letter.slice 0, letter.size
-          child_letter == letter
+          child_letter.slice(0, letter.size) == letter
         end
 
         def word_chars? chars
@@ -81,9 +80,7 @@ module Rambling
           end
 
           letter = chars.join
-          child_letter = child_letter.slice 0, letter.size
-
-          child_letter == letter ? child : missing
+          child_letter.slice(0, letter.size) == letter ? child : missing
         end
 
         def children_match_prefix chars
