@@ -314,7 +314,7 @@ Most of these help with the gem's overall performance.
   - The format to use is determined by the filepath extension and
     `Marshal` is used when a format isn't recognized.
 
-  ``` ruby
+  ```ruby
   # Save `your_trie` into a file
   Rambling::Trie.dump your_trie, 'a filename'
 
@@ -331,7 +331,7 @@ Most of these help with the gem's overall performance.
 - Add ability to configure `rambling-trie` [#11][github_issue_11]
   by [@gonzedge][github_user_gonzedge]
 
-  ``` ruby
+  ```ruby
   Rambling::Trie.config do |config|
     config.compressor = MyCompressor.new
     config.root_builder = lambda { MyNode.new }

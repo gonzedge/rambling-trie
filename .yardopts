@@ -1,1 +1,1 @@
---exclude lib/rambling/trie/tasks/
+--markup=markdown --exclude lib/rambling/trie/tasks/

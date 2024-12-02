@@ -13,6 +13,7 @@ group :development do
   gem 'pry'
   gem 'racc'
   gem 'rake'
+  gem 'redcarpet'
   gem 'rbs'
   gem 'rspec'
   gem 'ruby-prof'
