@@ -7,3 +7,4 @@ bundle exec rake spec
 
 # Lint
 bundle exec rake reek rubocop steep yard
+bundle exec mdl .
