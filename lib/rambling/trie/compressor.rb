@@ -26,21 +26,26 @@ module Rambling
       # @param [Nodes::Node] node the node to compress.
       # @return [Nodes::Compressed] node the compressed version of the node.
       def compress_only_child_and_merge node
-        compressed_child = compress(node.first_child) # : Nodes::Compressed
+        compressed_child = compress(node.first_child) # : Nodes::Node
         merge node, compressed_child
       end
 
       def merge node, other
-        letter = node.letter.to_s << other.letter.to_s
-
-        compressed = Rambling::Trie::Nodes::Compressed.new letter.to_sym, node.parent, other.children_tree
+        compressed = Rambling::Trie::Nodes::Compressed.new(
+          (node.letter.to_s << other.letter.to_s).to_sym,
+          node.parent,
+          other.children_tree,
+        )
         compressed.terminal! if other.terminal?
         compressed
       end
 
       def compress_children_and_copy node
-        children_tree = compress_children(node.children_tree)
-        compressed = Rambling::Trie::Nodes::Compressed.new node.letter, node.parent, children_tree
+        compressed = Rambling::Trie::Nodes::Compressed.new(
+          node.letter,
+          node.parent,
+          compress_children(node.children_tree),
+        )
         compressed.terminal! if node.terminal?
         compressed
       end
