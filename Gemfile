@@ -30,7 +30,10 @@ end
 
 group :local do
   gem 'flog', require: false
+  gem 'guard-reek'
   gem 'guard-rspec'
+  gem 'guard-rubocop'
+  gem 'guard-yard'
   gem 'mdl', require: false
   gem 'reek', require: false
   gem 'rubocop', require: false
