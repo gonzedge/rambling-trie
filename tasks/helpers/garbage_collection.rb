@@ -7,5 +7,12 @@ module Helpers
       yield
       puts "Live objects after #{name}  - #{::GC.stat[:heap_live_slots]}"
     end
+
+    def without_gc
+      ::GC.start
+      ::GC.disable
+      yield
+      ::GC.enable
+    end
   end
 end
