@@ -82,7 +82,9 @@ module Performance
 
         sub_tasks[name] = lambda do |output|
           banner output, task.description
-          task.execute reporter_class
+          without_gc do
+            task.execute reporter_class
+          end
           yield if block_given?
         end
       end
