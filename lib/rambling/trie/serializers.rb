@@ -1,7 +1,9 @@
 # frozen_string_literal: true
 
 path = File.join 'rambling', 'trie', 'serializers'
-%w(serializer file marshal yaml zip).each { |file| require File.join(path, file) }
+%w(serializer file marshal yaml zip).each do |file|
+  require File.join(path, file)
+end
 
 module Rambling
   module Trie

@@ -14,7 +14,9 @@ module Rambling
           super
 
           # Ensure all children have the current compressed node as the parent
-          children_tree.each_value { |child| child.parent = self }
+          children_tree.each_value do |child|
+            child.parent = self
+          end
         end
 
         # Always raises {Rambling::Trie::InvalidOperation InvalidOperation} when
@@ -99,7 +101,9 @@ module Rambling
 
           return EMPTY_ENUMERATOR unless child_letter == letter
 
-          child.match_prefix(chars) { |word| yield word }
+          child.match_prefix(chars) do |word|
+            yield word
+          end
         end
       end
     end
