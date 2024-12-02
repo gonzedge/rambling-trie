@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+set -eo pipefail
+
+# Tests
+bundle exec rake spec
+
+# Lint
+bundle exec rake reek rubocop steep yard
