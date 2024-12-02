@@ -199,7 +199,7 @@ module Rambling
         return enum_for :words_within_root, phrase unless block_given?
 
         chars = phrase.chars
-        size = chars.length
+        size = chars.size
         # rubocop:disable Style/CommentedKeyword
         0.upto(size - 1).each do |starting_index|
           new_phrase = chars.slice starting_index, size # : Array[String]

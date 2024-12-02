@@ -18,9 +18,7 @@ module Rambling
       # @yield [Container] the trie just created.
       # @see Rambling::Trie::Readers Readers.
       def create filepath = nil, reader = nil
-        root = root_builder.call
-
-        Rambling::Trie::Container.new root, compressor do |container|
+        Rambling::Trie::Container.new root_builder.call, compressor do |container|
           # noinspection RubyMismatchedArgumentType
           if filepath
             reader ||= readers.resolve filepath
@@ -45,8 +43,7 @@ module Rambling
       #   discouraged. Only use the `.marshal` format with trusted input.
       def load filepath, serializer = nil
         serializer ||= serializers.resolve filepath
-        root = (serializer || raise).load filepath
-        Rambling::Trie::Container.new root, compressor do |container|
+        Rambling::Trie::Container.new (serializer || raise).load(filepath), compressor do |container|
           yield container if block_given?
         end
       end
