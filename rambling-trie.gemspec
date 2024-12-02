@@ -21,7 +21,7 @@ Gem::Specification.new do |gem|
   }
 
   executables = `git ls-files -- bin/*`.split "\n"
-  files = `git ls-files -- {lib,*file,*.gemspec,LICENSE*,README*}`.split "\n"
+  files = `git ls-files -- {lib,sig,*file,*.gemspec,LICENSE*,README*}`.split "\n"
 
   gem.executables = executables.map { |f| File.basename f }
   gem.files = files
