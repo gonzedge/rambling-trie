@@ -62,7 +62,7 @@ module Rambling
 
       # Checks if a path for a word or partial word exists in the trie.
       # @param [String] word the word or partial word to look for in the trie.
-      # @return [Boolean] +true+ if the word or partial word is found, +false+ otherwise.
+      # @return [Boolean] `true` if the word or partial word is found, `false` otherwise.
       # @see Nodes::Node#partial_word?
       def partial_word? word = ''
         root.partial_word? word.chars
@@ -81,8 +81,8 @@ module Rambling
 
       # Checks if a whole word exists in the trie.
       # @param [String] word the word to look for in the trie.
-      # @return [Boolean] +true+ only if the word is found and the last character corresponds to a terminal node,
-      #   +false+ otherwise.
+      # @return [Boolean] `true` only if the word is found and the last character corresponds to a terminal node,
+      #   `false` otherwise.
       # @see Nodes::Node#word?
       def word? word = ''
         root.word? word.chars
@@ -106,7 +106,7 @@ module Rambling
 
       # Checks if there are any valid words in a given string.
       # @param [String] phrase the string to look for matching words in.
-      # @return [Boolean] +true+ if any word within phrase is contained in the trie, +false+ otherwise.
+      # @return [Boolean] `true` if any word within phrase is contained in the trie, `false` otherwise.
       # @see Container#words_within
       def words_within? phrase
         words_within_root(phrase).any?
@@ -114,7 +114,7 @@ module Rambling
 
       # Compares two trie data structures.
       # @param [Container] other the trie to compare against.
-      # @return [Boolean] +true+ if the tries are equal, +false+ otherwise.
+      # @return [Boolean] `true` if the tries are equal, `false` otherwise.
       def == other
         root == other.root
       end
@@ -150,14 +150,14 @@ module Rambling
 
       # Root node's children tree.
       # @return [Hash<Symbol, Nodes::Node>] the children tree hash contained in the root node, consisting of
-      #   +:letter => node+.
+      #   `:letter => node`.
       # @see Nodes::Node#children_tree
       def children_tree
         root.children_tree
       end
 
       # Indicates if the root {Nodes::Node Node} can be compressed or not.
-      # @return [Boolean] +true+ for non-{Nodes::Node#terminal? terminal} nodes with one child, +false+ otherwise.
+      # @return [Boolean] `true` for non-{Nodes::Node#terminal? terminal} nodes with one child, `false` otherwise.
       def compressed?
         root.compressed?
       end
