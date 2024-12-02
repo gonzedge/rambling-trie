@@ -48,7 +48,9 @@ module Rambling
       def compress_children tree
         new_tree = {}
 
-        tree.each { |letter, child| new_tree[letter] = compress child }
+        tree.each do |letter, child|
+          new_tree[letter] = compress child
+        end
 
         new_tree
       end

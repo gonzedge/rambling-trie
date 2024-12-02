@@ -38,7 +38,9 @@ module Rambling
       # @see Nodes::Raw#add
       # @see Nodes::Compressed#add
       def concat words
-        words.map { |word| add word }
+        words.map do |word|
+          add word
+        end
       end
 
       # Compresses the existing trie using redundant node elimination.
@@ -125,7 +127,9 @@ module Rambling
       def each
         return enum_for :each unless block_given?
 
-        root.each { |word| yield word }
+        root.each do |word|
+          yield word
+        end
       end
 
       # @return [String] a string representation of the container.
@@ -203,7 +207,9 @@ module Rambling
         # rubocop:disable Style/CommentedKeyword
         0.upto(size - 1).each do |starting_index|
           new_phrase = chars.slice starting_index, size # : Array[String]
-          root.match_prefix(new_phrase) { |word| yield word }
+          root.match_prefix(new_phrase) do |word|
+            yield word
+          end
         end # : Enumerator[String, void]
         # rubocop:enable Style/CommentedKeyword
       end

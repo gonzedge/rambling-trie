@@ -21,7 +21,11 @@ module Rambling
 
         yield as_word if terminal?
 
-        children_tree.each_value { |child| child.each { |word| yield word } }
+        children_tree.each_value do |child|
+          child.each do |word|
+            yield word
+          end
+        end
 
         self
       end

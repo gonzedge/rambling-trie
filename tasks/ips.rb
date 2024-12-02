@@ -17,8 +17,8 @@ namespace :ips do
     compare_hash_assign_vs_inject
   end
 
-  task :do_end_vs_brackets do
-    compare_do_end_vs_brackets
+  task :nested_do_end_vs_brackets do
+    compare_nested_do_end_vs_brackets
   end
 
   task :nil_check_vs_not do
@@ -164,19 +164,24 @@ def compare_hash_assign_vs_inject
   end
 end
 
-def compare_do_end_vs_brackets
+def compare_nested_do_end_vs_brackets
   compare do |bm|
     bm.config time: 20, warmup: 5
     a = [1, 2, 3] * 100
 
     bm.report('do/end') do
-      a.map do |i|
-        1 <= i
+      a.each do |i|
+        j = 10 - i
+        i.times do
+          j.times do
+            a.size <= j - i
+          end
+        end
       end
     end
 
     bm.report('{ }') do
-      a.map { |i| 1 <= i }
+      a.each { |i| j = 10 - i; i.times { j.times { a.size <= j - i } } }
     end
   end
 end
