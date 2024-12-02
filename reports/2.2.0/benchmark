@@ -1,0 +1,117 @@
+Regenerating serialized dictionary 'espanol'... 
+Serializing to 'espanol_raw.marshal'... 
+Serializing to 'espanol_raw.marshal.zip'... 
+Serializing to 'espanol_compressed.marshal'... 
+Serializing to 'espanol_compressed.marshal.zip'... 
+DONE
+
+Regenerating serialized dictionary 'words_with_friends'... 
+Serializing to 'words_with_friends_raw.marshal'... 
+Serializing to 'words_with_friends_raw.marshal.zip'... 
+Serializing to 'words_with_friends_compressed.marshal'... 
+Serializing to 'words_with_friends_compressed.marshal.zip'... 
+DONE
+
+
+Benchmarks for rambling-trie version 2.2.0
+
+
+==> Creation - `Rambling::Trie.create`
+5 iterations -                                    
+                                2.356663   0.113971   2.470634 (  2.470811)
+
+==> Compression - `compress!`
+5 iterations -                                    
+                                1.495721   0.001010   1.496731 (  1.496996)
+
+==> Serialization (raw trie) - `Rambling::Trie.load`
+5 iterations -                                    
+                                1.497632   0.052984   1.550616 (  1.550733)
+
+==> Serialization (compressed trie) - `Rambling::Trie.load`
+5 iterations -                                    
+                                0.859059   0.011005   0.870064 (  0.870403)
+
+==> Lookups (raw trie) - `word?`
+200000 iterations - hi                  true      
+                                0.097809   0.000000   0.097809 (  0.097810)
+200000 iterations - help                true      
+                                0.174139   0.000003   0.174142 (  0.174179)
+200000 iterations - beautiful           true      
+                                0.341692   0.000000   0.341692 (  0.341713)
+200000 iterations - impressionism       true      
+                                0.483753   0.000000   0.483753 (  0.483783)
+200000 iterations - anthropological     true      
+                                0.555566   0.000000   0.555566 (  0.555597)
+
+==> Lookups (compressed trie) - `word?`
+200000 iterations - hi                  true      
+                                0.146911   0.000000   0.146911 (  0.146930)
+200000 iterations - help                true      
+                                0.269491   0.000000   0.269491 (  0.269531)
+200000 iterations - beautiful           true      
+                                0.556360   0.000004   0.556364 (  0.556384)
+200000 iterations - impressionism       true      
+                                0.780389   0.000000   0.780389 (  0.780433)
+200000 iterations - anthropological     true      
+                                0.842368   0.034957   0.877325 (  0.883950)
+
+==> Lookups (raw trie) - `partial_word?`
+200000 iterations - hi                  true      
+                                0.136934   0.000000   0.136934 (  0.136958)
+200000 iterations - help                true      
+                                0.158795   0.000000   0.158795 (  0.158819)
+200000 iterations - beautiful           true      
+                                0.319786   0.000000   0.319786 (  0.319880)
+200000 iterations - impressionism       true      
+                                0.457303   0.000989   0.458292 (  0.458371)
+200000 iterations - anthropological     true      
+                                0.563265   0.000008   0.563273 (  0.563374)
+
+==> Lookups (compressed trie) - `partial_word?`
+200000 iterations - hi                  true      
+                                0.164423   0.000008   0.164431 (  0.164452)
+200000 iterations - help                true      
+                                0.313163   0.000005   0.313168 (  0.313209)
+200000 iterations - beautiful           true      
+                                0.678164   0.000026   0.678190 (  0.678223)
+200000 iterations - impressionism       true      
+                                0.872301   0.027002   0.899303 (  0.899404)
+200000 iterations - anthropological     true      
+                                0.820033   0.089983   0.910016 (  0.910107)
+
+==> Lookups (raw trie) - `scan`
+1000 iterations - hi                    495       
+                                0.776568   0.000000   0.776568 (  0.776616)
+100000 iterations - help                20        
+                                3.475125   0.131921   3.607046 (  3.611285)
+100000 iterations - beautiful           6         
+                                1.340595   0.124962   1.465557 (  1.465870)
+200000 iterations - impressionism       2         
+                                1.225712   0.127020   1.352732 (  1.352826)
+200000 iterations - anthropological     2         
+                                1.449364   0.124962   1.574326 (  1.574501)
+
+==> Lookups (compressed trie) - `scan`
+1000 iterations - hi                    495       
+                                0.539915   0.000000   0.539915 (  0.539921)
+100000 iterations - help                20        
+                                2.089176   0.000000   2.089176 (  2.089314)
+100000 iterations - beautiful           6         
+                                1.419128   0.015941   1.435069 (  1.440152)
+200000 iterations - impressionism       2         
+                                2.164169   0.000000   2.164169 (  2.164619)
+200000 iterations - anthropological     2         
+                                1.791854   0.000000   1.791854 (  1.791976)
+
+==> Lookups (raw trie) - `words_within`
+100000 iterations - ifdxawesome45someword319        
+                                3.295460   0.000002   3.295462 (  3.295673)
+100000 iterations - ifdx45someword3awesome19        
+                                3.324836   0.018963   3.343799 (  3.348187)
+
+==> Lookups (compressed trie) - `words_within`
+100000 iterations - ifdxawesome45someword319        
+                                4.544202   0.005002   4.549204 (  4.549626)
+100000 iterations - ifdx45someword3awesome19        
+                                5.198185   0.027017   5.225202 (  5.231402)
