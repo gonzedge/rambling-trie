@@ -1,10 +1,21 @@
 # frozen_string_literal: true
 
-# A sample Guardfile
-# More info at https://github.com/guard/guard#readme
+LIB_REGEX = %r{^lib/(.+)\.rb$}
 
-guard 'rspec', cmd: 'rspec', all_on_start: true, all_after_pass: false do
+guard :reek, all_on_start: true, run_all: true do
+  watch(LIB_REGEX)
+end
+
+guard :rspec, cmd: 'rspec', all_on_start: true, all_after_pass: false do
   watch(%r{^spec/.+_spec\.rb$})
-  watch(%r{^lib/(.+)\.rb$})     { |m| "spec/lib/#{m[1]}_spec.rb" }
-  watch('spec/spec_helper.rb')  { 'spec' }
+  watch(LIB_REGEX) { |m| "spec/lib/#{m[1]}_spec.rb" }
+  watch('spec/spec_helper.rb') { 'spec' }
+end
+
+guard :rubocop, all_on_start: true do
+  watch(LIB_REGEX)
+end
+
+guard :yard, server: false do
+  watch(LIB_REGEX)
 end
