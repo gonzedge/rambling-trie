@@ -2,7 +2,7 @@
 
 module Rambling
   module Trie
-    # Provides the +String+ representation behavior for the trie data structure.
+    # Provides the `String` representation behavior for the trie data structure.
     module Stringifyable
       # String representation of the current node, if it is a terminal node.
       # @return [String] the string representation of the current node.

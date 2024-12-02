@@ -17,7 +17,7 @@ module Rambling
         #   providers.
         #   @param [TProvider] provider the provider to use as default.
         #   @raise [ArgumentError] when the given provider is not in the provider collection.
-        #   @note If no providers have been configured, +nil+ will be assigned.
+        #   @note If no providers have been configured, `nil` will be assigned.
         # @return [TProvider, nil] the default provider to use when a provider cannot be resolved in
         #   {ProviderCollection#resolve #resolve}.
         attr_reader :default

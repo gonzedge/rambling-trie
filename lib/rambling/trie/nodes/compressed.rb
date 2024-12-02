@@ -26,8 +26,8 @@ module Rambling
           raise Rambling::Trie::InvalidOperation, 'Cannot add word to compressed trie'
         end
 
-        # Always return +true+ for a compressed node.
-        # @return [Boolean] always +true+ for a compressed node.
+        # Always return `true` for a compressed node.
+        # @return [Boolean] always `true` for a compressed node.
         def compressed?
           true
         end

@@ -6,6 +6,7 @@ module Rambling
     module Enumerable
       include ::Enumerable
 
+      # Empty enumerator constant for early each exits.
       EMPTY_ENUMERATOR = [].to_enum :each
 
       # Returns number of words contained in the trie
