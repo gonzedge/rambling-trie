@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'pathname'
+
 module Helpers
   module Path
     def path *filename_pieces
