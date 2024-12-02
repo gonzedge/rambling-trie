@@ -14,6 +14,7 @@ group :development do
   gem 'racc'
   gem 'rake'
   gem 'rbs'
+  gem 'redcarpet'
   gem 'rspec'
   gem 'ruby-prof'
   gem 'stackprof'
