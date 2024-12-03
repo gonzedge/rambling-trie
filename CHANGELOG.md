@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## 2.5.2 [compare][compare_v2_5_1_and_main]
+
+## 2.5.1 [compare][compare_v2_5_0_and_v2_5_1]
 
 ### Enhancements
 
@@ -1140,7 +1143,8 @@ Most of these help with the gem's overall performance.
 [compare_v2_3_0_and_v2_3_1]: https://github.com/gonzedge/rambling-trie/compare/v2.3.0...v2.3.1
 [compare_v2_3_1_and_v2_4_0]: https://github.com/gonzedge/rambling-trie/compare/v2.3.1...v2.4.0
 [compare_v2_4_0_and_v2_5_0]: https://github.com/gonzedge/rambling-trie/compare/v2.4.0...v2.5.0
-[compare_v2_5_0_and_main]: https://github.com/gonzedge/rambling-trie/compare/v2.5.0...main
+[compare_v2_5_0_and_v2_5_1]: https://github.com/gonzedge/rambling-trie/compare/v2.5.0...v2.5.1
+[compare_v2_5_1_and_main]: https://github.com/gonzedge/rambling-trie/compare/v2.5.1...main
 [design_patterns_null_object]: http://wiki.c2.com/?NullObject
 [github_commit_current_key_less_memory]: https://github.com/gonzedge/rambling-trie/commit/218fac218a77e70ba04a3672ff5abfddf6544f57
 [github_commit_reduced_memory_footprint]: https://github.com/gonzedge/rambling-trie/commit/aa8c0262f888e88df6a2f1e1351d8f14b21e43c4
