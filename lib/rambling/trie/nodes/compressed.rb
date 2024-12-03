@@ -3,7 +3,7 @@
 module Rambling
   module Trie
     module Nodes
-      # A representation of a node in an compressed trie data structure.
+      # A representation of a node in a compressed trie data structure.
       # :reek:RepeatedConditional { max_ifs: 4 }
       class Compressed < Rambling::Trie::Nodes::Node
         # Creates a new compressed node.
