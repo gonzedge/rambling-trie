@@ -1,6 +1,119 @@
 # CHANGELOG
 
-## 2.5.1 [compare][compare_v2_5_0_and_main]
+
+- Disable garbage collection during ips benchmarks by [@gonzedge][github_user_gonzedge]
+- Add GC-free benchmark reports for versions back to `v2.1.1` by [@gonzedge][github_user_gonzedge]
+
+  Use:
+  - ruby `3.3.6` for rambling-trie `2.5.0`, `2.4.0`, `2.3.1`, `2.3.0`
+    benchmarks
+  - ruby `3.0.0` for rambling-trie `2.2.1`, `2.2.0` benchmarks
+  - ruby `2.7.8` for rambling-trie `2.1.1` benchmarks
+- Disable garbage collection in benchmarks and add script to rapidly run benchmarks by [@gonzedge][github_user_gonzedge]
+  1. Add a benchmarking script leveraging the new `Dockerfile.benchmark`
+     added in #80
+  2. Ensure all benchmarks are run with garbage collection stopped via
+      ```ruby
+      ::GC.start # <= trigger garbage collection
+      ::GC.disable # disable before executing benchmark
+      yield
+      ::GC.enable # enable after executing benchmark
+      ```
+     so that it doesn't interfere with benchmark calculations.
+- Add Dockerfile for consistent isolated benchmark runs by [@gonzedge][github_user_gonzedge]
+  - Add top-level `Dockerfile` with all relevant files, including `sig/`
+    and `spec/` to run any commands
+  - Add minimal `Dockerfile.benchmark` with only what is required to run a
+    benchmark (minimal `Gemfile` and minimal `Rakefile`) and with the
+    ability to run on a specific `rambling-trie` version, even from the git
+    repo(!)
+  - Require `pathname` explicitly in `tasks/helpers/path.rb` so that the
+    benchmark can actually run with the minimal config
+- Add markdownlint to pre-push script by [@gonzedge][github_user_gonzedge]
+- Add markdownlint GitHub action by [@gonzedge][github_user_gonzedge]
+- Ensure `rbs` type signatures are included with the gem on release by [@gonzedge][github_user_gonzedge]
+
+  Specifically, include `sig` in `gemspec`'s `gem.files`.
+- Add git pre-push hook suggestion by [@gonzedge][github_user_gonzedge]
+
+  ... which ensures tests and all lint checks pass locally.
+- Add new guards: reek, rubocop, yard by [@gonzedge][github_user_gonzedge]
+- Add `yard` lint and use `redcarpet` for proper Markdown rendering by [@gonzedge][github_user_gonzedge]
+- Use rake tasks for all lint actions by [@gonzedge][github_user_gonzedge]
+
+  Add `steep` and `reek` rake tasks, then use `bundle exec rake <lint>`
+  everywhere
+- Use `Array#slice(i, slice_size)` instead `Array#slice(i..j)` for `Container#words_within` by [@gonzedge][github_user_gonzedge]
+
+  For performance improvements in `Container#words_within` lookups, particularly for
+  compressed tries. Achieves a ≈7% performance improvement.
+
+  Also, add a few ips benchmarks:
+  - blocks `do/end` vs `{}` (proves that they are effectively the same)
+  - presence check with `nil?` vs `!` (proves that they are effectively
+    the same)
+  - hash `each`+`[]=` vs `inject` vs `each_with_object` (proves that
+    `each`+`[]=` is ≈1.5x faster)
+  - `String`'s and `Array`'s `slice(i, size)` vs `slice(i..j)` vs `[i..j]`
+    (proves that `slice(i, size)` is ≈1.4x faster)
+- Use `String#chars` + `Array#map` instead of `String#each_char` + `Array#<<` by [@gonzedge][github_user_gonzedge]
+
+   ... during `Rambling::Trie#create` because this benchmark says it is
+   faster (captured as the `ips:each_char_shovel_vs_chars_map`). Achieves a ≈7% performance improvement.
+
+- Use `Array#shift` instead of `Array#slice!` for slight performance improvement by [@gonzedge][github_user_gonzedge]
+  - Specifically, operations on a compressed `Rambling::Trie` root node, ≈3% overall
+- Add Reek + CodeClimate plugin + lint-reek GH action by [@gonzedge][github_user_gonzedge]
+  - Add `reek` gem, exclude `tasks` and `spec` from checks
+  - Add `.reek.yml` with exclusions
+  - Add `lint-reek` GitHub action
+  Code smells addressed:
+  - Use `return unless variable` instead of `return if variable.nil?`
+  where appropriate, since nil check is a type check
+  - Extract `size` variable for `chars.length - 1` in
+  `Container#words_within_root`
+  - Extract `entry_name` for `entry.name` in `Serializers::Zip`
+  - Use longer variable names within blocks (`char` in
+  `Container#words_within_root`; `extension`, `provider` in
+  `ProviderCollection#reset`) or remove altogether `p` in
+  `ProviderCollection#contains?`
+
+  Also:
+  - Assign `child.parent` to `self` in all of `children_tree` during
+  `Nodes::Compressed#initialize`
+  - Simplify `Compressor#merge`
+  - Rename `Compressor#compress{,_only}_child_and_merge`
+
+- Add CodeClimate Semgrep plugin by [@gonzedge][github_user_gonzedge]
+- Add rbs types and corresponding lint check by [@gonzedge][github_user_gonzedge]
+
+  First:
+  - Add `rbs` gem and all `rbs` types in `sig/` directory
+  - Add `steep` gem for easier rbs type checking, with basic configuration
+    only checking `lib` for now
+  - Add `rubyzip` types as they are not defined
+
+  Then:
+  - Add `|| raise` for places where we expect to always have a value, but
+    that rbs/steep are not smart enough to autodetect
+  - Add `EMPTY_ENUMERATOR` to be returned when there is no iteration to
+    perform
+  - Add `_Nilable` interface to allow for `nil?` check on generic type for
+    `ProviderCollection#contains?`
+  - Expand `ProviderCollection#resolve` to `key?` check to prevent
+    rbs/steep from complaining about `Cannot have body method`
+  - Add `children_match_prefix` `partial_word_chars?` `word_chars?`
+    `closest_node` private abstract methods to `Nodes::Node`, so that both
+    `Nodes::Raw` and `Nodes::Compressed` have it without duplication
+  - Make `yardoc` match `rbs` types
+
+  Finally:
+  - Rename `char_symbols` to `reversed_char_symbols` for clarity
+  - Rename `Nodes::Raw#add`'s param `chars` to `reversed_chars` for
+    clarity
+  - Add `lint-rbs-steep` action
+  - Rename `lint` => `lint-rubocop`
+  - Bump lint and coverage ruby versions to `3.3.6`
 
 ## 2.5.0 [compare][compare_v2_4_0_and_v2_5_0]
 
@@ -52,7 +165,6 @@
 - Update `CallTreeProfiler` to use new `RubyProf::Profiler` format by [@gonzedge][github_user_gonzedge]
 
   Plus:
-
   - More accurate `pop`/`shift`/`slice!` reporting
   - Only require `benchmark/ips` when necessary
   - One-liner blocks
@@ -169,7 +281,7 @@
 
 ## 2.1.1 [compare][compare_v2_1_0_and_v2_1_1]
 
-- Change `slice!` to `shift` (#16) by [@shinjiikeda][github_user_shinjiikeda]
+- Change `slice!` to `shift` by [@shinjiikeda][github_user_shinjiikeda]
 - Frozen string issue fix by [@godsent][github_user_godsent]
 - Drop Ruby 2.4.x; add 2.7 and updated 2.6.x/2.5.x support by [@gonzedge][github_user_gonzedge]
 - Be more flexible with file sizes for zip file test by [@gonzedge][github_user_gonzedge]
