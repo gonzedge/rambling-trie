@@ -69,7 +69,10 @@ end
 def compare
   require 'benchmark/ips'
   Benchmark.ips do |bm|
+    ::GC.start
+    ::GC.disable
     yield bm
+    ::GC.enable
 
     bm.compare!
   end
