@@ -1,6 +1,10 @@
 # frozen_string_literal: true
 
 namespace :ips do
+  task :assign_variable_vs_not do
+    compare_assign_variable_vs_not
+  end
+
   task :string_slice_vs_brackets do
     compare_string_slice_vs_brackets
   end
@@ -65,9 +69,28 @@ end
 def compare
   require 'benchmark/ips'
   Benchmark.ips do |bm|
+    ::GC.start
+    ::GC.disable
     yield bm
+    ::GC.enable
 
     bm.compare!
+  end
+end
+
+def compare_assign_variable_vs_not
+  compare do |bm|
+    bm.config time: 20, warmup: 2
+    a = 1
+
+    bm.report 'assign var' do
+      b = 2
+      a + b
+    end
+
+    bm.report 'no var' do
+      a + 2
+    end
   end
 end
 
