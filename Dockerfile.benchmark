@@ -1,6 +1,6 @@
 FROM ruby:3.3.6
 
-ARG VERSION=2.5.0
+ARG VERSION=2.5.1
 ARG FROM_GITHUB=false
 
 WORKDIR /usr/rambling-trie
