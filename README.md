@@ -316,7 +316,7 @@ WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEM
 COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
 OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-[badge_fury_badge]: https://badge.fury.io/rb/rambling-trie.svg?version=2.5.0
+[badge_fury_badge]: https://badge.fury.io/rb/rambling-trie.svg?version=2.5.1
 [badge_fury_link]: https://badge.fury.io/rb/rambling-trie
 [chruby]: https://github.com/postmodern/chruby
 [code_climate_grade_badge]: https://codeclimate.com/github/gonzedge/rambling-trie/badges/gpa.svg
