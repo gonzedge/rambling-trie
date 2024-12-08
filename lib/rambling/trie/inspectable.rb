@@ -18,13 +18,18 @@ module Rambling
       def attributes
         [
           letter_inspect,
+          value_inspect,
           terminal_inspect,
           children_inspect,
-        ].join ', '
+        ].compact.join ', '
       end
 
       def letter_inspect
         "letter: #{letter.inspect}"
+      end
+
+      def value_inspect
+        value && "value: #{value.inspect}"
       end
 
       def terminal_inspect
