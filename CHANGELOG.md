@@ -35,6 +35,9 @@
     - Change `Container#[]` to return Nodes::Node[TValue]?
     - Add type annotations for `UnannotatedEmptyCollection`s
     - Raise `InvalidOperation`s when `compress(child)` return nil value which is not supposed to be possible
+- Add type signature information to `README` ([#86][github_pull_86]) by [@gonzedge][github_user_gonzedge]
+  - Add asdf as an option to manage ruby versions
+  - Use ./<path> for links within repo
 
 ## 2.5.1 [compare][compare_v2_5_0_and_v2_5_1]
 
@@ -1259,6 +1262,7 @@ Most of these help with the gem's overall performance.
 [github_pull_82]: https://github.com/gonzedge/rambling-trie/pull/82
 [github_pull_83]: https://github.com/gonzedge/rambling-trie/pull/83
 [github_pull_85]: https://github.com/gonzedge/rambling-trie/pull/85
+[github_pull_86]: https://github.com/gonzedge/rambling-trie/pull/86
 [github_user_agate]: https://github.com/agate
 [github_user_as181920]: https://github.com/as181920
 [github_user_godsent]: https://github.com/godsent
