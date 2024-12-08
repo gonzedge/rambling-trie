@@ -107,5 +107,28 @@ describe Rambling::Trie::Compressor do
       expect(compressed[:y][:r][:s]).to be_compressed
     end
     # rubocop:enable RSpec/ExampleLength, RSpec/MultipleExpectations
+
+    context 'with arbitrary values' do
+      # rubocop:disable RSpec/ExampleLength, RSpec/MultipleExpectations
+      it 'preserves the arbitrary values in compressed terminal nodes' do
+        add_words node, %w(some wordy word), [1, 2, 3]
+        compressed = compressor.compress node
+
+        expect(compressed[:s].value).to eq 1
+        expect(compressed[:w].value).to eq 3
+        expect(compressed[:w][:y].value).to eq 2
+      end
+
+      it 'preserves nil values in compressed non-terminal nodes' do
+        add_words node, %w(a word other words), [4, 3, 2, 1]
+        compressed = compressor.compress node
+
+        expect(compressed[:a].value).to eq 4
+        expect(compressed[:o].value).to eq 2
+        expect(compressed[:w].value).to eq 3
+        expect(compressed[:w][:s].value).to eq 1
+      end
+      # rubocop:enable RSpec/ExampleLength, RSpec/MultipleExpectations
+    end
   end
 end
