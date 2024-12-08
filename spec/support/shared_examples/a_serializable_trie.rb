@@ -12,7 +12,7 @@ shared_examples_for 'a serializable trie' do
     end
   end
 
-  context 'with an compressed trie' do
+  context 'with a compressed trie' do
     let(:trie) { Rambling::Trie.load filepath }
 
     before { Rambling::Trie.dump trie_to_serialize.compress!, filepath }
