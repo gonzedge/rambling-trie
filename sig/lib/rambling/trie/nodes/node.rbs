@@ -39,7 +39,7 @@ module Rambling
 
         def word?: (Array[String]) -> bool
 
-        def []: (Symbol) -> Node[TValue]
+        def []: (Symbol) -> Node[TValue]?
 
         def []=: (Symbol, Node[TValue]) -> Node[TValue]
 

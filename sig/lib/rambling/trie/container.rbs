@@ -33,7 +33,7 @@ module Rambling
 
       def ==: (Container[TValue]) -> bool
 
-      def []: (Symbol) -> Nodes::Node[TValue]
+      def []: (Symbol) -> Nodes::Node[TValue]?
 
       def children: -> Array[Nodes::Node[TValue]]
 

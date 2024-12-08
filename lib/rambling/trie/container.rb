@@ -39,9 +39,7 @@ module Rambling
       # @see Nodes::Compressed#add
       def concat words, values = nil
         if values
-          nodes = [] * words.size
-          words.each_index { |index| nodes[index] = add words[index], values[index] }
-          nodes
+          words.each_with_index.map { |word, index| add(word, values[index]) }
         else
           words.map { |word| add word }
         end

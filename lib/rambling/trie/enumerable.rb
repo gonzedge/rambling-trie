@@ -7,7 +7,8 @@ module Rambling
       include ::Enumerable
 
       # Empty enumerator constant for early each exits.
-      EMPTY_ENUMERATOR = [].to_enum :each
+      EMPTY_ENUMERATOR = [] # : Array[String]
+                         .to_enum :each
 
       # Returns number of words contained in the trie
       # @see https://ruby-doc.org/3.3.0/Enumerable.html#method-i-count Enumerable#count

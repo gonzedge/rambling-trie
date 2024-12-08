@@ -9,7 +9,7 @@ module Rambling
 
         def initialize: (Symbol, Hash[Symbol, TProvider], ?TProvider?) -> void
 
-        def []: (Symbol) -> TProvider
+        def []: (Symbol) -> TProvider?
 
         def add: (Symbol, TProvider) -> TProvider
 

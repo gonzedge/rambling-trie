@@ -26,8 +26,8 @@ module Rambling
       # @param [Nodes::Node] node the node to compress.
       # @return [Nodes::Compressed] node the compressed version of the node.
       def compress_only_child_and_merge node
-        compressed_child = compress(node.first_child)
-        merge node, (compressed_child || raise)
+        compressed_child = compress(node.first_child) || raise(InvalidOperation, 'got nil while compressing only child')
+        merge node, compressed_child
       end
 
       def merge node, other
@@ -54,9 +54,13 @@ module Rambling
       end
 
       def compress_children tree
+        # @type var new_tree: Hash[Symbol, Nodes::Node]
         new_tree = {}
 
-        tree.each { |letter, child| new_tree[letter] = compress child }
+        tree.each do |letter, child|
+          compressed_child = compress(child) || raise(InvalidOperation, "got nil while compressing #{letter}")
+          new_tree[letter] = compressed_child
+        end
 
         new_tree
       end
