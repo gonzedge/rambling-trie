@@ -40,6 +40,11 @@ describe Rambling::Trie::Container do
       expect(root.children.size).to eq 0
       expect(root.to_a).to be_empty
     end
+
+    it 'stores given arbitrary value in terminal node' do
+      add_word container, 'hi', 5
+      expect(root[:h][:i].value).to eq 5
+    end
     # rubocop:enable RSpec/MultipleExpectations
   end
 
@@ -57,6 +62,12 @@ describe Rambling::Trie::Container do
 
       expect(nodes.first.letter).to eq :o
       expect(nodes.last.letter).to eq :w
+    end
+
+    it 'stores arbitrary values in the terminal nodes' do
+      container.concat %w(other words), [10, 20]
+      expect(root[:o][:t][:h][:e][:r].value).to eq 10
+      expect(root[:w][:o][:r][:d][:s].value).to eq 20
     end
     # rubocop:enable RSpec/MultipleExpectations
   end

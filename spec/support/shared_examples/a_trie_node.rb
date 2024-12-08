@@ -16,6 +16,10 @@ shared_examples_for 'a trie node' do
       expect(node).not_to be_terminal
     end
 
+    it 'has no value' do
+      expect(node.value).to be_nil
+    end
+
     it 'returns empty string as its word' do
       expect(node.as_word).to be_empty
     end
@@ -68,6 +72,13 @@ shared_examples_for 'a trie node' do
 
     it 'returns the node' do
       expect(node.terminal!).to eq node
+    end
+  end
+
+  describe '#value=' do
+    it 'assigns the given value to the node' do
+      node.value = 42
+      expect(node.value).to eq 42
     end
   end
 
