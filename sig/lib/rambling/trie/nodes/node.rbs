@@ -1,34 +1,35 @@
 module Rambling
   module Trie
     module Nodes
-      class Node
-        include Compressible
-        include Enumerable
-        include Comparable
-        include Stringifyable
-        include Inspectable
+      class Node[TValue < _Inspect]
+        include Compressible[TValue]
+        include Enumerable[TValue]
+        include Comparable[TValue]
+        include Stringifyable[TValue]
+        include Inspectable[TValue]
 
         attr_reader letter: Symbol?
-        attr_accessor children_tree: Hash[Symbol, Node]
-        attr_accessor parent: Node?
+        attr_accessor children_tree: Hash[Symbol, Node[TValue]]
+        attr_accessor parent: Node[TValue]?
+        attr_accessor value: TValue?
 
-        def initialize: (?Symbol?, ?Node?, ?Hash[Symbol, Node]) -> void
+        def initialize: (?Symbol?, ?Node[TValue]?, ?Hash[Symbol, Node[TValue]]) -> void
 
-        def add: (Array[Symbol]) -> Node
+        def add: (Array[Symbol], ?TValue?) -> Node[TValue]
 
-        def children: -> Array[Node]
+        def children: -> Array[Node[TValue]]
 
-        def first_child: -> Node?
+        def first_child: -> Node[TValue]?
 
         def match_prefix: (Array[String]) { (String) -> void } -> Enumerator[String, void]
 
         def root?: -> bool
 
-        def scan: (Array[String]) -> Node
+        def scan: (Array[String]) -> Node[TValue]
 
         def terminal?: -> bool
 
-        def terminal!: -> Node
+        def terminal!: -> Node[TValue]
 
         def letter=: (String | Symbol?) -> Symbol?
 
@@ -38,13 +39,13 @@ module Rambling
 
         def word?: (Array[String]) -> bool
 
-        def []: (Symbol) -> Node
+        def []: (Symbol) -> Node[TValue]
 
-        def []=: (Symbol, Node) -> Node
+        def []=: (Symbol, Node[TValue]) -> Node[TValue]
 
         def key?: (Symbol) -> bool
 
-        def delete: (Symbol) -> Node?
+        def delete: (Symbol) -> Node[TValue]?
 
         alias has_key? key?
 
@@ -52,7 +53,7 @@ module Rambling
 
         attr_accessor terminal: bool?
 
-        def missing: -> Node
+        def missing: -> Node[TValue]
 
         # abstract methods
 
@@ -62,7 +63,7 @@ module Rambling
 
         def word_chars?: (Array[String]) -> bool
 
-        def closest_node: (Array[String]) -> Node
+        def closest_node: (Array[String]) -> Node[TValue]
       end
     end
   end

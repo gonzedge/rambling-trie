@@ -37,7 +37,7 @@ module Rambling
       # Available formats are `yml`, `marshal`, and `zip` versions of all the
       # previous formats. You can also define your own.
       # @param [String] filepath the file to load the words from.
-      # @param [Serializer, nil] serializer the object responsible of loading the trie from disk.
+      # @param [Serializer, nil] serializer the object responsible for loading the trie from disk.
       # @return [Container] the trie just loaded.
       # @yield [Container] the trie just loaded.
       # @see Rambling::Trie::Serializers Serializers.

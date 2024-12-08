@@ -1,16 +1,16 @@
 module Rambling
   module Trie
     module Serializers
-      class Zip < Serializer[Nodes::Node]
-        @properties: Configuration::Properties
+      class Zip[TValue < _Inspect] < Serializer[Nodes::Node[TValue]]
+        @properties: Configuration::Properties[TValue]
 
-        def initialize: (Configuration::Properties) -> void
+        def initialize: (Configuration::Properties[TValue]) -> void
 
         private
 
-        attr_reader properties: Configuration::Properties
+        attr_reader properties: Configuration::Properties[TValue]
 
-        def serializers: -> Configuration::ProviderCollection[Serializer[Nodes::Node]]
+        def serializers: -> Configuration::ProviderCollection[Serializer[Nodes::Node[TValue]]]
 
         def tmp_path: -> String
 

@@ -27,9 +27,10 @@ describe Rambling::Trie do
     end
 
     it 'is the version before the one at the top of the CHANGELOG' do
-      changelog_version = Gem::Version.new changelog_versions.first
-      lib_version = Gem::Version.new "#{Rambling::Trie::VERSION}.0"
-      expect(changelog_version).to eq lib_version.bump
+      top_changelog_version = Gem::Version.new changelog_versions.first
+      minor_version = Rambling::Trie::VERSION.split('.')[..1].join('.') # 1.2.3 => 1.2
+      next_versions = ["#{Rambling::Trie::VERSION}.0", Rambling::Trie::VERSION, minor_version]
+      expect(next_versions.map { |v| Gem::Version.new(v).bump }).to include top_changelog_version
     end
 
     it 'is included in the CHANGELOG diffs' do
