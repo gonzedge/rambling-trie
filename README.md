@@ -24,7 +24,7 @@ You will need:
 * Ruby 3.1.0 or up
 * RubyGems
 
-See [RVM][rvm], [rbenv][rbenv] or [chruby][chruby] for more information on how to manage Ruby versions.
+See [asdf][asdf], [RVM][rvm], [rbenv][rbenv] or [chruby][chruby] for more information on how to manage Ruby versions.
 
 ### Installation
 
@@ -292,6 +292,11 @@ The Rambling Trie has been tested with the following Ruby versions:
 * 1.9.x (EOL'ed)
 * 1.8.x (EOL'ed)
 
+## Compatible RBS and Steep versions
+
+Type signatures for `Rambling::Trie` are included in the [`sig` directory](./sig)! The current version (`2.5.1`) was
+checked with RBS `2.6.3` and Steep `1.8.3`.
+
 ## Contributing to Rambling Trie
 
 Take a look at the [contributing guide][rambling_trie_contributing_guide] to get started, or fire a question
@@ -316,6 +321,7 @@ WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEM
 COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
 OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+[asdf]: https://asdf-vm.com/
 [badge_fury_badge]: https://badge.fury.io/rb/rambling-trie.svg?version=2.5.1
 [badge_fury_link]: https://badge.fury.io/rb/rambling-trie
 [chruby]: https://github.com/postmodern/chruby
