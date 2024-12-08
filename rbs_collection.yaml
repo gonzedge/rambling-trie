@@ -7,3 +7,9 @@ sources:
     repo_dir: gems
 
 path: .gem_rbs_collection
+
+# gems:
+#   - name: rubocop
+#     ignore: false
+#   - name: yard
+#     ignore: false

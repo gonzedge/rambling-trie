@@ -6,6 +6,7 @@ target :lib do
   signature 'sig'
 
   check 'lib'
+  # check 'spec'
   # check 'tasks'
 
   # check 'Gemfile'
@@ -14,9 +15,11 @@ target :lib do
   # check 'Steepfile'
 
   library 'rake'
+  # library 'rubocop'
   library 'rubyzip'
   library 'securerandom'
   library 'yaml'
+  # library 'yard'
 
   # configure_code_diagnostics(D::Ruby.default)      # `default` diagnostics setting (applies by default)
   # configure_code_diagnostics(D::Ruby.strict)       # `strict` diagnostics setting
