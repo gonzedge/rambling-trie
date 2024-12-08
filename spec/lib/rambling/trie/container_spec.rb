@@ -444,7 +444,7 @@ describe Rambling::Trie::Container do
 
     it 'aliases `#<<` to `#add`' do
       container << 'words'
-      expect(root).to have_received(:add).with %i(s d r o w)
+      expect(root).to have_received(:add).with %i(s d r o w), nil
     end
 
     it 'delegates `#[]` to the root node' do

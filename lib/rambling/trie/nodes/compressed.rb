@@ -22,7 +22,7 @@ module Rambling
         # @param [String] _ the word to add to the trie.
         # @raise [InvalidOperation] if the trie is already compressed.
         # @return [void]
-        def add _
+        def add _, _ = nil
           raise Rambling::Trie::InvalidOperation, 'Cannot add word to compressed trie'
         end
 

@@ -27,8 +27,8 @@ module Rambling
       # @raise [InvalidOperation] if the trie is already compressed.
       # @see Nodes::Raw#add
       # @see Nodes::Compressed#add
-      def add word
-        root.add reversed_char_symbols word
+      def add word, value = nil
+        root.add reversed_char_symbols(word), value
       end
 
       # Adds all provided words to the trie.
@@ -37,8 +37,14 @@ module Rambling
       # @raise [InvalidOperation] if the trie is already compressed.
       # @see Nodes::Raw#add
       # @see Nodes::Compressed#add
-      def concat words
-        words.map { |word| add word }
+      def concat words, values = nil
+        if values
+          nodes = [] * words.size
+          words.each_index { |index| nodes[index] = add words[index], values[index] }
+          nodes
+        else
+          words.map { |word| add word }
+        end
       end
 
       # Compresses the existing trie using redundant node elimination.
