@@ -77,9 +77,8 @@ trie
 ```
 
 If you want to use a custom file format, you will need to provide a custom `Reader` that defines an `#each_word` method
-that yields each word contained in the file. Look at the [`PlainText` reader][rambling_trie_plain_text_reader] class for
-an example, and at the [Configuration section][rambling_trie_configuration] to see how to add your own custom file
-readers.
+that yields each word contained in the file. Look at the [`PlainText` reader](./lib/rambling/trie/readers/plain_text.rb)
+class for an example, and at the [Configuration section](#configuration) to see how to add your own custom file readers.
 
 ### Operations
 
@@ -299,7 +298,7 @@ checked with RBS `2.6.3` and Steep `1.8.3`.
 
 ## Contributing to Rambling Trie
 
-Take a look at the [contributing guide][rambling_trie_contributing_guide] to get started, or fire a question
+Take a look at the [contributing guide](./CONTRIBUTING.md) to get started, or fire a question
 to [@gonzedge][github_user_gonzedge].
 
 ## License and copyright
@@ -343,9 +342,6 @@ OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 [license_badge]: https://img.shields.io/badge/license-MIT-blue.svg
 [license_link]: https://opensource.org/licenses/mit-license.php
 [marshal]: https://ruby-doc.org/3.3.0/Marshal.html
-[rambling_trie_configuration]: https://github.com/gonzedge/rambling-trie#configuration
-[rambling_trie_contributing_guide]: https://github.com/gonzedge/rambling-trie/blob/main/CONTRIBUTING.md
-[rambling_trie_plain_text_reader]: https://github.com/gonzedge/rambling-trie/blob/main/lib/rambling/trie/readers/plain_text.rb
 [rbenv]: https://github.com/sstephenson/rbenv
 [rubydoc]: http://rubydoc.info/gems/rambling-trie
 [rubydoc_github]: http://rubydoc.info/github/gonzedge/rambling-trie
