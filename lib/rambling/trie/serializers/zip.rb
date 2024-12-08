@@ -24,7 +24,8 @@ module Rambling
         def load filepath
           require 'zip'
 
-          ::Zip::File.open filepath do |zip|
+          # @type var root: Nodes::Node
+          root = ::Zip::File.open filepath do |zip|
             entry = zip.entries.first
             raise unless entry
 
@@ -37,6 +38,8 @@ module Rambling
 
             serializer.load entry_path
           end
+
+          root
         end
 
         # Dumps contents and zips into a specified filepath.
