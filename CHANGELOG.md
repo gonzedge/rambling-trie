@@ -1,6 +1,6 @@
 # CHANGELOG
 
-## 2.5.2 [compare][compare_v2_5_1_and_main]
+## 2.6.0 [compare][compare_v2_5_1_and_main]
 
 ## 2.5.1 [compare][compare_v2_5_0_and_v2_5_1]
 
