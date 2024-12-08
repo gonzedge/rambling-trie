@@ -25,21 +25,23 @@ module Rambling
           require 'zip'
 
           # @type var root: Nodes::Node
+          # rubocop:disable Style/RedundantAssignment
           root = ::Zip::File.open filepath do |zip|
             entry = zip.entries.first
             raise unless entry
 
-            entry_name = entry.name
-            entry_path = path entry_name
+            entry_path = path entry.name
             entry.extract entry_path
 
-            serializer = serializers.resolve entry_name
+            serializer = serializers.resolve entry_path
             raise unless serializer
 
             serializer.load entry_path
           end
 
+          # noinspection RubyUnnecessaryReturnValue
           root
+          # rubocop:enable Style/RedundantAssignment
         end
 
         # Dumps contents and zips into a specified filepath.
