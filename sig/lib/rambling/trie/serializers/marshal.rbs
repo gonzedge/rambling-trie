@@ -1,7 +1,7 @@
 module Rambling
   module Trie
     module Serializers
-      class Marshal < Serializer[Nodes::Node]
+      class Marshal[TValue < _Inspect] < Serializer[Nodes::Node[TValue]]
         @serializer: Serializer[String]
 
         private

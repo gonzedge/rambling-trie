@@ -1,10 +1,10 @@
 module Rambling
   module Trie
     module Nodes
-      class Compressed < Node
-        def initialize: (?Symbol?, ?Node?, ?Hash[Symbol, Node]) -> void
+      class Compressed[TValue < _Inspect] < Node[TValue]
+        def initialize: (?Symbol?, ?Node[TValue]?, ?Hash[Symbol, Node[TValue]]) -> void
 
-        def add: (Array[Symbol]) -> Node
+        def add: (Array[Symbol], ?TValue) -> Node[TValue]
 
         def compressed?: -> bool
 
@@ -18,7 +18,7 @@ module Rambling
 
         def word_chars?: (Array[String]) -> bool
 
-        def closest_node: (Array[String]) -> Node
+        def closest_node: (Array[String]) -> Node[TValue]
       end
     end
   end

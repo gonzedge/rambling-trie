@@ -1,6 +1,6 @@
 module Rambling
   module Trie
-    module Stringifyable
+    module Stringifyable[TValue < _Inspect]
       def as_word: -> String
 
       def to_s: -> String
@@ -13,9 +13,9 @@ module Rambling
 
       def terminal?: -> bool
 
-      def parent: -> Nodes::Node?
+      def parent: -> Nodes::Node[TValue]?
 
-      def children_tree: -> Hash[Symbol, Nodes::Node]
+      def children_tree: -> Hash[Symbol, Nodes::Node[TValue]]
     end
   end
 end

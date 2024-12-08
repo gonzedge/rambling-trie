@@ -26,8 +26,8 @@ module Rambling
       # @param [Nodes::Node] node the node to compress.
       # @return [Nodes::Compressed] node the compressed version of the node.
       def compress_only_child_and_merge node
-        compressed_child = compress(node.first_child) # : Nodes::Compressed
-        merge node, compressed_child
+        compressed_child = compress(node.first_child)
+        merge node, (compressed_child || raise)
       end
 
       def merge node, other
