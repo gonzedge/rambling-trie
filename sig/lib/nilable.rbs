@@ -1,0 +1,3 @@
+interface _Nilable
+  def nil?: -> bool
+end
