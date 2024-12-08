@@ -1,27 +1,27 @@
 module Rambling
   module Trie
-    class Container
+    class Container[TValue < _Inspect]
       include ::Enumerable[String]
 
-      @compressor: Compressor
+      @compressor: Compressor[TValue]
 
-      attr_reader root: Nodes::Node
+      attr_reader root: Nodes::Node[TValue]
 
-      def initialize: (Nodes::Node, Compressor) ?{ (Container) -> void } -> void
+      def initialize: (Nodes::Node[TValue], Compressor[TValue]) ?{ (Container[TValue]) -> void } -> void
 
-      def add: (String) -> Nodes::Node
+      def add: (String, ?TValue?) -> Nodes::Node[TValue]
 
-      def concat: (Array[String]) -> Array[Nodes::Node]
+      def concat: (Array[String], ?Array[TValue?]?) -> Array[Nodes::Node[TValue]]
 
-      def compress!: -> Container
+      def compress!: -> Container[TValue]
 
-      def compress: -> Container
+      def compress: -> Container[TValue]
 
-      def each: { (String) -> void } -> (Enumerator[String, void] | Enumerable)
+      def each: { (String) -> void } -> (Enumerator[String, void] | Enumerable[TValue])
 
       def partial_word?: (String) -> bool
 
-      def push: (*String) -> Array[Nodes::Node]
+      def push: (*String) -> Array[Nodes::Node[TValue]]
 
       def word?: (String) -> bool
 
@@ -31,13 +31,13 @@ module Rambling
 
       def words_within?: (String) -> bool
 
-      def ==: (Container) -> bool
+      def ==: (Container[TValue]) -> bool
 
-      def []: (Symbol) -> Nodes::Node
+      def []: (Symbol) -> Nodes::Node[TValue]?
 
-      def children: -> Array[Nodes::Node]
+      def children: -> Array[Nodes::Node[TValue]]
 
-      def children_tree: -> Hash[Symbol, Nodes::Node]
+      def children_tree: -> Hash[Symbol, Nodes::Node[TValue]]
 
       def compressed?: -> bool
 
@@ -56,12 +56,12 @@ module Rambling
 
       private
 
-      attr_reader compressor: Compressor
-      attr_writer root: Nodes::Node
+      attr_reader compressor: Compressor[TValue]
+      attr_writer root: Nodes::Node[TValue]
 
       def words_within_root: (String) ?{ (String) -> void } -> Enumerator[String, void]
 
-      def compress_root: -> Nodes::Compressed
+      def compress_root: -> Nodes::Compressed[TValue]
 
       def reversed_char_symbols: (String) -> Array[Symbol]
     end
