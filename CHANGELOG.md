@@ -1,6 +1,40 @@
 # CHANGELOG
 
-## 2.5.2 [compare][compare_v2_5_1_and_main]
+## 2.6.0 (in development) [compare][compare_v2_5_1_and_main]
+
+### Enhancements
+
+#### Major
+
+- Allow `Nodes::Node`s to hold arbitrary values ([#85][github_pull_85]) by [@gonzedge][github_user_gonzedge]
+  - Add `value` attribute to `Nodes::Node`
+  - Add optional, nilable `value` argument to `Container#add`, `Nodes::Node#add`
+  - Store given `value` in terminal node via `Nodes::Raw#add` and `Nodes::Raw#add_to_children_tree`, when present
+  - Update `Compressor#merge` and `Compressor#compress_children_and_copy` to store `value` from `Nodes::Raw` in the
+    terminal `Nodes::Compressed`, when present
+  - Add optional `values` array argument to `Container#concat` corresponding 1:1 to `words`, that passes each word and
+    value to `#add` when present
+  - Add `value` to `Inspectable#inspect` output, when present
+
+### Minor
+
+- Types for `Nodes::Node`s arbitrary value (part of [#85][github_pull_85]) by [@gonzedge][github_user_gonzedge]
+  - Add generic type `TValue` to `Nodes::Node` type signature
+    - Extract `_Nilable` interface to own top-level file
+    - Make `value` attribute in `Nodes::Node` use the new `TValue` generic type
+    - Allow `TValue` to be `nil` by default with `?`
+    - Require `TValue` to implement `_Inspect` built-in(!) interface, for `Inspectable` module
+    - Change all types that depend on `Nodes::Node` also have the generic type `TValue < _Inspect`
+      including static methods
+    - Add optional `TValue` argument to `Container#add`, `Nodes::Node#add`, and `Nodes::Raw#add_to_children_tree`
+    - Add optional `Array[TValue?]` argument to `Container#concat`
+    - Add new `|| raise`s because the inline type conversion to non-nil doesn't work anymore for `steep` check 🤷🏻‍♂️
+  - Make compatible with `rbs` `v3.7.0` and `steep` `v1.9.0`
+    - Change `ProviderCollection#[]` to return TProvider?
+    - Change `Nodes::Node#[]` to return Nodes::Node[TValue]?
+    - Change `Container#[]` to return Nodes::Node[TValue]?
+    - Add type annotations for `UnannotatedEmptyCollection`s
+    - Raise `InvalidOperation`s when `compress(child)` return nil value which is not supposed to be possible
 
 ## 2.5.1 [compare][compare_v2_5_0_and_v2_5_1]
 
@@ -1224,6 +1258,7 @@ Most of these help with the gem's overall performance.
 [github_pull_81]: https://github.com/gonzedge/rambling-trie/pull/81
 [github_pull_82]: https://github.com/gonzedge/rambling-trie/pull/82
 [github_pull_83]: https://github.com/gonzedge/rambling-trie/pull/83
+[github_pull_85]: https://github.com/gonzedge/rambling-trie/pull/85
 [github_user_agate]: https://github.com/agate
 [github_user_as181920]: https://github.com/as181920
 [github_user_godsent]: https://github.com/godsent

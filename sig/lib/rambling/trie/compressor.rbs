@@ -1,17 +1,17 @@
 module Rambling
   module Trie
-    class Compressor
-      def compress: (Nodes::Node?) -> Nodes::Compressed?
+    class Compressor[TValue < _Inspect]
+      def compress: (Nodes::Node[TValue]?) -> Nodes::Compressed[TValue]?
 
       private
 
-      def compress_only_child_and_merge: (Nodes::Node) -> Nodes::Compressed
+      def compress_only_child_and_merge: (Nodes::Node[TValue]) -> Nodes::Compressed[TValue]
 
-      def merge: (Nodes::Node, Nodes::Node) -> Nodes::Compressed
+      def merge: (Nodes::Node[TValue], Nodes::Node[TValue]) -> Nodes::Compressed[TValue]
 
-      def compress_children_and_copy: (Nodes::Node) -> Nodes::Compressed
+      def compress_children_and_copy: (Nodes::Node[TValue]) -> Nodes::Compressed[TValue]
 
-      def compress_children: (Hash[Symbol, Nodes::Node]) -> Hash[Symbol, Nodes::Node]
+      def compress_children: (Hash[Symbol, Nodes::Node[TValue]]) -> Hash[Symbol, Nodes::Node[TValue]]
     end
   end
 end
