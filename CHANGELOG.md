@@ -15,6 +15,10 @@
   - Add optional `values` array argument to `Container#concat` corresponding 1:1 to `words`, that passes each word and
     value to `#add` when present
   - Add `value` to `Inspectable#inspect` output, when present
+
+### Minor
+
+- Types for `Nodes::Node`s arbitrary value (part of [#85][github_pull_85]) by [@gonzedge][github_user_gonzedge]
   - Add generic type `TValue` to `Nodes::Node` type signature
     - Extract `_Nilable` interface to own top-level file
     - Make `value` attribute in `Nodes::Node` use the new `TValue` generic type
@@ -25,6 +29,12 @@
     - Add optional `TValue` argument to `Container#add`, `Nodes::Node#add`, and `Nodes::Raw#add_to_children_tree`
     - Add optional `Array[TValue?]` argument to `Container#concat`
     - Add new `|| raise`s because the inline type conversion to non-nil doesn't work anymore for `steep` check 🤷🏻‍♂️
+  - Make compatible with `rbs` `v3.7.0` and `steep` `v1.9.0`
+    - Change `ProviderCollection#[]` to return TProvider?
+    - Change `Nodes::Node#[]` to return Nodes::Node[TValue]?
+    - Change `Container#[]` to return Nodes::Node[TValue]?
+    - Add type annotations for `UnannotatedEmptyCollection`s
+    - Raise `InvalidOperation`s when `compress(child)` return nil value which is not supposed to be possible
 
 ## 2.5.1 [compare][compare_v2_5_0_and_v2_5_1]
 
