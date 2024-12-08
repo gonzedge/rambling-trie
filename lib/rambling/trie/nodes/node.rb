@@ -31,6 +31,10 @@ module Rambling
         # @return [Node, nil] the parent of the current node.
         attr_accessor :parent
 
+        # Arbitrary value stored in this node
+        # @return [TValue, nil] the parent of the current node.
+        attr_accessor :value
+
         # Creates a new node.
         # @param [Symbol, nil] letter the Node's letter value.
         # @param [Node, nil] parent the parent of the current node.

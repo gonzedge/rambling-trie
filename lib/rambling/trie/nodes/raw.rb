@@ -10,12 +10,15 @@ module Rambling
         # @param [Array<Symbol>] reversed_chars the char array to add to the trie, in reverse order.
         # @return [Node] the added/modified node based on the word added.
         # @note This method clears the contents of the chars variable.
-        def add reversed_chars
+        def add reversed_chars, value = nil
           if reversed_chars.empty?
-            terminal! unless root?
+            unless root?
+              self.value = value
+              terminal!
+            end
             self
           else
-            add_to_children_tree reversed_chars
+            add_to_children_tree reversed_chars, value
           end
         end
 
@@ -27,10 +30,10 @@ module Rambling
 
         private
 
-        def add_to_children_tree chars
+        def add_to_children_tree chars, value = nil
           letter = chars.pop || raise
           child = children_tree[letter] || new_node(letter)
-          child.add chars
+          child.add chars, value
           child
         end
 

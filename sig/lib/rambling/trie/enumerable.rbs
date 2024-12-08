@@ -1,13 +1,13 @@
 module Rambling
   module Trie
-    module Enumerable
+    module Enumerable[TValue < _Inspect]
       include ::Enumerable[String]
 
       EMPTY_ENUMERATOR: Enumerator[String, void]
 
       alias size count
 
-      def each: { (String) -> void } -> (Enumerator[String, void] | Enumerable)
+      def each: { (String) -> void } -> (Enumerator[String, void] | Enumerable[TValue])
 
       private
 
@@ -17,7 +17,7 @@ module Rambling
 
       def terminal?: -> bool
 
-      def children_tree: -> Hash[Symbol, Nodes::Node]
+      def children_tree: -> Hash[Symbol, Nodes::Node[TValue]]
     end
   end
 end

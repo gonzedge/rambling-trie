@@ -1,11 +1,11 @@
 module Rambling
   module Trie
     module Configuration
-      class Properties
+      class Properties[TValue < _Inspect]
         attr_reader readers: ProviderCollection[Readers::Reader]
-        attr_reader serializers: ProviderCollection[Serializers::Serializer[Nodes::Node]]
-        attr_accessor compressor: Compressor
-        attr_accessor root_builder: ^() -> Nodes::Node
+        attr_reader serializers: ProviderCollection[Serializers::Serializer[Nodes::Node[TValue]]]
+        attr_accessor compressor: Compressor[TValue]
+        attr_accessor root_builder: ^() -> Nodes::Node[TValue]
         attr_accessor tmp_path: String
 
         def initialize: -> void
@@ -15,7 +15,7 @@ module Rambling
         private
 
         attr_writer readers: ProviderCollection[Readers::Reader]
-        attr_writer serializers: ProviderCollection[Serializers::Serializer[Nodes::Node]]
+        attr_writer serializers: ProviderCollection[Serializers::Serializer[Nodes::Node[TValue]]]
 
         def reset_readers: -> void
 

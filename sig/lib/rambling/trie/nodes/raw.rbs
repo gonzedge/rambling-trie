@@ -1,16 +1,16 @@
 module Rambling
   module Trie
     module Nodes
-      class Raw < Node
-        def add: (Array[Symbol]) -> Node
+      class Raw[TValue < _Inspect] < Node[TValue]
+        def add: (Array[Symbol], ?TValue?) -> Node[TValue]
 
         def compressed?: -> bool
 
         private
 
-        def add_to_children_tree: (Array[Symbol]) -> Node
+        def add_to_children_tree: (Array[Symbol], ?TValue?) -> Node[TValue]
 
-        def new_node: (Symbol) -> Node
+        def new_node: (Symbol) -> Node[TValue]
 
         # overrides
 
@@ -20,7 +20,7 @@ module Rambling
 
         def word_chars?: (Array[String]) -> bool
 
-        def closest_node: (Array[String]) -> Node
+        def closest_node: (Array[String]) -> Node[TValue]
       end
     end
   end

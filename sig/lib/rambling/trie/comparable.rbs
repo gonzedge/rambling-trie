@@ -1,7 +1,7 @@
 module Rambling
   module Trie
-    module Comparable
-      def ==: (Nodes::Node) -> bool
+    module Comparable[TValue < _Inspect]
+      def ==: (Nodes::Node[TValue]) -> bool
 
       private
 
@@ -11,7 +11,7 @@ module Rambling
 
       def terminal?: -> bool
 
-      def children_tree: -> Hash[Symbol, Nodes::Node]
+      def children_tree: -> Hash[Symbol, Nodes::Node[TValue]]
     end
   end
 end

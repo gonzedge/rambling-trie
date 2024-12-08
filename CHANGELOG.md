@@ -1,6 +1,30 @@
 # CHANGELOG
 
-## 2.5.2 [compare][compare_v2_5_1_and_main]
+## 2.6.0 (in development) [compare][compare_v2_5_1_and_main]
+
+### Enhancements
+
+#### Major
+
+- Allow `Nodes::Node`s to hold arbitrary values by [@gonzedge][github_user_gonzedge]
+  - Add `value` attribute to `Nodes::Node`
+  - Add optional, nilable `value` argument to `Container#add`, `Nodes::Node#add`
+  - Store given `value` in terminal node via `Nodes::Raw#add` and `Nodes::Raw#add_to_children_tree`, when present
+  - Update `Compressor#merge` and `Compressor#compress_children_and_copy` to store `value` from `Nodes::Raw` in the
+    terminal `Nodes::Compressed`, when present
+  - Add optional `values` array argument to `Container#concat` corresponding 1:1 to `words`, that passes each word and
+    value to `#add` when present
+  - Add `value` to `Inspectable#inspect` output, when present
+  - Add generic type `TValue` to `Nodes::Node` type signature
+    - Extract `_Nilable` interface to own top-level file
+    - Make `value` attribute in `Nodes::Node` use the new `TValue` generic type
+    - Allow `TValue` to be `nil` by default with `?`
+    - Require `TValue` to implement `_Inspect` built-in(!) interface, for `Inspectable` module
+    - Change all types that depend on `Nodes::Node` also have the generic type `TValue < _Inspect`
+      including static methods
+    - Add optional `TValue` argument to `Container#add`, `Nodes::Node#add`, and `Nodes::Raw#add_to_children_tree`
+    - Add optional `Array[TValue?]` argument to `Container#concat`
+    - Add new `|| raise`s because the inline type conversion to non-nil doesn't work anymore for `steep` check 🤷🏻‍♂️
 
 ## 2.5.1 [compare][compare_v2_5_0_and_v2_5_1]
 
