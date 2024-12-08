@@ -13,9 +13,10 @@ target :lib do
   # check 'Rakefile'
   # check 'Steepfile'
 
-  # library 'rubyzip'
-  library 'yaml'
+  library 'rake'
+  library 'rubyzip'
   library 'securerandom'
+  library 'yaml'
 
   # configure_code_diagnostics(D::Ruby.default)      # `default` diagnostics setting (applies by default)
   # configure_code_diagnostics(D::Ruby.strict)       # `strict` diagnostics setting
