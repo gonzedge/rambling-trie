@@ -1,6 +1,7 @@
 module Rambling
   module Trie
-    module Inspectable
+    module Inspectable[TValue < _Inspect]
+
       def inspect: -> String
 
       private
@@ -11,6 +12,8 @@ module Rambling
 
       def letter_inspect: -> String
 
+      def value_inspect: -> String?
+
       def terminal_inspect: -> String
 
       def children_inspect: -> String
@@ -19,9 +22,11 @@ module Rambling
 
       def letter: -> Symbol
 
+      def value: -> TValue
+
       def terminal: -> bool?
 
-      def children_tree: -> Hash[Symbol, Nodes::Node]
+      def children_tree: -> Hash[Symbol, Nodes::Node[TValue]]
     end
   end
 end

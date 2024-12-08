@@ -1,6 +1,6 @@
 module Rambling
   module Trie
-    module Compressible
+    module Compressible[TValue < _Inspect]
       def compressible?: -> bool
 
       private
@@ -11,7 +11,7 @@ module Rambling
 
       def terminal?: -> bool
 
-      def children_tree: -> Hash[Symbol, Nodes::Node]
+      def children_tree: -> Hash[Symbol, Nodes::Node[TValue]]
     end
   end
 end

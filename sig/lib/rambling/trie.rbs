@@ -2,26 +2,24 @@ module Rambling
   module Trie
     VERSION: String
 
-    @properties: Configuration::Properties
+    def self.create: [TValue < _Inspect] (?String?, ?Readers::Reader?) ?{ (Container[TValue]) -> void } -> Container[TValue]
 
-    def self.create: (?String?, ?Readers::Reader?) ?{ (Container) -> void } -> Container
+    def self.load: [TValue < _Inspect] (String, ?Serializers::Serializer[Nodes::Node[TValue]]?) ?{ (Container[TValue]) -> void } -> Container[TValue]
 
-    def self.load: (String, ?Serializers::Serializer[Nodes::Node]?) ?{ (Container) -> void } -> Container
+    def self.dump: [TValue < _Inspect] (Container[TValue], String, ?Serializers::Serializer[Nodes::Node[TValue]]?) -> void
 
-    def self.dump: (Container, String, ?Serializers::Serializer[Nodes::Node]?) -> void
-
-    def self.config: ?{ (Configuration::Properties) -> void } -> Configuration::Properties
+    def self.config: [TValue < _Inspect] ?{ (Configuration::Properties[TValue]) -> void } -> Configuration::Properties[TValue]
 
     private
 
-    def self.properties: -> Configuration::Properties
+    def self.properties: [TValue < _Inspect] -> Configuration::Properties[TValue]
 
     def self.readers: -> Configuration::ProviderCollection[Readers::Reader]
 
-    def self.serializers: -> Configuration::ProviderCollection[Serializers::Serializer[Nodes::Node]]
+    def self.serializers: [TValue < _Inspect] -> Configuration::ProviderCollection[Serializers::Serializer[Nodes::Node[TValue]]]
 
-    def self.compressor: -> Compressor
+    def self.compressor: [TValue < _Inspect] -> Compressor[TValue]
 
-    def self.root_builder: -> ^() -> Nodes::Node
+    def self.root_builder: [TValue < _Inspect] -> ^() -> Nodes::Node[TValue]
   end
 end

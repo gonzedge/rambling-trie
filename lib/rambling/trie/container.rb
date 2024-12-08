@@ -215,7 +215,7 @@ module Rambling
       end
 
       def compress_root
-        compressor.compress root # : Nodes::Compressed
+        compressor.compress(root) || raise
       end
 
       def reversed_char_symbols word
