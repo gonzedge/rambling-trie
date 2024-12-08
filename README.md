@@ -24,7 +24,7 @@ You will need:
 * Ruby 3.1.0 or up
 * RubyGems
 
-See [RVM][rvm], [rbenv][rbenv] or [chruby][chruby] for more information on how to manage Ruby versions.
+See [asdf][asdf], [RVM][rvm], [rbenv][rbenv] or [chruby][chruby] for more information on how to manage Ruby versions.
 
 ### Installation
 
@@ -77,9 +77,8 @@ trie
 ```
 
 If you want to use a custom file format, you will need to provide a custom `Reader` that defines an `#each_word` method
-that yields each word contained in the file. Look at the [`PlainText` reader][rambling_trie_plain_text_reader] class for
-an example, and at the [Configuration section][rambling_trie_configuration] to see how to add your own custom file
-readers.
+that yields each word contained in the file. Look at the [`PlainText` reader](./lib/rambling/trie/readers/plain_text.rb)
+class for an example, and at the [Configuration section](#configuration) to see how to add your own custom file readers.
 
 ### Operations
 
@@ -292,9 +291,14 @@ The Rambling Trie has been tested with the following Ruby versions:
 * 1.9.x (EOL'ed)
 * 1.8.x (EOL'ed)
 
+## Compatible RBS and Steep versions
+
+Type signatures for `Rambling::Trie` are included in the [`sig` directory](./sig)! The current version (`2.5.1`) was
+checked with RBS `2.6.3` and Steep `1.8.3`.
+
 ## Contributing to Rambling Trie
 
-Take a look at the [contributing guide][rambling_trie_contributing_guide] to get started, or fire a question
+Take a look at the [contributing guide](./CONTRIBUTING.md) to get started, or fire a question
 to [@gonzedge][github_user_gonzedge].
 
 ## License and copyright
@@ -316,6 +320,7 @@ WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEM
 COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
 OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+[asdf]: https://asdf-vm.com/
 [badge_fury_badge]: https://badge.fury.io/rb/rambling-trie.svg?version=2.5.1
 [badge_fury_link]: https://badge.fury.io/rb/rambling-trie
 [chruby]: https://github.com/postmodern/chruby
@@ -337,9 +342,6 @@ OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 [license_badge]: https://img.shields.io/badge/license-MIT-blue.svg
 [license_link]: https://opensource.org/licenses/mit-license.php
 [marshal]: https://ruby-doc.org/3.3.0/Marshal.html
-[rambling_trie_configuration]: https://github.com/gonzedge/rambling-trie#configuration
-[rambling_trie_contributing_guide]: https://github.com/gonzedge/rambling-trie/blob/main/CONTRIBUTING.md
-[rambling_trie_plain_text_reader]: https://github.com/gonzedge/rambling-trie/blob/main/lib/rambling/trie/readers/plain_text.rb
 [rbenv]: https://github.com/sstephenson/rbenv
 [rubydoc]: http://rubydoc.info/gems/rambling-trie
 [rubydoc_github]: http://rubydoc.info/github/gonzedge/rambling-trie
