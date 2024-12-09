@@ -24,24 +24,15 @@ module Rambling
         def load filepath
           require 'zip'
 
-          # @type var root: Nodes::Node
-          # rubocop:disable Style/RedundantAssignment
-          root = ::Zip::File.open filepath do |zip|
-            entry = zip.entries.first
-            raise unless entry
+          ::Zip::File.open filepath do |zip|
+            entry = zip.entries.first || raise
 
             entry_path = path entry.name
             entry.extract entry_path
 
-            serializer = serializers.resolve entry_path
-            raise unless serializer
-
+            serializer = serializers.resolve(entry_path) || raise
             serializer.load entry_path
           end
-
-          # noinspection RubyUnnecessaryReturnValue
-          root
-          # rubocop:enable Style/RedundantAssignment
         end
 
         # Dumps contents and zips into a specified filepath.
@@ -57,10 +48,7 @@ module Rambling
             filename = ::File.basename filepath, '.zip'
 
             entry_path = path filename
-            serializer = serializers.resolve filename
-
-            raise unless serializer
-
+            serializer = serializers.resolve(filename) || raise
             serializer.dump contents, entry_path
 
             zip.add filename, entry_path

@@ -1,0 +1,5 @@
+module Zip
+  class File
+    def self.open: [TContent] (String, ?bool?) { (File) -> TContent } -> TContent
+  end
+end

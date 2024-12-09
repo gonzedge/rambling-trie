@@ -26,7 +26,6 @@ shared_examples_for 'a trie node' do
 
     context 'with a letter and a parent' do
       let(:parent) { node_class.new }
-      # noinspection RubyArgCount
       let(:node_with_parent) { node_class.new :a, parent }
 
       it 'does not have any letter' do
