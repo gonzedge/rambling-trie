@@ -9,12 +9,12 @@ global_job_config:
     commands:
       - checkout
 blocks:
-  - name: 3.3.6
+  - name: 3.4.8
     dependencies: []
     task:
       prologue:
         commands:
-          - sem-version ruby 3.3.6
+          - sem-version ruby 3.4.8
           - bundle install
       jobs:
         - name: bundle exec rspec

@@ -19,7 +19,7 @@ AllCops:
     - 'tmp/**/*'
     - 'vendor/**/*'
     - 'tasks/ips.rb'
-  TargetRubyVersion: 3.1.0
+  TargetRubyVersion: 3.2.0
 
 #################### Layout ###########################
 
