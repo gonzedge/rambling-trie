@@ -6,6 +6,10 @@
 
 #### Major
 
+- Add explicit support for Ruby `3.4.x` ([#87][github_pull_87]) by [@gonzedge][github_user_gonzedge]
+- Remove support for `3.1.x` (EOL'd) ([#87][github_pull_87]) by [@gonzedge][github_user_gonzedge]
+  - Update min supported version to `3.2.0`
+  - Update `rubocop` target version to `3.2.0`
 - Allow `Nodes::Node`s to hold arbitrary values ([#85][github_pull_85]) by [@gonzedge][github_user_gonzedge]
   - Add `value` attribute to `Nodes::Node`
   - Add optional, nilable `value` argument to `Container#add`, `Nodes::Node#add`
@@ -1263,6 +1267,7 @@ Most of these help with the gem's overall performance.
 [github_pull_83]: https://github.com/gonzedge/rambling-trie/pull/83
 [github_pull_85]: https://github.com/gonzedge/rambling-trie/pull/85
 [github_pull_86]: https://github.com/gonzedge/rambling-trie/pull/86
+[github_pull_87]: https://github.com/gonzedge/rambling-trie/pull/87
 [github_user_agate]: https://github.com/agate
 [github_user_as181920]: https://github.com/as181920
 [github_user_godsent]: https://github.com/godsent
