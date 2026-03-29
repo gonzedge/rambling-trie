@@ -30,7 +30,7 @@ module Rambling
 
             entry_name = entry.name
             entry_path = path entry_name
-            entry.extract entry_path
+            entry.extract ::File.basename(entry_path), destination_directory: tmp_path
 
             serializer = serializers.resolve entry_name
             raise unless serializer
@@ -48,7 +48,7 @@ module Rambling
         def dump contents, filepath
           require 'zip'
 
-          ::Zip::File.open filepath, ::Zip::File::CREATE do |zip|
+          ::Zip::File.open filepath, create: true do |zip|
             filename = ::File.basename filepath, '.zip'
 
             entry_path = path filename
