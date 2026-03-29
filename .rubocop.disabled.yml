@@ -38,6 +38,9 @@ Layout/MultilineAssignmentLayout:
 #   Description: 'Checks unsafe usage of number conversion methods.'
 #   Enabled: false
 
+RSpec/LeakyLocalVariable: # new in 3.8
+  Enabled: false
+
 Style/AutoResourceCleanup:
   Description: 'Suggests the usage of an auto resource cleanup version of a method (if available).'
   Enabled: false

@@ -1,5 +1,5 @@
 # These are all the cops that are enabled in the default configuration.
-require:
+plugins:
   - rubocop-performance
   - rubocop-rake
   - rubocop-rspec
@@ -62,6 +62,8 @@ Gemspec/DevelopmentDependencies: # new in 1.44
 Gemspec/RequireMFA: # new in 1.23
   Enabled: true
 Gemspec/AddRuntimeDependency: # new in 1.65
+  Enabled: true
+Gemspec/AttributeAssignment: # new in 1.77
   Enabled: true
 
 #################### Layout ###############################
@@ -420,6 +422,8 @@ Layout/LineContinuationSpacing: # new in 1.31
 Layout/LineEndStringConcatenationIndentation: # new in 1.18
   Enabled: true
 Layout/SpaceBeforeBrackets: # new in 1.7
+  Enabled: true
+Layout/EmptyLinesAfterModuleInclusion: # new in 1.79
   Enabled: true
 
 #################### Lint ##################################
@@ -858,6 +862,28 @@ Lint/UselessDefined: # new in 1.69
   Enabled: true
 Lint/UselessNumericOperation: # new in 1.66
   Enabled: true
+Lint/ArrayLiteralInRegexp: # new in 1.71
+  Enabled: true
+Lint/ConstantReassignment: # new in 1.70
+  Enabled: true
+Lint/CopDirectiveSyntax: # new in 1.72
+  Enabled: true
+Lint/DataDefineOverride: # new in 1.85
+  Enabled: true
+Lint/RedundantTypeConversion: # new in 1.72
+  Enabled: true
+Lint/SharedMutableDefault: # new in 1.70
+  Enabled: true
+Lint/SuppressedExceptionInNumberConversion: # new in 1.72
+  Enabled: true
+Lint/UnreachablePatternBranch: # new in 1.85
+  Enabled: true
+Lint/UselessConstantScoping: # new in 1.72
+  Enabled: true
+Lint/UselessDefaultValueArgument: # new in 1.76
+  Enabled: true
+Lint/UselessOr: # new in 1.76
+  Enabled: true
 
 #################### Metrics ###############################
 
@@ -962,7 +988,7 @@ Naming/MethodName:
   StyleGuide: '#snake-case-symbols-methods-vars'
   Enabled: true
 
-Naming/PredicateName:
+Naming/PredicatePrefix:
   Description: 'Check the names of predicate methods.'
   StyleGuide: '#bool-methods-qmark'
   Enabled: true
@@ -989,6 +1015,8 @@ Naming/VariableNumber:
   Enabled: true
 
 Naming/BlockForwarding: # new in 1.24
+  Enabled: true
+Naming/PredicateMethod: # new in 1.76
   Enabled: true
 
 #################### Performance ###########################
@@ -1198,6 +1226,8 @@ Performance/MapMethodChain: # new in 1.19
   Enabled: true
 Performance/StringBytesize: # new in 1.23
   Enabled: true
+Performance/ZipWithoutBlock: # new in 1.24
+  Enabled: true
 
 #####################  RSpec ###############################
 
@@ -1233,9 +1263,11 @@ RSpec/SortMetadata: # new in 2.14
   Enabled: true
 RSpec/SubjectDeclaration: # new in 2.5
   Enabled: true
-RSpec/VerifiedDoubleReference: # new in 2.10.0
+RSpec/VerifiedDoubleReference: # new in 2.10.0, replaces RSpec/StringAsInstanceDoubleConstant (removed in 3.x)
   Enabled: true
-RSpec/StringAsInstanceDoubleConstant: # new in 3.1
+RSpec/IncludeExamples: # new in 3.6
+  Enabled: true
+RSpec/Output: # new in 3.9
   Enabled: true
 
 #################### Security ##############################
@@ -2141,4 +2173,54 @@ Style/SuperArguments: # new in 1.64
 Style/SuperWithArgsParentheses: # new in 1.58
   Enabled: true
 Style/YAMLFileRead: # new in 1.53
+  Enabled: true
+Style/ArrayIntersectWithSingleElement: # new in 1.81
+  Enabled: true
+Style/CollectionQuerying: # new in 1.77
+  Enabled: true
+Style/ComparableBetween: # new in 1.74
+  Enabled: true
+Style/EmptyClassDefinition: # new in 1.84
+  Enabled: true
+Style/EmptyStringInsideInterpolation: # new in 1.76
+  Enabled: true
+Style/FileOpen: # new in 1.85
+  Enabled: true
+Style/HashFetchChain: # new in 1.75
+  Enabled: true
+Style/HashSlice: # new in 1.71
+  Enabled: true
+Style/ItAssignment: # new in 1.70
+  Enabled: true
+Style/ItBlockParameter: # new in 1.75
+  Enabled: true
+Style/MapJoin: # new in 1.85
+  Enabled: true
+Style/ModuleMemberExistenceCheck: # new in 1.82
+  Enabled: true
+Style/NegativeArrayIndex: # new in 1.84
+  Enabled: true
+Style/OneClassPerFile: # new in 1.85
+  Enabled: true
+Style/PartitionInsteadOfDoubleSelect: # new in 1.85
+  Enabled: true
+Style/PredicateWithKind: # new in 1.85
+  Enabled: true
+Style/ReduceToHash: # new in 1.85
+  Enabled: true
+Style/RedundantArrayFlatten: # new in 1.76
+  Enabled: true
+Style/RedundantFormat: # new in 1.72
+  Enabled: true
+Style/RedundantMinMaxBy: # new in 1.85
+  Enabled: true
+Style/RedundantStructKeywordInit: # new in 1.85
+  Enabled: true
+Style/ReverseFind: # new in 1.84
+  Enabled: true
+Style/SelectByKind: # new in 1.85
+  Enabled: true
+Style/SelectByRange: # new in 1.85
+  Enabled: true
+Style/TallyMethod: # new in 1.85
   Enabled: true
