@@ -6,6 +6,9 @@
 
 #### Major
 
+- Update `Serializers::Zip` to work with `rubyzip` `3.x` ([#88][github_pull_88]) by [@gonzedge][github_user_gonzedge]
+  - Use `create:` keyword argument for `Zip::File.open`
+  - Use `destination_directory:` keyword argument for `Entry#extract`
 - Allow `Nodes::Node`s to hold arbitrary values ([#85][github_pull_85]) by [@gonzedge][github_user_gonzedge]
   - Add `value` attribute to `Nodes::Node`
   - Add optional, nilable `value` argument to `Container#add`, `Nodes::Node#add`
@@ -1263,6 +1266,7 @@ Most of these help with the gem's overall performance.
 [github_pull_83]: https://github.com/gonzedge/rambling-trie/pull/83
 [github_pull_85]: https://github.com/gonzedge/rambling-trie/pull/85
 [github_pull_86]: https://github.com/gonzedge/rambling-trie/pull/86
+[github_pull_88]: https://github.com/gonzedge/rambling-trie/pull/88
 [github_user_agate]: https://github.com/agate
 [github_user_as181920]: https://github.com/as181920
 [github_user_godsent]: https://github.com/godsent
