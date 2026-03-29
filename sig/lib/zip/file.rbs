@@ -1,8 +1,6 @@
 module Zip
   class File
-    CREATE: bool
-
-    def self.open: [TContent] (String, ?bool?) { (File) -> TContent } -> TContent
+    def self.open: [TContent] (String, ?create: bool?) { (File) -> TContent } -> TContent
 
     def entries: -> Array[Entry]
 
