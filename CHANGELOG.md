@@ -6,9 +6,6 @@
 
 #### Major
 
-- Update `Serializers::Zip` to work with `rubyzip` `3.x` ([#88][github_pull_88]) by [@gonzedge][github_user_gonzedge]
-  - Use `create:` keyword argument for `Zip::File.open`
-  - Use `destination_directory:` keyword argument for `Entry#extract`
 - Allow `Nodes::Node`s to hold arbitrary values ([#85][github_pull_85]) by [@gonzedge][github_user_gonzedge]
   - Add `value` attribute to `Nodes::Node`
   - Add optional, nilable `value` argument to `Container#add`, `Nodes::Node#add`
@@ -18,6 +15,13 @@
   - Add optional `values` array argument to `Container#concat` corresponding 1:1 to `words`, that passes each word and
     value to `#add` when present
   - Add `value` to `Inspectable#inspect` output, when present
+- Update `Serializers::Zip` to work with `rubyzip` `3.x` ([#88][github_pull_88]) by [@gonzedge][github_user_gonzedge]
+  - Use `create:` keyword argument for `Zip::File.open`
+  - Use `destination_directory:` keyword argument for `Entry#extract`
+- Add explicit support for Ruby `3.4.x` and remove support for `3.1.x` (EOL'd) ([#87][github_pull_87])
+  by [@gonzedge][github_user_gonzedge]
+  - Update min supported version to `3.2.0`
+  - Update `rubocop` target version to `3.2.0`
 
 ### Minor
 
@@ -1282,6 +1286,7 @@ Most of these help with the gem's overall performance.
 [github_pull_83]: https://github.com/gonzedge/rambling-trie/pull/83
 [github_pull_85]: https://github.com/gonzedge/rambling-trie/pull/85
 [github_pull_86]: https://github.com/gonzedge/rambling-trie/pull/86
+[github_pull_87]: https://github.com/gonzedge/rambling-trie/pull/87
 [github_pull_88]: https://github.com/gonzedge/rambling-trie/pull/88
 [github_user_agate]: https://github.com/agate
 [github_user_as181920]: https://github.com/as181920
