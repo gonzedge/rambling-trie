@@ -86,7 +86,7 @@ jobs:
         with:
           ruby-version: 3.4.9
           bundler-cache: true
-      - name: Report rspec test coverage to coveralls.io
-        env:
-          COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
+      - name: Run rspec with test coverage
         run: bundle exec rake spec
+      - name: Report test coverage to coveralls.io
+        uses: coverallsapp/github-action@v2
