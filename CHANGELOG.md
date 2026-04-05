@@ -6,6 +6,9 @@
 
 #### Major
 
+- Update `Serializers::Zip` to work with `rubyzip` `3.x` ([#88][github_pull_88]) by [@gonzedge][github_user_gonzedge]
+  - Use `create:` keyword argument for `Zip::File.open`
+  - Use `destination_directory:` keyword argument for `Entry#extract`
 - Allow `Nodes::Node`s to hold arbitrary values ([#85][github_pull_85]) by [@gonzedge][github_user_gonzedge]
   - Add `value` attribute to `Nodes::Node`
   - Add optional, nilable `value` argument to `Container#add`, `Nodes::Node#add`
@@ -38,6 +41,14 @@
 - Add type signature information to `README` ([#86][github_pull_86]) by [@gonzedge][github_user_gonzedge]
   - Add `asdf` as an option to manage ruby versions
   - Use `./<path>` for links within repo
+- Update `rubyzip` type signatures ([#88][github_pull_88]) by [@gonzedge][github_user_gonzedge]
+  - Change `ProviderCollection#[]` to return `TProvider` (non-nil, matching `Hash#[]` RBS pragmatism)
+  - Use `steep:ignore` for `yield container` calls where steep cannot unify generic type variables across method
+    boundaries
+- Update `rubocop` extensions, cops and configuration by [@gonzedge][github_user_gonzedge]
+- Remove unused CI integrations by [@gonzedge][github_user_gonzedge]
+  - Remove Semaphore CI configuration
+  - Remove CodeClimate test reporter step from GitHub Actions workflow
 
 ## 2.5.1 [compare][compare_v2_5_0_and_v2_5_1]
 
@@ -55,7 +66,8 @@
 
   For performance improvements in `Rambling::Trie#create`. Now ≈7% faster.
 
-- Use `Array#slice(i, slice_size)` instead `Array#slice(i..j)` for `Container#words_within` ([#71][github_pull_71]) by [@gonzedge][github_user_gonzedge]
+- Use `Array#slice(i, slice_size)` instead `Array#slice(i..j)` for `Container#words_within` ([#71][github_pull_71])
+  by [@gonzedge][github_user_gonzedge]
 
   For performance improvements in `Container#words_within` lookups, particularly for compressed tries. Now ≈7% faster.
 - _As part of Reek addition ([#67][github_pull_67])_
@@ -93,7 +105,8 @@
   - Rename `lint` => `lint-rubocop`
   - Bump lint and coverage ruby versions to `3.3.6`
 
-- Ensure `rbs` type signatures are included with the gem on release ([#77][github_pull_77]) by [@gonzedge][github_user_gonzedge]
+- Ensure `rbs` type signatures are included with the gem on release ([#77][github_pull_77])
+  by [@gonzedge][github_user_gonzedge]
 
 #### Minor
 
@@ -139,7 +152,8 @@
       ```
      so that it doesn't interfere with benchmark calculations.
 
-- Add GC-free benchmark reports for versions back to `v2.1.1` ([#82][github_pull_82]) by [@gonzedge][github_user_gonzedge]
+- Add GC-free benchmark reports for versions back to `v2.1.1` ([#82][github_pull_82])
+  by [@gonzedge][github_user_gonzedge]
 
   Use:
   - ruby `3.3.6` for rambling-trie `2.5.0`, `2.4.0`, `2.3.1`, `2.3.0`
@@ -156,7 +170,8 @@
 #### Major
 
 - Add explicit support for Ruby `3.3.x` ([#56][github_pull_56]) by [@gonzedge][github_user_gonzedge]
-- Fix missing params for enumerator for `Readers::PlainText` ([#59][github_pull_59]) by [@gonzedge][github_user_gonzedge]
+- Fix missing params for enumerator for `Readers::PlainText` ([#59][github_pull_59])
+  by [@gonzedge][github_user_gonzedge]
 - Add `Container#push` to mirror `Array#push` interface ([#60][github_pull_60]) by [@gonzedge][github_user_gonzedge]
 - Ensure only non-root nodes are marked as terminal ([#63][github_pull_63]) by [@gonzedge][github_user_gonzedge]
 - Ensure self is returned during call to `Nodes::Raw#add` ([#64][github_pull_64]) by [@gonzedge][github_user_gonzedge]
@@ -211,14 +226,16 @@
   `run_all_when_everything_filtered` ([#43][github_pull_43]) by [@gonzedge][github_user_gonzedge]
   - Explicitly assert any new `Node` is not a `#word?` by default after initialization
   - Remove unnecessary parens from let definitions in specs
-- Update `CallTreeProfiler` to use new `RubyProf::Profiler` format ([#46][github_pull_46]) by [@gonzedge][github_user_gonzedge]
+- Update `CallTreeProfiler` to use new `RubyProf::Profiler` format ([#46][github_pull_46])
+  by [@gonzedge][github_user_gonzedge]
 
   Plus:
   - More accurate `pop`/`shift`/`slice!` reporting
   - Only require `benchmark/ips` when necessary
   - One-liner blocks
 
-- Add version specs to ensure `README/CHANGELOG` update before release ([#47][github_pull_47]) by [@gonzedge][github_user_gonzedge]
+- Add version specs to ensure `README/CHANGELOG` update before release ([#47][github_pull_47])
+  by [@gonzedge][github_user_gonzedge]
 - Exclude `spec/` from `simplecov` coverage ([#48][github_pull_48]) by [@gonzedge][github_user_gonzedge]
 
   ... by using the same filter as we use for `Coveralls.wear!`
@@ -246,7 +263,8 @@
 
 - Fix `Rambling::Trie.load` docs in README by [@gonzedge][github_user_gonzedge]
 - Destructure args hash before passing to performance rake task by [@gonzedge][github_user_gonzedge]
-- Ensure all serializer `#dump` methods return the size of the file ([#36][github_pull_36]) by [@gonzedge][github_user_gonzedge]
+- Ensure all serializer `#dump` methods return the size of the file ([#36][github_pull_36])
+  by [@gonzedge][github_user_gonzedge]
   - Add test in `a serializer` shared examples
   - Implement method for `Rambling::Trie::Serializers::Zip`
 - Ensure `#each`/`#each_word` return `Enumerator`/`self` ([#37][github_pull_37]) by [@gonzedge][github_user_gonzedge]
@@ -331,7 +349,8 @@
 
 #### Minor
 
-- Add block to `Coveralls.wear!` to prevent `SimpleCove.start` being called twice by [@KitaitiMakoto][github_user_kitaitimakoto]
+- Add block to `Coveralls.wear!` to prevent `SimpleCove.start` being called twice
+  by [@KitaitiMakoto][github_user_kitaitimakoto]
 - Use new `coveralls_reborn` to support new ruby by [@agate][github_user_agate]
 
 ## 2.2.1 [compare][compare_v2_2_0_and_v2_2_1]
@@ -1263,6 +1282,7 @@ Most of these help with the gem's overall performance.
 [github_pull_83]: https://github.com/gonzedge/rambling-trie/pull/83
 [github_pull_85]: https://github.com/gonzedge/rambling-trie/pull/85
 [github_pull_86]: https://github.com/gonzedge/rambling-trie/pull/86
+[github_pull_88]: https://github.com/gonzedge/rambling-trie/pull/88
 [github_user_agate]: https://github.com/agate
 [github_user_as181920]: https://github.com/as181920
 [github_user_godsent]: https://github.com/godsent

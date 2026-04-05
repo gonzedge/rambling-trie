@@ -181,7 +181,7 @@ trie.all? { |word| word.include? 'x' }
 
 ### Serialization
 
-Starting from version 1.0.0, you can store a full trie instance on disk and retrieve/use it later on. Loading a trie
+Starting from version `1.0.0`, you can store a full trie instance on disk and retrieve/use it later on. Loading a trie
 from disk takes less time, less cpu and less memory than loading every word into the trie every time. This is
 particularly useful for production applications, when you have word lists that you know are going to be static, or that
 change with little frequency.
@@ -205,22 +205,29 @@ Currently, these formats are supported to store tries on disk:
 
 * Ruby's [binary (Marshal)][marshal] format
 * [YAML][yaml]
+* Zip version of any other format ([optional `rubyzip` dependency](#optional-rubyzip-dependency))
 
-> When dumping into or loading from disk, the format is determined
-> automatically based on the file extension, so `.yml` or `.yaml` files will be
-> handled through `YAML` and `.marshal` files through `Marshal`.
+> When dumping into or loading from disk, the format is determined automatically based on the file extension, so `.yml`
+> or `.yaml` files will be handled through `YAML` and `.marshal` files through `Marshal`.
 
-Optionally, you can use a `.zip` version of the supported formats. In order to do so, you'll have to install
-the [`rubyzip`][rubyzip] gem:
+##### Optional `rubyzip` dependency
+
+Compressed versions of all other [supported formats](#supported-formats) are available via the [`rubyzip`][rubyzip] gem.
+This is an optional dependency.
+
+> ⚠️ Rambling Trie `2.6.0` and above support `rubyzip` `3.x` only.
+> For `rubyzip` `2.x` support, use Rambling Trie `2.5.1` and below.
 
 ```shell
 gem install rubyzip
+# or gem install rubyzip --version '<3` for 2.x
 ```
 
 Or, include it in your `Gemfile` and bundle it:
 
 ```ruby
 gem 'rubyzip'
+# or gem 'rubyzip', '<3' for 2.x
 ```
 
 Then, you can load contents form a `.zip` file like this:
