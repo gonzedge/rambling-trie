@@ -28,7 +28,7 @@ module Rambling
         end
 
         it 'returns the enumerable when a block is given' do
-          expect(node.each { |word| print word }).to eq node
+          expect(node.each(&:to_s)).to eq node
         end
       end
 

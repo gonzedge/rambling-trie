@@ -28,7 +28,7 @@ module Rambling
             (reader || raise).each_word(filepath) { |word| container << word }
           end
 
-          yield container if block_given?
+          yield container if block_given? # steep:ignore
         end
       end
 
@@ -47,7 +47,7 @@ module Rambling
         serializer ||= serializers.resolve filepath
         root = (serializer || raise).load filepath
         Rambling::Trie::Container.new root, compressor do |container|
-          yield container if block_given?
+          yield container if block_given? # steep:ignore
         end
       end
 

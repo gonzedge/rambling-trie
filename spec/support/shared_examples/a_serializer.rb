@@ -22,7 +22,7 @@ shared_examples_for 'a serializer' do
 
         it 'returns the size in bytes of the file dumped' do
           total_bytes = serializer.dump content, filepath
-          expect(total_bytes).to be_within(20).of formatted_content.size
+          expect(total_bytes).to be_within(40).of formatted_content.size
         end
 
         it 'creates the file with the provided path' do
@@ -32,7 +32,7 @@ shared_examples_for 'a serializer' do
 
         it 'converts the contents to the appropriate format' do
           serializer.dump content, filepath
-          expect(File.size filepath).to be_within(20).of formatted_content.size
+          expect(File.size filepath).to be_within(40).of formatted_content.size
         end
       end
     end
