@@ -9,9 +9,6 @@
 [![Documentation Status][inch_ci_badge]][rubydoc]
 [![CodeQL Status][github_action_codeql_badge]][github_action_codeql_link]
 
-[![Code Climate Grade][code_climate_grade_badge]][code_climate_link]
-[![Code Climate Issue Count][code_climate_issues_badge]][code_climate_link]
-
 The Rambling Trie is a Ruby implementation of the [trie data structure][trie_wiki], which includes compression abilities
 and is designed to be very fast to traverse.
 
