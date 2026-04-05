@@ -18,6 +18,7 @@ group :test do
 end
 
 group :local do
+  gem 'benchmark', require: false
   gem 'benchmark-ips', require: false
   gem 'flamegraph', require: false
   gem 'flog', require: false
@@ -26,6 +27,7 @@ group :local do
   gem 'guard-rspec', require: false
   gem 'guard-rubocop', require: false
   gem 'guard-yard', require: false
+  gem 'irb', require: false
   gem 'mdl', require: false
   gem 'memory_profiler', require: false
   gem 'pry', require: false

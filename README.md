@@ -9,9 +9,6 @@
 [![Documentation Status][inch_ci_badge]][rubydoc]
 [![CodeQL Status][github_action_codeql_badge]][github_action_codeql_link]
 
-[![Code Climate Grade][code_climate_grade_badge]][code_climate_link]
-[![Code Climate Issue Count][code_climate_issues_badge]][code_climate_link]
-
 The Rambling Trie is a Ruby implementation of the [trie data structure][trie_wiki], which includes compression abilities
 and is designed to be very fast to traverse.
 
@@ -21,7 +18,7 @@ and is designed to be very fast to traverse.
 
 You will need:
 
-* Ruby 3.1.0 or up
+* Ruby 3.2.0 or up
 * RubyGems
 
 See [asdf][asdf], [RVM][rvm], [rbenv][rbenv] or [chruby][chruby] for more information on how to manage Ruby versions.
@@ -280,12 +277,14 @@ want edge documentation, you can go the [GitHub project RubyDoc.info page][rubyd
 
 The Rambling Trie has been tested with the following Ruby versions:
 
+* 4.0.x
+* 3.4.x
 * 3.3.x
 * 3.2.x
-* 3.1.x
 
 **No longer supported**:
 
+* 3.1.x (EOL'ed)
 * 3.0.x (EOL'ed)
 * 2.7.x (EOL'ed)
 * 2.6.x (EOL'ed)
