@@ -18,8 +18,10 @@
 - Update `Serializers::Zip` to work with `rubyzip` `3.x` ([#88][github_pull_88]) by [@gonzedge][github_user_gonzedge]
   - Use `create:` keyword argument for `Zip::File.open`
   - Use `destination_directory:` keyword argument for `Entry#extract`
-- Add explicit support for Ruby `3.4.x` and remove support for `3.1.x` (EOL'd) ([#87][github_pull_87])
+- Add explicit support for Ruby `4.0.x` and `3.4.x`; drop support for `3.1.x` (EOL'd) ([#87][github_pull_87])
   by [@gonzedge][github_user_gonzedge]
+  - Update max ruby version to `< 5` in gemspec
+  - Add now-non-stdlib gems `benchmark` and `irb`
   - Update min supported version to `3.2.0`
   - Update `rubocop` target version to `3.2.0`
 
