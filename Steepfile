@@ -13,7 +13,9 @@ target :lib do
   # check 'Rakefile'
   # check 'Steepfile'
 
-  # library 'rubyzip'
+  library 'rubyzip'
+  library 'rake'
+  library 'rake'
   library 'yaml'
   library 'securerandom'
 
