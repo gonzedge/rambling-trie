@@ -24,6 +24,8 @@ module Rambling
         def load filepath
           require 'zip'
 
+          entry_path = nil
+
           ::Zip::File.open filepath do |zip|
             entry = zip.entries.first
             raise unless entry
@@ -36,6 +38,8 @@ module Rambling
             raise unless serializer
 
             serializer.load entry_path
+          ensure
+            ::File.delete entry_path if entry_path && ::File.exist?(entry_path)
           end
         end
 
@@ -48,17 +52,23 @@ module Rambling
         def dump contents, filepath
           require 'zip'
 
-          ::Zip::File.open filepath, create: true do |zip|
-            filename = ::File.basename filepath, '.zip'
+          entry_path = nil
 
-            entry_path = path filename
-            serializer = serializers.resolve filename
+          begin
+            ::Zip::File.open filepath, create: true do |zip|
+              filename = ::File.basename filepath, '.zip'
 
-            raise unless serializer
+              entry_path = path filename
+              serializer = serializers.resolve filename
 
-            serializer.dump contents, entry_path
+              raise unless serializer
 
-            zip.add filename, entry_path
+              serializer.dump contents, entry_path
+
+              zip.add filename, entry_path
+            end
+          ensure
+            ::File.delete entry_path if entry_path && ::File.exist?(entry_path)
           end
 
           ::File.size filepath
