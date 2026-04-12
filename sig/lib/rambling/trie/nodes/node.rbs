@@ -1,7 +1,7 @@
 module Rambling
   module Trie
     module Nodes
-      class Node[TValue < _Inspect & _Nilable]
+      class Node[TValue < BasicObject & _Inspect & _Nilable]
         include Compressible[TValue]
         include Enumerable[TValue]
         include Comparable[TValue]

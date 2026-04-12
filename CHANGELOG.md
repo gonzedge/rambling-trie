@@ -12,18 +12,22 @@
   by [@gonzedge][github_user_gonzedge]
   - Use `value.nil?` instead of `if value` guard
   - Add `_Nilable` to `TValue` constraint across all RBS type signatures
+- Take `value` into account during `Comparable#==` ([#94][github_pull_94])
+  by [@gonzedge][github_user_gonzedge]
+  - Add `value` comparison to `Comparable#==`
+  - Add `BasicObject` to `TValue` constraint across all RBS type signatures to allow equality checks
 
 #### Minor
 
-- Replace shared `Enumerable::EMPTY_ENUMERATOR` constant with `#empty_enum` method ([#93][github_pull_93])
-  by [@gonzedge][github_user_gonzedge]
-  - Fixes `Ruby::UnannotatedEmptyCollection` steep error on empty array literal
-  - Extract `Nodes::Compressed#match_child_prefix` to satisfy `Metrics/AbcSize`
 - Add `rbs-collection` for gem dependency signatures ([#90][github_pull_90]) by [@gonzedge][github_user_gonzedge]
   - Add `rbs_collection.yaml` with gem type definitions
   - Update `Steepfile` to use rbs collection
   - Add `rbs collection update` step to lint CI job
   - Remove now-unnecessary `#noinspection` comments
+- Replace shared `Enumerable::EMPTY_ENUMERATOR` constant with `#empty_enum` method ([#93][github_pull_93])
+  by [@gonzedge][github_user_gonzedge]
+  - Fixes `Ruby::UnannotatedEmptyCollection` steep error on empty array literal
+  - Extract `Nodes::Compressed#match_child_prefix` to satisfy `Metrics/AbcSize`
 
 ## 2.6.0 [compare][compare_v2_5_1_and_v2_6_0]
 
@@ -1320,6 +1324,7 @@ Most of these help with the gem's overall performance.
 [github_pull_91]: https://github.com/gonzedge/rambling-trie/pull/91
 [github_pull_92]: https://github.com/gonzedge/rambling-trie/pull/92
 [github_pull_93]: https://github.com/gonzedge/rambling-trie/pull/93
+[github_pull_94]: https://github.com/gonzedge/rambling-trie/pull/94
 [github_user_agate]: https://github.com/agate
 [github_user_as181920]: https://github.com/as181920
 [github_user_godsent]: https://github.com/godsent

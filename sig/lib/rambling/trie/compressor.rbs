@@ -1,6 +1,6 @@
 module Rambling
   module Trie
-    class Compressor[TValue < _Inspect & _Nilable]
+    class Compressor[TValue < BasicObject & _Inspect & _Nilable]
       def compress: (Nodes::Node[TValue]?) -> Nodes::Compressed[TValue]?
 
       private

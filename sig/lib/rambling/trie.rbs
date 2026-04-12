@@ -2,24 +2,24 @@ module Rambling
   module Trie
     VERSION: String
 
-    def self.create: [TValue < _Inspect & _Nilable] (?String?, ?Readers::Reader?) ?{ (Container[TValue]) -> void } -> Container[TValue]
+    def self.create: [TValue < BasicObject & _Inspect & _Nilable] (?String?, ?Readers::Reader?) ?{ (Container[TValue]) -> void } -> Container[TValue]
 
-    def self.load: [TValue < _Inspect & _Nilable] (String, ?Serializers::Serializer[Nodes::Node[TValue]]?) ?{ (Container[TValue]) -> void } -> Container[TValue]
+    def self.load: [TValue < BasicObject & _Inspect & _Nilable] (String, ?Serializers::Serializer[Nodes::Node[TValue]]?) ?{ (Container[TValue]) -> void } -> Container[TValue]
 
-    def self.dump: [TValue < _Inspect & _Nilable] (Container[TValue], String, ?Serializers::Serializer[Nodes::Node[TValue]]?) -> void
+    def self.dump: [TValue < BasicObject & _Inspect & _Nilable] (Container[TValue], String, ?Serializers::Serializer[Nodes::Node[TValue]]?) -> void
 
-    def self.config: [TValue < _Inspect & _Nilable] ?{ (Configuration::Properties[TValue]) -> void } -> Configuration::Properties[TValue]
+    def self.config: [TValue < BasicObject & _Inspect & _Nilable] ?{ (Configuration::Properties[TValue]) -> void } -> Configuration::Properties[TValue]
 
     private
 
-    def self.properties: [TValue < _Inspect & _Nilable] -> Configuration::Properties[TValue]
+    def self.properties: [TValue < BasicObject & _Inspect & _Nilable] -> Configuration::Properties[TValue]
 
     def self.readers: -> Configuration::ProviderCollection[Readers::Reader]
 
-    def self.serializers: [TValue < _Inspect & _Nilable] -> Configuration::ProviderCollection[Serializers::Serializer[Nodes::Node[TValue]]]
+    def self.serializers: [TValue < BasicObject & _Inspect & _Nilable] -> Configuration::ProviderCollection[Serializers::Serializer[Nodes::Node[TValue]]]
 
-    def self.compressor: [TValue < _Inspect & _Nilable] -> Compressor[TValue]
+    def self.compressor: [TValue < BasicObject & _Inspect & _Nilable] -> Compressor[TValue]
 
-    def self.root_builder: [TValue < _Inspect & _Nilable] -> ^() -> Nodes::Node[TValue]
+    def self.root_builder: [TValue < BasicObject & _Inspect & _Nilable] -> ^() -> Nodes::Node[TValue]
   end
 end

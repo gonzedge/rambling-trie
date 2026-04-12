@@ -1,6 +1,6 @@
 module Rambling
   module Trie
-    module Compressible[TValue < _Inspect & _Nilable]
+    module Compressible[TValue < BasicObject & _Inspect & _Nilable]
       def compressible?: -> bool
 
       private
