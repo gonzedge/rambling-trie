@@ -2,6 +2,16 @@
 
 ## 2.6.1 (in development) [compare][compare_v2_6_0_and_main]
 
+### Enhancements
+
+#### Minor
+
+- Add `rbs-collection` for gem dependency signatures ([#90][github_pull_90]) by [@gonzedge][github_user_gonzedge]
+  - Add `rbs_collection.yaml` with gem type definitions
+  - Update `Steepfile` to use rbs collection
+  - Add `rbs collection update` step to lint CI job
+  - Remove now-unnecessary `#noinspection` comments
+
 ## 2.6.0 [compare][compare_v2_5_1_and_v2_6_0]
 
 ### Enhancements
@@ -1293,6 +1303,7 @@ Most of these help with the gem's overall performance.
 [github_pull_86]: https://github.com/gonzedge/rambling-trie/pull/86
 [github_pull_87]: https://github.com/gonzedge/rambling-trie/pull/87
 [github_pull_88]: https://github.com/gonzedge/rambling-trie/pull/88
+[github_pull_90]: https://github.com/gonzedge/rambling-trie/pull/90
 [github_user_agate]: https://github.com/agate
 [github_user_as181920]: https://github.com/as181920
 [github_user_godsent]: https://github.com/godsent
