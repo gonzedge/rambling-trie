@@ -21,6 +21,8 @@ jobs:
         with:
           ruby-version: 4.0.2
           bundler-cache: true
+      - name: Set up rbs collection
+        run: bundle exec rbs collection update
       - name: Run rbs + steep
         run: bundle exec rake steep
       - name: Run reek
