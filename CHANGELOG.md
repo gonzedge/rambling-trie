@@ -15,6 +15,10 @@
 
 #### Minor
 
+- Replace shared `Enumerable::EMPTY_ENUMERATOR` constant with `#empty_enum` method ([#93][github_pull_93])
+  by [@gonzedge][github_user_gonzedge]
+  - Fixes `Ruby::UnannotatedEmptyCollection` steep error on empty array literal
+  - Extract `Nodes::Compressed#match_child_prefix` to satisfy `Metrics/AbcSize`
 - Add `rbs-collection` for gem dependency signatures ([#90][github_pull_90]) by [@gonzedge][github_user_gonzedge]
   - Add `rbs_collection.yaml` with gem type definitions
   - Update `Steepfile` to use rbs collection
@@ -1315,6 +1319,7 @@ Most of these help with the gem's overall performance.
 [github_pull_90]: https://github.com/gonzedge/rambling-trie/pull/90
 [github_pull_91]: https://github.com/gonzedge/rambling-trie/pull/91
 [github_pull_92]: https://github.com/gonzedge/rambling-trie/pull/92
+[github_pull_93]: https://github.com/gonzedge/rambling-trie/pull/93
 [github_user_agate]: https://github.com/agate
 [github_user_as181920]: https://github.com/as181920
 [github_user_godsent]: https://github.com/godsent
