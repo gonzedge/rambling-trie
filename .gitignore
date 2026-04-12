@@ -22,6 +22,10 @@ reports/
 .bundle
 pkg/
 
+# RBS
+.gem_rbs_collection/
+rbs_collection.lock.yaml
+
 # Yard
 doc/
 .yardoc/
