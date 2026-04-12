@@ -4,6 +4,11 @@
 
 ### Enhancements
 
+#### Major
+
+- Fix `Readers::PlainText` yielding `nil` for last word when file has no trailing newline ([#91][github_pull_91])
+  by [@gonzedge][github_user_gonzedge]
+
 #### Minor
 
 - Add `rbs-collection` for gem dependency signatures ([#90][github_pull_90]) by [@gonzedge][github_user_gonzedge]
@@ -1304,6 +1309,7 @@ Most of these help with the gem's overall performance.
 [github_pull_87]: https://github.com/gonzedge/rambling-trie/pull/87
 [github_pull_88]: https://github.com/gonzedge/rambling-trie/pull/88
 [github_pull_90]: https://github.com/gonzedge/rambling-trie/pull/90
+[github_pull_91]: https://github.com/gonzedge/rambling-trie/pull/91
 [github_user_agate]: https://github.com/agate
 [github_user_as181920]: https://github.com/as181920
 [github_user_godsent]: https://github.com/godsent
