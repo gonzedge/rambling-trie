@@ -14,6 +14,8 @@ module Rambling
 
         def children_match_prefix: (Array[String]) { (String) -> void } -> Enumerator[String, void]
 
+        def match_child_prefix: (Node[TValue], Array[String]) { (String) -> void } -> Enumerator[String, void]
+
         def partial_word_chars?: (Array[String]) -> bool
 
         def word_chars?: (Array[String]) -> bool

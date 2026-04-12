@@ -3,8 +3,6 @@ module Rambling
     module Enumerable[TValue < _Inspect & _Nilable]
       include ::Enumerable[String]
 
-      EMPTY_ENUMERATOR: Enumerator[String, void]
-
       alias size count
 
       def each: { (String) -> void } -> (Enumerator[String, void] | Enumerable[TValue])
@@ -14,6 +12,8 @@ module Rambling
       # abstract methods
 
       def as_word: -> String
+
+      def empty_enum: -> Enumerator[String, void]
 
       def terminal?: -> bool
 
