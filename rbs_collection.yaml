@@ -8,8 +8,8 @@ sources:
 
 path: .gem_rbs_collection
 
-# gems:
-#   - name: rubocop
-#     ignore: false
-#   - name: yard
-#     ignore: false
+gems:
+  - name: rake
+    version: 13.0
+  - name: rubyzip
+    version: 3.2
