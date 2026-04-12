@@ -1,7 +1,7 @@
 module Rambling
   module Trie
     module Nodes
-      class Raw[TValue < _Inspect & _Nilable] < Node[TValue]
+      class Raw[TValue < BasicObject & _Inspect & _Nilable] < Node[TValue]
         def add: (Array[Symbol], ?TValue?) -> Node[TValue]
 
         def compressed?: -> bool

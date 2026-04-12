@@ -1,6 +1,6 @@
 module Rambling
   module Trie
-    class Container[TValue < _Inspect & _Nilable]
+    class Container[TValue < BasicObject & _Inspect & _Nilable]
       include ::Enumerable[String]
 
       @compressor: Compressor[TValue]

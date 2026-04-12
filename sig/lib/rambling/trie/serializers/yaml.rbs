@@ -1,7 +1,7 @@
 module Rambling
   module Trie
     module Serializers
-      class Yaml[TValue < _Inspect & _Nilable] < Serializer[Nodes::Node[TValue]]
+      class Yaml[TValue < BasicObject & _Inspect & _Nilable] < Serializer[Nodes::Node[TValue]]
         @serializer: Serializer[String]
 
         private

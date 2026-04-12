@@ -1,6 +1,6 @@
 module Rambling
   module Trie
-    module Comparable[TValue < _Inspect & _Nilable]
+    module Comparable[TValue < BasicObject & _Inspect & _Nilable]
       def ==: (Nodes::Node[TValue]) -> bool
 
       private
@@ -8,6 +8,8 @@ module Rambling
       # abstract methods
 
       def letter: -> Symbol
+
+      def value: -> TValue
 
       def terminal?: -> bool
 

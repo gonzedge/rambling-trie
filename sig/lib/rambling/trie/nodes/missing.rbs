@@ -1,7 +1,7 @@
 module Rambling
   module Trie
     module Nodes
-      class Missing[TValue < _Inspect & _Nilable] < Node[TValue]
+      class Missing[TValue < BasicObject & _Inspect & _Nilable] < Node[TValue]
         def initialize: -> void
       end
     end

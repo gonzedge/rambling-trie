@@ -1,7 +1,7 @@
 module Rambling
   module Trie
     module Serializers
-      class Zip[TValue < _Inspect & _Nilable] < Serializer[Nodes::Node[TValue]]
+      class Zip[TValue < BasicObject & _Inspect & _Nilable] < Serializer[Nodes::Node[TValue]]
         @properties: Configuration::Properties[TValue]
 
         def initialize: (Configuration::Properties[TValue]) -> void
