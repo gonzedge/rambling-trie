@@ -1,6 +1,6 @@
 module Rambling
   module Trie
-    module Stringifyable[TValue < _Inspect]
+    module Stringifyable[TValue < _Inspect & _Nilable]
       def as_word: -> String
 
       def to_s: -> String

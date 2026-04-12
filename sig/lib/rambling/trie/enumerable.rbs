@@ -1,6 +1,6 @@
 module Rambling
   module Trie
-    module Enumerable[TValue < _Inspect]
+    module Enumerable[TValue < _Inspect & _Nilable]
       include ::Enumerable[String]
 
       EMPTY_ENUMERATOR: Enumerator[String, void]
