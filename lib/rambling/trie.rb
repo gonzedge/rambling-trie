@@ -24,7 +24,7 @@ module Rambling
           # noinspection RubyMismatchedArgumentType
           if filepath
             reader ||= readers.resolve filepath
-            # noinspection RubyMismatchedArgumentType,RubyNilAnalysis
+            # noinspection RubyMismatchedArgumentType
             (reader || raise).each_word(filepath) { |word| container << word }
           end
 
@@ -62,7 +62,6 @@ module Rambling
       # @see Serializers Serializers.
       def dump trie, filepath, serializer = nil
         serializer ||= serializers.resolve filepath
-        # noinspection RubyNilAnalysis
         (serializer || raise).dump trie.root, filepath
       end
 
