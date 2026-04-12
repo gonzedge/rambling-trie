@@ -66,3 +66,5 @@ detectors:
       # Rambling::Trie::Serializers::File are intentionally using ::File methods
       - 'Rambling::Trie::Serializers::File#dump'
       - 'Rambling::Trie::Serializers::File#load'
+      # Rambling::Trie::Enumerable is very utilitarian anyway
+      - 'Rambling::Trie::Enumerable#empty_enum'
