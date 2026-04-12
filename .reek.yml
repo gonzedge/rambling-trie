@@ -36,6 +36,8 @@ detectors:
   NilCheck:
     exclude:
       - 'Rambling::Trie::Configuration::ProviderCollection#contains?' # necessary for steep type check
+      - 'Rambling::Trie::Compressor#compress_children_and_copy' # necessary for steep type check
+      - 'Rambling::Trie::Compressor#merge' # necessary for steep type check
 
   TooManyMethods:
     exclude:

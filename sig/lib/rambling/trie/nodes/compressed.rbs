@@ -1,7 +1,7 @@
 module Rambling
   module Trie
     module Nodes
-      class Compressed[TValue < _Inspect] < Node[TValue]
+      class Compressed[TValue < _Inspect & _Nilable] < Node[TValue]
         def initialize: (?Symbol?, ?Node[TValue]?, ?Hash[Symbol, Node[TValue]]) -> void
 
         def add: (Array[Symbol], ?TValue) -> Node[TValue]

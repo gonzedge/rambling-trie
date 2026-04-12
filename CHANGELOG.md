@@ -8,6 +8,10 @@
 
 - Fix `Readers::PlainText` yielding `nil` for last word when file has no trailing newline ([#91][github_pull_91])
   by [@gonzedge][github_user_gonzedge]
+- Fix `Compressor` silently dropping `false` node values during compression ([#92][github_pull_92])
+  by [@gonzedge][github_user_gonzedge]
+  - Use `value.nil?` instead of `if value` guard
+  - Add `_Nilable` to `TValue` constraint across all RBS type signatures
 
 #### Minor
 
@@ -1310,6 +1314,7 @@ Most of these help with the gem's overall performance.
 [github_pull_88]: https://github.com/gonzedge/rambling-trie/pull/88
 [github_pull_90]: https://github.com/gonzedge/rambling-trie/pull/90
 [github_pull_91]: https://github.com/gonzedge/rambling-trie/pull/91
+[github_pull_92]: https://github.com/gonzedge/rambling-trie/pull/92
 [github_user_agate]: https://github.com/agate
 [github_user_as181920]: https://github.com/as181920
 [github_user_godsent]: https://github.com/godsent
