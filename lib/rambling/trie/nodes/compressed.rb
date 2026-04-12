@@ -94,6 +94,10 @@ module Rambling
           child = children_tree[(chars.first || raise).to_sym]
           return empty_enum unless child
 
+          match_child_prefix(child, chars) { |word| yield word }
+        end
+
+        def match_child_prefix child, chars
           child_letter = child.letter.to_s
           letter = (chars.shift(child_letter.size) || raise).join
 
