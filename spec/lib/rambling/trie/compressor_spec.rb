@@ -129,6 +129,27 @@ describe Rambling::Trie::Compressor do
         expect(compressed[:w][:s].value).to eq 1
       end
       # rubocop:enable RSpec/ExampleLength, RSpec/MultipleExpectations
+
+      it 'preserves false as a value in compressed terminal nodes' do
+        add_words node, %w(word), [false]
+        compressed = compressor.compress node
+
+        expect(compressed[:w].value).to be false
+      end
+
+      it 'preserves 0 as a value in compressed terminal nodes' do
+        add_words node, %w(word), [0]
+        compressed = compressor.compress node
+
+        expect(compressed[:w].value).to eq 0
+      end
+
+      it 'preserves empty string as a value in compressed terminal nodes' do
+        add_words node, %w(word), ['']
+        compressed = compressor.compress node
+
+        expect(compressed[:w].value).to eq ''
+      end
     end
   end
 end

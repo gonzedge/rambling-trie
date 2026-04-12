@@ -37,7 +37,7 @@ module Rambling
         if other.terminal?
           compressed.terminal!
           value = other.value
-          compressed.value = value if value
+          compressed.value = value unless value.nil?
         end
         compressed
       end
@@ -48,7 +48,7 @@ module Rambling
         if node.terminal?
           compressed.terminal!
           value = node.value
-          compressed.value = value if value
+          compressed.value = value unless value.nil?
         end
         compressed
       end
