@@ -49,6 +49,17 @@ module Rambling
       it 'includes #to_a from the core Enumerable module' do
         expect(node.to_a).to match_array words
       end
+
+      describe '#empty_enumerator' do
+        it 'returns independent objects for each empty match result' do
+          # rubocop:disable Lint/EmptyBlock
+          first  = node.empty_enum {}
+          second = node.empty_enum {}
+          # rubocop:enable Lint/EmptyBlock
+
+          expect(first).not_to be second
+        end
+      end
     end
   end
 end
