@@ -83,5 +83,52 @@ describe Rambling::Trie::Comparable do
         expect(node_one).not_to eq node_two
       end
     end
+
+    context 'when nodes are otherwise identical but have different values' do
+      before do
+        node_one.letter = :a
+        node_one.terminal!
+        node_one.value = 1
+
+        node_two.letter = :a
+        node_two.terminal!
+        node_two.value = 2
+      end
+
+      it 'returns false' do
+        expect(node_one).not_to eq node_two
+      end
+    end
+
+    context 'when nodes are identical including the same value' do
+      before do
+        node_one.letter = :a
+        node_one.terminal!
+        node_one.value = :same
+
+        node_two.letter = :a
+        node_two.terminal!
+        node_two.value = :same
+      end
+
+      it 'returns true' do
+        expect(node_one).to eq node_two
+      end
+    end
+
+    context 'when nodes have the same structure but one has a value and the other does not' do
+      before do
+        node_one.letter = :a
+        node_one.terminal!
+        node_one.value = 42
+
+        node_two.letter = :a
+        node_two.terminal!
+      end
+
+      it 'returns false' do
+        expect(node_one).not_to eq node_two
+      end
+    end
   end
 end

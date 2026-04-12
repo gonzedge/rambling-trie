@@ -11,6 +11,7 @@ module Rambling
       def == other
         letter == other.letter &&
           terminal? == other.terminal? &&
+          value == other.value &&
           children_tree == other.children_tree
       end
     end
