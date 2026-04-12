@@ -12,7 +12,10 @@ module Rambling
         def each_word filepath
           return enum_for :each_word, filepath unless block_given?
 
-          ::File.foreach(filepath) { |line| yield line.chomp! }
+          ::File.foreach(filepath) do |line|
+            line.chomp!
+            yield line
+          end
 
           self
         end

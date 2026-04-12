@@ -27,5 +27,16 @@ describe Rambling::Trie::Readers::PlainText do
     it 'iterates through all words in the given file' do
       expect(reader.each_word(filepath).to_a).to eq words
     end
+
+    context 'when the file has no trailing newline' do
+      let(:filepath) { File.join(SPEC_ROOT, 'assets', 'test_words.no_newline.txt') }
+      let(:words) { %w(hello world) }
+
+      it 'yields every word in the file, including the last one' do
+        yielded = []
+        reader.each_word(filepath) { |word| yielded << word }
+        expect(yielded).to eq words
+      end
+    end
   end
 end
