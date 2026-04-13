@@ -12,10 +12,12 @@
   by [@gonzedge][github_user_gonzedge]
   - Use `value.nil?` instead of `if value` guard
   - Add `_Nilable` to `TValue` constraint across all RBS type signatures
-- Take `value` into account during `Comparable#==` ([#94][github_pull_94])
-  by [@gonzedge][github_user_gonzedge]
+- Take `value` into account during `Comparable#==` ([#94][github_pull_94]) by [@gonzedge][github_user_gonzedge]
   - Add `value` comparison to `Comparable#==`
   - Add `BasicObject` to `TValue` constraint across all RBS type signatures to allow equality checks
+- Fix `Serializers::Zip#(load|dump)` leaking tmp files ([#95][github_pull_95]) by [@gonzedge][github_user_gonzedge]
+  - Add common `Serializer::Zip#clean_up_tmp_files` method
+  - Use `(serializers.resolve(filename) || raise).<method>` trick to reduce method sizes
 
 #### Minor
 
@@ -1325,6 +1327,7 @@ Most of these help with the gem's overall performance.
 [github_pull_92]: https://github.com/gonzedge/rambling-trie/pull/92
 [github_pull_93]: https://github.com/gonzedge/rambling-trie/pull/93
 [github_pull_94]: https://github.com/gonzedge/rambling-trie/pull/94
+[github_pull_95]: https://github.com/gonzedge/rambling-trie/pull/95
 [github_user_agate]: https://github.com/agate
 [github_user_as181920]: https://github.com/as181920
 [github_user_godsent]: https://github.com/godsent
