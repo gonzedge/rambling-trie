@@ -15,6 +15,8 @@ module Rambling
         def tmp_path: -> String
 
         def path: (String) -> String
+
+        def with_cleanup_paths: [T] { (Array[String]) -> T } -> T
       end
     end
   end

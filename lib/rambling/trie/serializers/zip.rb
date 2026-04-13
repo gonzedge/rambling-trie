@@ -24,21 +24,19 @@ module Rambling
         def load filepath
           require 'zip'
 
-          # @type var cleanup_paths: Array[String]
-          cleanup_paths = []
+          with_cleanup_paths do |cleanup_paths|
+            ::Zip::File.open filepath do |zip|
+              entry = zip.entries.first
+              raise unless entry
 
-          ::Zip::File.open filepath do |zip|
-            entry = zip.entries.first
-            raise unless entry
+              entry_name = entry.name
+              entry_path = path entry_name
+              cleanup_paths << entry_path
 
-            entry_name = entry.name
-            entry_path = path entry_name
-            cleanup_paths << entry_path
+              entry.extract ::File.basename(entry_path), destination_directory: tmp_path
 
-            entry.extract ::File.basename(entry_path), destination_directory: tmp_path
-            (serializers.resolve(entry_name) || raise).load entry_path
-          ensure
-            cleanup_paths.each { |path| ::FileUtils.rm_f path }
+              (serializers.resolve(entry_name) || raise).load entry_path
+            end
           end
         end
 
@@ -51,10 +49,7 @@ module Rambling
         def dump contents, filepath
           require 'zip'
 
-          # @type var cleanup_paths: Array[String]
-          cleanup_paths = []
-
-          begin
+          with_cleanup_paths do |cleanup_paths|
             ::Zip::File.open filepath, create: true do |zip|
               filename = ::File.basename filepath, '.zip'
 
@@ -64,8 +59,6 @@ module Rambling
               (serializers.resolve(filename) || raise).dump contents, entry_path
               zip.add filename, entry_path
             end
-          ensure
-            cleanup_paths.each { |path| ::FileUtils.rm_f path }
           end
 
           ::File.size filepath
@@ -86,6 +79,16 @@ module Rambling
         def path filename
           require 'securerandom'
           ::File.join tmp_path, "#{SecureRandom.uuid}-#{filename}"
+        end
+
+        def with_cleanup_paths
+          # @type var cleanup_paths: Array[String]
+          cleanup_paths = []
+          begin
+            yield cleanup_paths
+          ensure
+            cleanup_paths.each { |path| ::FileUtils.rm_f path }
+          end
         end
       end
     end
