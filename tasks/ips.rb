@@ -1,6 +1,10 @@
 # frozen_string_literal: true
 
 namespace :ips do
+  task :to_s_recursive_vs_iterative do
+    compare_to_s_recursive_vs_iterative
+  end
+
   task :assign_variable_vs_not do
     compare_assign_variable_vs_not
   end
@@ -75,6 +79,64 @@ def compare
     ::GC.enable
 
     bm.compare!
+  end
+end
+
+class Recursive
+  attr_reader :value, :parent, :child
+
+  def initialize value = 0, parent = nil
+    @value = value
+    @parent = parent
+  end
+
+  def add_child
+    @child = Recursive.new @value + 1, self
+  end
+
+  def to_s
+    return @value.to_s unless @parent
+
+    @parent.to_s + @value.to_s
+  end
+end
+
+class Iterative
+  attr_reader :value, :parent, :child
+
+  def initialize value = 0, parent = nil
+    @value = value
+    @parent = parent
+  end
+
+  def add_child
+    @child = Iterative.new @value + 1, self
+  end
+
+  def to_s
+    values = []
+    collect_to_s values
+    values.reverse!.join
+  end
+
+  def collect_to_s values = []
+    values << @value
+    @parent.collect_to_s values if @parent
+    values
+  end
+end
+
+def compare_to_s_recursive_vs_iterative
+  compare do |bm|
+    bm.config time: 20, warmup: 2
+    recursive_node = Recursive.new
+    100.times { recursive_node = recursive_node.add_child }
+
+    iterative_node = Iterative.new
+    100.times { iterative_node = iterative_node.add_child }
+
+    bm.report('recursive') { recursive_node.to_s }
+    bm.report('iterative_node') { recursive_node.to_s }
   end
 end
 
