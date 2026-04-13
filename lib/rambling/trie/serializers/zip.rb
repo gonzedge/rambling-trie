@@ -36,11 +36,7 @@ module Rambling
             cleanup_paths << entry_path
 
             entry.extract ::File.basename(entry_path), destination_directory: tmp_path
-
-            serializer = serializers.resolve entry_name
-            raise unless serializer
-
-            serializer.load entry_path
+            (serializers.resolve(entry_name) || raise).load entry_path
           ensure
             cleanup_paths.each { |path| ::FileUtils.rm_f path }
           end
@@ -65,12 +61,7 @@ module Rambling
               entry_path = path filename
               cleanup_paths << entry_path
 
-              serializer = serializers.resolve filename
-
-              raise unless serializer
-
-              serializer.dump contents, entry_path
-
+              (serializers.resolve(filename) || raise).dump contents, entry_path
               zip.add filename, entry_path
             end
           ensure
