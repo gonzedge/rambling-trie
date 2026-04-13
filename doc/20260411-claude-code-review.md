@@ -16,7 +16,7 @@ Reviewed by Claude (claude-sonnet-4-6) on 2026-04-11.
 | [ ]  | 6  | **High**     | `nodes/raw.rb:34`                | `add` mutates the caller's array                                                        |
 | [x]  | 7  | **High**     | `container.rb:42`                | `concat` silently ignores `values` array length mismatch                                |
 | [x]  | 8  | **High**     | `container.rb:186`               | `size` counts words, docs claim it counts letters                                       |
-| [ ]  | 9  | **High**     | `container.rbs:53`               | `words?` alias in RBS does not match Ruby's `words`                                     |
+| [x]  | 9  | **High**     | `container.rbs:53`               | `words?` alias in RBS does not match Ruby's `words`                                     |
 | [ ]  | 10 | **High**     | `nodes/compressed.rb:98`         | `children_match_prefix` silently truncates short prefix                                 |
 | [ ]  | 11 | **High**     | `nodes/node.rb:42`               | Shared `children_tree` hash mutated via parent reassignment in `Compressed`             |
 | [ ]  | 12 | **High**     | `serializers/marshal.rb`         | `Marshal.load` security risk with no runtime guard                                      |

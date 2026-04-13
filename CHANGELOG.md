@@ -33,6 +33,8 @@
 - Raise `ArgumentError` in `Container#concat` on words/values size mismatch ([#96][github_pull_96])
   by [@gonzedge][github_user_gonzedge]
 - Correct `Container#size` docs and RBS signature ([#97][github_pull_97]) by [@gonzedge][github_user_gonzedge]
+- Correct `Container#scan` alias in type sig from `words?` to `words` ([#98][github_pull_98])
+  by [@gonzedge][github_user_gonzedge]
 
 ## 2.6.0 [compare][compare_v2_5_1_and_v2_6_0]
 
@@ -1333,6 +1335,7 @@ Most of these help with the gem's overall performance.
 [github_pull_95]: https://github.com/gonzedge/rambling-trie/pull/95
 [github_pull_96]: https://github.com/gonzedge/rambling-trie/pull/96
 [github_pull_97]: https://github.com/gonzedge/rambling-trie/pull/97
+[github_pull_98]: https://github.com/gonzedge/rambling-trie/pull/98
 [github_user_agate]: https://github.com/agate
 [github_user_as181920]: https://github.com/as181920
 [github_user_godsent]: https://github.com/godsent
