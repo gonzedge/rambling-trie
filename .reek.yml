@@ -32,6 +32,9 @@ detectors:
       - 'Rambling::Trie#create' # inner iteration goes through each word in given file
       - 'Rambling::Trie::Container#words_within_root' # inner iteration does a match of each prefix
       - 'Rambling::Trie::Enumerable#each' # inner iteration goes through each word in children_tree
+      # Rambling::Trie::Serializers::Zip nested iteration is for cleanup
+      - 'Rambling::Trie::Serializers::Zip#load'
+      - 'Rambling::Trie::Serializers::Zip#dump'
 
   NilCheck:
     exclude:
