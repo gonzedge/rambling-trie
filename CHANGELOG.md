@@ -30,6 +30,8 @@
   by [@gonzedge][github_user_gonzedge]
   - Fixes `Ruby::UnannotatedEmptyCollection` steep error on empty array literal
   - Extract `Nodes::Compressed#match_child_prefix` to satisfy `Metrics/AbcSize`
+- Raise `ArgumentError` in `Container#concat` on words/values size mismatch ([#96][github_pull_96])
+  by [@gonzedge][github_user_gonzedge]
 
 ## 2.6.0 [compare][compare_v2_5_1_and_v2_6_0]
 
@@ -1328,6 +1330,7 @@ Most of these help with the gem's overall performance.
 [github_pull_93]: https://github.com/gonzedge/rambling-trie/pull/93
 [github_pull_94]: https://github.com/gonzedge/rambling-trie/pull/94
 [github_pull_95]: https://github.com/gonzedge/rambling-trie/pull/95
+[github_pull_96]: https://github.com/gonzedge/rambling-trie/pull/96
 [github_user_agate]: https://github.com/agate
 [github_user_as181920]: https://github.com/as181920
 [github_user_godsent]: https://github.com/godsent
