@@ -19,17 +19,7 @@ module Rambling
       # String representation of the current node.
       # @return [String] the string representation of the current node.
       def to_s
-        # @type var letters: Array[String]
-        letters = []
-        collect_letters letters
-        letters.reverse!.join
-      end
-
-      protected
-
-      def collect_letters letters
-        letters << letter.to_s
-        parent&.collect_letters letters
+        parent.to_s + letter.to_s
       end
     end
   end

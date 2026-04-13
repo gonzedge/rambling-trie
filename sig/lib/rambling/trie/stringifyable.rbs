@@ -5,8 +5,6 @@ module Rambling
 
       def to_s: -> String
 
-      def collect_letters: (Array[String]) -> void
-
       private
 
       # abstract methods
