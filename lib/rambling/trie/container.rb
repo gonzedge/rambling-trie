@@ -188,8 +188,8 @@ module Rambling
         root.key? letter
       end
 
-      # Size of the Root {Nodes::Node Node}'s children tree.
-      # @return [Integer] the number of letters in the root node.
+      # Number of words contained in the trie.
+      # @return [Integer] the number of words stored in the trie.
       def size
         root.size
       end

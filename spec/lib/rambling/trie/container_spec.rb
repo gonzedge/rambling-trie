@@ -426,6 +426,18 @@ describe Rambling::Trie::Container do
     end
   end
 
+  describe '#size' do
+    before { add_words container, %w(hello high) }
+
+    it 'returns the number of words in the trie' do
+      expect(container.size).to eq 2
+    end
+
+    it 'does not return the number of letters in the root children tree' do
+      expect(container.size).not_to eq root.children_tree.size
+    end
+  end
+
   describe 'delegates and aliases' do
     before do
       allow(root).to receive_messages(
