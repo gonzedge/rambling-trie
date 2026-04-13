@@ -16,7 +16,7 @@ module Rambling
 
         def path: (String) -> String
 
-        def with_cleanup_paths: [T] { (Array[String]) -> T } -> T
+        def clean_up_tmp_files: [T] { (Array[String]) -> T } -> T
       end
     end
   end

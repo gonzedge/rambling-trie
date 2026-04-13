@@ -24,14 +24,14 @@ module Rambling
         def load filepath
           require 'zip'
 
-          with_cleanup_paths do |cleanup_paths|
+          clean_up_tmp_files do |tmp_paths|
             ::Zip::File.open filepath do |zip|
               entry = zip.entries.first
               raise unless entry
 
               entry_name = entry.name
               entry_path = path entry_name
-              cleanup_paths << entry_path
+              tmp_paths << entry_path
 
               entry.extract ::File.basename(entry_path), destination_directory: tmp_path
 
@@ -49,12 +49,12 @@ module Rambling
         def dump contents, filepath
           require 'zip'
 
-          with_cleanup_paths do |cleanup_paths|
+          clean_up_tmp_files do |tmp_paths|
             ::Zip::File.open filepath, create: true do |zip|
               filename = ::File.basename filepath, '.zip'
 
               entry_path = path filename
-              cleanup_paths << entry_path
+              tmp_paths << entry_path
 
               (serializers.resolve(filename) || raise).dump contents, entry_path
               zip.add filename, entry_path
@@ -81,13 +81,13 @@ module Rambling
           ::File.join tmp_path, "#{SecureRandom.uuid}-#{filename}"
         end
 
-        def with_cleanup_paths
-          # @type var cleanup_paths: Array[String]
-          cleanup_paths = []
+        def clean_up_tmp_files
+          # @type var tmp_paths: Array[String]
+          tmp_paths = []
           begin
-            yield cleanup_paths
+            yield tmp_paths
           ensure
-            cleanup_paths.each { |path| ::FileUtils.rm_f path }
+            tmp_paths.each { |path| ::FileUtils.rm_f path }
           end
         end
       end
