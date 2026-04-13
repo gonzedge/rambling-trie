@@ -36,7 +36,7 @@ Reviewed by Claude (claude-sonnet-4-6) on 2026-04-11.
 | [ ]  | 26 | **Low**      | `nodes/node.rb:35`               | `value` docstring copy-pasted from `parent` — wrong description                         |
 | [ ]  | 27 | **Low**      | `container.rb:133`               | `each` returns a `Node`, not `self`, when a block is given                              |
 | [ ]  | 28 | **Low**      | `configuration/properties.rb:42` | Hardcoded `/tmp` — not portable across platforms                                        |
-| [ ]  | 29 | **Low**      | `serializers/yaml.rb:26`         | `aliases: true` enables billion-laughs YAML memory attack                               |
+| [x]  | 29 | **Low**      | `serializers/yaml.rb:26`         | `aliases: true` enables billion-laughs YAML memory attack                               |
 | [ ]  | 30 | **Low**      | `container.rb:61`                | `compress` returns `self` when already compressed — inconsistent identity               |
 
 ---
