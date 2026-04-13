@@ -19,7 +19,7 @@ Reviewed by Claude (claude-sonnet-4-6) on 2026-04-11.
 | [x]  | 9  | **High**     | `container.rbs:53`               | `words?` alias in RBS does not match Ruby's `words`                                     |
 | [ ]  | 10 | **High**     | `nodes/compressed.rb:98`         | `children_match_prefix` silently truncates short prefix                                 |
 | [ ]  | 11 | **High**     | `nodes/node.rb:42`               | Shared `children_tree` hash mutated via parent reassignment in `Compressed`             |
-| [ ]  | 12 | **High**     | `serializers/marshal.rb`         | `Marshal.load` security risk with no runtime guard                                      |
+| [x]  | 12 | **High**     | `serializers/marshal.rb`         | `Marshal.load` security risk with no runtime guard                                      |
 | [ ]  | 13 | **Medium**   | `stringifyable.rb:22`            | `to_s` has O(depth²) string allocations                                                 |
 | [ ]  | 14 | **Medium**   | `nodes/node.rb:59`               | `first_child` disables RuboCop to exploit loop-break trick                              |
 | [ ]  | 15 | **Medium**   | `comparable.rb`, `enumerable.rb` | Module names shadow `::Comparable` and `::Enumerable`                                   |
@@ -36,7 +36,7 @@ Reviewed by Claude (claude-sonnet-4-6) on 2026-04-11.
 | [ ]  | 26 | **Low**      | `nodes/node.rb:35`               | `value` docstring copy-pasted from `parent` — wrong description                         |
 | [ ]  | 27 | **Low**      | `container.rb:133`               | `each` returns a `Node`, not `self`, when a block is given                              |
 | [ ]  | 28 | **Low**      | `configuration/properties.rb:42` | Hardcoded `/tmp` — not portable across platforms                                        |
-| [ ]  | 29 | **Low**      | `serializers/yaml.rb:26`         | `aliases: true` enables billion-laughs YAML memory attack                               |
+| [x]  | 29 | **Low**      | `serializers/yaml.rb:26`         | `aliases: true` enables billion-laughs YAML memory attack                               |
 | [ ]  | 30 | **Low**      | `container.rb:61`                | `compress` returns `self` when already compressed — inconsistent identity               |
 
 ---

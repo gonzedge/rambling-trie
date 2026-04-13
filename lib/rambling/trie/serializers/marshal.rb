@@ -19,6 +19,11 @@ module Rambling
         # @note Use of {https://ruby-doc.org/3.3.0/Marshal.html#method-c-load Marshal.load} is generally
         #   discouraged. Only use this with trusted input.
         def load filepath
+          warn <<~WARN.chomp.tr("\n", ' ')
+            WARNING: Marshal.load is being used to deserialize trie data.
+            Loading untrusted input via Marshal.load can execute arbitrary code.
+            Only load Marshal data from trusted sources.
+          WARN
           ::Marshal.load serializer.load filepath
         end
 
