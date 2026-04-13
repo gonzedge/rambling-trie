@@ -69,6 +69,18 @@ describe Rambling::Trie::Stringifyable do
       end
     end
 
+    context 'with a deep word' do
+      before do
+        node.letter = :d
+        add_word node, 'eep'
+      end
+
+      it 'builds the string correctly via iterative traversal' do
+        leaf = node[:e][:e][:p]
+        expect(leaf.to_s).to eq 'deep'
+      end
+    end
+
     context 'with a compressed node' do
       let(:compressor) { Rambling::Trie::Compressor.new }
       let(:compressed_node) { compressor.compress node }
