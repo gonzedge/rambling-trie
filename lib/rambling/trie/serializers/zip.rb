@@ -24,18 +24,19 @@ module Rambling
         def load filepath
           require 'zip'
 
-          ::Zip::File.open filepath do |zip|
-            entry = zip.entries.first
-            raise unless entry
+          clean_up_tmp_files do |tmp_paths|
+            ::Zip::File.open filepath do |zip|
+              entry = zip.entries.first
+              raise unless entry
 
-            entry_name = entry.name
-            entry_path = path entry_name
-            entry.extract ::File.basename(entry_path), destination_directory: tmp_path
+              entry_name = entry.name
+              entry_path = path entry_name
+              tmp_paths << entry_path
 
-            serializer = serializers.resolve entry_name
-            raise unless serializer
+              entry.extract ::File.basename(entry_path), destination_directory: tmp_path
 
-            serializer.load entry_path
+              (serializers.resolve(entry_name) || raise).load entry_path
+            end
           end
         end
 
@@ -48,17 +49,16 @@ module Rambling
         def dump contents, filepath
           require 'zip'
 
-          ::Zip::File.open filepath, create: true do |zip|
-            filename = ::File.basename filepath, '.zip'
+          clean_up_tmp_files do |tmp_paths|
+            ::Zip::File.open filepath, create: true do |zip|
+              filename = ::File.basename filepath, '.zip'
 
-            entry_path = path filename
-            serializer = serializers.resolve filename
+              entry_path = path filename
+              tmp_paths << entry_path
 
-            raise unless serializer
-
-            serializer.dump contents, entry_path
-
-            zip.add filename, entry_path
+              (serializers.resolve(filename) || raise).dump contents, entry_path
+              zip.add filename, entry_path
+            end
           end
 
           ::File.size filepath
@@ -79,6 +79,16 @@ module Rambling
         def path filename
           require 'securerandom'
           ::File.join tmp_path, "#{SecureRandom.uuid}-#{filename}"
+        end
+
+        def clean_up_tmp_files
+          # @type var tmp_paths: Array[String]
+          tmp_paths = []
+          begin
+            yield tmp_paths
+          ensure
+            tmp_paths.each { |path| ::FileUtils.rm_f path }
+          end
         end
       end
     end
