@@ -45,7 +45,7 @@ module Rambling
 
       def key?: (Symbol) -> bool
 
-      def size: -> Numeric
+      def size: -> Integer
 
       alias include? word?
       alias match? partial_word?
