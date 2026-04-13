@@ -14,7 +14,7 @@ Reviewed by Claude (claude-sonnet-4-6) on 2026-04-11.
 | [x]  | 4  | **Critical** | `comparable.rb:11`               | `==` ignores the `value` attribute                                                      |
 | [x]  | 5  | **Critical** | `serializers/zip.rb:33,59`       | Temp files never cleaned up — resource leak                                             |
 | [ ]  | 6  | **High**     | `nodes/raw.rb:34`                | `add` mutates the caller's array                                                        |
-| [ ]  | 7  | **High**     | `container.rb:42`                | `concat` silently ignores `values` array length mismatch                                |
+| [x]  | 7  | **High**     | `container.rb:42`                | `concat` silently ignores `values` array length mismatch                                |
 | [ ]  | 8  | **High**     | `container.rb:186`               | `size` counts words, docs claim it counts letters                                       |
 | [ ]  | 9  | **High**     | `container.rbs:53`               | `words?` alias in RBS does not match Ruby's `words`                                     |
 | [ ]  | 10 | **High**     | `nodes/compressed.rb:98`         | `children_match_prefix` silently truncates short prefix                                 |

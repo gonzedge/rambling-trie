@@ -70,6 +70,16 @@ describe Rambling::Trie::Container do
       expect(root[:w][:o][:r][:d][:s].value).to eq 20
     end
     # rubocop:enable RSpec/MultipleExpectations
+
+    it 'raises ArgumentError when words and values have different lengths' do
+      expect { container.concat %w(one two three), [1, 2] }
+        .to raise_error ArgumentError, %r{words and values must have the same size}
+    end
+
+    it 'raises ArgumentError when values is longer than words' do
+      expect { container.concat %w(one), [1, 2, 3] }
+        .to raise_error ArgumentError, %r{words and values must have the same size}
+    end
   end
 
   describe '#compress' do
