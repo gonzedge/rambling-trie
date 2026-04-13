@@ -24,7 +24,8 @@ module Rambling
         def load filepath
           require 'zip'
 
-          entry_path = nil
+          # @type var cleanup_paths: Array[String]
+          cleanup_paths = []
 
           ::Zip::File.open filepath do |zip|
             entry = zip.entries.first
@@ -32,6 +33,8 @@ module Rambling
 
             entry_name = entry.name
             entry_path = path entry_name
+            cleanup_paths << entry_path
+
             entry.extract ::File.basename(entry_path), destination_directory: tmp_path
 
             serializer = serializers.resolve entry_name
@@ -39,7 +42,7 @@ module Rambling
 
             serializer.load entry_path
           ensure
-            ::File.delete entry_path if entry_path && ::File.exist?(entry_path)
+            cleanup_paths.each { |path| ::FileUtils.rm_f path }
           end
         end
 
@@ -52,13 +55,16 @@ module Rambling
         def dump contents, filepath
           require 'zip'
 
-          entry_path = nil
+          # @type var cleanup_paths: Array[String]
+          cleanup_paths = []
 
           begin
             ::Zip::File.open filepath, create: true do |zip|
               filename = ::File.basename filepath, '.zip'
 
               entry_path = path filename
+              cleanup_paths << entry_path
+
               serializer = serializers.resolve filename
 
               raise unless serializer
@@ -68,7 +74,7 @@ module Rambling
               zip.add filename, entry_path
             end
           ensure
-            ::File.delete entry_path if entry_path && ::File.exist?(entry_path)
+            cleanup_paths.each { |path| ::FileUtils.rm_f path }
           end
 
           ::File.size filepath
