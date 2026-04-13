@@ -1,1 +1,1 @@
---markup=markdown --exclude lib/rambling/trie/tasks/
+--verbose --debug --markup=markdown --exclude lib/rambling/trie/tasks/ --exclude sig/lib/nilable.rbs

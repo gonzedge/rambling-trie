@@ -16,8 +16,6 @@ RSpec::Core::RakeTask.new :spec
 Reek::Rake::Task.new :reek
 RuboCop::RakeTask.new :rubocop
 Steep::RakeTask.new :steep
-YARD::Rake::YardocTask.new :yard do |t|
-  t.options = %w(--verbose --debug)
-end
+YARD::Rake::YardocTask.new :yard
 
 task default: :spec
