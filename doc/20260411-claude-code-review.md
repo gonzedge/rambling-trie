@@ -6,6 +6,8 @@ Reviewed by Claude (claude-sonnet-4-6) on 2026-04-11.
 
 ## Summary Table
 
+Legend: `[x]` fixed · `[ ]` pending · `[-]` skipped / won't fix / not applicable
+
 | Done | #  | Severity     | File                             | Issue                                                                                   |
 |------|----|--------------|----------------------------------|-----------------------------------------------------------------------------------------|
 | [x]  | 1  | **Critical** | `readers/plain_text.rb:15`       | `chomp!` yields `nil` → crash on files without trailing newline                         |
