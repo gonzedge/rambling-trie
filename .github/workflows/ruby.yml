@@ -30,7 +30,9 @@ jobs:
       - name: Run rubocop
         run: bundle exec rake rubocop
       - name: Run yardoc
-        run: bundle exec rake yard
+        run: >
+          bundle exec rake yard | tee yarddoc.log
+          cat yarddoc.log | grep '100.00% documented'
   spec:
     runs-on: ubuntu-latest
     strategy:
