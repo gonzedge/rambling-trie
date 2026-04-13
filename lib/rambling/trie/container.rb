@@ -39,6 +39,13 @@ module Rambling
       # @see Nodes::Compressed#add
       def concat words, values = nil
         if values
+          words_size = words.size
+          values_size = values.size
+          unless words_size == values_size
+            raise ArgumentError,
+              "words and values must have the same size (words: #{words_size}, values: #{values_size})"
+          end
+
           words.each_with_index.map { |word, index| add(word, values[index]) }
         else
           words.map { |word| add word }
