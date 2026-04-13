@@ -17,11 +17,11 @@ module Rambling
         # @return [Nodes::Node] The deserialized {Nodes::Node Node}.
         # @see https://ruby-doc.org/3.3.0/exts/psych/Psych.html#method-c-safe_load Psych.safe_load
         def load filepath
-          warn <<~WARN.chomp.gsub(/\n/, ' ')
+          warn <<~WARN.chomp.tr("\n", ' ')
             WARNING: YAML aliases are enabled.
             Loading untrusted YAML with aliases: true can trigger a billion-laughs memory attack.
             Only load YAML data from trusted sources.
-WARN
+          WARN
           require 'yaml'
           ::YAML.safe_load(
             serializer.load(filepath),
