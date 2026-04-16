@@ -54,13 +54,7 @@ module Rambling
         # First child node.
         # @return [Node, nil] the first child contained in the current node.
         def first_child
-          return if children_tree.empty?
-
-          # rubocop:disable Lint/UnreachableLoop
-          children_tree.each_value { |child| return child }
-          # rubocop:enable Lint/UnreachableLoop
-
-          nil
+          children_tree.each_value.first
         end
 
         # Indicates if the current node is the root node.

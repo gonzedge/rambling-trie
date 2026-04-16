@@ -3,6 +3,24 @@
 shared_examples_for 'a trie node implementation' do
   it_behaves_like 'a trie node'
 
+  describe '#first_child' do
+    context 'when the node has no children' do
+      it 'returns nil' do
+        expect(node.first_child).to be_nil
+      end
+    end
+
+    context 'when the node has children' do
+      let(:raw_node) { Rambling::Trie::Nodes::Raw.new }
+
+      before { add_word raw_node, 'hi' }
+
+      it 'returns the first child node' do
+        expect(raw_node.first_child).to eq raw_node[:h]
+      end
+    end
+  end
+
   describe '#partial_word?' do
     context 'when the chars array is empty' do
       it 'returns true' do

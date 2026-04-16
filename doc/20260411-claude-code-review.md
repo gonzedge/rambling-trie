@@ -23,7 +23,7 @@ Legend: `[x]` fixed · `[ ]` pending · `[-]` skipped / won't fix / not applicab
 | [ ]  | 11 | **High**     | `nodes/node.rb:42`               | Shared `children_tree` hash mutated via parent reassignment in `Compressed`                            |
 | [x]  | 12 | **High**     | `serializers/marshal.rb`         | `Marshal.load` security risk with no runtime guard                                                     |
 | [-]  | 13 | **Medium**   | `stringifyable.rb:22`            | `to_s` has O(depth²) string allocations - _**DISCARDED**, see [#100][github_pull_100]_                 |
-| [ ]  | 14 | **Medium**   | `nodes/node.rb:59`               | `first_child` disables RuboCop to exploit loop-break trick                                             |
+| [x]  | 14 | **Medium**   | `nodes/node.rb:59`               | `first_child` disables RuboCop to exploit loop-break trick                                             |
 | [ ]  | 15 | **Medium**   | `comparable.rb`, `enumerable.rb` | Module names shadow `::Comparable` and `::Enumerable`                                                  |
 | [ ]  | 16 | **Medium**   | `trie.rb:79`                     | `@properties` lazy init is not thread-safe                                                             |
 | [ ]  | 17 | **Medium**   | `container.rb:220`               | Unnecessary `.to_a` no-op and three intermediate allocations in `reversed_char_symbols`                |

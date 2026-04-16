@@ -16,6 +16,10 @@ shared_examples_for 'a trie node' do
       expect(node).not_to be_terminal
     end
 
+    it 'has no first_child' do
+      expect(node.first_child).to be_nil
+    end
+
     it 'has no value' do
       expect(node.value).to be_nil
     end
@@ -38,6 +42,10 @@ shared_examples_for 'a trie node' do
 
       it 'is not terminal' do
         expect(node_with_parent).not_to be_terminal
+      end
+
+      it 'has no first_child' do
+        expect(node.first_child).to be_nil
       end
     end
   end
