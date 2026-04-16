@@ -18,8 +18,6 @@
 - Fix `Serializers::Zip#(load|dump)` leaking tmp files ([#95][github_pull_95]) by [@gonzedge][github_user_gonzedge]
   - Add common `Serializer::Zip#clean_up_tmp_files` method
   - Use `(serializers.resolve(filename) || raise).<method>` trick to reduce method sizes
-- Replace O(depth²) `Stringifyable#to_s` implementation with iterative O(depth) solution ([#100][github_pull_100])
-  by [@gonzedge][github_user_gonzedge]
 
 #### Minor
 
@@ -38,6 +36,8 @@
 - Correct `Container#scan` alias in type sig from `words?` to `words` ([#98][github_pull_98])
   by [@gonzedge][github_user_gonzedge]
 - Add runtime security warnings to `Serializers::(Marshal|Yaml)#load` ([#99][github_pull_99])
+  by [@gonzedge][github_user_gonzedge]
+- Add `Stringifyable#to_s` benchmarks; discard O(depth²) - not a real issue ([#100][github_pull_100])
   by [@gonzedge][github_user_gonzedge]
 
 ## 2.6.0 [compare][compare_v2_5_1_and_v2_6_0]
