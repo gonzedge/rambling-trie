@@ -58,6 +58,7 @@ module Rambling
 
       attr_reader compressor: Compressor[TValue]
       attr_writer root: Nodes::Node[TValue]
+      attr_writer size: Integer
 
       def words_within_root: (String) ?{ (String) -> void } -> Enumerator[String, void]
 

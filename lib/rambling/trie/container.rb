@@ -17,6 +17,7 @@ module Rambling
       def initialize root, compressor
         @root = root
         @compressor = compressor
+        @size = 0
 
         yield self if block_given?
       end
@@ -28,7 +29,9 @@ module Rambling
       # @see Nodes::Raw#add
       # @see Nodes::Compressed#add
       def add word, value = nil
-        root.add reversed_char_symbols(word), value
+        node = root.add reversed_char_symbols(word), value
+        @size += 1
+        node
       end
 
       # Adds all provided words to the trie.
@@ -191,7 +194,9 @@ module Rambling
       # Number of words contained in the trie.
       # @return [Integer] the number of words stored in the trie.
       def size
-        root.size
+        return @size if @size.positive?
+
+        self.size = root.size
       end
 
       alias_method :include?, :word?
@@ -204,7 +209,7 @@ module Rambling
       private
 
       attr_reader :compressor
-      attr_writer :root
+      attr_writer :root, :size
 
       def words_within_root phrase
         return enum_for :words_within_root, phrase unless block_given?
