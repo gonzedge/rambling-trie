@@ -99,6 +99,11 @@ module Rambling
 
         def match_child_prefix child, chars
           child_letter = child.letter.to_s
+
+          # stop early if we already know that the remaining characters in the
+          # given phrase do not even cover the current node's compressed key
+          return empty_enum if chars.size < child_letter.size
+
           letter = (chars.shift(child_letter.size) || raise).join
 
           return empty_enum unless child_letter == letter

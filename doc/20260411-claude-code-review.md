@@ -19,7 +19,7 @@ Legend: `[x]` fixed · `[ ]` pending · `[-]` skipped / won't fix / not applicab
 | [x]  | 7  | **High**     | `container.rb:42`                | `concat` silently ignores `values` array length mismatch                                |
 | [x]  | 8  | **High**     | `container.rb:186`               | `size` counts words, docs claim it counts letters                                       |
 | [x]  | 9  | **High**     | `container.rbs:53`               | `words?` alias in RBS does not match Ruby's `words`                                     |
-| [ ]  | 10 | **High**     | `nodes/compressed.rb:98`         | `children_match_prefix` silently truncates short prefix                                 |
+| [x]  | 10 | **High**     | `nodes/compressed.rb:98`         | `children_match_prefix` silently truncates short prefix                                 |
 | [ ]  | 11 | **High**     | `nodes/node.rb:42`               | Shared `children_tree` hash mutated via parent reassignment in `Compressed`             |
 | [x]  | 12 | **High**     | `serializers/marshal.rb`         | `Marshal.load` security risk with no runtime guard                                      |
 | [-]  | 13 | **Medium**   | `stringifyable.rb:22`            | `to_s` has O(depth²) string allocations - _**DISCARDED**, see [#100][github_pull_100]_  |

@@ -145,5 +145,19 @@ shared_examples_for 'a trie node implementation' do
         expect(words).not_to include 'import', 'important', 'importantly'
       end
     end
+
+    context 'when the chars do not contain any full words' do
+      it 'does not return any words' do
+        words = node.match_prefix(%w(m p o r)).to_a
+        expect(words).to be_empty
+      end
+    end
+
+    context 'when chars match a child terminal node exactly' do
+      it 'yields the matching word' do
+        words = node.match_prefix(%w(m p o r t)).to_a
+        expect(words).to include 'import'
+      end
+    end
   end
 end
