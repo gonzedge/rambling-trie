@@ -7,7 +7,7 @@ module Rambling
       # Indicates if the current {Rambling::Trie::Nodes::Node Node} can be compressed or not.
       # @return [Boolean] `true` for non-{Nodes::Node#terminal? terminal} nodes with one child, `false` otherwise.
       def compressible?
-        !(root? || terminal?) && 1 == children_tree.size
+        !root? && !terminal? && children_tree.one?
       end
     end
   end

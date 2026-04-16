@@ -23,19 +23,19 @@ Legend: `[x]` fixed · `[ ]` pending · `[-]` skipped / won't fix / not applicab
 | [ ]  | 11 | **High**     | `nodes/node.rb:42`               | Shared `children_tree` hash mutated via parent reassignment in `Compressed`                            |
 | [x]  | 12 | **High**     | `serializers/marshal.rb`         | `Marshal.load` security risk with no runtime guard                                                     |
 | [-]  | 13 | **Medium**   | `stringifyable.rb:22`            | `to_s` has O(depth²) string allocations - _**DISCARDED**, see [#100][github_pull_100]_                 |
-| [ ]  | 14 | **Medium**   | `nodes/node.rb:59`               | `first_child` disables RuboCop to exploit loop-break trick                                             |
+| [x]  | 14 | **Medium**   | `nodes/node.rb:59`               | `first_child` disables RuboCop to exploit loop-break trick                                             |
 | [ ]  | 15 | **Medium**   | `comparable.rb`, `enumerable.rb` | Module names shadow `::Comparable` and `::Enumerable`                                                  |
 | [ ]  | 16 | **Medium**   | `trie.rb:79`                     | `@properties` lazy init is not thread-safe                                                             |
 | [ ]  | 17 | **Medium**   | `container.rb:220`               | Unnecessary `.to_a` no-op and three intermediate allocations in `reversed_char_symbols`                |
 | [ ]  | 18 | **Medium**   | `nodes/node.rb:179`              | Abstract methods raise bare `NotImplementedError` with no context                                      |
 | [ ]  | 19 | **Medium**   | `provider_collection.rb:109`     | Dead `\|\| raise` and broken `default=` on empty collections                                           |
-| [ ]  | 20 | **Medium**   | `compressible.rb:10`             | Yoda condition `1 == children_tree.size`                                                               |
+| [x]  | 20 | **Medium**   | `compressible.rb:10`             | Yoda condition `1 == children_tree.size`                                                               |
 | [ ]  | 21 | **Medium**   | `serializers/zip.rb:33`          | Indirect `File.basename` extraction path obscures intent                                               |
 | [ ]  | 22 | **Medium**   | `trie.rb:24,27`                  | Two `# noinspection` comments masking a type design problem                                            |
 | [ ]  | 23 | **Medium**   | `provider_collection.rb:73`      | `reset` can unexpectedly raise `ArgumentError`                                                         |
 | [ ]  | 24 | **Low**      | `container.rb:137`               | `inspect` traverses the entire tree — REPL/logging hazard on large tries                               |
-| [ ]  | 25 | **Low**      | `stringifyable.rb:11`            | `as_word` guard uses a double-negative condition                                                       |
-| [ ]  | 26 | **Low**      | `nodes/node.rb:35`               | `value` docstring copy-pasted from `parent` — wrong description                                        |
+| [-]  | 25 | **Low**      | `stringifyable.rb:11`            | `as_word` guard uses a double-negative condition - _**NOT QUITE**, see [#102][github_pull_102]         |
+| [x]  | 26 | **Low**      | `nodes/node.rb:35`               | `value` docstring copy-pasted from `parent` — wrong description                                        |
 | [ ]  | 27 | **Low**      | `container.rb:133`               | `each` returns a `Node`, not `self`, when a block is given                                             |
 | [ ]  | 28 | **Low**      | `configuration/properties.rb:42` | Hardcoded `/tmp` — not portable across platforms                                                       |
 | [x]  | 29 | **Low**      | `serializers/yaml.rb:26`         | `aliases: true` enables billion-laughs YAML memory attack                                              |
@@ -575,3 +575,4 @@ no work is needed). `compress!` is the correct mutation path.
 
 [github_pull_100]: https://github.com/gonzedge/rambling-trie/pull/100
 [github_pull_101]: https://github.com/gonzedge/rambling-trie/pull/101
+[github_pull_102]: https://github.com/gonzedge/rambling-trie/pull/102
