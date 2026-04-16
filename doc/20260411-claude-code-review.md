@@ -34,7 +34,7 @@ Legend: `[x]` fixed · `[ ]` pending · `[-]` skipped / won't fix / not applicab
 | [ ]  | 22 | **Medium**   | `trie.rb:24,27`                  | Two `# noinspection` comments masking a type design problem                                            |
 | [ ]  | 23 | **Medium**   | `provider_collection.rb:73`      | `reset` can unexpectedly raise `ArgumentError`                                                         |
 | [ ]  | 24 | **Low**      | `container.rb:137`               | `inspect` traverses the entire tree — REPL/logging hazard on large tries                               |
-| [x]  | 25 | **Low**      | `stringifyable.rb:11`            | `as_word` guard uses a double-negative condition                                                       |
+| [-]  | 25 | **Low**      | `stringifyable.rb:11`            | `as_word` guard uses a double-negative condition - _**NOT QUITE**, see [#102][github_pull_102]         |
 | [x]  | 26 | **Low**      | `nodes/node.rb:35`               | `value` docstring copy-pasted from `parent` — wrong description                                        |
 | [ ]  | 27 | **Low**      | `container.rb:133`               | `each` returns a `Node`, not `self`, when a block is given                                             |
 | [ ]  | 28 | **Low**      | `configuration/properties.rb:42` | Hardcoded `/tmp` — not portable across platforms                                                       |
@@ -575,3 +575,4 @@ no work is needed). `compress!` is the correct mutation path.
 
 [github_pull_100]: https://github.com/gonzedge/rambling-trie/pull/100
 [github_pull_101]: https://github.com/gonzedge/rambling-trie/pull/101
+[github_pull_102]: https://github.com/gonzedge/rambling-trie/pull/102
