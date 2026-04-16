@@ -37,6 +37,8 @@
   by [@gonzedge][github_user_gonzedge]
 - Add runtime security warnings to `Serializers::(Marshal|Yaml)#load` ([#99][github_pull_99])
   by [@gonzedge][github_user_gonzedge]
+- Add `Stringifyable#to_s` benchmarks; discard O(depth²) - not a real issue ([#100][github_pull_100])
+  by [@gonzedge][github_user_gonzedge]
 
 ## 2.6.0 [compare][compare_v2_5_1_and_v2_6_0]
 
@@ -1339,6 +1341,7 @@ Most of these help with the gem's overall performance.
 [github_pull_97]: https://github.com/gonzedge/rambling-trie/pull/97
 [github_pull_98]: https://github.com/gonzedge/rambling-trie/pull/98
 [github_pull_99]: https://github.com/gonzedge/rambling-trie/pull/99
+[github_pull_100]: https://github.com/gonzedge/rambling-trie/pull/100
 [github_user_agate]: https://github.com/agate
 [github_user_as181920]: https://github.com/as181920
 [github_user_godsent]: https://github.com/godsent
