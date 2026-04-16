@@ -32,7 +32,7 @@ module Rambling
         attr_accessor :parent
 
         # Arbitrary value stored in this node
-        # @return [TValue, nil] the parent of the current node.
+        # @return [TValue, nil] the value stored in this node.
         attr_accessor :value
 
         # Creates a new node.
