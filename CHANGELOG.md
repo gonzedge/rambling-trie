@@ -41,6 +41,12 @@
   by [@gonzedge][github_user_gonzedge]
 - Stop early in `Nodes::Compressed#match_prefix` when chars does not cover the node's compressed key
   ([#101][github_pull_101]) by [@gonzedge][github_user_gonzedge]
+- Fix some idioms, styles and docstrings ([#102][github_pull_102]) by [@gonzedge][github_user_gonzedge]
+  - Use `each_value.first` in `Nodes::Node#first_child` instead of the workaround that triggered rubocop's
+    `Lint/UnreacheableLoop` rule
+  - Replace Yoda condition `1 == children_tree.size` with `children_tree.one?` in `Compressible#compressible?`
+  - Fix copy-pasta dosctring for `Nodes::Node#value`
+  - Use inline guard for `Stringifyable#as_word`
 
 ## 2.6.0 [compare][compare_v2_5_1_and_v2_6_0]
 
@@ -1345,6 +1351,7 @@ Most of these help with the gem's overall performance.
 [github_pull_99]: https://github.com/gonzedge/rambling-trie/pull/99
 [github_pull_100]: https://github.com/gonzedge/rambling-trie/pull/100
 [github_pull_101]: https://github.com/gonzedge/rambling-trie/pull/101
+[github_pull_102]: https://github.com/gonzedge/rambling-trie/pull/102
 [github_user_agate]: https://github.com/agate
 [github_user_as181920]: https://github.com/as181920
 [github_user_godsent]: https://github.com/godsent
