@@ -28,7 +28,7 @@ Legend: `[x]` fixed · `[ ]` pending · `[-]` skipped / won't fix / not applicab
 | [ ]  | 16 | **Medium**   | `trie.rb:79`                     | `@properties` lazy init is not thread-safe                         |                                   |
 | [x]  | 17 | **Medium**   | `container.rb:220`               | Unnecessary `.to_a` no-op and three intermediate allocations       | [#106][gh_106]                    |
 | [ ]  | 18 | **Medium**   | `nodes/node.rb:179`              | Abstract methods raise bare `NotImplementedError` with no context  |                                   |
-| [ ]  | 19 | **Medium**   | `provider_collection.rb:109`     | Dead `\|\| raise` and broken `default=` on empty collections       |                                   |
+| [x]  | 19 | **Medium**   | `provider_collection.rb:109`     | Dead `\|\| raise` and broken `default=` on empty collections       |                                   |
 | [x]  | 20 | **Medium**   | `compressible.rb:10`             | Yoda condition `1 == children_tree.size`                           | [#102][gh_102]                    |
 | [x]  | 21 | **Medium**   | `serializers/zip.rb:33`          | Indirect `File.basename` extraction path obscures intent           | [#104][gh_104]                    |
 | [ ]  | 22 | **Medium**   | `trie.rb:24,27`                  | Two `# noinspection` comments masking a type design problem        |                                   |
