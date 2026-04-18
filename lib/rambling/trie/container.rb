@@ -226,7 +226,10 @@ module Rambling
       end
 
       def reversed_char_symbols word
-        word.reverse.chars.map(&:to_sym).to_a
+        # @type var chars: Array[String]
+        chars = word.chars
+        chars.reverse!
+        chars.map(&:to_sym)
       end
     end
   end
