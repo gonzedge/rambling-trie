@@ -50,6 +50,8 @@
   - Replace Yoda condition `1 == children_tree.size` with `children_tree.one?` in `Compressible#compressible?`
   - Fix copy-pasta dosctring for `Nodes::Node#value`
   - Use inline guard for `Stringifyable#as_word`
+- Return `self` from `Container#each` after block (ruby convention) ([#105][github_pull_105])
+  by [@gonzedge][github_user_gonzedge]
 
 ## 2.6.0 [compare][compare_v2_5_1_and_v2_6_0]
 
@@ -1357,6 +1359,7 @@ Most of these help with the gem's overall performance.
 [github_pull_102]: https://github.com/gonzedge/rambling-trie/pull/102
 [github_pull_103]: https://github.com/gonzedge/rambling-trie/pull/103
 [github_pull_104]: https://github.com/gonzedge/rambling-trie/pull/104
+[github_pull_105]: https://github.com/gonzedge/rambling-trie/pull/105
 [github_user_agate]: https://github.com/agate
 [github_user_as181920]: https://github.com/as181920
 [github_user_godsent]: https://github.com/godsent
