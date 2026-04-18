@@ -1,6 +1,10 @@
 # frozen_string_literal: true
 
 namespace :ips do
+  task :reverse_chars_map_to_a_vs_chars_in_place_reverse_map do
+    compare_reverse_chars_map_to_a_vs_chars_in_place_reverse_map
+  end
+
   task :to_s_recursive_vs_iterative do
     compare_to_s_recursive_vs_iterative
   end
@@ -79,6 +83,20 @@ def compare
     ::GC.enable
 
     bm.compare!
+  end
+end
+
+def compare_reverse_chars_map_to_a_vs_chars_in_place_reverse_map
+  compare do |bm|
+    word = 'dumbfoundedly'
+    word.chars.each(&:to_sym) # <- make sure the symbols are already initialized
+
+    bm.report('word.reverse.chars.map(&:to_sym).to_a') { word.reverse.chars.map(&:to_sym).to_a }
+    bm.report('word.chars.reverse!.map(&:to_sym)') do
+      chars = word.chars
+      chars.reverse!
+      chars.map(&:to_sym)
+    end
   end
 end
 
