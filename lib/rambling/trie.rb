@@ -17,15 +17,13 @@ module Rambling
       # @return [Container] the trie just created.
       # @yield [Container] the trie just created.
       # @see Rambling::Trie::Readers Readers.
-      def create filepath = nil, reader = nil
+      def create filepath = nil, input_reader = nil
         root = root_builder.call
 
         Rambling::Trie::Container.new root, compressor do |container|
-          # noinspection RubyMismatchedArgumentType
           if filepath
-            reader ||= readers.resolve filepath
-            # noinspection RubyMismatchedArgumentType
-            (reader || raise).each_word(filepath) { |word| container << word }
+            reader = input_reader || readers.resolve(filepath) || raise(ArgumentError, "no reader for #{filepath}")
+            reader.each_word(filepath) { |word| container << word }
           end
 
           yield container if block_given? # steep:ignore
