@@ -8,38 +8,38 @@ Reviewed by Claude (claude-sonnet-4-6) on 2026-04-11.
 
 Legend: `[x]` fixed · `[ ]` pending · `[-]` skipped / won't fix / not applicable
 
-| Done | #  | Severity     | File                             | Issue                                                                                                  |
-|------|----|--------------|----------------------------------|--------------------------------------------------------------------------------------------------------|
-| [x]  | 1  | **Critical** | `readers/plain_text.rb:15`       | `chomp!` yields `nil` → crash on files without trailing newline                                        |
-| [x]  | 2  | **Critical** | `compressor.rb:39,50`            | Falsy `value` silently dropped during compression                                                      |
-| [x]  | 3  | **Critical** | `enumerable.rb:10`               | Shared mutable `EMPTY_ENUMERATOR` Enumerator                                                           |
-| [x]  | 4  | **Critical** | `comparable.rb:11`               | `==` ignores the `value` attribute                                                                     |
-| [x]  | 5  | **Critical** | `serializers/zip.rb:33,59`       | Temp files never cleaned up — resource leak                                                            |
-| [ ]  | 6  | **High**     | `nodes/raw.rb:34`                | `add` mutates the caller's array                                                                       |
-| [x]  | 7  | **High**     | `container.rb:42`                | `concat` silently ignores `values` array length mismatch                                               |
-| [x]  | 8  | **High**     | `container.rb:186`               | `size` counts words, docs claim it counts letters                                                      |
-| [x]  | 9  | **High**     | `container.rbs:53`               | `words?` alias in RBS does not match Ruby's `words`                                                    |
-| [-]  | 10 | **High**     | `nodes/compressed.rb:98`         | `children_match_prefix` silently truncates short prefix - _**NOT QUITE**, see [#101][github_pull_101]_ |
-| [ ]  | 11 | **High**     | `nodes/node.rb:42`               | Shared `children_tree` hash mutated via parent reassignment in `Compressed`                            |
-| [x]  | 12 | **High**     | `serializers/marshal.rb`         | `Marshal.load` security risk with no runtime guard                                                     |
-| [-]  | 13 | **Medium**   | `stringifyable.rb:22`            | `to_s` has O(depth²) string allocations - _**DISCARDED**, see [#100][github_pull_100]_                 |
-| [x]  | 14 | **Medium**   | `nodes/node.rb:59`               | `first_child` disables RuboCop to exploit loop-break trick                                             |
-| [ ]  | 15 | **Medium**   | `comparable.rb`, `enumerable.rb` | Module names shadow `::Comparable` and `::Enumerable`                                                  |
-| [ ]  | 16 | **Medium**   | `trie.rb:79`                     | `@properties` lazy init is not thread-safe                                                             |
-| [ ]  | 17 | **Medium**   | `container.rb:220`               | Unnecessary `.to_a` no-op and three intermediate allocations in `reversed_char_symbols`                |
-| [ ]  | 18 | **Medium**   | `nodes/node.rb:179`              | Abstract methods raise bare `NotImplementedError` with no context                                      |
-| [ ]  | 19 | **Medium**   | `provider_collection.rb:109`     | Dead `\|\| raise` and broken `default=` on empty collections                                           |
-| [x]  | 20 | **Medium**   | `compressible.rb:10`             | Yoda condition `1 == children_tree.size`                                                               |
-| [ ]  | 21 | **Medium**   | `serializers/zip.rb:33`          | Indirect `File.basename` extraction path obscures intent                                               |
-| [ ]  | 22 | **Medium**   | `trie.rb:24,27`                  | Two `# noinspection` comments masking a type design problem                                            |
-| [ ]  | 23 | **Medium**   | `provider_collection.rb:73`      | `reset` can unexpectedly raise `ArgumentError`                                                         |
-| [ ]  | 24 | **Low**      | `container.rb:137`               | `inspect` traverses the entire tree — REPL/logging hazard on large tries                               |
-| [-]  | 25 | **Low**      | `stringifyable.rb:11`            | `as_word` guard uses a double-negative condition - _**NOT QUITE**, see [#102][github_pull_102]         |
-| [x]  | 26 | **Low**      | `nodes/node.rb:35`               | `value` docstring copy-pasted from `parent` — wrong description                                        |
-| [ ]  | 27 | **Low**      | `container.rb:133`               | `each` returns a `Node`, not `self`, when a block is given                                             |
-| [ ]  | 28 | **Low**      | `configuration/properties.rb:42` | Hardcoded `/tmp` — not portable across platforms                                                       |
-| [x]  | 29 | **Low**      | `serializers/yaml.rb:26`         | `aliases: true` enables billion-laughs YAML memory attack                                              |
-| [ ]  | 30 | **Low**      | `container.rb:61`                | `compress` returns `self` when already compressed — inconsistent identity                              |
+| Done | #  | Severity     | File                             | Issue                                                              | PR or Feedback                    |
+|------|----|--------------|----------------------------------|--------------------------------------------------------------------|-----------------------------------|
+| [x]  | 1  | **Critical** | `readers/plain_text.rb:15`       | `chomp!` yields `nil` → crash on files without trailing newline    | [#91][gh_91]                      |
+| [x]  | 2  | **Critical** | `compressor.rb:39,50`            | Falsy `value` silently dropped during compression                  | [#92][gh_92]                      |
+| [x]  | 3  | **Critical** | `enumerable.rb:10`               | Shared mutable `EMPTY_ENUMERATOR` Enumerator                       | [#93][gh_93]                      |
+| [x]  | 4  | **Critical** | `comparable.rb:11`               | `==` ignores the `value` attribute                                 | [#94][gh_94]                      |
+| [x]  | 5  | **Critical** | `serializers/zip.rb:33,59`       | Temp files never cleaned up — resource leak                        | [#95][gh_95]                      |
+| [-]  | 6  | **High**     | `nodes/raw.rb:34`                | `add` mutates the caller's array                                   | [feedback][fb_6]                  |
+| [x]  | 7  | **High**     | `container.rb:42`                | `concat` silently ignores `values` array length mismatch           | [#96][gh_96]                      |
+| [x]  | 8  | **High**     | `container.rb:186`               | `size` counts words, docs claim it counts letters                  | [#97][gh_97]                      |
+| [x]  | 9  | **High**     | `container.rbs:53`               | `words?` alias in RBS does not match Ruby's `words`                | [#98][gh_98]                      |
+| [-]  | 10 | **High**     | `nodes/compressed.rb:98`         | `children_match_prefix` silently truncates short prefix            | [feedback][fb_10], [#101][gh_101] |
+| [ ]  | 11 | **High**     | `nodes/node.rb:42`               | Shared `children_tree` mutated via parent reassign in `Compressed` |                                   |
+| [x]  | 12 | **High**     | `serializers/marshal.rb`         | `Marshal.load` security risk with no runtime guard                 | [#99][gh_99]                      |
+| [-]  | 13 | **Medium**   | `stringifyable.rb:22`            | `to_s` has O(depth²) string allocations                            | [feedback][fb_13], [#100][gh_100] |
+| [x]  | 14 | **Medium**   | `nodes/node.rb:59`               | `first_child` disables RuboCop to exploit loop-break trick         | [#102][gh_102]                    |
+| [-]  | 15 | **Medium**   | `comparable.rb`, `enumerable.rb` | Module names shadow `::Comparable` and `::Enumerable`              | [feedback][fb_15]                 |
+| [ ]  | 16 | **Medium**   | `trie.rb:79`                     | `@properties` lazy init is not thread-safe                         |                                   |
+| [ ]  | 17 | **Medium**   | `container.rb:220`               | Unnecessary `.to_a` no-op and three intermediate allocations       |                                   |
+| [ ]  | 18 | **Medium**   | `nodes/node.rb:179`              | Abstract methods raise bare `NotImplementedError` with no context  |                                   |
+| [ ]  | 19 | **Medium**   | `provider_collection.rb:109`     | Dead `\|\| raise` and broken `default=` on empty collections       |                                   |
+| [x]  | 20 | **Medium**   | `compressible.rb:10`             | Yoda condition `1 == children_tree.size`                           | [#102][gh_102]                    |
+| [ ]  | 21 | **Medium**   | `serializers/zip.rb:33`          | Indirect `File.basename` extraction path obscures intent           |                                   |
+| [ ]  | 22 | **Medium**   | `trie.rb:24,27`                  | Two `# noinspection` comments masking a type design problem        |                                   |
+| [ ]  | 23 | **Medium**   | `provider_collection.rb:73`      | `reset` can unexpectedly raise `ArgumentError`                     |                                   |
+| [-]  | 24 | **Low**      | `container.rb:137`               | `inspect` traverses the entire tree                                | [feedback][fb_24]                 |
+| [-]  | 25 | **Low**      | `stringifyable.rb:11`            | `as_word` guard uses a double-negative condition                   | [feedback][fb_25], [#102][gh_102] |
+| [x]  | 26 | **Low**      | `nodes/node.rb:35`               | `value` docstring copy-pasted from `parent` — wrong description    | [#102][gh_102]                    |
+| [ ]  | 27 | **Low**      | `container.rb:133`               | `each` returns a `Node`, not `self`, when a block is given         |                                   |
+| [ ]  | 28 | **Low**      | `configuration/properties.rb:42` | Hardcoded `/tmp` — not portable across platforms                   |                                   |
+| [x]  | 29 | **Low**      | `serializers/yaml.rb:26`         | `aliases: true` enables billion-laughs YAML memory attack          | [#99][gh_99]                      |
+| [ ]  | 30 | **Low**      | `container.rb:61`                | `compress` returns `self` after compressed — inconsistent identity |                                   |
 
 ---
 
@@ -159,6 +159,11 @@ contents of the chars variable."* Callers who retain a reference to the original
 `Container` creates a fresh array each time and is not affected, but the public `Node#add` interface is dangerous for
 any direct caller.
 
+#### Feedback for issue 6
+
+> While true, I am discarding this because this is actually all internal API stuff to save memory.
+> `Container` is the only real public interface via `Rambling::Trie.(create|load)`
+
 ---
 
 ### 7. `Container#concat` silently ignores `values` array length mismatch
@@ -227,6 +232,14 @@ joined string is shorter than `child_letter`, the comparison fails, and `EMPTY_E
 cutting off all `words_within` results for that branch. `partial_word_chars?` handles this case explicitly (lines 43-50)
 but `children_match_prefix` does not.
 
+#### Feedback for issue 10
+
+> While Claude identified an opportunity for an early return, it was _incorrect_ to interpret it as "silently fails",
+> and the tests it suggested were still passing. That said, it does save a tiny bit of time when characters are left but
+> we already know there are not enough to attempt further matches.
+>
+> _See also [#101][gh_101]_.
+
 ---
 
 ### 11. Shared `children_tree` hash mutated via parent reassignment in `Compressed`
@@ -265,6 +278,46 @@ Each level allocates a new string containing the full prefix up to that point. F
 characters allocated is 1+2+3+…+N = N(N+1)/2. This is called during every `each`/`scan`/`words_within` traversal. A
 single upward traversal collecting letters into an array and joining once would reduce this to O(N).
 
+#### Feedback for issue 13
+
+> As with any performance improvement done for `rambling-trie`, I added a benchmark to compare recursive vs iterative
+> `#to_s` and, surprise surprise, _it doesn't really support this claim_.
+> It's literally ≈1% difference at a depth of 100, and ≈3% difference at a depth of 1000.
+>
+> Results at depth of 100:
+>
+> ```
+> ruby 4.0.2 (2026-03-17 revision d3da9fec82) +PRISM [x86_64-darwin25]
+> Warming up --------------------------------------
+>            recursive     5.163k i/100ms
+>       iterative_node     5.262k i/100ms
+> Calculating -------------------------------------
+>            recursive     50.594k (± 6.1%) i/s   (19.77 μs/i) -      1.012M in  20.089590s
+>       iterative_node     51.218k (± 3.1%) i/s   (19.52 μs/i) -      1.026M in  20.054119s
+>
+> Comparison:
+>       iterative_node:    51217.8 i/s
+>            recursive:    50594.4 i/s - same-ish: difference falls within error
+> ```
+>
+> Results at depth of 1000:
+>
+> ```
+> ruby 4.0.2 (2026-03-17 revision d3da9fec82) +PRISM [x86_64-darwin25]
+> Warming up --------------------------------------
+>            recursive   197.000 i/100ms
+>       iterative_node   203.000 i/100ms
+> Calculating -------------------------------------
+>            recursive      1.920k (± 6.7%) i/s  (520.87 μs/i) -     38.415k in  20.097473s
+>       iterative_node      1.990k (± 5.1%) i/s  (502.41 μs/i) -     39.788k in  20.043401s
+>
+> Comparison:
+>       iterative_node:     1990.4 i/s
+>            recursive:     1919.9 i/s - same-ish: difference falls within error
+> ```
+>
+> _See also [#100][gh_100]_.
+
 ---
 
 ### 14. `first_child` disables RuboCop to exploit a loop-break trick
@@ -295,6 +348,10 @@ def first_child = children_tree.each_value.first
 any scope where the `Rambling::Trie` namespace is open, bare references to `Comparable` or `Enumerable` resolve to the
 gem's modules instead of stdlib. The gem correctly uses `::Enumerable` internally, but this is a constant-resolution
 footgun for contributors and anyone extending or including the gem's namespaces.
+
+#### Feedback for issue 15
+
+> This is a-ok, and completely on purpose. _Stop suggesting fixes like this one_.
 
 ---
 
@@ -466,6 +523,28 @@ def inspect
 end
 ```
 
+#### Feedback for issue 24
+
+> This is demonstrably _not true_. With version `2.6.0`:
+>
+> ```ruby
+> require 'rambling-trie'
+> # => true
+> t = Rambling::Trie.create
+> => #<Rambling::Trie::Container root: #<Rambling::Trie::Nodes::Raw letter: nil, terminal: nil, children: []>>
+> t.concat %w(one two three four five six seven)
+> # =>
+> # [#<Rambling::Trie::Nodes::Raw letter: :o, terminal: nil, children: [:n]>,
+> #  #<Rambling::Trie::Nodes::Raw letter: :t, terminal: nil, children: [:w, :h, :e]>,
+> #  #<Rambling::Trie::Nodes::Raw letter: :t, terminal: nil, children: [:w, :h, :e]>,
+> #  #<Rambling::Trie::Nodes::Raw letter: :f, terminal: nil, children: [:o, :i]>,
+> #  #<Rambling::Trie::Nodes::Raw letter: :f, terminal: nil, children: [:o, :i]>,
+> #  #<Rambling::Trie::Nodes::Raw letter: :s, terminal: nil, children: [:i, :e]>,
+> #  #<Rambling::Trie::Nodes::Raw letter: :s, terminal: nil, children: [:i, :e]>]
+> t
+> # => #<Rambling::Trie::Container root: #<Rambling::Trie::Nodes::Raw nil, terminal: nil, children: [:o, :t, :f, :s]>>
+```
+
 ---
 
 ### 25. `as_word` guard uses a double-negative condition
@@ -486,6 +565,29 @@ clause form is both idiomatic and easier to read:
 raise InvalidOperation, 'Cannot represent branch as a word' if letter && !terminal?
 to_s
 ```
+
+#### Feedback for issue 25
+
+> I'm discarding it because it says:
+
+> > The condition means *"has a letter AND is not terminal"*, but `!terminal?` forces a double-negative parse. A guard
+> > clause form is both idiomatic and easier to read:
+> > ...
+
+> But it's not a double-negative? Maybe it's figuring out that `terminal?` is defined as `!!terminal`, but any
+> suggestions don't really deal with that:
+>
+> ```ruby
+> # replace with guard
+> raise X if letter && !terminal?
+> # replace with unless guard
+> raise X unless !letter || terminal?
+> # replace with guard after extracting a new "branch?" method that defined as "!terminal?"
+> raise X if letter && branch?
+> ```
+
+> _See also [#102][gh_102]._
+
 
 ---
 
@@ -573,6 +675,22 @@ compression. Callers cannot use object identity (`equal?`) to detect whether com
 pure/non-mutating API, `compress` should always return a new container (wrapping the same already-compressed root when
 no work is needed). `compress!` is the correct mutation path.
 
-[github_pull_100]: https://github.com/gonzedge/rambling-trie/pull/100
-[github_pull_101]: https://github.com/gonzedge/rambling-trie/pull/101
-[github_pull_102]: https://github.com/gonzedge/rambling-trie/pull/102
+[fb_6]: /gonzedge/rambling-trie/blob/main/doc/20260411-claude-code-review.md#feedback-for-issue-6
+[fb_10]: /gonzedge/rambling-trie/blob/main/doc/20260411-claude-code-review.md#feedback-for-issue-10
+[fb_13]: /gonzedge/rambling-trie/blob/main/doc/20260411-claude-code-review.md#feedback-for-issue-13
+[fb_15]: /gonzedge/rambling-trie/blob/main/doc/20260411-claude-code-review.md#feedback-for-issue-15
+[fb_24]: /gonzedge/rambling-trie/blob/main/doc/20260411-claude-code-review.md#feedback-for-issue-24
+[fb_25]: /gonzedge/rambling-trie/blob/main/doc/20260411-claude-code-review.md#feedback-for-issue-25
+[gh_91]: https://github.com/gonzedge/rambling-trie/pull/91
+[gh_92]: https://github.com/gonzedge/rambling-trie/pull/92
+[gh_93]: https://github.com/gonzedge/rambling-trie/pull/93
+[gh_94]: https://github.com/gonzedge/rambling-trie/pull/94
+[gh_95]: https://github.com/gonzedge/rambling-trie/pull/95
+[gh_96]: https://github.com/gonzedge/rambling-trie/pull/96
+[gh_97]: https://github.com/gonzedge/rambling-trie/pull/97
+[gh_98]: https://github.com/gonzedge/rambling-trie/pull/98
+[gh_99]: https://github.com/gonzedge/rambling-trie/pull/99
+[gh_100]: https://github.com/gonzedge/rambling-trie/pull/100
+[gh_101]: https://github.com/gonzedge/rambling-trie/pull/101
+[gh_102]: https://github.com/gonzedge/rambling-trie/pull/102
+[gh_user_gonzedge]: https://github.com/gonzedge
