@@ -137,6 +137,8 @@ module Rambling
         return enum_for :each unless block_given?
 
         root.each { |word| yield word }
+
+        self
       end
 
       # @return [String] a string representation of the container.
