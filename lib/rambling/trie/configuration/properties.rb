@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'tmpdir'
+
 module Rambling
   module Trie
     module Configuration
@@ -39,7 +41,7 @@ module Rambling
 
           @compressor = Rambling::Trie::Compressor.new
           @root_builder = -> { Rambling::Trie::Nodes::Raw.new }
-          @tmp_path = '/tmp'
+          @tmp_path = Dir.tmpdir
         end
 
         private
