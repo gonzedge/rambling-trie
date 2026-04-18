@@ -18,6 +18,9 @@
 - Fix `Serializers::Zip#(load|dump)` leaking tmp files ([#95][github_pull_95]) by [@gonzedge][github_user_gonzedge]
   - Add common `Serializer::Zip#clean_up_tmp_files` method
   - Use `(serializers.resolve(filename) || raise).<method>` trick to reduce method sizes
+- Handle tmp dir compatibility issues ([#104][github_pull_104]) by [@gonzedge][github_user_gonzedge]
+  - Replace hardcoded `/tmp` with `Dir.tmpdir` in `Properties`
+  - Rename `Serializers::Zip#path{,_with_random_prefix}` to better communicate intent
 
 #### Minor
 
@@ -1352,6 +1355,8 @@ Most of these help with the gem's overall performance.
 [github_pull_100]: https://github.com/gonzedge/rambling-trie/pull/100
 [github_pull_101]: https://github.com/gonzedge/rambling-trie/pull/101
 [github_pull_102]: https://github.com/gonzedge/rambling-trie/pull/102
+[github_pull_103]: https://github.com/gonzedge/rambling-trie/pull/103
+[github_pull_104]: https://github.com/gonzedge/rambling-trie/pull/104
 [github_user_agate]: https://github.com/agate
 [github_user_as181920]: https://github.com/as181920
 [github_user_godsent]: https://github.com/godsent
