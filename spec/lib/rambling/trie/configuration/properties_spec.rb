@@ -38,6 +38,10 @@ describe Rambling::Trie::Configuration::Properties do
       root = properties.root_builder.call
       expect(root).to be_instance_of Rambling::Trie::Nodes::Raw
     end
+
+    it 'configures tmp_path to the system temp directory' do
+      expect(properties.tmp_path).to eq Dir.tmpdir
+    end
   end
 
   describe '#reset' do

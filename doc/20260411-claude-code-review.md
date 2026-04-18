@@ -30,14 +30,14 @@ Legend: `[x]` fixed · `[ ]` pending · `[-]` skipped / won't fix / not applicab
 | [ ]  | 18 | **Medium**   | `nodes/node.rb:179`              | Abstract methods raise bare `NotImplementedError` with no context  |                                   |
 | [ ]  | 19 | **Medium**   | `provider_collection.rb:109`     | Dead `\|\| raise` and broken `default=` on empty collections       |                                   |
 | [x]  | 20 | **Medium**   | `compressible.rb:10`             | Yoda condition `1 == children_tree.size`                           | [#102][gh_102]                    |
-| [ ]  | 21 | **Medium**   | `serializers/zip.rb:33`          | Indirect `File.basename` extraction path obscures intent           |                                   |
+| [x]  | 21 | **Medium**   | `serializers/zip.rb:33`          | Indirect `File.basename` extraction path obscures intent           | [#104][gh_104]                    |
 | [ ]  | 22 | **Medium**   | `trie.rb:24,27`                  | Two `# noinspection` comments masking a type design problem        |                                   |
 | [ ]  | 23 | **Medium**   | `provider_collection.rb:73`      | `reset` can unexpectedly raise `ArgumentError`                     |                                   |
 | [-]  | 24 | **Low**      | `container.rb:137`               | `inspect` traverses the entire tree                                | [feedback][fb_24]                 |
 | [-]  | 25 | **Low**      | `stringifyable.rb:11`            | `as_word` guard uses a double-negative condition                   | [feedback][fb_25], [#102][gh_102] |
 | [x]  | 26 | **Low**      | `nodes/node.rb:35`               | `value` docstring copy-pasted from `parent` — wrong description    | [#102][gh_102]                    |
 | [ ]  | 27 | **Low**      | `container.rb:133`               | `each` returns a `Node`, not `self`, when a block is given         |                                   |
-| [ ]  | 28 | **Low**      | `configuration/properties.rb:42` | Hardcoded `/tmp` — not portable across platforms                   |                                   |
+| [x]  | 28 | **Low**      | `configuration/properties.rb:42` | Hardcoded `/tmp` — not portable across platforms                   | [#104][gh_104]                    |
 | [x]  | 29 | **Low**      | `serializers/yaml.rb:26`         | `aliases: true` enables billion-laughs YAML memory attack          | [#99][gh_99]                      |
 | [ ]  | 30 | **Low**      | `container.rb:61`                | `compress` returns `self` after compressed — inconsistent identity |                                   |
 
@@ -693,4 +693,5 @@ no work is needed). `compress!` is the correct mutation path.
 [gh_100]: https://github.com/gonzedge/rambling-trie/pull/100
 [gh_101]: https://github.com/gonzedge/rambling-trie/pull/101
 [gh_102]: https://github.com/gonzedge/rambling-trie/pull/102
+[gh_104]: https://github.com/gonzedge/rambling-trie/pull/104
 [gh_user_gonzedge]: https://github.com/gonzedge

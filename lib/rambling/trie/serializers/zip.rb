@@ -30,7 +30,7 @@ module Rambling
               raise unless entry
 
               entry_name = entry.name
-              entry_path = path entry_name
+              entry_path = path_with_random_prefix entry_name
               tmp_paths << entry_path
 
               entry.extract ::File.basename(entry_path), destination_directory: tmp_path
@@ -53,7 +53,7 @@ module Rambling
             ::Zip::File.open filepath, create: true do |zip|
               filename = ::File.basename filepath, '.zip'
 
-              entry_path = path filename
+              entry_path = path_with_random_prefix filename
               tmp_paths << entry_path
 
               (serializers.resolve(filename) || raise).dump contents, entry_path
@@ -76,7 +76,7 @@ module Rambling
           properties.tmp_path
         end
 
-        def path filename
+        def path_with_random_prefix filename
           require 'securerandom'
           ::File.join tmp_path, "#{SecureRandom.uuid}-#{filename}"
         end
