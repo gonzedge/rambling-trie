@@ -14,7 +14,7 @@ module Rambling
 
         def tmp_path: -> String
 
-        def path: (String) -> String
+        def path_with_random_prefix: (String) -> String
 
         def clean_up_tmp_files: [T] { (Array[String]) -> T } -> T
       end
