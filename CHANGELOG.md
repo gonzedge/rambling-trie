@@ -54,6 +54,9 @@
   by [@gonzedge][github_user_gonzedge]
 - Reduce allocs in `reversed_char_symbols` and remove no-op `.to_a` ([#106][github_pull_106])
   by [@gonzedge][github_user_gonzedge]
+- Remove unnecessary `providers.any?` guard and `ProviderCollection#contains?` ([#107][github_pull_107])
+  by [@gonzedge][github_user_gonzedge]
+- Better type resolution within `Rambling::Trie.create` ([#108][github_pull_108]) by [@gonzedge][github_user_gonzedge]
 
 ## 2.6.0 [compare][compare_v2_5_1_and_v2_6_0]
 

@@ -31,7 +31,7 @@ Legend: `[x]` fixed · `[ ]` pending · `[-]` skipped / won't fix / not applicab
 | [x]  | 19 | **Medium**   | `provider_collection.rb:109`     | Dead `\|\| raise` and broken `default=` on empty collections       | [#107][gh_107]                    |
 | [x]  | 20 | **Medium**   | `compressible.rb:10`             | Yoda condition `1 == children_tree.size`                           | [#102][gh_102]                    |
 | [x]  | 21 | **Medium**   | `serializers/zip.rb:33`          | Indirect `File.basename` extraction path obscures intent           | [#104][gh_104]                    |
-| [ ]  | 22 | **Medium**   | `trie.rb:24,27`                  | Two `# noinspection` comments masking a type design problem        |                                   |
+| [x]  | 22 | **Medium**   | `trie.rb:24,27`                  | Two `# noinspection` comments masking a type design problem        | [#108][gh_108]                    |
 | [-]  | 23 | **Medium**   | `provider_collection.rb:73`      | `reset` can unexpectedly raise `ArgumentError`                     | [feedback][fb_23], [#107][gh_107] |
 | [-]  | 24 | **Low**      | `container.rb:137`               | `inspect` traverses the entire tree                                | [feedback][fb_24]                 |
 | [-]  | 25 | **Low**      | `stringifyable.rb:11`            | `as_word` guard uses a double-negative condition                   | [feedback][fb_25], [#102][gh_102] |
@@ -705,4 +705,5 @@ no work is needed). `compress!` is the correct mutation path.
 [gh_105]: https://github.com/gonzedge/rambling-trie/pull/105
 [gh_106]: https://github.com/gonzedge/rambling-trie/pull/106
 [gh_107]: https://github.com/gonzedge/rambling-trie/pull/107
+[gh_108]: https://github.com/gonzedge/rambling-trie/pull/108
 [gh_user_gonzedge]: https://github.com/gonzedge
