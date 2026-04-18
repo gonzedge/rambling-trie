@@ -26,7 +26,7 @@ Legend: `[x]` fixed · `[ ]` pending · `[-]` skipped / won't fix / not applicab
 | [x]  | 14 | **Medium**   | `nodes/node.rb:59`               | `first_child` disables RuboCop to exploit loop-break trick         | [#102][gh_102]                    |
 | [-]  | 15 | **Medium**   | `comparable.rb`, `enumerable.rb` | Module names shadow `::Comparable` and `::Enumerable`              | [feedback][fb_15]                 |
 | [ ]  | 16 | **Medium**   | `trie.rb:79`                     | `@properties` lazy init is not thread-safe                         |                                   |
-| [ ]  | 17 | **Medium**   | `container.rb:220`               | Unnecessary `.to_a` no-op and three intermediate allocations       |                                   |
+| [x]  | 17 | **Medium**   | `container.rb:220`               | Unnecessary `.to_a` no-op and three intermediate allocations       | [#106][gh_106]                    |
 | [ ]  | 18 | **Medium**   | `nodes/node.rb:179`              | Abstract methods raise bare `NotImplementedError` with no context  |                                   |
 | [ ]  | 19 | **Medium**   | `provider_collection.rb:109`     | Dead `\|\| raise` and broken `default=` on empty collections       |                                   |
 | [x]  | 20 | **Medium**   | `compressible.rb:10`             | Yoda condition `1 == children_tree.size`                           | [#102][gh_102]                    |
@@ -695,4 +695,5 @@ no work is needed). `compress!` is the correct mutation path.
 [gh_102]: https://github.com/gonzedge/rambling-trie/pull/102
 [gh_104]: https://github.com/gonzedge/rambling-trie/pull/104
 [gh_105]: https://github.com/gonzedge/rambling-trie/pull/105
+[gh_106]: https://github.com/gonzedge/rambling-trie/pull/106
 [gh_user_gonzedge]: https://github.com/gonzedge
