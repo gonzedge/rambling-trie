@@ -28,11 +28,11 @@ Legend: `[x]` fixed · `[ ]` pending · `[-]` skipped / won't fix / not applicab
 | [ ]  | 16 | **Medium**   | `trie.rb:79`                     | `@properties` lazy init is not thread-safe                         |                                   |
 | [x]  | 17 | **Medium**   | `container.rb:220`               | Unnecessary `.to_a` no-op and three intermediate allocations       | [#106][gh_106]                    |
 | [ ]  | 18 | **Medium**   | `nodes/node.rb:179`              | Abstract methods raise bare `NotImplementedError` with no context  |                                   |
-| [x]  | 19 | **Medium**   | `provider_collection.rb:109`     | Dead `\|\| raise` and broken `default=` on empty collections       |                                   |
+| [x]  | 19 | **Medium**   | `provider_collection.rb:109`     | Dead `\|\| raise` and broken `default=` on empty collections       | [#107][gh_107]                    |
 | [x]  | 20 | **Medium**   | `compressible.rb:10`             | Yoda condition `1 == children_tree.size`                           | [#102][gh_102]                    |
 | [x]  | 21 | **Medium**   | `serializers/zip.rb:33`          | Indirect `File.basename` extraction path obscures intent           | [#104][gh_104]                    |
 | [ ]  | 22 | **Medium**   | `trie.rb:24,27`                  | Two `# noinspection` comments masking a type design problem        |                                   |
-| [ ]  | 23 | **Medium**   | `provider_collection.rb:73`      | `reset` can unexpectedly raise `ArgumentError`                     |                                   |
+| [-]  | 23 | **Medium**   | `provider_collection.rb:73`      | `reset` can unexpectedly raise `ArgumentError`                     | [feedback][fb_23], [#107][gh_107] |
 | [-]  | 24 | **Low**      | `container.rb:137`               | `inspect` traverses the entire tree                                | [feedback][fb_24]                 |
 | [-]  | 25 | **Low**      | `stringifyable.rb:11`            | `as_word` guard uses a double-negative condition                   | [feedback][fb_25], [#102][gh_102] |
 | [x]  | 26 | **Low**      | `nodes/node.rb:35`               | `value` docstring copy-pasted from `parent` — wrong description    | [#102][gh_102]                    |
@@ -500,6 +500,13 @@ custom object that was later replaced or is not in the freshly-rebuilt `provider
 no documentation warning. Using `@default = configured_default` directly (bypassing the setter's validation) is correct
 here since `configured_default` was validated at initialization time.
 
+#### Feedback for issue 23
+
+> Discarding this one because we are relying on this validation during instantiation of `ProviderCollection` with a
+> given `default`.
+>
+> This is a-ok, and completely on purpose. _Stop suggesting fixes like this one_.
+
 ---
 
 ## Low
@@ -679,6 +686,7 @@ no work is needed). `compress!` is the correct mutation path.
 [fb_10]: /gonzedge/rambling-trie/blob/main/doc/20260411-claude-code-review.md#feedback-for-issue-10
 [fb_13]: /gonzedge/rambling-trie/blob/main/doc/20260411-claude-code-review.md#feedback-for-issue-13
 [fb_15]: /gonzedge/rambling-trie/blob/main/doc/20260411-claude-code-review.md#feedback-for-issue-15
+[fb_23]: /gonzedge/rambling-trie/blob/main/doc/20260411-claude-code-review.md#feedback-for-issue-23
 [fb_24]: /gonzedge/rambling-trie/blob/main/doc/20260411-claude-code-review.md#feedback-for-issue-24
 [fb_25]: /gonzedge/rambling-trie/blob/main/doc/20260411-claude-code-review.md#feedback-for-issue-25
 [gh_91]: https://github.com/gonzedge/rambling-trie/pull/91
@@ -696,4 +704,5 @@ no work is needed). `compress!` is the correct mutation path.
 [gh_104]: https://github.com/gonzedge/rambling-trie/pull/104
 [gh_105]: https://github.com/gonzedge/rambling-trie/pull/105
 [gh_106]: https://github.com/gonzedge/rambling-trie/pull/106
+[gh_107]: https://github.com/gonzedge/rambling-trie/pull/107
 [gh_user_gonzedge]: https://github.com/gonzedge
