@@ -18,6 +18,7 @@ module Rambling
       def compress: -> Container[TValue]
 
       def each: { (String) -> void } -> (Enumerator[String, void] | Enumerable[TValue])
+                | -> Container[TValue]
 
       def partial_word?: (String) -> bool
 

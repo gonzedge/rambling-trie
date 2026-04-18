@@ -36,7 +36,7 @@ Legend: `[x]` fixed · `[ ]` pending · `[-]` skipped / won't fix / not applicab
 | [-]  | 24 | **Low**      | `container.rb:137`               | `inspect` traverses the entire tree                                | [feedback][fb_24]                 |
 | [-]  | 25 | **Low**      | `stringifyable.rb:11`            | `as_word` guard uses a double-negative condition                   | [feedback][fb_25], [#102][gh_102] |
 | [x]  | 26 | **Low**      | `nodes/node.rb:35`               | `value` docstring copy-pasted from `parent` — wrong description    | [#102][gh_102]                    |
-| [ ]  | 27 | **Low**      | `container.rb:133`               | `each` returns a `Node`, not `self`, when a block is given         |                                   |
+| [x]  | 27 | **Low**      | `container.rb:133`               | `each` returns a `Node`, not `self`, when a block is given         | [#105][gh_105]                    |
 | [x]  | 28 | **Low**      | `configuration/properties.rb:42` | Hardcoded `/tmp` — not portable across platforms                   | [#104][gh_104]                    |
 | [x]  | 29 | **Low**      | `serializers/yaml.rb:26`         | `aliases: true` enables billion-laughs YAML memory attack          | [#99][gh_99]                      |
 | [ ]  | 30 | **Low**      | `container.rb:61`                | `compress` returns `self` after compressed — inconsistent identity |                                   |
@@ -694,4 +694,5 @@ no work is needed). `compress!` is the correct mutation path.
 [gh_101]: https://github.com/gonzedge/rambling-trie/pull/101
 [gh_102]: https://github.com/gonzedge/rambling-trie/pull/102
 [gh_104]: https://github.com/gonzedge/rambling-trie/pull/104
+[gh_105]: https://github.com/gonzedge/rambling-trie/pull/105
 [gh_user_gonzedge]: https://github.com/gonzedge

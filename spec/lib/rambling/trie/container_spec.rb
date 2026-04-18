@@ -405,12 +405,19 @@ describe Rambling::Trie::Container do
       expect(yielded).to eq %w(yes no why)
     end
 
-    it 'returns an enumerator when no block is given' do
-      expect(container.each).to be_instance_of Enumerator
+    it 'returns self' do
+      result = container.each { |word| word }
+      expect(result).to be container
     end
 
-    it 'iterates through all words contained' do
-      expect(container.each.to_a).to eq %w(yes no why)
+    context 'when no block is given' do
+      it 'returns an enumerator when no block is given' do
+        expect(container.each).to be_instance_of Enumerator
+      end
+
+      it 'iterates through all words contained' do
+        expect(container.each.to_a).to eq %w(yes no why)
+      end
     end
   end
 
