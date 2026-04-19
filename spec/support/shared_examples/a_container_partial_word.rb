@@ -14,4 +14,10 @@ shared_examples_for 'a non-matching container#partial_word' do
       expect(container.partial_word? word).to be false
     end
   end
+
+  it 'does not match a same-length prefix that differs in middle characters' do
+    %w(hallo hexyo).each do |word|
+      expect(container.partial_word? word).to be false
+    end
+  end
 end

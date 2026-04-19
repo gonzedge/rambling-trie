@@ -306,6 +306,24 @@ describe Rambling::Trie::Container do
         end
       end
     end
+
+    context 'when query shares only first char with a contained same-length word' do
+      before { add_words container, %w(hello world) }
+
+      it 'returns an empty array for a diverging same-length query' do
+        expect(container.scan 'hallo').to eq %w()
+        expect(container.scan 'wolld').to eq %w()
+      end
+
+      context 'with compressed root' do
+        before { container.compress! }
+
+        it 'returns an empty array for a diverging same-length query after compression' do
+          expect(container.scan 'hallo').to eq %w()
+          expect(container.scan 'wolld').to eq %w()
+        end
+      end
+    end
   end
 
   describe '#words_within' do
