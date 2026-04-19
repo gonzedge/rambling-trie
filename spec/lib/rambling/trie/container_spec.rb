@@ -310,6 +310,7 @@ describe Rambling::Trie::Container do
     context 'when query shares only first char with a contained same-length word' do
       before { add_words container, %w(hello world) }
 
+      # rubocop:disable RSpec/MultipleExpectations
       it 'returns an empty array for a diverging same-length query' do
         expect(container.scan 'hallo').to eq %w()
         expect(container.scan 'wolld').to eq %w()
@@ -323,6 +324,7 @@ describe Rambling::Trie::Container do
           expect(container.scan 'wolld').to eq %w()
         end
       end
+      # rubocop:enable RSpec/MultipleExpectations
     end
   end
 

@@ -70,19 +70,19 @@ module Rambling
         end
 
         def closest_node chars
-          child = children_tree[(chars.first || raise('empty chars in closest_node')).to_sym]
+          child = children_tree[(chars.first || raise).to_sym]
           return missing unless child
 
           child_letter = child.letter.to_s
 
-          if chars.size >= child_letter.size
-            letter = (chars.shift(child_letter.size) || raise('shift returned nil in closest_node')).join
-            return missing unless child_letter == letter
-
-            child.scan chars
-          else
-            child_letter.start_with?(chars.join) ? child : missing
+          if chars.size < child_letter.size
+            return child_letter.start_with?(chars.join) ? child : missing
           end
+
+          letter = (chars.shift(child_letter.size) || raise).join
+          return missing unless child_letter == letter
+
+          child.scan chars
         end
 
         def children_match_prefix chars
