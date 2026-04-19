@@ -35,19 +35,19 @@ module Rambling
         private
 
         def partial_word_chars? chars
-          child = children_tree[(chars.first || raise).to_sym]
+          child = children_tree[(chars.first || raise('empty chars in partial_word_chars?')).to_sym]
           return false unless child
 
           child_letter = child.letter.to_s
 
           if chars.size >= child_letter.size
-            letter = (chars.shift(child_letter.size) || raise).join
-            return child.partial_word? chars if child_letter == letter
-          end
+            letter = (chars.shift(child_letter.size) || raise('shift returned nil in partial_word_chars?')).join
+            return false unless child_letter == letter
 
-          letter = chars.join
-          child_letter = child_letter.slice 0, letter.size
-          child_letter == letter
+            child.partial_word? chars
+          else
+            child_letter.start_with? chars.join
+          end
         end
 
         def word_chars? chars
@@ -70,20 +70,19 @@ module Rambling
         end
 
         def closest_node chars
-          child = children_tree[(chars.first || raise).to_sym]
+          child = children_tree[(chars.first || raise('empty chars in closest_node')).to_sym]
           return missing unless child
 
           child_letter = child.letter.to_s
 
           if chars.size >= child_letter.size
-            letter = (chars.shift(child_letter.size) || raise).join
-            return child.scan chars if child_letter == letter
+            letter = (chars.shift(child_letter.size) || raise('shift returned nil in closest_node')).join
+            return missing unless child_letter == letter
+
+            child.scan chars
+          else
+            child_letter.start_with?(chars.join) ? child : missing
           end
-
-          letter = chars.join
-          child_letter = child_letter.slice 0, letter.size
-
-          child_letter == letter ? child : missing
         end
 
         def children_match_prefix chars
