@@ -10,8 +10,8 @@ Legend: `[x]` fixed · `[ ]` pending · `[-]` skipped / won't fix / not applicab
 
 | Done | #  | Severity     | File                                     | Issue                                                                        | PR or Feedback |
 |------|----|--------------|------------------------------------------|------------------------------------------------------------------------------|----------------|
-| [x]  | 31 | **Critical** | `nodes/compressed.rb:37-51`              | `partial_word_chars?` fall-through with mutated chars returns `true` for non-matching same-length prefixes | [#N][gh_N]     |
-| [x]  | 32 | **Critical** | `nodes/compressed.rb:72-87`              | `closest_node` has the same fall-through bug — `scan` returns wrong branch   | [#N][gh_N]     |
+| [x]  | 31 | **Critical** | `nodes/compressed.rb:37-51`              | `partial_word_chars?` fall-through with mutated chars returns `true` for non-matching same-length prefixes | [#109][gh_109]     |
+| [x]  | 32 | **Critical** | `nodes/compressed.rb:72-87`              | `closest_node` has the same fall-through bug — `scan` returns wrong branch   | [#109][gh_109]     |
 | [ ]  | 11 | **High**     | `nodes/node.rb:42`, `nodes/compressed.rb:13-17` | Shared `children_tree` mutated via parent reassign in `Compressed` (carried from prior review) |                |
 | [ ]  | 33 | **High**     | `sig/lib/rambling/trie/container.rbs:20-21` | `Container#each` RBS overloads have the return types backwards               |                |
 | [ ]  | 34 | **High**     | `sig/lib/rambling/trie/readers/plain_text.rbs:5` | `PlainText#each_word` RBS yields `String?` but Ruby code always yields `String` |                |
@@ -626,4 +626,5 @@ docstring:
 [fb_23]: /gonzedge/rambling-trie/blob/main/doc/20260411-claude-code-review.md#feedback-for-issue-23
 [fb_24]: /gonzedge/rambling-trie/blob/main/doc/20260411-claude-code-review.md#feedback-for-issue-24
 [fb_25]: /gonzedge/rambling-trie/blob/main/doc/20260411-claude-code-review.md#feedback-for-issue-25
+[gh_109]: https://github.com/gonzedge/rambling-trie/pull/109
 [gh_user_gonzedge]: https://github.com/gonzedge
