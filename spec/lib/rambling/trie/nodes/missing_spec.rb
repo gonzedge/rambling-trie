@@ -17,6 +17,12 @@ describe Rambling::Trie::Nodes::Missing do
     end
   end
 
+  describe '#match_prefix' do
+    it 'returns nothing' do
+      expect(node.match_prefix(%(a b)).to_a).to be_empty
+    end
+  end
+
   describe '#each' do
     it 'yields nothing' do
       expect(node.to_a).to be_empty
