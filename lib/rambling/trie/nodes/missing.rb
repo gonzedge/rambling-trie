@@ -5,22 +5,22 @@ module Rambling
     module Nodes
       # A representation of a missing node in the trie data structure. Returned when a node is not found.
       class Missing < Rambling::Trie::Nodes::Node
-        def partial_word? _chars
+        def partial_word? _
           false
         end
 
         private
 
-        def word_chars? _chars
+        def word_chars? _
           false
         end
 
-        def closest_node _chars
+        def closest_node _
           self
         end
 
-        def children_match_prefix _chars
-          return enum_for :children_match_prefix, _chars unless block_given?
+        def children_match_prefix chars
+          enum_for :children_match_prefix, chars unless block_given?
         end
       end
     end
