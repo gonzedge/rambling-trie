@@ -65,6 +65,16 @@
 - Implement `Nodes::Missing` as a proper null object ([#110][github_pull_110]) by [@gonzedge][github_user_gonzedge]
   - Override `partial_word?`, `word_chars?`, `closest_node`, and `children_match_prefix` to return safe empty results
     instead of raising `NotImplementedError`
+- Return `self` from `Container#words_within_root` with block and correct RBS signatures ([#111][github_pull_111])
+  by [@gonzedge][github_user_gonzedge]
+  - Switch `words_within_root` from `0.upto(size-1).each` to `each_index`, return `self` explicitly; update RBS to
+    `Container[TValue] | Enumerator[String, void]`
+  - Swap `Container#each` / `Enumerable#each` block/no-block overloads - block returns `self`, no-block returns
+    `Enumerator` (regression from #105)
+  - Tighten `Readers::PlainText#each_word` block arg from `String?` to `String` (non-nullable since #91)
+  - Widen `Nodes::Compressed#add` second arg to `?TValue?` to match parent `Nodes::Node#add` contract
+  - Mark `letter`/`value` abstract signatures nullable in `Comparable`, `Inspectable`, `Stringifyable` mixins
+  - Mark `Container#{partial_word?,word?,scan}` args optional to match `''` Ruby defaults
 
 ## 2.6.0 [compare][compare_v2_5_1_and_v2_6_0]
 
@@ -1378,6 +1388,7 @@ Most of these help with the gem's overall performance.
 [github_pull_108]: https://github.com/gonzedge/rambling-trie/pull/108
 [github_pull_109]: https://github.com/gonzedge/rambling-trie/pull/109
 [github_pull_110]: https://github.com/gonzedge/rambling-trie/pull/110
+[github_pull_111]: https://github.com/gonzedge/rambling-trie/pull/111
 [github_user_agate]: https://github.com/agate
 [github_user_as181920]: https://github.com/as181920
 [github_user_godsent]: https://github.com/godsent
