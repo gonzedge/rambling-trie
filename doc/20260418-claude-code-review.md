@@ -22,7 +22,7 @@ Legend: `[x]` fixed · `[ ]` pending · `[-]` skipped / won't fix / not applicab
 | [ ]  | 37 | **Medium**   | `sig/lib/rambling/trie/container.rbs:23,27,29` | `partial_word?`/`word?`/`scan` RBS require `String` argument but Ruby defaults to `''` |                |
 | [x]  | 38 | **Medium**   | `lib/rambling/trie/nodes/missing.rb`     | `Missing` inherits abstract `Node` private methods that raise `NotImplementedError` from public API | [#110][gh_110] |
 | [ ]  | 39 | **Medium**   | `configuration/provider_collection.rb:112` | `contains?` still has dead `|| raise` after the nil guard above              |                |
-| [ ]  | 40 | **Medium**   | `container.rb:211-222`                   | `words_within_root` returns wrong type (a `Range`) when block given and phrase is empty |                |
+| [x]  | 40 | **Medium**   | `container.rb:211-222`                   | `words_within_root` returns wrong type (a `Range`) when block given and phrase is empty | [#111][gh_111] |
 | [ ]  | 30 | **Low**      | `container.rb:68-72`                     | `compress` returns `self` after compressed — inconsistent identity (carried from prior review) |                |
 | [ ]  | 41 | **Low**      | `nodes/compressed.rb:25`                 | `add _, _ = nil` uses two identical `_` parameters — legal but confusing     |                |
 | [ ]  | 42 | **Low**      | multiple files (`trie.rb:46,63`; `nodes/raw.rb:34`; `nodes/compressed.rb:38,44,54,65,73,79,94,107`; `serializers/zip.rb:38,59`; `container.rb:225`) | Bare `|| raise` produces uninformative `RuntimeError` with no message |                |
@@ -628,4 +628,5 @@ docstring:
 [fb_25]: /gonzedge/rambling-trie/blob/main/doc/20260411-claude-code-review.md#feedback-for-issue-25
 [gh_109]: https://github.com/gonzedge/rambling-trie/pull/109
 [gh_110]: https://github.com/gonzedge/rambling-trie/pull/110
+[gh_111]: https://github.com/gonzedge/rambling-trie/pull/111
 [gh_user_gonzedge]: https://github.com/gonzedge
