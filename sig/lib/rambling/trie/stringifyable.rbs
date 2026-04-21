@@ -9,7 +9,7 @@ module Rambling
 
       # abstract methods
 
-      def letter: -> Symbol
+      def letter: -> Symbol?
 
       def terminal?: -> bool
 

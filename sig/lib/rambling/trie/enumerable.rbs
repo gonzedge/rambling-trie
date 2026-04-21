@@ -5,7 +5,8 @@ module Rambling
 
       alias size count
 
-      def each: { (String) -> void } -> (Enumerator[String, void] | Enumerable[TValue])
+      def each: { (String) -> void } -> Enumerable[TValue]
+                | -> Enumerator[String, void]
 
       private
 
