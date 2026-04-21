@@ -20,7 +20,7 @@ Legend: `[x]` fixed · `[ ]` pending · `[-]` skipped / won't fix / not applicab
 | [ ]  | 18 | **Medium**   | `nodes/node.rb:173,177,181,185`          | Abstract methods raise bare `NotImplementedError` with no context (carried from prior review) |                |
 | [ ]  | 36 | **Medium**   | `sig/lib/rambling/trie/comparable.rbs:10,12`, `inspectable.rbs:23,25`, `stringifyable.rbs:12` | Abstract `letter`/`value` typed as non-nullable but concrete `Node` is nullable |                |
 | [ ]  | 37 | **Medium**   | `sig/lib/rambling/trie/container.rbs:23,27,29` | `partial_word?`/`word?`/`scan` RBS require `String` argument but Ruby defaults to `''` |                |
-| [ ]  | 38 | **Medium**   | `lib/rambling/trie/nodes/missing.rb`     | `Missing` inherits abstract `Node` private methods that raise `NotImplementedError` from public API |                |
+| [x]  | 38 | **Medium**   | `lib/rambling/trie/nodes/missing.rb`     | `Missing` inherits abstract `Node` private methods that raise `NotImplementedError` from public API | [#110][gh_110] |
 | [ ]  | 39 | **Medium**   | `configuration/provider_collection.rb:112` | `contains?` still has dead `|| raise` after the nil guard above              |                |
 | [ ]  | 40 | **Medium**   | `container.rb:211-222`                   | `words_within_root` returns wrong type (a `Range`) when block given and phrase is empty |                |
 | [ ]  | 30 | **Low**      | `container.rb:68-72`                     | `compress` returns `self` after compressed — inconsistent identity (carried from prior review) |                |
@@ -627,4 +627,5 @@ docstring:
 [fb_24]: /gonzedge/rambling-trie/blob/main/doc/20260411-claude-code-review.md#feedback-for-issue-24
 [fb_25]: /gonzedge/rambling-trie/blob/main/doc/20260411-claude-code-review.md#feedback-for-issue-25
 [gh_109]: https://github.com/gonzedge/rambling-trie/pull/109
+[gh_110]: https://github.com/gonzedge/rambling-trie/pull/110
 [gh_user_gonzedge]: https://github.com/gonzedge

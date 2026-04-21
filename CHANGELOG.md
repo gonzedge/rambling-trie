@@ -62,6 +62,9 @@
   - Make the `chars.size >= child_letter.size` branch mutually exclusive with the short-prefix branch; the shift mutates
     `chars`, so fall-through was incorrectly passing an empty `chars` to the second comparison
   - Add regression specs for `partial_word?`/`scan` on diverging same-length queries like `hallo`/`wolld`
+- Implement `Nodes::Missing` as a proper null object ([#110][github_pull_110]) by [@gonzedge][github_user_gonzedge]
+  - Override `partial_word?`, `word_chars?`, `closest_node`, and `children_match_prefix` to return safe empty results
+    instead of raising `NotImplementedError`
 
 ## 2.6.0 [compare][compare_v2_5_1_and_v2_6_0]
 
@@ -1374,6 +1377,7 @@ Most of these help with the gem's overall performance.
 [github_pull_107]: https://github.com/gonzedge/rambling-trie/pull/107
 [github_pull_108]: https://github.com/gonzedge/rambling-trie/pull/108
 [github_pull_109]: https://github.com/gonzedge/rambling-trie/pull/109
+[github_pull_110]: https://github.com/gonzedge/rambling-trie/pull/110
 [github_user_agate]: https://github.com/agate
 [github_user_as181920]: https://github.com/as181920
 [github_user_godsent]: https://github.com/godsent

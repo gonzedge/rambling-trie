@@ -3,6 +3,14 @@ module Rambling
     module Nodes
       class Missing[TValue < BasicObject & _Inspect & _Nilable] < Node[TValue]
         def initialize: -> void
+        def partial_word?: (Array[String] chars) -> bool
+
+        private
+
+        def word_chars?: (Array[String] chars) -> bool
+        def closest_node: (Array[String] chars) -> Node[TValue]
+        def children_match_prefix: (Array[String] chars) -> void
+                                 | (Array[String] chars) { (String word) -> void } -> void
       end
     end
   end
