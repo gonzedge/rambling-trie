@@ -16,7 +16,7 @@ Legend: `[x]` fixed · `[ ]` pending · `[-]` skipped / won't fix / not applicab
 | [x]  | 33 | **High**     | `sig/lib/rambling/trie/container.rbs:20-21` | `Container#each` RBS overloads have the return types backwards               | [#111][gh_111] |
 | [x]  | 34 | **High**     | `sig/lib/rambling/trie/readers/plain_text.rbs:5` | `PlainText#each_word` RBS yields `String?` but Ruby code always yields `String` | [#111][gh_111] |
 | [x]  | 35 | **High**     | `sig/lib/rambling/trie/nodes/compressed.rbs:7` | `Compressed#add` RBS signature is stricter than parent `Node#add` (contravariant-unsafe) | [#111][gh_111] |
-| [ ]  | 16 | **Medium**   | `trie.rb:77`                             | `@properties` lazy init is not thread-safe (carried from prior review)       |                |
+| [x]  | 16 | **Medium**   | `trie.rb:77`                             | `@properties` lazy init is not thread-safe (carried from prior review)       | [#113][gh_113] |
 | [ ]  | 18 | **Medium**   | `nodes/node.rb:173,177,181,185`          | Abstract methods raise bare `NotImplementedError` with no context (carried from prior review) |                |
 | [x]  | 36 | **Medium**   | `sig/lib/rambling/trie/comparable.rbs:10,12`, `inspectable.rbs:23,25`, `stringifyable.rbs:12` | Abstract `letter`/`value` typed as non-nullable but concrete `Node` is nullable | [#111][gh_111] |
 | [x]  | 37 | **Medium**   | `sig/lib/rambling/trie/container.rbs:23,27,29` | `partial_word?`/`word?`/`scan` RBS require `String` argument but Ruby defaults to `''` | [#111][gh_111] |
@@ -659,4 +659,5 @@ docstring:
 [gh_109]: https://github.com/gonzedge/rambling-trie/pull/109
 [gh_110]: https://github.com/gonzedge/rambling-trie/pull/110
 [gh_111]: https://github.com/gonzedge/rambling-trie/pull/111
+[gh_113]: https://github.com/gonzedge/rambling-trie/pull/113
 [gh_user_gonzedge]: https://github.com/gonzedge
