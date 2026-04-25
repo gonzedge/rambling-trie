@@ -24,7 +24,7 @@ Legend: `[x]` fixed · `[ ]` pending · `[-]` skipped / won't fix / not applicab
 | [-]  | 39 | **Medium**   | `configuration/provider_collection.rb:112` | `contains?` still has dead `|| raise` after the nil guard above              | [feedback][fb_39] |
 | [x]  | 40 | **Medium**   | `container.rb:211-222`                   | `words_within_root` returns wrong type (a `Range`) when block given and phrase is empty | [#111][gh_111] |
 | [ ]  | 30 | **Low**      | `container.rb:68-72`                     | `compress` returns `self` after compressed — inconsistent identity (carried from prior review) |                |
-| [ ]  | 41 | **Low**      | `nodes/compressed.rb:25`                 | `add _, _ = nil` uses two identical `_` parameters — legal but confusing     |                |
+| [x]  | 41 | **Low**      | `nodes/compressed.rb:25`                 | `add _, _ = nil` uses two identical `_` parameters — legal but confusing     | [#115][gh_116] |
 | [ ]  | 42 | **Low**      | multiple files (`trie.rb:46,63`; `nodes/raw.rb:34`; `nodes/compressed.rb:38,44,54,65,73,79,94,107`; `serializers/zip.rb:38,59`; `container.rb:225`) | Bare `|| raise` produces uninformative `RuntimeError` with no message |                |
 | [ ]  | 43 | **Low**      | `lib/rambling/trie/nodes/node.rb:38-46`  | Default `children_tree = {}` arg creates fresh hash per call but signals shared-hash ownership with caller |                |
 
@@ -670,4 +670,5 @@ docstring:
 [gh_111]: https://github.com/gonzedge/rambling-trie/pull/111
 [gh_113]: https://github.com/gonzedge/rambling-trie/pull/113
 [gh_114]: https://github.com/gonzedge/rambling-trie/pull/114
+[gh_116]: https://github.com/gonzedge/rambling-trie/pull/116
 [gh_user_gonzedge]: https://github.com/gonzedge
