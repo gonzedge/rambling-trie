@@ -12,7 +12,7 @@ Legend: `[x]` fixed · `[ ]` pending · `[-]` skipped / won't fix / not applicab
 |------|----|--------------|------------------------------------------|------------------------------------------------------------------------------|----------------|
 | [x]  | 31 | **Critical** | `nodes/compressed.rb:37-51`              | `partial_word_chars?` fall-through with mutated chars returns `true` for non-matching same-length prefixes | [#109][gh_109]     |
 | [x]  | 32 | **Critical** | `nodes/compressed.rb:72-87`              | `closest_node` has the same fall-through bug — `scan` returns wrong branch   | [#109][gh_109]     |
-| [ ]  | 11 | **High**     | `nodes/node.rb:42`, `nodes/compressed.rb:13-17` | Shared `children_tree` mutated via parent reassign in `Compressed` (carried from prior review) |                |
+| [-]  | 11 | **High**     | `nodes/node.rb:42`, `nodes/compressed.rb:13-17` | Shared `children_tree` mutated via parent reassign in `Compressed` (carried from prior review) | [feedback][fb_11] |
 | [x]  | 33 | **High**     | `sig/lib/rambling/trie/container.rbs:20-21` | `Container#each` RBS overloads have the return types backwards               | [#111][gh_111] |
 | [x]  | 34 | **High**     | `sig/lib/rambling/trie/readers/plain_text.rbs:5` | `PlainText#each_word` RBS yields `String?` but Ruby code always yields `String` | [#111][gh_111] |
 | [x]  | 35 | **High**     | `sig/lib/rambling/trie/nodes/compressed.rbs:7` | `Compressed#add` RBS signature is stricter than parent `Node#add` (contravariant-unsafe) | [#111][gh_111] |
@@ -169,6 +169,35 @@ end
 **Fix:** Either dup the tree, or dup the children, in the `Compressed` constructor. The `Compressor` is the only
 internal caller and it already builds fresh trees — but the constructor itself is public and becomes a footgun for
 direct users.
+
+#### Feedback for issue 11
+
+> Won't fix. `compress!` is explicitly destructive by contract - it mutates the trie in place. The `dup` approach was
+> tried and caused a ~38% regression in compression time and ~244% regression in compressed trie serialization time.
+> The `Compressor` is the only caller of `Compressed#initialize` with a non-empty tree, and it always builds fresh
+> trees, so the footgun is theoretical rather than practical.
+
+Benchmark diff (base: commit `172e418`, fix: commit `da8e3c5`):
+
+```diff
+ ==> Compression - `compress!`
+ 5 iterations -
+-                                2.151363   0.048148   2.199511 (  2.199669)
++                                2.768295   0.263907   3.032202 (  3.033183)
+
+ ==> Serialization (raw trie) - `Rambling::Trie.load`
+-                                1.950915   0.033974   1.984889 (  1.985022)
++                                2.081852   0.030920   2.112772 (  2.114478)
+
+ ==> Serialization (compressed trie) - `Rambling::Trie.load`
+-                                1.105397   0.009983   1.115380 (  1.115470)
++                                3.727409   0.109950   3.837359 (  3.838646)
+
+ ==> Lookups (compressed trie) - `scan`
+ 200000 iterations - anthropological     2
+-                                2.411063   0.108016   2.519079 (  2.519230)
++                                3.093267   0.137970   3.231237 (  3.232159)
+```
 
 ---
 
@@ -622,6 +651,7 @@ docstring:
 [fb_6]: /gonzedge/rambling-trie/blob/main/doc/20260411-claude-code-review.md#feedback-for-issue-6
 [fb_10]: /gonzedge/rambling-trie/blob/main/doc/20260411-claude-code-review.md#feedback-for-issue-10
 [fb_13]: /gonzedge/rambling-trie/blob/main/doc/20260411-claude-code-review.md#feedback-for-issue-13
+[fb_11]: /gonzedge/rambling-trie/blob/main/doc/20260418-claude-code-review.md#feedback-for-issue-11
 [fb_15]: /gonzedge/rambling-trie/blob/main/doc/20260411-claude-code-review.md#feedback-for-issue-15
 [fb_23]: /gonzedge/rambling-trie/blob/main/doc/20260411-claude-code-review.md#feedback-for-issue-23
 [fb_24]: /gonzedge/rambling-trie/blob/main/doc/20260411-claude-code-review.md#feedback-for-issue-24
