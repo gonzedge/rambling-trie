@@ -17,16 +17,16 @@ module Rambling
 
       def compress: -> Container[TValue]
 
-      def each: { (String) -> void } -> (Enumerator[String, void] | Enumerable[TValue])
-                | -> Container[TValue]
+      def each: { (String) -> void } -> Container[TValue]
+                | -> Enumerator[String, void]
 
-      def partial_word?: (String) -> bool
+      def partial_word?: (?String) -> bool
 
       def push: (*String) -> Array[Nodes::Node[TValue]]
 
-      def word?: (String) -> bool
+      def word?: (?String) -> bool
 
-      def scan: (String) -> Array[String]
+      def scan: (?String) -> Array[String]
 
       def words_within: (String) -> Array[String]
 
@@ -60,7 +60,7 @@ module Rambling
       attr_reader compressor: Compressor[TValue]
       attr_writer root: Nodes::Node[TValue]
 
-      def words_within_root: (String) ?{ (String) -> void } -> Enumerator[String, void]
+      def words_within_root: (String) ?{ (String) -> void } -> (Container[TValue] | Enumerator[String, void])
 
       def compress_root: -> Nodes::Compressed[TValue]
 

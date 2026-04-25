@@ -13,16 +13,16 @@ Legend: `[x]` fixed · `[ ]` pending · `[-]` skipped / won't fix / not applicab
 | [x]  | 31 | **Critical** | `nodes/compressed.rb:37-51`              | `partial_word_chars?` fall-through with mutated chars returns `true` for non-matching same-length prefixes | [#109][gh_109]     |
 | [x]  | 32 | **Critical** | `nodes/compressed.rb:72-87`              | `closest_node` has the same fall-through bug — `scan` returns wrong branch   | [#109][gh_109]     |
 | [ ]  | 11 | **High**     | `nodes/node.rb:42`, `nodes/compressed.rb:13-17` | Shared `children_tree` mutated via parent reassign in `Compressed` (carried from prior review) |                |
-| [ ]  | 33 | **High**     | `sig/lib/rambling/trie/container.rbs:20-21` | `Container#each` RBS overloads have the return types backwards               |                |
-| [ ]  | 34 | **High**     | `sig/lib/rambling/trie/readers/plain_text.rbs:5` | `PlainText#each_word` RBS yields `String?` but Ruby code always yields `String` |                |
-| [ ]  | 35 | **High**     | `sig/lib/rambling/trie/nodes/compressed.rbs:7` | `Compressed#add` RBS signature is stricter than parent `Node#add` (contravariant-unsafe) |                |
+| [x]  | 33 | **High**     | `sig/lib/rambling/trie/container.rbs:20-21` | `Container#each` RBS overloads have the return types backwards               | [#111][gh_111] |
+| [x]  | 34 | **High**     | `sig/lib/rambling/trie/readers/plain_text.rbs:5` | `PlainText#each_word` RBS yields `String?` but Ruby code always yields `String` | [#111][gh_111] |
+| [x]  | 35 | **High**     | `sig/lib/rambling/trie/nodes/compressed.rbs:7` | `Compressed#add` RBS signature is stricter than parent `Node#add` (contravariant-unsafe) | [#111][gh_111] |
 | [ ]  | 16 | **Medium**   | `trie.rb:77`                             | `@properties` lazy init is not thread-safe (carried from prior review)       |                |
 | [ ]  | 18 | **Medium**   | `nodes/node.rb:173,177,181,185`          | Abstract methods raise bare `NotImplementedError` with no context (carried from prior review) |                |
-| [ ]  | 36 | **Medium**   | `sig/lib/rambling/trie/comparable.rbs:10,12`, `inspectable.rbs:23,25`, `stringifyable.rbs:12` | Abstract `letter`/`value` typed as non-nullable but concrete `Node` is nullable |                |
-| [ ]  | 37 | **Medium**   | `sig/lib/rambling/trie/container.rbs:23,27,29` | `partial_word?`/`word?`/`scan` RBS require `String` argument but Ruby defaults to `''` |                |
+| [x]  | 36 | **Medium**   | `sig/lib/rambling/trie/comparable.rbs:10,12`, `inspectable.rbs:23,25`, `stringifyable.rbs:12` | Abstract `letter`/`value` typed as non-nullable but concrete `Node` is nullable | [#111][gh_111] |
+| [x]  | 37 | **Medium**   | `sig/lib/rambling/trie/container.rbs:23,27,29` | `partial_word?`/`word?`/`scan` RBS require `String` argument but Ruby defaults to `''` | [#111][gh_111] |
 | [x]  | 38 | **Medium**   | `lib/rambling/trie/nodes/missing.rb`     | `Missing` inherits abstract `Node` private methods that raise `NotImplementedError` from public API | [#110][gh_110] |
 | [ ]  | 39 | **Medium**   | `configuration/provider_collection.rb:112` | `contains?` still has dead `|| raise` after the nil guard above              |                |
-| [ ]  | 40 | **Medium**   | `container.rb:211-222`                   | `words_within_root` returns wrong type (a `Range`) when block given and phrase is empty |                |
+| [x]  | 40 | **Medium**   | `container.rb:211-222`                   | `words_within_root` returns wrong type (a `Range`) when block given and phrase is empty | [#111][gh_111] |
 | [ ]  | 30 | **Low**      | `container.rb:68-72`                     | `compress` returns `self` after compressed — inconsistent identity (carried from prior review) |                |
 | [ ]  | 41 | **Low**      | `nodes/compressed.rb:25`                 | `add _, _ = nil` uses two identical `_` parameters — legal but confusing     |                |
 | [ ]  | 42 | **Low**      | multiple files (`trie.rb:46,63`; `nodes/raw.rb:34`; `nodes/compressed.rb:38,44,54,65,73,79,94,107`; `serializers/zip.rb:38,59`; `container.rb:225`) | Bare `|| raise` produces uninformative `RuntimeError` with no message |                |
@@ -628,4 +628,5 @@ docstring:
 [fb_25]: /gonzedge/rambling-trie/blob/main/doc/20260411-claude-code-review.md#feedback-for-issue-25
 [gh_109]: https://github.com/gonzedge/rambling-trie/pull/109
 [gh_110]: https://github.com/gonzedge/rambling-trie/pull/110
+[gh_111]: https://github.com/gonzedge/rambling-trie/pull/111
 [gh_user_gonzedge]: https://github.com/gonzedge

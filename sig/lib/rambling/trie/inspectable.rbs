@@ -20,9 +20,9 @@ module Rambling
 
       # abstract methods
 
-      def letter: -> Symbol
+      def letter: -> Symbol?
 
-      def value: -> TValue
+      def value: -> TValue?
 
       def terminal: -> bool?
 

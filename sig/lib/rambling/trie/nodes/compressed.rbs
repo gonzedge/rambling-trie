@@ -4,7 +4,7 @@ module Rambling
       class Compressed[TValue < BasicObject & _Inspect & _Nilable] < Node[TValue]
         def initialize: (?Symbol?, ?Node[TValue]?, ?Hash[Symbol, Node[TValue]]) -> void
 
-        def add: (Array[Symbol], ?TValue) -> Node[TValue]
+        def add: (Array[Symbol], ?TValue?) -> Node[TValue]
 
         def compressed?: -> bool
 
