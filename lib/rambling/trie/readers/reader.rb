@@ -12,6 +12,7 @@ module Rambling
         # @param [String] filepath the full path of the file to load the words from.
         # @yield [String] Each line read from the file.
         # @return [self]
+        # @raise [NotImplementedError] when not overridden by a subclass
         def each_word _filepath
           not_implemented
         end

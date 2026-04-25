@@ -11,6 +11,7 @@ module Rambling
         # @abstract Subclass and override {#load} to parse the desired format.
         # @param [String] filepath the filepath to load contents from.
         # @return [TContents] parsed contents from given file.
+        # @raise [NotImplementedError] when not overridden by a subclass
         def load _filepath
           not_implemented
         end
@@ -20,6 +21,7 @@ module Rambling
         # @param [TContents] contents the contents to dump into given file.
         # @param [String] filepath the filepath to dump the contents to.
         # @return [Numeric] number of bytes written to disk.
+        # @raise [NotImplementedError] when not overridden by a subclass
         def dump _contents, _filepath
           not_implemented
         end

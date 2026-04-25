@@ -169,20 +169,26 @@ module Rambling
 
         attr_accessor :terminal
 
-        # abstract methods
-
+        # @abstract Subclass and override {#children_match_prefix} to match a prefix against child nodes.
+        # @raise [NotImplementedError] when not overridden by a subclass
         def children_match_prefix _chars
           not_implemented
         end
 
+        # @abstract Subclass and override {#partial_word_chars?} to check for a partial-word path.
+        # @raise [NotImplementedError] when not overridden by a subclass
         def partial_word_chars? _chars
           not_implemented
         end
 
+        # @abstract Subclass and override {#word_chars?} to check for a full-word path.
+        # @raise [NotImplementedError] when not overridden by a subclass
         def word_chars? _chars
           not_implemented
         end
 
+        # @abstract Subclass and override {#closest_node} to return the deepest matching node.
+        # @raise [NotImplementedError] when not overridden by a subclass
         def closest_node _chars
           not_implemented
         end
