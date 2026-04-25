@@ -75,6 +75,13 @@
   - Widen `Nodes::Compressed#add` second arg to `?TValue?` to match parent `Nodes::Node#add` contract
   - Mark `letter`/`value` abstract signatures nullable in `Comparable`, `Inspectable`, `Stringifyable` mixins
   - Mark `Container#{partial_word?,word?,scan}` args optional to match `''` Ruby defaults
+- Add `scripts/benchmark/compare.sh` to diff benchmark runs across versions or Ruby versions ([#112][github_pull_112])
+  by [@gonzedge][github_user_gonzedge]
+  - Each version argument accepts `<trie_version>@<ruby_version>` syntax (ruby defaults to 3.3.6)
+  - `scripts/benchmark/run.sh` now accepts the same `@<ruby_version>` suffix and passes `RUBY_VERSION` to
+    `Dockerfile.benchmark`
+  - Output files named `tmp/<version>@<ruby_version>.benchmark`; diffs saved as `tmp/<spec1>-vs-<spec2>.benchmark.diff`
+  - Diff formatted with `git diff --no-index` for familiar colored output
 
 ## 2.6.0 [compare][compare_v2_5_1_and_v2_6_0]
 
@@ -1389,6 +1396,7 @@ Most of these help with the gem's overall performance.
 [github_pull_109]: https://github.com/gonzedge/rambling-trie/pull/109
 [github_pull_110]: https://github.com/gonzedge/rambling-trie/pull/110
 [github_pull_111]: https://github.com/gonzedge/rambling-trie/pull/111
+[github_pull_112]: https://github.com/gonzedge/rambling-trie/pull/112
 [github_user_agate]: https://github.com/agate
 [github_user_as181920]: https://github.com/as181920
 [github_user_godsent]: https://github.com/godsent
