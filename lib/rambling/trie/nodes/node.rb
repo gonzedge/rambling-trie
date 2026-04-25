@@ -7,6 +7,7 @@ module Rambling
       # :reek:MissingSafeMethod { exclude: [ terminal! ] }
       # :reek:RepeatedConditional { max_ifs: 3 }
       class Node
+        include NotImplemented
         include Rambling::Trie::Compressible
         include Rambling::Trie::Enumerable
         include Rambling::Trie::Comparable
@@ -171,19 +172,19 @@ module Rambling
         # abstract methods
 
         def children_match_prefix _chars
-          raise NotImplementedError, "#{self.class}##{__method__} is not implemented"
+          not_implemented
         end
 
         def partial_word_chars? _chars
-          raise NotImplementedError, "#{self.class}##{__method__} is not implemented"
+          not_implemented
         end
 
         def word_chars? _chars
-          raise NotImplementedError, "#{self.class}##{__method__} is not implemented"
+          not_implemented
         end
 
         def closest_node _chars
-          raise NotImplementedError, "#{self.class}##{__method__} is not implemented"
+          not_implemented
         end
       end
     end

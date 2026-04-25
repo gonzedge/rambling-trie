@@ -5,12 +5,14 @@ module Rambling
     module Serializers
       # Base class for all serializers.
       class Serializer
+        include NotImplemented
+
         # Loads contents from a specified filepath.
         # @abstract Subclass and override {#load} to parse the desired format.
         # @param [String] filepath the filepath to load contents from.
         # @return [TContents] parsed contents from given file.
         def load _filepath
-          raise NotImplementedError, "#{self.class}##{__method__} is not implemented"
+          not_implemented
         end
 
         # Dumps contents into a specified filepath.
@@ -19,7 +21,7 @@ module Rambling
         # @param [String] filepath the filepath to dump the contents to.
         # @return [Numeric] number of bytes written to disk.
         def dump _contents, _filepath
-          raise NotImplementedError, "#{self.class}##{__method__} is not implemented"
+          not_implemented
         end
       end
     end
