@@ -66,10 +66,18 @@ module Rambling
       end
 
       # Compresses the existing trie using redundant node elimination. Returns a new trie with the compressed root.
-      # @return [Container] A new {Container} with the {Nodes::Compressed Compressed} root node
-      #   or self if the trie has already been compressed.
+      # @return [Container] A new {Container} with the {Nodes::Compressed Compressed} root node.
+      # @deprecated Calling {#compress} on an already-compressed trie is deprecated and will raise
+      #   {InvalidOperation} in the next major version. Use {#compressed?} to guard if needed.
       def compress
-        return self if root.compressed?
+        if root.compressed?
+          warn <<~WARN.chomp.tr("\n", ' ')
+            [DEPRECATED] Calling `compress` on an already-compressed trie is deprecated
+            and will raise `InvalidOperation` in the next major version.
+            Called from #{caller_locations(1, 1)&.first}
+          WARN
+          return Rambling::Trie::Container.new root, compressor
+        end
 
         Rambling::Trie::Container.new compress_root, compressor
       end

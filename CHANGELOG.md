@@ -21,6 +21,8 @@
 - Handle tmp dir compatibility issues ([#104][github_pull_104]) by [@gonzedge][github_user_gonzedge]
   - Replace hardcoded `/tmp` with `Dir.tmpdir` in `Properties`
   - Rename `Serializers::Zip#path{,_with_random_prefix}` to better communicate intent
+- Deprecate calling `compress` on an already-compressed trie ([#120][github_pull_120])
+  by [@gonzedge][github_user_gonzedge]
 
 #### Minor
 
@@ -1420,6 +1422,7 @@ Most of these help with the gem's overall performance.
 [github_pull_117]: https://github.com/gonzedge/rambling-trie/pull/117
 [github_pull_118]: https://github.com/gonzedge/rambling-trie/pull/118
 [github_pull_119]: https://github.com/gonzedge/rambling-trie/pull/119
+[github_pull_120]: https://github.com/gonzedge/rambling-trie/pull/120
 [github_user_agate]: https://github.com/agate
 [github_user_as181920]: https://github.com/as181920
 [github_user_godsent]: https://github.com/godsent

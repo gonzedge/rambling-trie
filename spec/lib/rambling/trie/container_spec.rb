@@ -118,11 +118,26 @@ describe Rambling::Trie::Container do
       expect(compressor).to have_received(:compress).twice
     end
 
-    it 'cannot compress the result' do
-      new_container = container.compress
-      new_container.compress
+    context 'when already compressed' do
+      let(:compressed_container) { container.compress }
 
-      expect(compressor).to have_received(:compress).once
+      it 'emits a deprecation warning' do
+        expect { compressed_container.compress }.to output(%r{deprecated}i).to_stderr
+      end
+
+      it 'returns a new container' do
+        expect(compressed_container.compress).not_to equal compressed_container
+      end
+
+      it 'returns a container with the same root' do
+        expect(compressed_container.compress.root).to equal compressed_container.root
+      end
+
+      it 'does not compress again' do
+        compressed_container.compress
+
+        expect(compressor).to have_received(:compress).once
+      end
     end
   end
 
