@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 module Rambling
+  # :reek:IrresponsibleModule (unclear why this is necessary here but not in other submodules)
   module Trie
     # Provides a private helper for marking abstract methods.
     # @api private
