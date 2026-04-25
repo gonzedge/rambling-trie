@@ -92,6 +92,8 @@
   - Adds `@raise [NotImplementedError]` to all abstract method docstrings
   - Adds corresponding type signature with `-> bot` and `module NotImplemented : ::Object` tricks to make the definition
     more flexible
+- Rename duplicate `_` params in `Compressed#add` to `_word` and `_value` ([#115][github_pull_116])
+  by [@gonzedge][github_user_gonzedge]
 
 ## 2.6.0 [compare][compare_v2_5_1_and_v2_6_0]
 
@@ -1409,6 +1411,7 @@ Most of these help with the gem's overall performance.
 [github_pull_112]: https://github.com/gonzedge/rambling-trie/pull/112
 [github_pull_113]: https://github.com/gonzedge/rambling-trie/pull/113
 [github_pull_114]: https://github.com/gonzedge/rambling-trie/pull/114
+[github_pull_116]: https://github.com/gonzedge/rambling-trie/pull/115
 [github_user_agate]: https://github.com/agate
 [github_user_as181920]: https://github.com/as181920
 [github_user_godsent]: https://github.com/godsent

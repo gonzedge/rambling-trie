@@ -19,10 +19,11 @@ module Rambling
 
         # Always raises {Rambling::Trie::InvalidOperation InvalidOperation} when
         # trying to add a word to the current compressed trie node
-        # @param [String] _ the word to add to the trie.
+        # @param [Array<Symbol>] _word the word chars to add to the trie.
+        # @param [Object, nil] _value the value to associate with the word.
         # @raise [InvalidOperation] if the trie is already compressed.
         # @return [void]
-        def add _, _ = nil
+        def add _word, _value = nil
           raise Rambling::Trie::InvalidOperation, 'Cannot add word to compressed trie'
         end
 
