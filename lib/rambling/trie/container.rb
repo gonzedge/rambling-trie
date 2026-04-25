@@ -22,7 +22,8 @@ module Rambling
       end
 
       # Adds a word to the trie.
-      # @param [String] word the word to add the branch from.
+      # @param [String] word the word to add to the trie.
+      # @param [Object, nil] value the value to associate with the word.
       # @return [Nodes::Node] the just added branch's root node.
       # @raise [InvalidOperation] if the trie is already compressed.
       # @see Nodes::Raw#add
@@ -32,9 +33,11 @@ module Rambling
       end
 
       # Adds all provided words to the trie.
-      # @param [Array<String>] words the words to add the branch from.
+      # @param [Array<String>] words the words to add to the trie.
+      # @param [Array<Object>, nil] values the values to associate with each word, in the same order.
       # @return [Array<Nodes::Node>] the collection of nodes added.
       # @raise [InvalidOperation] if the trie is already compressed.
+      # @raise [ArgumentError] if words and values are given but differ in size.
       # @see Nodes::Raw#add
       # @see Nodes::Compressed#add
       def concat words, values = nil
@@ -80,7 +83,7 @@ module Rambling
       end
 
       # Adds all provided words to the trie.
-      # @param [Array<String>] words the words to add the branch from.
+      # @param [String] words the words to add to the trie.
       # @return [Array<Nodes::Node>] the collection of nodes added.
       # @raise [InvalidOperation] if the trie is already compressed.
       # @see #concat
@@ -110,7 +113,6 @@ module Rambling
       # Returns all words within a string that match a word contained in the trie.
       # @param [String] phrase the string to look for matching words in.
       # @return [Array<String>] all the words in the given string that match a word in the trie.
-      # @yield [String] each word found in phrase.
       def words_within phrase
         words_within_root(phrase).to_a
       end

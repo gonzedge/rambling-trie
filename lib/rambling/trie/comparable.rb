@@ -6,8 +6,9 @@ module Rambling
     module Comparable
       # Compares two nodes.
       # @param [Nodes::Node] other the node to compare against.
-      # @return [Boolean] `true` if the nodes' {Nodes::Node#letter #letter} and
-      #   {Nodes::Node#children_tree #children_tree} are equal, `false` otherwise.
+      # @return [Boolean] `true` if the nodes' {Nodes::Node#letter #letter},
+      #   {Nodes::Node#terminal? #terminal?}, {Nodes::Node#value #value}, and
+      #   {Nodes::Node#children_tree #children_tree} are all equal, `false` otherwise.
       def == other
         letter == other.letter &&
           terminal? == other.terminal? &&

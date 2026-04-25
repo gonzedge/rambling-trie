@@ -9,7 +9,7 @@ module Rambling
         # Adds a word to the current raw (uncompressed) trie node.
         # @param [Array<Symbol>] reversed_chars the char array to add to the trie, in reverse order.
         # @return [Node] the added/modified node based on the word added.
-        # @note This method clears the contents of the chars variable.
+        # @note This method consumes the array by popping each element during recursion, leaving it empty on return.
         def add reversed_chars, value = nil
           if reversed_chars.empty?
             unless root?
