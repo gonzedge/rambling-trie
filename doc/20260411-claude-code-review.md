@@ -39,7 +39,7 @@ Legend: `[x]` fixed · `[ ]` pending · `[-]` skipped / won't fix / not applicab
 | [x]  | 27 | **Low**      | `container.rb:133`               | `each` returns a `Node`, not `self`, when a block is given         | [#105][gh_105]                    |
 | [x]  | 28 | **Low**      | `configuration/properties.rb:42` | Hardcoded `/tmp` — not portable across platforms                   | [#104][gh_104]                    |
 | [x]  | 29 | **Low**      | `serializers/yaml.rb:26`         | `aliases: true` enables billion-laughs YAML memory attack          | [#99][gh_99]                      |
-| [ ]  | 30 | **Low**      | `container.rb:61`                | `compress` returns `self` after compressed — inconsistent identity |                                   |
+| [x]  | 30 | **Low**      | `container.rb:61`                | `compress` returns `self` after compressed — inconsistent identity | [#120][gh_120]                    |
 
 ---
 
@@ -738,4 +738,5 @@ no work is needed). `compress!` is the correct mutation path.
 [gh_108]: https://github.com/gonzedge/rambling-trie/pull/108
 [gh_113]: https://github.com/gonzedge/rambling-trie/pull/113
 [gh_114]: https://github.com/gonzedge/rambling-trie/pull/114
+[gh_120]: https://github.com/gonzedge/rambling-trie/pull/120
 [gh_user_gonzedge]: https://github.com/gonzedge
