@@ -50,5 +50,5 @@ docker build . --file Dockerfile.benchmark \
 
 output_file="tmp/${version}@${ruby_version}.benchmark"
 echo "Running performance[benchmark] in ${image}"
-docker run -it ${image} bash -c 'bundle exec rake performance[benchmark]' | tee "${output_file}"
+docker run -it ${image} bash -c 'RUBYOPT=-W0 bundle exec rake performance[benchmark]' | tee "${output_file}"
 echo "${output_file}"
