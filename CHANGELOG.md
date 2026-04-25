@@ -96,6 +96,8 @@
   by [@gonzedge][github_user_gonzedge]
 - Document `children_tree` ownership contract in `Node#initialize` ([#118][github_pull_118])
   by [@gonzedge][github_user_gonzedge]
+- Fix YARD documentation inaccuracies across multiple files ([#119][github_pull_119])
+  by [@gonzedge][github_user_gonzedge]
 
 ## 2.6.0 [compare][compare_v2_5_1_and_v2_6_0]
 
@@ -1417,6 +1419,7 @@ Most of these help with the gem's overall performance.
 [github_pull_116]: https://github.com/gonzedge/rambling-trie/pull/116
 [github_pull_117]: https://github.com/gonzedge/rambling-trie/pull/117
 [github_pull_118]: https://github.com/gonzedge/rambling-trie/pull/118
+[github_pull_119]: https://github.com/gonzedge/rambling-trie/pull/119
 [github_user_agate]: https://github.com/agate
 [github_user_as181920]: https://github.com/as181920
 [github_user_godsent]: https://github.com/godsent
