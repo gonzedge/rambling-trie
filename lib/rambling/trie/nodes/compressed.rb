@@ -36,13 +36,13 @@ module Rambling
         private
 
         def partial_word_chars? chars
-          child = children_tree[(chars.first || raise('empty chars in partial_word_chars?')).to_sym]
+          child = children_tree[(chars.first || raise).to_sym]
           return false unless child
 
           child_letter = child.letter.to_s
 
           if chars.size >= child_letter.size
-            letter = (chars.shift(child_letter.size) || raise('shift returned nil in partial_word_chars?')).join
+            letter = (chars.shift(child_letter.size) || raise).join
             return false unless child_letter == letter
 
             child.partial_word? chars

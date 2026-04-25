@@ -25,7 +25,7 @@ Legend: `[x]` fixed · `[ ]` pending · `[-]` skipped / won't fix / not applicab
 | [x]  | 40 | **Medium**   | `container.rb:211-222`                   | `words_within_root` returns wrong type (a `Range`) when block given and phrase is empty | [#111][gh_111] |
 | [ ]  | 30 | **Low**      | `container.rb:68-72`                     | `compress` returns `self` after compressed — inconsistent identity (carried from prior review) |                |
 | [x]  | 41 | **Low**      | `nodes/compressed.rb:25`                 | `add _, _ = nil` uses two identical `_` parameters — legal but confusing     | [#115][gh_116] |
-| [ ]  | 42 | **Low**      | multiple files (`trie.rb:46,63`; `nodes/raw.rb:34`; `nodes/compressed.rb:38,44,54,65,73,79,94,107`; `serializers/zip.rb:38,59`; `container.rb:225`) | Bare `|| raise` produces uninformative `RuntimeError` with no message |                |
+| [-]  | 42 | **Low**      | multiple files (`trie.rb:46,63`; `nodes/raw.rb:34`; `nodes/compressed.rb:38,44,54,65,73,79,94,107`; `serializers/zip.rb:38,59`; `container.rb:225`) | Bare `|| raise` produces uninformative `RuntimeError` with no message | [feedback][fb_42] |
 | [ ]  | 43 | **Low**      | `lib/rambling/trie/nodes/node.rb:38-46`  | Default `children_tree = {}` arg creates fresh hash per call but signals shared-hash ownership with caller |                |
 
 ---
@@ -184,6 +184,15 @@ direct users.
 > bound itself allows `.nil?` to return `true` for `TProvider` instances. The `|| raise` makes the right-hand side
 > of `include?` typed as `TProvider` (since `raise` has type `bot`). The alternative (`# steep:ignore`) was
 > considered and rejected in favour of keeping the intent in code.
+
+#### Feedback for issue 42
+
+> Won't fix. Every bare `|| raise` in this codebase exists solely as a Steep type-narrowing idiom; `raise` has
+> type `bot` (never returns), which narrows the left-hand side from a nullable type to its non-nil form. These
+> raises are not defensive runtime assertions; they exist to satisfy the type checker. Adding messages would
+> suggest they are expected to fire, which they are not. Three incidental occurrences that had acquired messages
+> (`compressed.rb:39,45` from #109 and `container.rb:216` from #111) were reverted to bare `|| raise` for
+> consistency.
 
 Benchmark diff (base: commit `172e418`, fix: commit `da8e3c5`):
 
@@ -665,6 +674,7 @@ docstring:
 [fb_24]: /gonzedge/rambling-trie/blob/main/doc/20260411-claude-code-review.md#feedback-for-issue-24
 [fb_25]: /gonzedge/rambling-trie/blob/main/doc/20260411-claude-code-review.md#feedback-for-issue-25
 [fb_39]: /gonzedge/rambling-trie/blob/main/doc/20260418-claude-code-review.md#feedback-for-issue-39
+[fb_42]: /gonzedge/rambling-trie/blob/main/doc/20260418-claude-code-review.md#feedback-for-issue-42
 [gh_109]: https://github.com/gonzedge/rambling-trie/pull/109
 [gh_110]: https://github.com/gonzedge/rambling-trie/pull/110
 [gh_111]: https://github.com/gonzedge/rambling-trie/pull/111
