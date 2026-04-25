@@ -10,6 +10,9 @@ path = File.join 'rambling', 'trie'
 module Rambling
   # Entry point for `rambling-trie` API.
   module Trie
+    PROPERTIES_MUTEX = Mutex.new
+    private_constant :PROPERTIES_MUTEX
+
     class << self
       # Creates a new `Rambling::Trie`. Entry point for the `rambling-trie` API.
       # @param [String, nil] filepath the file to load the words from.
@@ -74,7 +77,11 @@ module Rambling
       private
 
       def properties
-        @properties ||= Rambling::Trie::Configuration::Properties.new
+        return @properties if @properties
+
+        PROPERTIES_MUTEX.synchronize do
+          @properties ||= Rambling::Trie::Configuration::Properties.new
+        end
       end
 
       def readers
