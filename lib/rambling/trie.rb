@@ -2,7 +2,7 @@
 
 path = File.join 'rambling', 'trie'
 %w(
-  comparable compressible compressor configuration container enumerable inspectable invalid_operation
+  comparable compressible compressor configuration container enumerable inspectable invalid_operation not_implemented
   readers serializers stringifyable nodes version
 ).each { |file| require File.join(path, file) }
 

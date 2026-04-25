@@ -1,0 +1,10 @@
+module Rambling
+  module Trie
+    # @api private
+    module NotImplemented : ::Object
+      private
+
+      def not_implemented: () -> bot
+    end
+  end
+end
