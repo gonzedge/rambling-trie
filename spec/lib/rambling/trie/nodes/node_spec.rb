@@ -10,7 +10,8 @@ describe Rambling::Trie::Nodes::Node do
   %i(children_match_prefix partial_word_chars? word_chars? closest_node).each do |abstract_method|
     it "does not implement #{abstract_method} (abstract private method)" do
       expect { node.send abstract_method, %w(o n e) }
-        .to raise_error NotImplementedError, /#{Regexp.escape "#{described_class}##{abstract_method}"} is not implemented/
+        .to raise_error NotImplementedError,
+          %r{#{Regexp.escape "#{described_class}##{abstract_method}"} is not implemented}
     end
   end
 end
