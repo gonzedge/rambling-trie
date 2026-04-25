@@ -134,7 +134,7 @@ module Rambling
         end
 
         # Set the {Node Node} that corresponds to a given letter.
-        # @param [Symbol] letter the letter to insert or update in the node's
+        # @param [Symbol] letter the letter to insert or update in the node's children tree.
         # @param [Node] node the {Node Node} to assign to that letter.
         # @return [Node] the node corresponding to the inserted or updated letter.
         # @see https://ruby-doc.org/3.3.0/Hash.html#method-i-5B-5D Hash#[]

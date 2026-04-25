@@ -6,7 +6,7 @@ module Rambling
     module Stringifyable
       # String representation of the current node, if it is a terminal node.
       # @return [String] the string representation of the current node.
-      # @raise [InvalidOperation] if node is not terminal or is root.
+      # @raise [InvalidOperation] if the node has a letter and is not terminal.
       def as_word
         raise Rambling::Trie::InvalidOperation, 'Cannot represent branch as a word' if letter && !terminal?
 
