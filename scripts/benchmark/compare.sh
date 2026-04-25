@@ -5,13 +5,15 @@ set -eo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 usage() {
-  echo "Usage: $0 [-g] <version1> <version2>"
+  echo "Usage: $0 [-g] [-n] [-V] <version1> <version2>"
   echo ""
   echo "Each version may optionally embed a ruby version as <trie_version>@<ruby_version>."
   echo "If omitted, ruby defaults to 3.3.6."
   echo ""
   echo "Options:"
   echo "  -g   treat versions as git refs (passed to run.sh -g)"
+  echo "  -n   skip docker layer cache (passed to run.sh -n)"
+  echo "  -V   verbose docker build output (passed to run.sh -V)"
   echo ""
   echo "Examples:"
   echo "  # two trie versions, same ruby"
@@ -27,14 +29,18 @@ usage() {
   exit 1
 }
 
-git_flag=""
+extra_flags=""
 
-OPT_STRING="g"
+OPT_STRING="gnV"
 
 while getopts ${OPT_STRING} opt; do
   case ${opt} in
     g)
-      git_flag="-g";;
+      extra_flags="${extra_flags} -g";;
+    n)
+      extra_flags="${extra_flags} -n";;
+    V)
+      extra_flags="${extra_flags} -V";;
   esac
 done
 
@@ -65,14 +71,14 @@ else
 fi
 
 echo "==> Running benchmark for ${version1} (ruby ${ruby1})"
-file1=$(bash "${SCRIPT_DIR}/run.sh" ${git_flag} -v "${version1}@${ruby1}" | tail -1)
+file1=$(bash "${SCRIPT_DIR}/run.sh" ${extra_flags} -v "${version1}@${ruby1}" | tail -1)
 
 echo ""
 echo "==> Running benchmark for ${version2} (ruby ${ruby2})"
-file2=$(bash "${SCRIPT_DIR}/run.sh" ${git_flag} -v "${version2}@${ruby2}" | tail -1)
+file2=$(bash "${SCRIPT_DIR}/run.sh" ${extra_flags} -v "${version2}@${ruby2}" | tail -1)
 
 echo ""
 echo "==> Diff: ${spec1} vs ${spec2}"
-output_file="tmp/${version1}@${ruby1}-vs-${version2}@${ruby2}.benchmark.diff"
+output_file="tmp/${version1}@${ruby1}-vs-${version2}@${ruby2}.benchmark.patch"
 git diff --no-index "${file1}" "${file2}" | tee "${output_file}" || true
 echo "${output_file}"
