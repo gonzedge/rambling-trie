@@ -82,6 +82,7 @@
     `Dockerfile.benchmark`
   - Output files named `tmp/<version>@<ruby_version>.benchmark`; diffs saved as `tmp/<spec1>-vs-<spec2>.benchmark.diff`
   - Diff formatted with `git diff --no-index` for familiar colored output
+- Make `Rambling::Trie.properties` init thread-safe ([#113][github_pull_113]) by [@gonzedge][github_user_gonzedge]
 
 ## 2.6.0 [compare][compare_v2_5_1_and_v2_6_0]
 
@@ -1397,6 +1398,7 @@ Most of these help with the gem's overall performance.
 [github_pull_110]: https://github.com/gonzedge/rambling-trie/pull/110
 [github_pull_111]: https://github.com/gonzedge/rambling-trie/pull/111
 [github_pull_112]: https://github.com/gonzedge/rambling-trie/pull/112
+[github_pull_113]: https://github.com/gonzedge/rambling-trie/pull/113
 [github_user_agate]: https://github.com/agate
 [github_user_as181920]: https://github.com/as181920
 [github_user_godsent]: https://github.com/godsent
