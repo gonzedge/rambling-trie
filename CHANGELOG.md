@@ -1408,6 +1408,7 @@ Most of these help with the gem's overall performance.
 [github_pull_111]: https://github.com/gonzedge/rambling-trie/pull/111
 [github_pull_112]: https://github.com/gonzedge/rambling-trie/pull/112
 [github_pull_113]: https://github.com/gonzedge/rambling-trie/pull/113
+[github_pull_114]: https://github.com/gonzedge/rambling-trie/pull/114
 [github_user_agate]: https://github.com/agate
 [github_user_as181920]: https://github.com/as181920
 [github_user_godsent]: https://github.com/godsent

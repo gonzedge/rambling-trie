@@ -21,7 +21,7 @@ Legend: `[x]` fixed · `[ ]` pending · `[-]` skipped / won't fix / not applicab
 | [x]  | 36 | **Medium**   | `sig/lib/rambling/trie/comparable.rbs:10,12`, `inspectable.rbs:23,25`, `stringifyable.rbs:12` | Abstract `letter`/`value` typed as non-nullable but concrete `Node` is nullable | [#111][gh_111] |
 | [x]  | 37 | **Medium**   | `sig/lib/rambling/trie/container.rbs:23,27,29` | `partial_word?`/`word?`/`scan` RBS require `String` argument but Ruby defaults to `''` | [#111][gh_111] |
 | [x]  | 38 | **Medium**   | `lib/rambling/trie/nodes/missing.rb`     | `Missing` inherits abstract `Node` private methods that raise `NotImplementedError` from public API | [#110][gh_110] |
-| [ ]  | 39 | **Medium**   | `configuration/provider_collection.rb:112` | `contains?` still has dead `|| raise` after the nil guard above              |                |
+| [-]  | 39 | **Medium**   | `configuration/provider_collection.rb:112` | `contains?` still has dead `|| raise` after the nil guard above              | [feedback][fb_39] |
 | [x]  | 40 | **Medium**   | `container.rb:211-222`                   | `words_within_root` returns wrong type (a `Range`) when block given and phrase is empty | [#111][gh_111] |
 | [ ]  | 30 | **Low**      | `container.rb:68-72`                     | `compress` returns `self` after compressed — inconsistent identity (carried from prior review) |                |
 | [ ]  | 41 | **Low**      | `nodes/compressed.rb:25`                 | `add _, _ = nil` uses two identical `_` parameters — legal but confusing     |                |
@@ -176,6 +176,14 @@ direct users.
 > tried and caused a ~38% regression in compression time and ~244% regression in compressed trie serialization time.
 > The `Compressor` is the only caller of `Compressed#initialize` with a non-empty tree, and it always builds fresh
 > trees, so the footgun is theoretical rather than practical.
+
+#### Feedback for issue 39
+
+> Won't fix. The `|| raise` is not truly dead; it serves as a Steep type-narrowing idiom. Steep cannot narrow
+> `TProvider | nil` to `TProvider` after a `.nil?` guard when `TProvider` is bounded by `_Nilable`, because the
+> bound itself allows `.nil?` to return `true` for `TProvider` instances. The `|| raise` makes the right-hand side
+> of `include?` typed as `TProvider` (since `raise` has type `bot`). The alternative (`# steep:ignore`) was
+> considered and rejected in favour of keeping the intent in code.
 
 Benchmark diff (base: commit `172e418`, fix: commit `da8e3c5`):
 
@@ -650,12 +658,13 @@ docstring:
 
 [fb_6]: /gonzedge/rambling-trie/blob/main/doc/20260411-claude-code-review.md#feedback-for-issue-6
 [fb_10]: /gonzedge/rambling-trie/blob/main/doc/20260411-claude-code-review.md#feedback-for-issue-10
-[fb_13]: /gonzedge/rambling-trie/blob/main/doc/20260411-claude-code-review.md#feedback-for-issue-13
 [fb_11]: /gonzedge/rambling-trie/blob/main/doc/20260418-claude-code-review.md#feedback-for-issue-11
+[fb_13]: /gonzedge/rambling-trie/blob/main/doc/20260411-claude-code-review.md#feedback-for-issue-13
 [fb_15]: /gonzedge/rambling-trie/blob/main/doc/20260411-claude-code-review.md#feedback-for-issue-15
 [fb_23]: /gonzedge/rambling-trie/blob/main/doc/20260411-claude-code-review.md#feedback-for-issue-23
 [fb_24]: /gonzedge/rambling-trie/blob/main/doc/20260411-claude-code-review.md#feedback-for-issue-24
 [fb_25]: /gonzedge/rambling-trie/blob/main/doc/20260411-claude-code-review.md#feedback-for-issue-25
+[fb_39]: /gonzedge/rambling-trie/blob/main/doc/20260418-claude-code-review.md#feedback-for-issue-39
 [gh_109]: https://github.com/gonzedge/rambling-trie/pull/109
 [gh_110]: https://github.com/gonzedge/rambling-trie/pull/110
 [gh_111]: https://github.com/gonzedge/rambling-trie/pull/111
