@@ -2,6 +2,8 @@ module Rambling
   module Trie
     module Serializers
       class Serializer[TContents]
+        include NotImplemented
+
         def load: (String) -> TContents
         def dump: (TContents, String) -> Numeric
       end

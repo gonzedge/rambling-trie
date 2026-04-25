@@ -2,6 +2,8 @@ module Rambling
   module Trie
     module Readers
       class Reader
+        include NotImplemented
+
         def each_word: (String) { (String) -> void } -> (Enumerator[String, void] | Reader)
       end
     end

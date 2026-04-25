@@ -7,6 +7,7 @@ module Rambling
       # :reek:MissingSafeMethod { exclude: [ terminal! ] }
       # :reek:RepeatedConditional { max_ifs: 3 }
       class Node
+        include NotImplemented
         include Rambling::Trie::Compressible
         include Rambling::Trie::Enumerable
         include Rambling::Trie::Comparable
@@ -168,22 +169,28 @@ module Rambling
 
         attr_accessor :terminal
 
-        # abstract methods
-
-        def children_match_prefix chars
-          raise NotImplementedError
+        # @abstract Subclass and override {#children_match_prefix} to match a prefix against child nodes.
+        # @raise [NotImplementedError] when not overridden by a subclass
+        def children_match_prefix _chars
+          not_implemented
         end
 
-        def partial_word_chars? chars
-          raise NotImplementedError
+        # @abstract Subclass and override {#partial_word_chars?} to check for a partial-word path.
+        # @raise [NotImplementedError] when not overridden by a subclass
+        def partial_word_chars? _chars
+          not_implemented
         end
 
-        def word_chars? chars
-          raise NotImplementedError
+        # @abstract Subclass and override {#word_chars?} to check for a full-word path.
+        # @raise [NotImplementedError] when not overridden by a subclass
+        def word_chars? _chars
+          not_implemented
         end
 
-        def closest_node chars
-          raise NotImplementedError
+        # @abstract Subclass and override {#closest_node} to return the deepest matching node.
+        # @raise [NotImplementedError] when not overridden by a subclass
+        def closest_node _chars
+          not_implemented
         end
       end
     end

@@ -5,10 +5,10 @@ require 'spec_helper'
 describe Rambling::Trie::Readers::Reader do
   subject(:reader) { described_class.new }
 
-  describe '#load' do
-    it 'is an abstract method that raises NotImplementedError' do
+  describe '#each_word' do
+    it 'is an abstract method that raises NotImplementedError with class and method name' do
       expect { reader.each_word('any-file.zip') }
-        .to raise_exception NotImplementedError
+        .to raise_error NotImplementedError, %r{#{described_class}#each_word is not implemented}
     end
   end
 end
