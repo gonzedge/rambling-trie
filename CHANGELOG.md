@@ -83,6 +83,15 @@
   - Output files named `tmp/<version>@<ruby_version>.benchmark`; diffs saved as `tmp/<spec1>-vs-<spec2>.benchmark.diff`
   - Diff formatted with `git diff --no-index` for familiar colored output
 - Make `Rambling::Trie.properties` init thread-safe ([#113][github_pull_113]) by [@gonzedge][github_user_gonzedge]
+- Extract `NotImplemented` mixin; add descriptive abstract method error messages ([#114][github_pull_114])
+  by [@gonzedge][github_user_gonzedge]
+  - Introduces `Rambling::Trie::NotImplemented`, a private mixin that provides a single `not_implemented` helper used by
+    all abstract method stubs to raise `NotImplementedError` with the concrete class name and calling method name via
+    `caller_locations`
+  - Replaces all bare `raise NotImplementedError` in `Node`, `Reader`, and `Serializer`
+  - Adds `@raise [NotImplementedError]` to all abstract method docstrings
+  - Adds corresponding type signature with `-> bot` and `module NotImplemented : ::Object` tricks to make the definition
+    more flexible
 
 ## 2.6.0 [compare][compare_v2_5_1_and_v2_6_0]
 
