@@ -12,6 +12,8 @@ module Rambling
 
     private
 
+    PROPERTIES_MUTEX: Mutex
+
     def self.properties: [TValue < BasicObject & _Inspect & _Nilable] -> Configuration::Properties[TValue]
 
     def self.readers: -> Configuration::ProviderCollection[Readers::Reader]

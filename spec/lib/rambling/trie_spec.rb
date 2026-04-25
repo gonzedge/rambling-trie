@@ -241,4 +241,14 @@ describe Rambling::Trie do
       expect(yielded).to eq described_class.send :properties
     end
   end
+
+  describe '.properties' do
+    it 'returns the same object across concurrent calls' do
+      results = Array.new(10) do
+        Thread.new { described_class.send :properties }
+      end.map(&:value)
+
+      expect(results.uniq.size).to eq 1
+    end
+  end
 end
