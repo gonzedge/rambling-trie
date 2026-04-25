@@ -299,7 +299,7 @@ The Rambling Trie has been tested with the following Ruby versions:
 
 ## Compatible RBS and Steep versions
 
-Type signatures for `Rambling::Trie` are included in the [`sig` directory](./sig)! The current version (`2.6.0`) was
+Type signatures for `Rambling::Trie` are included in the [`sig` directory](./sig)! The current version (`2.7.0`) was
 checked with RBS `3.10.4` and Steep `1.10.0`.
 
 ## Contributing to Rambling Trie
@@ -327,7 +327,7 @@ COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER I
 OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 [asdf]: https://asdf-vm.com/
-[badge_fury_badge]: https://badge.fury.io/rb/rambling-trie.svg?version=2.6.0
+[badge_fury_badge]: https://badge.fury.io/rb/rambling-trie.svg?version=2.7.0
 [badge_fury_link]: https://badge.fury.io/rb/rambling-trie
 [chruby]: https://github.com/postmodern/chruby
 [code_climate_grade_badge]: https://codeclimate.com/github/gonzedge/rambling-trie/badges/gpa.svg
