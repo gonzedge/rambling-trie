@@ -73,4 +73,6 @@ file2=$(bash "${SCRIPT_DIR}/run.sh" ${git_flag} -v "${version2}@${ruby2}" | tail
 
 echo ""
 echo "==> Diff: ${spec1} vs ${spec2}"
-diff "${file1}" "${file2}" || true
+output_file="tmp/${version1}@${ruby1}-vs-${version2}@${ruby2}.benchmark.diff"
+diff "${file1}" "${file2}" | tee "${output_file}"
+echo "${output_file}"

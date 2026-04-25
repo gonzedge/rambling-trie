@@ -35,7 +35,7 @@ docker build . --file Dockerfile.benchmark \
   --tag ${image} && \
   echo "Image ${image} built!"
 
-output_file="tmp/ruby-${ruby_version}-${version}.benchmark"
+output_file="tmp/${version}@${ruby_version}.benchmark"
 echo "Running performance[benchmark] in ${image}"
 docker run -it ${image} bash -c 'bundle exec rake performance[benchmark]' | tee "${output_file}"
 echo "${output_file}"
