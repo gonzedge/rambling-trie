@@ -54,7 +54,8 @@ Output is saved to `tmp/ruby-<ruby_version>-<sha>.benchmark`.
 
 ### Comparing two benchmarks
 
-To compare performance, use `compare.sh`. It runs `run.sh` for each version and diffs the outputs. Each version argument accepts an optional `@<ruby_version>` suffix:
+To compare performance, use `compare.sh`. It runs `run.sh` for each version and diffs the outputs.
+Each version argument accepts an optional `@<ruby_version>` suffix:
 
 ```sh
 # two trie versions, same ruby (defaults to 3.3.6)
