@@ -8,7 +8,11 @@ WORKDIR /usr/rambling-trie
 RUN git init
 
 # Generate benchmark-specific minimal Gemfile
-RUN echo "source 'https://rubygems.org'\n\ngem 'rake'\ngem 'rubyzip'\n" > Gemfile && \
+RUN echo "source 'https://rubygems.org'\n\n" > Gemfile && \
+  echo "gem 'rake'\n" >> Gemfile && \
+  echo "gem 'rubyzip'\n" >> Gemfile && \
+  echo "gem 'benchmark'\n" >> Gemfile && \
+  echo "gem 'benchmark-ips'\n" >> Gemfile && \
   if [ "$FROM_GITHUB" = "false" ]; \
   then echo "gem 'rambling-trie', '=$VERSION'" >> Gemfile; \
   else echo "gem 'rambling-trie', github: 'gonzedge/rambling-trie', ref: '$VERSION'" >> Gemfile; \
@@ -24,6 +28,8 @@ COPY tasks ./tasks
 # Generate minimal Rakefile
 RUN echo "# frozen_string_literal: true\n\n" > Rakefile && \
   echo "require 'rambling-trie'\n" >> Rakefile && \
+  echo "require 'benchmark'\n" >> Rakefile && \
+  echo "require 'benchmark/ips'\n" >> Rakefile && \
   echo "require_relative 'tasks/performance'\n" >> Rakefile && \
   echo "require_relative 'tasks/serialization'\n" >> Rakefile && \
   echo "require_relative 'tasks/ips'\n" >> Rakefile
