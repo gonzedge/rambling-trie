@@ -20,7 +20,7 @@ Legend: `[x]` fixed · `[ ]` pending · `[-]` skipped / won't fix / not applicab
 | [x]  | 8  | **High**     | `container.rb:186`               | `size` counts words, docs claim it counts letters                  | [#97][gh_97]                      |
 | [x]  | 9  | **High**     | `container.rbs:53`               | `words?` alias in RBS does not match Ruby's `words`                | [#98][gh_98]                      |
 | [-]  | 10 | **High**     | `nodes/compressed.rb:98`         | `children_match_prefix` silently truncates short prefix            | [feedback][fb_10], [#101][gh_101] |
-| [ ]  | 11 | **High**     | `nodes/node.rb:42`               | Shared `children_tree` mutated via parent reassign in `Compressed` |                                   |
+| [-]  | 11 | **High**     | `nodes/node.rb:42`               | Shared `children_tree` mutated via parent reassign in `Compressed` | [feedback][fb_11]                 |
 | [x]  | 12 | **High**     | `serializers/marshal.rb`         | `Marshal.load` security risk with no runtime guard                 | [#99][gh_99]                      |
 | [-]  | 13 | **Medium**   | `stringifyable.rb:22`            | `to_s` has O(depth²) string allocations                            | [feedback][fb_13], [#100][gh_100] |
 | [x]  | 14 | **Medium**   | `nodes/node.rb:59`               | `first_child` disables RuboCop to exploit loop-break trick         | [#102][gh_102]                    |
@@ -249,6 +249,35 @@ but `children_match_prefix` does not.
 `Compressed#initialize` forwards the existing `children_tree` hash directly to `super`, then iterates it to reassign
 parents. If the same hash object is ever shared between two nodes (as can happen when constructing compressed trees from
 existing subtrees), parent reassignment in one node is visible in the other.
+
+#### Feedback for issue 11
+
+> Won't fix. `compress!` is explicitly destructive by contract - it mutates the trie in place. The `dup` approach was
+> tried and caused a ~38% regression in compression time and ~244% regression in compressed trie serialization time.
+> The `Compressor` is the only caller of `Compressed#initialize` with a non-empty tree, and it always builds fresh
+> trees, so the footgun is theoretical rather than practical.
+
+Benchmark diff (base: commit `172e418`, fix: commit `da8e3c5`):
+
+```diff
+ ==> Compression - `compress!`
+ 5 iterations -
+-                                2.151363   0.048148   2.199511 (  2.199669)
++                                2.768295   0.263907   3.032202 (  3.033183)
+
+ ==> Serialization (raw trie) - `Rambling::Trie.load`
+-                                1.950915   0.033974   1.984889 (  1.985022)
++                                2.081852   0.030920   2.112772 (  2.114478)
+
+ ==> Serialization (compressed trie) - `Rambling::Trie.load`
+-                                1.105397   0.009983   1.115380 (  1.115470)
++                                3.727409   0.109950   3.837359 (  3.838646)
+
+ ==> Lookups (compressed trie) - `scan`
+ 200000 iterations - anthropological     2
+-                                2.411063   0.108016   2.519079 (  2.519230)
++                                3.093267   0.137970   3.231237 (  3.232159)
+```
 
 ---
 
@@ -684,6 +713,7 @@ no work is needed). `compress!` is the correct mutation path.
 
 [fb_6]: /gonzedge/rambling-trie/blob/main/doc/20260411-claude-code-review.md#feedback-for-issue-6
 [fb_10]: /gonzedge/rambling-trie/blob/main/doc/20260411-claude-code-review.md#feedback-for-issue-10
+[fb_11]: /gonzedge/rambling-trie/blob/main/doc/20260411-claude-code-review.md#feedback-for-issue-11
 [fb_13]: /gonzedge/rambling-trie/blob/main/doc/20260411-claude-code-review.md#feedback-for-issue-13
 [fb_15]: /gonzedge/rambling-trie/blob/main/doc/20260411-claude-code-review.md#feedback-for-issue-15
 [fb_23]: /gonzedge/rambling-trie/blob/main/doc/20260411-claude-code-review.md#feedback-for-issue-23
