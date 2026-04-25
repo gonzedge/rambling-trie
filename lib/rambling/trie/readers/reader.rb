@@ -10,8 +10,8 @@ module Rambling
         # @param [String] filepath the full path of the file to load the words from.
         # @yield [String] Each line read from the file.
         # @return [self]
-        def each_word filepath
-          raise NotImplementedError
+        def each_word _filepath
+          raise NotImplementedError, "#{self.class}##{__method__} is not implemented"
         end
       end
     end

@@ -170,20 +170,20 @@ module Rambling
 
         # abstract methods
 
-        def children_match_prefix chars
-          raise NotImplementedError
+        def children_match_prefix _chars
+          raise NotImplementedError, "#{self.class}##{__method__} is not implemented"
         end
 
-        def partial_word_chars? chars
-          raise NotImplementedError
+        def partial_word_chars? _chars
+          raise NotImplementedError, "#{self.class}##{__method__} is not implemented"
         end
 
-        def word_chars? chars
-          raise NotImplementedError
+        def word_chars? _chars
+          raise NotImplementedError, "#{self.class}##{__method__} is not implemented"
         end
 
-        def closest_node chars
-          raise NotImplementedError
+        def closest_node _chars
+          raise NotImplementedError, "#{self.class}##{__method__} is not implemented"
         end
       end
     end
