@@ -213,7 +213,7 @@ module Rambling
 
         chars = phrase.chars
         chars.each_index do |starting_index|
-          new_phrase = chars[starting_index..] || raise('slice returned nil in words_within_root')
+          new_phrase = chars[starting_index..] || raise
           root.match_prefix(new_phrase) { |word| yield word }
         end
 
