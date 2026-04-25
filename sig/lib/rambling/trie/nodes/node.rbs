@@ -14,7 +14,7 @@ module Rambling
         attr_accessor parent: Node[TValue]?
         attr_accessor value: TValue?
 
-        def initialize: (?Symbol?, ?Node[TValue]?, ?Hash[Symbol, Node[TValue]]) -> void
+        def initialize: (?Symbol?, ?Node[TValue]?, ?Hash[Symbol, Node[TValue]]?) -> void
 
         def add: (Array[Symbol], ?TValue?) -> Node[TValue]
 
