@@ -100,6 +100,9 @@
   by [@gonzedge][github_user_gonzedge]
 - Fix YARD documentation inaccuracies across multiple files ([#119][github_pull_119])
   by [@gonzedge][github_user_gonzedge]
+- Allow benchmark scripts to run with ruby `4.0.x` ([#123][github_pull_123]) by [@gonzedge][github_user_gonzedge]
+  - Adds `benchmark`/`benchmark-ips` to minimal `Gemfile`/`Rakefile` for `Dockerfile.benchmark`
+  - Adds `-n` (`--no-cache`) and `-V` (`--progress=plain`) flags to benchmark scripts
 
 ## 2.6.0 [compare][compare_v2_5_1_and_v2_6_0]
 
@@ -1423,6 +1426,7 @@ Most of these help with the gem's overall performance.
 [github_pull_118]: https://github.com/gonzedge/rambling-trie/pull/118
 [github_pull_119]: https://github.com/gonzedge/rambling-trie/pull/119
 [github_pull_120]: https://github.com/gonzedge/rambling-trie/pull/120
+[github_pull_123]: https://github.com/gonzedge/rambling-trie/pull/123
 [github_user_agate]: https://github.com/agate
 [github_user_as181920]: https://github.com/as181920
 [github_user_godsent]: https://github.com/godsent

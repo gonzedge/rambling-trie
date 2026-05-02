@@ -75,6 +75,9 @@ Each version argument accepts an optional `@<ruby_version>` suffix:
 ./scripts/benchmark/compare.sh -g <sha1>@3.3.6 <sha2>@3.4.0
 ```
 
+> **Note:** When using `-g` and comparing a git SHA against a release tag, prefix the release version with `v` so
+> git resolves it correctly: `./scripts/benchmark/compare.sh -g <sha> v2.6.0`.
+
 [github_fork]: https://help.github.com/articles/fork-a-repo
 [github_issues_all]: https://github.com/gonzedge/rambling-trie/issues?utf8=%E2%9C%93&q=is%3Aissue
 [github_issues_new]: https://github.com/gonzedge/rambling-trie/issues/new
